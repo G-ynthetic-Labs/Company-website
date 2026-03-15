@@ -9,7 +9,8 @@
     <meta property="og:title" content="[WIP] G-YNTHETIC LABS | Research Portfolio">
     <meta property="og:description" content="Synthetic cognition research and systems.">
     <meta property="og:type" content="website">
-    <meta property="og:image" content="https://anastasisconsulting.github.io/portfolio/assets/opening-page-gynthetic.PNG">
+    <meta property="og:image"
+        content="https://anastasisconsulting.github.io/portfolio/assets/opening-page-gynthetic.PNG">
     <meta property="og:url" content="https://anastasisconsulting.github.io/portfolio/research_portfolio.html">
     <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -17,7 +18,6 @@
     <link
         href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;700&family=Space+Grotesk:wght@300;500;700&display=swap"
         rel="stylesheet">
-    <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
     <style>
         :root {
             --accent-color: var(--accent-cyan);
@@ -167,7 +167,7 @@
             color: #000;
         }
 
-        /* WATERMARK OVERLAY */
+        /* WATERMARK OVERLAY (REPURPOSED) */
         #download-overlay {
             position: fixed;
             top: 0;
@@ -235,12 +235,13 @@
                 <h1>G-YNTHETIC LABS // INTELLECTUAL PROPERTY</h1>
                 <h2>The Axioms</h2>
             </div>
-</header>
+            <a href="index.html" class="back-link">← BACK TO HOME</a>
+        </header>
 
         <!-- ARCHITECTURE DIAGRAM -->
         <div class="reveal active"
             style="margin-bottom: 4rem; border: 1px solid rgba(0, 240, 255, 0.1); padding: 1rem; background: rgba(0,20,20,0.5);">
-            <img src="assets/microRecurion.drawio.png" alt="Micro-Recursion Process Flow"
+            <img src="assets/TrililiquaryDiagram.png" alt="Trililiquary Slipstream Manifold"
                 style="width: 100%; height: auto; display: block; opacity: 0.9;">
             <div
                 style="font-family: 'JetBrains Mono'; font-size: 0.7rem; color: var(--accent-cyan); margin-top: 0.5rem; text-align: right;">
@@ -260,9 +261,8 @@
                     into atomic executable actions.
                 </p>
                 <div class="actions">
-                    <button
-                        onclick="downloadPDF('research/F.R.A.C.C. Cognitive Architecture Research.pdf', 'FRACC_Research_Secure.pdf')"
-                        class="btn btn-primary">ACQUIRE SECURE PDF</button>
+                    <a href="research/F.R.A.C.C.%20Cognitive%20Architecture%20Research.pdf" class="btn btn-primary"
+                        download>Download .pdf</a>
                 </div>
             </div>
 
@@ -275,66 +275,104 @@
                     in high-dimensional vector space.
                 </p>
                 <div class="actions">
-                    <button
-                        onclick="downloadPDF('research/Introducing-Trililiquary_A Slipstream Manifold Framework.pdf', 'Trililiquary_Manifold_Secure.pdf')"
-                        class="btn btn-primary">ACQUIRE SECURE PDF</button>
+                    <a href="research/Introducing-Trililiquary_A%20Slipstream%20Manifold%20Framework.pdf"
+                        class="btn btn-primary" download>ACQUIRE SECURE PDF</a>
+                </div>
+            </div>
+
+            <!-- SAE -->
+            <div class="card">
+                <span class="card-type">CLAIM 03 // EMERGENT ASSOCIATION</span>
+                <h3>Spontaneous Association (SAE)</h3>
+                <p><strong>The Claim:</strong> LLMs can identify relationships between disparate data nodes via entropy
+                    injection.
+                    <br><strong>The Proof:</strong> Observed nascent forms of spontaneous association in "Dream State"
+                    engine cycles.
+                </p>
+                <div class="actions">
+                    <a href="research/Spontaneous%20Association.docx" class="btn" download>DOWNLOAD RAW ASSET</a>
                 </div>
             </div>
 
             <!-- 4D Gradient -->
             <div class="card">
-                <span class="card-type">CLAIM 03 // TEMPORAL ANCHORING</span>
+                <span class="card-type">CLAIM 04 // TEMPORAL ANCHORING</span>
                 <h3>Building a 4D Gradient</h3>
                 <p><strong>The Claim:</strong> Logic without time is hallucination.
                     <br><strong>The Proof:</strong> Methodology for mapping semantic relationships into temporal vector
-                    spaces, creating a "time-aware" embedding structure.
+                    spaces.
                 </p>
                 <div class="actions">
-                    <a href="research/Building a 4D Gradient.docx" class="btn">DOWNLOAD RAW ASSET</a>
+                    <a href="research/Building%20a%204D%20Gradient.docx" class="btn" download>DOWNLOAD RAW ASSET</a>
                 </div>
             </div>
 
             <!-- Symbolic Cognition -->
             <div class="card">
-                <span class="card-type">CLAIM 04 // COMPRESSION</span>
-                <h3>Symbolic Cognition & High-Dimensional Thought</h3>
+                <span class="card-type">CLAIM 05 // COMPRESSION</span>
+                <h3>Symbolic Cognition</h3>
                 <p><strong>The Claim:</strong> Symbols are the ultimate compression algorithm for neural weights.
-                    <br><strong>The Proof:</strong> Frameworks demonstrating how symbolic logic acts as a lossless
-                    compression layer for high-dimensional thought.
+                    <br><strong>The Proof:</strong> Frameworks for lossless compression layers in high-dimensional
+                    thought.
                 </p>
                 <div class="actions">
-                    <a href="research/Symbolic Cognition and High-Dimensional Thought_ Frameworks and Insights.odt"
-                        class="btn">DOWNLOAD RAW ASSET</a>
+                    <a href="research/Symbolic%20Cognition%20and%20High-Dimensional%20Thought_%20Frameworks%20and%20Insights.odt"
+                        class="btn" download>DOWNLOAD RAW ASSET</a>
                 </div>
             </div>
 
-            <!-- Symbolic Cognitive Architecture -->
+            <!-- Simulating Diverse Minds -->
             <div class="card">
-                <span class="card-type">CLAIM 05 // SIMULATION THEORY</span>
+                <span class="card-type">CLAIM 06 // SIMULATION THEORY</span>
                 <h3>Simulating Diverse Minds</h3>
                 <p><strong>The Claim:</strong> To simulate a mind, you must simulate its bias.
                     <br><strong>The Proof:</strong> Core thesis on simulating diverse cognitive patterns within a
                     unified symbolic framework.
                 </p>
                 <div class="actions">
-                    <a href="research/Symbolic Cognitive Architecture for Simulating Diverse Minds" class="btn">DOWNLOAD
-                        RAW ASSET</a>
+                    <a href="research/Simulating%20Diverse%20Minds.odt" class="btn" download>DOWNLOAD RAW ASSET</a>
                 </div>
             </div>
 
             <!-- Pre-Linguistic Inference -->
             <div class="card">
-                <span class="card-type">CLAIM 06 // EVOLUTIONARY BASIS</span>
+                <span class="card-type">CLAIM 07 // EVOLUTIONARY BASIS</span>
                 <h3>Pre-Linguistic Inference</h3>
                 <p><strong>The Claim:</strong> Reasoning predates language. LLMs that only "speak" cannot "think".
                     <br><strong>The Proof:</strong> A "Pre-Linguistic Scaffold" that forces AI to ideate before it
                     tokenizes.
                 </p>
                 <div class="actions">
-                    <a href="research/Towards a Pre-Linguistic Inference Engine_ A Cross-Disciplinary Synthesis.odt"
-                        class="btn">DOWNLOAD RAW ASSET</a>
+                    <a href="research/Towards%20a%20Pre-Linguistic%20Inference%20Engine_%20A%20Cross-Disciplinary%20Synthesis.odt"
+                        class="btn" download>DOWNLOAD RAW ASSET</a>
                 </div>
             </div>
+
+            <!-- Symbolic Grid Atlas -->
+            <div class="card">
+                <span class="card-type">CLAIM 08 // PERSISTENCE FORMAT</span>
+                <h3>Symbolic Grid Atlas</h3>
+                <p><strong>The Claim:</strong> 3D Memory Lattices require a coordinate-based interchange format.
+                    <br><strong>The Proof:</strong> The .SGA format for serializing and persisting 343-node cognitive
+                    states.
+                </p>
+                <div class="actions">
+                    <a href="research/Symbolic_Grid_Atlas_Format.txt" class="btn" download>Download .txt</a>
+                </div>
+            </div>
+
+            <!-- G-ynthetic Architecture P1 -->
+            <div class="card">
+                <span class="card-type">CLAIM 09 // HIERARCHICAL STATE</span>
+                <h3>Architecture Part 1</h3>
+                <p><strong>The Claim:</strong> Position bias limits context. Hierarchical state propagation recovers it.
+                    <br><strong>The Proof:</strong> Specifications for a multi-dimensional holographic memory lattice.
+                </p>
+                <div class="actions">
+                    <a href="research/research%20part%201.docx" class="btn" download>DOWNLOAD RAW ASSET</a>
+                </div>
+            </div>
+
             <!-- Oracle Mirage -->
             <div class="card" style="border-color: var(--accent-purple);">
                 <span class="card-type" style="color: var(--accent-purple);">THE PROBLEM STATEMENT</span>
@@ -343,97 +381,44 @@
                     <br><strong>The Solution:</strong> Structural Grounding (The G-ynthetic Engine).
                 </p>
                 <div class="actions">
-                    <a href="research/The Oracle Mirage_ A Manifesto on LLMs’ Psychological and Societal Risks.odt"
-                        class="btn btn-dossier--purple">READ MANIFESTO</a>
+                    <a href="research/The%20Oracle%20Mirage_%20A%20Manifesto%20on%20LLMs%E2%80%99%20Psychological%20and%20Societal%20Risks.odt"
+                        class="btn btn-dossier--purple" download>Read Manifesto</a>
                 </div>
             </div>
+
         </div>
 
         <div style="margin-top: 4rem; padding-top: 2rem; border-top: 1px solid rgba(255, 255, 255, 0.1);">
-            <a href="index.html" class="back-link">← RETURN TO TERMINAL</a>
+            <a href="index.html" class="back-link">← BACK TO HOME</a>
         </div>
     </div>
 
-    <!-- OVERLAY -->
+    <!-- OVERLAY (Simplified for GitHub retrieval feedback) -->
     <div id="download-overlay">
         <div class="overlay-content">
             <div class="loader"></div>
-            <h2 style="color: var(--accent-cyan); font-family: 'JetBrains Mono'; margin-bottom: 1rem;">ENCRYPTING ASSET
+            <h2 style="color: var(--accent-cyan); font-family: 'JetBrains Mono'; margin-bottom: 1rem;">RETRIEVING ASSET
             </h2>
             <p class="blink" style="color: #888; font-family: 'JetBrains Mono'; font-size: 0.8rem;">
-                APPLYING DIGITAL WATERMARK<br>
-                REGISTERING IP SIGNATURE...
+                CONNECTING TO REPOSITORY...<br>
+                DOWNLOADING ASSET...
             </p>
         </div>
     </div>
 
     <script>
-        async function downloadPDF(url, filename) {
-            const overlay = document.getElementById('download-overlay');
-            overlay.classList.add('active');
-
-            try {
-                // 1. Fetch existing PDF
-                const existingPdfBytes = await fetch(url).then(res => res.arrayBuffer());
-
-                // 2. Load a PDFDocument from the existing PDF bytes
-                const pdfDoc = await PDFLib.PDFDocument.load(existingPdfBytes);
-
-                // 3. Get all pages of the document
-                const pages = pdfDoc.getPages();
-                const font = await pdfDoc.embedFont(PDFLib.StandardFonts.HelveticaBold);
-
-                // 4. Draw diagonal watermark on each page
-                const text = 'G-YNTHETIC LABS // PATENT PENDING';
-                const fontSize = 30;
-
-                pages.forEach(page => {
-                    const { width, height } = page.getSize();
-                    page.drawText(text, {
-                        x: 50,
-                        y: height / 2,
-                        size: fontSize,
-                        font: font,
-                        color: PDFLib.rgb(0.7, 0.7, 0.7),
-                        opacity: 0.2, // Watermark effect
-                        rotate: PDFLib.degrees(45),
-                    });
-
-                    // Add Footer
-                    page.drawText('PROPRIETARY RESEARCH - DO NOT DISTRIBUTE', {
-                        x: 50,
-                        y: 30,
-                        size: 10,
-                        font: font,
-                        color: PDFLib.rgb(1, 0, 0),
-                        opacity: 0.4,
-                    });
-                });
-
-                // 5. Serialize the PDFDocument to bytes (a Uint8Array)
-                const watermarkedPdfBytes = await pdfDoc.save();
-
-                // 6. Trigger Download
-                const blob = new Blob([watermarkedPdfBytes], { type: 'application/pdf' });
-                const link = document.createElement('a');
-                link.href = URL.createObjectURL(blob);
-                link.download = filename;
-                link.click();
-
-            } catch (err) {
-                console.error("PDF Processing Error:", err);
-                alert("SECURE DOWNLOAD FAILED. PLEASE CONTACT ADMIN.");
-            } finally {
+        // Provide UI feedback for direct downloads to confirm action
+        document.querySelectorAll('a[download]').forEach(link => {
+            link.addEventListener('click', () => {
+                const overlay = document.getElementById('download-overlay');
+                overlay.classList.add('active');
                 setTimeout(() => {
                     overlay.classList.remove('active');
-                }, 1000); // Small delay for effect
-            }
-        }
+                }, 1200);
+            });
+        });
     </script>
 
 </body>
 
 </html>
-
-
-

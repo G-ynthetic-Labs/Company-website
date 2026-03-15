@@ -1,7 +1,7 @@
 const DOCS_MANIFEST = {
   "metadata": {
-    "total_files": 117,
-    "generated_at": 1739832000
+    "total_files": 128,
+    "generated_at": 1740069200
   },
   "levels": {
     "0": {
@@ -708,6 +708,72 @@ const DOCS_MANIFEST = {
           "path": "domain-agnostic/diagrams/diagrams/Game Org.png",
           "extension": "PNG",
           "category": "Technical Diagrams"
+        },
+        {
+          "title": "F.R.A.C.C. Cognitive Architecture Research.pdf",
+          "path": "research/F.R.A.C.C. Cognitive Architecture Research.pdf",
+          "extension": "PDF",
+          "category": "Research Publications"
+        },
+        {
+          "title": "Introducing-Trililiquary_A Slipstream Manifold Framework.pdf",
+          "path": "research/Introducing-Trililiquary_A Slipstream Manifold Framework.pdf",
+          "extension": "PDF",
+          "category": "Research Publications"
+        },
+        {
+          "title": "Building a 4D Gradient.docx",
+          "path": "research/Building a 4D Gradient.docx",
+          "extension": "DOCX",
+          "category": "Research Publications"
+        },
+        {
+          "title": "Spontaneous Association.docx",
+          "path": "research/Spontaneous Association.docx",
+          "extension": "DOCX",
+          "category": "Research Publications"
+        },
+        {
+          "title": "Symbolic Cognition and High-Dimensional Thought.odt",
+          "path": "research/Symbolic Cognition and High-Dimensional Thought_ Frameworks and Insights.odt",
+          "extension": "ODT",
+          "category": "Research Publications"
+        },
+        {
+          "title": "Simulating Diverse Minds.odt",
+          "path": "research/Symbolic Cognitive Architecture for Simulating Diverse Minds",
+          "extension": "ODT",
+          "category": "Research Publications"
+        },
+        {
+          "title": "The Oracle Mirage Manifesto.odt",
+          "path": "research/The Oracle Mirage_ A Manifesto on LLMs’ Psychological and Societal Risks.odt",
+          "extension": "ODT",
+          "category": "Research Publications"
+        },
+        {
+          "title": "Pre-Linguistic Inference Engine.odt",
+          "path": "research/Towards a Pre-Linguistic Inference Engine_ A Cross-Disciplinary Synthesis.odt",
+          "extension": "ODT",
+          "category": "Research Publications"
+        },
+        {
+          "title": "G-ynthetic Architecture Part 1.docx",
+          "path": "research/research part 1.docx",
+          "extension": "DOCX",
+          "category": "Research Publications"
+        },
+        {
+          "title": "G-ynthetic Architecture Part 2.docx",
+          "path": "research/research part 2.docx",
+          "extension": "DOCX",
+          "category": "Research Publications"
+        },
+        {
+          "title": "Symbolic Grid Atlas Format.txt",
+          "path": "research/Symbolic_Grid_Atlas_Format.txt",
+          "extension": "TXT",
+          "category": "Research Publications"
         }
       ]
     }

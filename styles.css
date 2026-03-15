@@ -1176,3 +1176,20 @@ footer h2 {
     filter: brightness(1.2);
   }
 }
+
+/* ============================================================
+   DEV-ONLY VISIBILITY
+   ============================================================ */
+.dev-only {
+  display: none !important;
+}
+
+body.dev-mode-active .dev-only {
+  display: block !important;
+}
+
+/* Ensure inline-flex/flex dev-only items behave correctly */
+body.dev-mode-active span.dev-only,
+body.dev-mode-active a.dev-only {
+  display: inline-flex !important;
+}

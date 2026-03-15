@@ -248,9 +248,15 @@
         if (keyBuffer.length > 5) keyBuffer = keyBuffer.slice(-5);
 
         if (keyBuffer === 'GLABS') {
+            // Toggle Dev Mode
+            const isActive = document.body.classList.toggle('dev-mode-active');
+            localStorage.setItem('glabs_dev_mode', isActive ? 'active' : 'inactive');
+
             const count = await getVisitCount();
             showAdminDashboard(count);
             keyBuffer = '';
+
+            console.log(`[SYS] DEV_MODE: ${isActive ? 'ENABLED' : 'DISABLED'}`);
         }
     });
 
@@ -258,6 +264,11 @@
     // INIT
     // ============================================================
     document.addEventListener('DOMContentLoaded', () => {
+        // Restore Dev Mode state
+        if (localStorage.getItem('glabs_dev_mode') === 'active') {
+            document.body.classList.add('dev-mode-active');
+        }
+
         // Track unique visit
         trackVisit();
 
@@ -373,7 +384,7 @@
                     <h2>${data.title}</h2>
                     <p>${data.abstract}</p>
                     <div style="margin-bottom: 2.5rem;">
-                        <a href="${data.url}" class="btn-primary">Decrypt Full Dossier →</a>
+                        <a href="${data.url}" class="btn-primary">View Research →</a>
                     </div>
                     <div class="meta-info">
                         Status: Peer Review Pending<br>
