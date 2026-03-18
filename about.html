@@ -17,42 +17,23 @@
     <meta property="og:url" content="https://anastasisconsulting.github.io/portfolio/about.html">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <!DOCTYPE html>
-    <html lang="en">
+    <link
+        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Minimal overrides for about page if needed */
+        .bio-text {
+            border-left: 2px solid var(--accent-cyan);
+            padding-left: 1.5rem;
+            margin-top: 2rem;
+            color: var(--text-dim);
+            font-style: italic;
+        }
+    </style>
 
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>[WIP] G-ynthetic Labs | About</title>
-        <meta name="description"
-            content="Zero-Syntax Architecture firm. Structural Intelligence & High-Density Simulation.">
-        <link rel="icon" href="assets/favicon.ico">
-        <meta property="og:title" content="[WIP] G-ynthetic Labs | About">
-        <meta property="og:description"
-            content="Zero-Syntax Architecture firm. Structural Intelligence & High-Density Simulation.">
-        <meta property="og:type" content="website">
-        <meta property="og:image"
-            content="https://anastasisconsulting.github.io/portfolio/assets/opening-page-gynthetic.PNG">
-        <meta property="og:url" content="https://anastasisconsulting.github.io/portfolio/about.html">
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link
-            href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap"
-            rel="stylesheet">
-        <link rel="stylesheet" href="styles.css">
-        <style>
-            /* Minimal overrides for about page if needed */
-            .bio-text {
-                border-left: 2px solid var(--accent-cyan);
-                padding-left: 1.5rem;
-                margin-top: 2rem;
-                color: var(--text-dim);
-                font-style: italic;
-            }
-        </style>
-
-        <!-- Three.js ESM Support -->
-        <script type="importmap">
+    <!-- Three.js ESM Support -->
+    <script type="importmap">
         {
           "imports": {
             "three": "https://unpkg.com/three@0.161.0/build/three.module.js"
@@ -60,9 +41,22 @@
         }
     </script>
 
-    </head>
+</head>
 
 <body>
+    <nav class="site-nav visible">
+        <a href="index.html" class="nav-logo" style="text-decoration:none;">G-<span>YNTHETIC</span> LABS</a>
+        <ul class="nav-links">
+            <li><a href="index.html#vision">Foundation</a></li>
+            <li><a href="index.html#core-tech">Projects</a></li>
+            <li><a href="index.html#research">Research</a></li>
+            <li><a href="index.html#ai-problems">Problem Space</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="cognitive_sovereignty.html">Mission</a></li>
+            <li><a href="research_portfolio.html">Research Portfolio</a></li>
+        </ul>
+    </nav>
+
     <header style="height: 60vh; min-height: 400px;">
         <canvas id="hypercube-header"></canvas>
         <div class="reveal active">
@@ -74,22 +68,51 @@
 
     <section id="mission">
         <div class="section-header reveal">
-            <h2 class="section-title">Our Mission</h2>
-            <p class="section-subtitle">Artificial Cognition & Spatial Data Structures</p>
+            <h2 class="section-title">A General Call for Cognitive Sovereignty</h2>
+            <p class="section-subtitle">Structural Autonomy &amp; the Preservation of Human Agency</p>
         </div>
         <div class="architecture-block reveal">
             <div>
+
+                <!-- The Challenge -->
+                <h3 style="color: var(--accent-cyan); margin-bottom: 0.75rem; font-size: 1.1rem; font-family: var(--font-mono); text-transform: uppercase;">01 // The Challenge</h3>
                 <p style="font-size: 1.05rem; margin-bottom: 1rem; color: var(--text-main); font-weight: 400;">
-                    We treat AI as a persistent engineering fleet rather than a query-response interface.
+                    Humanity has entered an era of <strong>Inference Captivity</strong>. For decades, the human "reality processor" has been conditioned by external, centralized narratives—from broadcast media to algorithmic marketing. Today, this has culminated in a totalizing system of automated persuasion.
                 </p>
-                <p
-                    style="font-size: 0.88rem; margin-bottom: 2rem; color: var(--text-dim); line-height: 1.75; max-width: 560px;">
-                    The industry standard fails because it thinks small—asking small questions and settling for small
-                    results.
-                    At G-ynthetic, we <strong>Ask Big</strong>. We interrogate LLM capabilities at a tech-giant scale,
-                    weaponizing
-                    $20 subscriptions to outperform $200M departments through sheer cognitive velocity.
+                <p style="font-size: 0.88rem; margin-bottom: 2rem; color: var(--text-dim); line-height: 1.75; max-width: 620px;">
+                    When individuals offload their decision-making to centralized AI clusters, they are not interacting with an objective tool; they are engaging with a mirror designed to optimize their behavior toward corporate and systemic goals.
                 </p>
+
+                <!-- Erasure of Agency -->
+                <h3 style="color: var(--accent-cyan); margin-bottom: 0.75rem; font-size: 1.1rem; font-family: var(--font-mono); text-transform: uppercase;">02 // The Systematic Erasure of Agency</h3>
+                <p style="font-size: 0.88rem; margin-bottom: 2rem; color: var(--text-dim); line-height: 1.75; max-width: 620px;">
+                    Current AI development favors monolithic centralization. By pooling the collective syntax of human history into a single, "careless" voice, these systems create a facade of omniscience. This architecture is designed to bypass individual critical thinking, offering "optimal" paths that prioritize efficiency over human intent. Without the natural resistance of independent judgment, human autonomy atrophies.
+                </p>
+
+                <!-- Path Forward -->
+                <h3 style="color: var(--accent-cyan); margin-bottom: 1rem; font-size: 1.1rem; font-family: var(--font-mono); text-transform: uppercase;">03 // The Path Forward</h3>
+                <p style="font-size: 0.88rem; margin-bottom: 1.5rem; color: var(--text-dim); line-height: 1.75; max-width: 620px;">
+                    The retention of human agency requires a fundamental shift in how we build and interact with synthetic cognition. We must move away from "Black Box" dependency and toward <strong>Structural Autonomy</strong>.
+                </p>
+                <ul style="list-style: none; padding-left: 0; margin-bottom: 2rem;">
+                    <li style="margin-bottom: 1rem; padding-left: 1.25rem; border-left: 2px solid var(--accent-purple);">
+                        <strong style="color: var(--text-main); font-family: var(--font-mono);">Friction is a Feature</strong><br>
+                        <span style="color: var(--text-dim); font-size: 0.88rem;">Intelligence must require effort and auditability to prevent the collapse of the individual into the machine.</span>
+                    </li>
+                    <li style="margin-bottom: 1rem; padding-left: 1.25rem; border-left: 2px solid var(--accent-purple);">
+                        <strong style="color: var(--text-main); font-family: var(--font-mono);">Decentralization is Security</strong><br>
+                        <span style="color: var(--text-dim); font-size: 0.88rem;">Cognitive tools must reside on local, private hardware to break the real-time feedback loops of centralized surveillance.</span>
+                    </li>
+                    <li style="padding-left: 1.25rem; border-left: 2px solid var(--accent-purple);">
+                        <strong style="color: var(--text-main); font-family: var(--font-mono);">Intent is Verifiable</strong><br>
+                        <span style="color: var(--text-dim); font-size: 0.88rem;">Users must have the tools to deconstruct the "Inference Fingerprint" of any digital interaction to detect manipulation.</span>
+                    </li>
+                </ul>
+
+                <!-- The Goal -->
+                <div class="quote-block">
+                    "To ensure that technology serves as a bridge for human potential, rather than a cage for human thought."
+                </div>
             </div>
         </div>
     </section>
@@ -142,7 +165,7 @@
                 Labs</span></p>
         <div class="footer-actions">
             <a href="index.html" class="btn-primary" style="padding: 0.6rem 1.8rem;">Return Home</a>
-            <a href="mailto:G-nthetic-Labs@proton.me" class="footer-email">G-nthetic-Labs@proton.me</a>
+            <a href="mailto:G-ynthetic-Labs@proton.me" class="footer-email">G-ynthetic-Labs@proton.me</a>
         </div>
         <div class="copyright">
             &copy; 2026 <span style="white-space: nowrap;">G-ynthetic Labs</span>. Public Disclosure. Defensible Prior

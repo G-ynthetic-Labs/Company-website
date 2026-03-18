@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>G-ynthetic Labs | F.R.A.C.C. Engine</title>
+    <style>
+        :root {
+            --bg-base: #0a0a0f;
+            --bg-surface: #12141d;
+            --accent-primary: #00e5ff;
+            --accent-secondary: #b537f2;
+            --accent-success: #00ff66;
+            --accent-danger: #ff3366;
+            --text-main: #e2e8f0;
+            --text-muted: #64748b;
+            --border-subtle: rgba(0, 229, 255, 0.15);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            background-color: var(--bg-base);
+            color: var(--text-main);
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+            padding: 2rem;
+            padding-top: 5rem;
+            line-height: 1.5;
+        }
+
+        .dashboard {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .header-panel {
+            border-bottom: 1px solid var(--accent-secondary);
+            padding-bottom: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+
+        h1 { font-size: 1.5rem; color: var(--text-main); font-weight: 600; letter-spacing: 1px;}
+        .status-badge { font-size: 0.8rem; color: var(--accent-success); border: 1px solid var(--accent-success); padding: 2px 8px; border-radius: 12px; }
+
+        .input-group {
+            display: flex;
+            gap: 1rem;
+            background: var(--bg-surface);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid var(--border-subtle);
+        }
+
+        input {
+            flex-grow: 1;
+            background: #000;
+            border: 1px solid var(--border-subtle);
+            color: var(--accent-primary);
+            padding: 12px 16px;
+            font-family: inherit;
+            font-size: 1rem;
+            border-radius: 4px;
+            outline: none;
+            transition: box-shadow 0.2s;
+        }
+
+        input:focus { box-shadow: 0 0 12px rgba(0, 229, 255, 0.2); }
+
+        button {
+            background: rgba(0, 229, 255, 0.1);
+            color: var(--accent-primary);
+            border: 1px solid var(--accent-primary);
+            padding: 0 24px;
+            font-family: inherit;
+            font-weight: bold;
+            font-size: 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            text-transform: uppercase;
+            transition: all 0.2s;
+        }
+
+        button:hover:not(:disabled) {
+            background: var(--accent-primary);
+            color: #000;
+            box-shadow: 0 0 15px rgba(0, 229, 255, 0.4);
+        }
+        
+        button:disabled { border-color: var(--text-muted); color: var(--text-muted); cursor: not-allowed; }
+
+        .matrix-container {
+            background: var(--bg-surface);
+            border-radius: 8px;
+            border: 1px solid var(--border-subtle);
+            overflow-x: auto;
+        }
+
+        table { width: 100%; border-collapse: collapse; text-align: right; }
+        th, td { padding: 1rem; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        th { color: var(--text-muted); font-size: 0.85rem; text-transform: uppercase; font-weight: normal; }
+        th:first-child, td:first-child { text-align: left; }
+        
+        tbody tr { transition: transform 0.4s ease, background-color 0.2s; }
+        tbody tr:hover { background-color: rgba(255,255,255,0.02); }
+
+        .arc-col { color: var(--accent-secondary); font-weight: bold; text-transform: capitalize; }
+        .val-pos { color: var(--accent-success); }
+        .val-neg { color: var(--accent-danger); }
+        .val-neu { color: var(--text-muted); }
+        .final-score { color: var(--accent-primary); font-weight: bold; font-size: 1.1rem; }
+
+        .output-panel {
+            background: #000;
+            border: 1px solid var(--border-subtle);
+            border-radius: 8px;
+            padding: 1.5rem;
+            position: relative;
+        }
+
+        .output-panel::before {
+            content: 'SYNTHESIS_PAYLOAD.JSON';
+            position: absolute;
+            top: -10px;
+            left: 15px;
+            background: var(--bg-base);
+            padding: 0 10px;
+            color: var(--accent-secondary);
+            font-size: 0.8rem;
+        }
+
+        pre { color: var(--accent-primary); overflow-x: auto; font-size: 0.9rem; }
+
+        /* Processing Animation */
+        .processing { opacity: 0.5; filter: blur(2px); pointer-events: none; }
+    </style>
+</head>
+<body>
+    <nav class="site-nav visible" style="position: fixed; top: 0; left: 0; right: 0; z-index: 1000; padding: 0 10%; height: 48px; display: flex; align-items: center; justify-content: space-between; background: rgba(6,6,8,0.85); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(255,255,255,0.04);">
+        <a href="index.html" style="font-family: inherit; font-size: 0.75rem; font-weight: 600; color: #dfe0e6; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none;">G-<span style="color: #00e4f5;">YNTHETIC</span> LABS</a>
+        <ul style="display: flex; gap: 2.5rem; list-style: none; margin: 0; padding: 0;">
+            <li><a href="index.html#vision" style="font-family: inherit; font-size: 0.6rem; color: #6e6e7a; text-decoration: none; text-transform: uppercase; letter-spacing: 0.12em; transition: color 0.2s;" onmouseover="this.style.color='#00e4f5'" onmouseout="this.style.color='#6e6e7a'">Foundation</a></li>
+            <li><a href="index.html#core-tech" style="font-family: inherit; font-size: 0.6rem; color: #6e6e7a; text-decoration: none; text-transform: uppercase; letter-spacing: 0.12em; transition: color 0.2s;" onmouseover="this.style.color='#00e4f5'" onmouseout="this.style.color='#6e6e7a'">Projects</a></li>
+            <li><a href="index.html#research" style="font-family: inherit; font-size: 0.6rem; color: #6e6e7a; text-decoration: none; text-transform: uppercase; letter-spacing: 0.12em; transition: color 0.2s;" onmouseover="this.style.color='#00e4f5'" onmouseout="this.style.color='#6e6e7a'">Research</a></li>
+            <li><a href="index.html#ai-problems" style="font-family: inherit; font-size: 0.6rem; color: #6e6e7a; text-decoration: none; text-transform: uppercase; letter-spacing: 0.12em; transition: color 0.2s;" onmouseover="this.style.color='#00e4f5'" onmouseout="this.style.color='#6e6e7a'">Problem Space</a></li>
+            <li><a href="about.html" style="font-family: inherit; font-size: 0.6rem; color: #6e6e7a; text-decoration: none; text-transform: uppercase; letter-spacing: 0.12em; transition: color 0.2s;" onmouseover="this.style.color='#00e4f5'" onmouseout="this.style.color='#6e6e7a'">About</a></li>
+            <li><a href="cognitive_sovereignty.html" style="font-family: inherit; font-size: 0.6rem; color: #6e6e7a; text-decoration: none; text-transform: uppercase; letter-spacing: 0.12em; transition: color 0.2s;" onmouseover="this.style.color='#00e4f5'" onmouseout="this.style.color='#6e6e7a'">Mission</a></li>
+            <li><a href="research_portfolio.html" style="font-family: inherit; font-size: 0.6rem; color: #6e6e7a; text-decoration: none; text-transform: uppercase; letter-spacing: 0.12em; transition: color 0.2s;" onmouseover="this.style.color='#00e4f5'" onmouseout="this.style.color='#6e6e7a'">Research Portfolio</a></li>
+        </ul>
+    </nav>
+<div class="dashboard">
+    <div class="header-panel">
+        <div>
+            <h1>F.R.A.C.C. Cognitive Matrix</h1>
+            <div style="color: var(--text-muted); font-size: 0.9rem; margin-top: 4px;">Fractally Recursive Artificial Cognitive Computing</div>
+        </div>
+        <div class="status-badge">SYSTEM ONLINE</div>
+    </div>
+
+    <div class="input-group">
+        <input type="text" id="userInput" placeholder="Enter input to decompose..." value="The rapid automation of systems threatens human agency if safety is not built into the core logic.">
+        <button id="runBtn" onclick="executePipeline()">Process</button>
+    </div>
+
+    <div class="matrix-container" id="matrixContainer">
+        <table>
+            <thead>
+                <tr>
+                    <th style="text-align: left;">Pipeline (Arc)</th>
+                    <th>Magnitude</th>
+                    <th>Input Phase</th>
+                    <th>Identity Phase</th>
+                    <th>Inception Phase</th>
+                    <th>Triadic Sum</th>
+                    <th>Total Score</th>
+                    <th>Rank</th>
+                </tr>
+            </thead>
+            <tbody id="tableBody">
+                </tbody>
+        </table>
+    </div>
+
+    <div class="output-panel">
+        <pre id="jsonPayload">// Awaiting deterministic decomposition...</pre>
+    </div>
+</div>
+
+<script>
+    const ARCS = ["essence", "form", "action", "frame", "intent", "relation", "value"];
+    let state = [];
+
+    function init() {
+        state = ARCS.map((arc, i) => ({
+            arc, mag: 0, p1: 0, p2: 0, p3: 0, sum: 0, total: 0, rank: i + 1
+        }));
+        render();
+    }
+
+    function fmt(val) {
+        if (val === 0) return `<span class="val-neu">0.00</span>`;
+        return `<span class="${val > 0 ? 'val-pos' : 'val-neg'}">${val > 0 ? '+' : ''}${val.toFixed(2)}</span>`;
+    }
+
+    function render() {
+        const tbody = document.getElementById('tableBody');
+        tbody.innerHTML = state.map(d => `
+            <tr>
+                <td class="arc-col">${d.arc}</td>
+                <td>${d.mag || '-'}</td>
+                <td>${d.mag ? fmt(d.p1) : '-'}</td>
+                <td>${d.mag ? fmt(d.p2) : '-'}</td>
+                <td>${d.mag ? fmt(d.p3) : '-'}</td>
+                <td>${d.mag ? fmt(d.sum) : '-'}</td>
+                <td class="final-score">${d.mag ? fmt(d.total) : '-'}</td>
+                <td>${d.mag ? '#' + d.rank : '-'}</td>
+            </tr>
+        `).join('');
+    }
+
+    function simpleHash(str, salt) {
+        let hash = 0, comb = str + salt;
+        for (let i = 0; i < comb.length; i++) {
+            hash = ((hash << 5) - hash) + comb.charCodeAt(i);
+            hash |= 0; 
+        }
+        return Math.abs(hash);
+    }
+
+    async function executePipeline() {
+        const input = document.getElementById('userInput').value.trim().toLowerCase();
+        if (!input) return;
+
+        const btn = document.getElementById('runBtn');
+        const matrix = document.getElementById('matrixContainer');
+        btn.disabled = true;
+        btn.innerText = "Processing...";
+        matrix.classList.add('processing');
+
+        // Simulate network/compute latency for realism
+        await new Promise(r => setTimeout(r, 600));
+
+        const words = input.split(/\s+/).filter(Boolean);
+        const baseMag = Math.max(2, Math.min(12, Math.floor(words.length / 1.5)));
+
+        state.forEach(d => {
+            const hM = simpleHash(input, d.arc + "m");
+            const h1 = simpleHash(input, d.arc + "1");
+            const h2 = simpleHash(input, d.arc + "2");
+            const h3 = simpleHash(input, d.arc + "3");
+
+            d.mag = Math.max(2, Math.min(12, baseMag + (hM % 5) - 2));
+            d.p1 = ((h1 % 600) / 100) - 3.0;
+            d.p2 = ((h2 % 600) / 100) - 3.0;
+            d.p3 = ((h3 % 600) / 100) - 3.0;
+            
+            d.sum = d.p1 + d.p2 + d.p3;
+            d.total = d.mag + d.sum;
+        });
+
+        state.sort((a, b) => b.total - a.total);
+        state.forEach((d, i) => d.rank = i + 1);
+
+        render();
+        matrix.classList.remove('processing');
+        btn.disabled = false;
+        btn.innerText = "Process";
+
+        const top3 = state.slice(0, 3).map(d => ({
+            arc: d.arc.toUpperCase(),
+            rank: d.rank,
+            magnitude: d.mag,
+            triadic_scores: [parseFloat(d.p1.toFixed(2)), parseFloat(d.p2.toFixed(2)), parseFloat(d.p3.toFixed(2))],
+            final_weight: parseFloat(d.total.toFixed(2))
+        }));
+
+        document.getElementById('jsonPayload').innerText = JSON.stringify({
+            instruction: "Synthesize response using ranked semantic primitives.",
+            dominant_arcs: top3
+        }, null, 2);
+    }
+
+    window.onload = init;
+</script>
+</body>
+</html>
