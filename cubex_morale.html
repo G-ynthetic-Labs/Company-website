@@ -105,9 +105,11 @@
                 <h2 style="font-family: var(--font-header); letter-spacing: -1px; margin-bottom: 2rem;">Structural
                     Morale</h2>
                 <p style="line-height: 1.8; color: var(--text-dim); margin-bottom: 2rem;">
-                    In CubeX³, pieces are not merely material values—they are agents within a **Morale Lattice**.
-                    The `MoraleSystem` calculates team coherence based on survival time, kill-ratios, and proximity to
-                    the 'Crown' (King).
+                    In CubeX³, pieces are not exchange values — they are agents embedded in a social structure.
+                    The <code>MoraleSystem</code> calculates a team coherence score each turn, weighting
+                    every piece by its survival duration, combat history, and proximity to the King.
+                    When a piece is lost, the system propagates a morale penalty to all surviving allies,
+                    scaled by how central that piece was to the team’s formation.
                 </p>
 
                 <div class="morale-meter">
@@ -126,8 +128,10 @@
                             style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--accent-color); margin-bottom: 1rem;">
                             // THE "RELATION" SCALAR</h3>
                         <p style="color: var(--text-dim); font-size: 0.85rem; line-height: 1.6;">
-                            Part of the RRR Evaluation. It measures how much the loss of a specific piece impacts the
-                            'will' of the remaining units.
+                            The third axis of the RRR Evaluation (Risk / Reward / Relation). It captures the
+                            psychological cost of loss — not just material deficit, but the cascading will-to-fight
+                            degradation that follows the fall of a key piece. This is the earliest implementation
+                            of emergent social dynamics in the G-ynthetic architecture.
                         </p>
                     </div>
                     <div style="border: 1px solid var(--border-color); padding: 1.5rem;">
@@ -135,8 +139,10 @@
                             style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--accent-color); margin-bottom: 1rem;">
                             // RESCUE OPERATIONS</h3>
                         <p style="color: var(--text-dim); font-size: 0.85rem; line-height: 1.6;">
-                            A unique promotion mechanic where piece-promotion can be sacrificed to 'rescue' a fallen
-                            comrade, restoring massive Morale.
+                            A promotion mechanic unique to CubeX³: instead of upgrading a pawn to a Queen,
+                            the player can sacrifice that promotion to restore a fallen ally. The returning piece
+                            arrives with a morale surge that ripples across the entire formation — a deliberate
+                            design choice to make non-material strategy viable.
                         </p>
                     </div>
                 </div>
@@ -146,10 +152,12 @@
                     <h3
                         style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--accent-color); margin-bottom: 1rem;">
                         // GENESIS EVOLUTION</h3>
-                    <p style="color: var(--text-dim); font-size: 0.9rem; line-height: 1.6;">
-                        This early social logic served as the foundation for the **Affinity Gears** in Eideus Dawn,
-                        where AI agents develop
-                        long-term emotional and mechanical bonds based on shared history.
+                    <p style="color: var(--text-dim); font-size: 0.9rem; line-height: 1.7;">
+                        This social logic layer was the first proof that an AI agent’s decision-making could be
+                        shaped not just by tactical evaluation, but by the relational history of its team.
+                        It became the direct ancestor of the <em>Affinity Gears</em> system in Eideus Dawn —
+                        where AI agents form long-term emotional and mechanical bonds based on shared events,
+                        loss, and survival over hundreds of interactions.
                     </p>
                 </div>
             </section>

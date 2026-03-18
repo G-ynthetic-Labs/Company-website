@@ -103,11 +103,11 @@
                 <h2 style="font-family: var(--font-header); letter-spacing: -1px; margin-bottom: 2rem;">The Tensor
                     Lattice</h2>
                 <p style="line-height: 1.8; color: var(--text-dim); margin-bottom: 2rem;">
-                    CubeX³ uses a **Knowledge Graph** composed of `TensorNodes`. This was the early precursor to the
-                    G-ynthetic
-                    Symbolic Engine's 7x7x7 lattice. Every cell on the board is a state-aware agent storing local
-                    threat,
-                    influence, and occupancy vectors.
+                    CubeX³ uses a Knowledge Graph composed of <code>TensorNode</code> objects — one per cell on the
+                    8×8×8 board. Each node holds a 64-float <code>Float32Array</code> representing the full spatial
+                    state of that voxel: occupancy history, threat pressure, material balance, change velocity, and
+                    structural stability. This was the first working prototype of the coordinate-addressable memory that
+                    became the G-ynthetic fractal lattice.
                 </p>
 
                 <div class="tensor-grid">
@@ -151,8 +151,10 @@
                             style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--accent-color); margin-bottom: 1rem;">
                             // THE EVALUATOR</h3>
                         <p style="color: var(--text-dim); font-size: 0.85rem; line-height: 1.6;">
-                            Calculates the Master Piecewise (M-Pw) score by aggregating Risk (Material), Reward
-                            (Control), and Relation (Morale).
+                            The <code>evaluateBoard()</code> function aggregates a board score from three axes:
+                            material value (Risk), tensor synergy scores (Reward), and morale coherence (Relation).
+                            AI personality profiles — Bloodlust, Cunning, Discipline — directly scale these weights
+                            turn by turn, producing tactically distinct opponents.
                         </p>
                     </div>
                     <div style="border: 1px solid var(--border-color); padding: 1.5rem;">
@@ -160,8 +162,10 @@
                             style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--accent-color); margin-bottom: 1rem;">
                             // SKILL EVOLUTION</h3>
                         <p style="color: var(--text-dim); font-size: 0.85rem; line-height: 1.6;">
-                            Unlockable traits like "Aggressor I" or "Predictive Change" directly modify the numeric
-                            weights within the Knowledge Graph.
+                            Unlockable traits such as <em>Aggressor I</em> and <em>Predictive Change</em> are stored in
+                            <code>SkillData.ts</code> and applied by <code>SkillSystem.ts</code>. Each skill directly
+                            mutates the numeric weights within the Knowledge Graph, making the AI’s strategic
+                            personality a live, evolving data structure.
                         </p>
                     </div>
                 </div>
@@ -171,10 +175,12 @@
                     <h3
                         style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--accent-color); margin-bottom: 1rem;">
                         // ARCHITECTURAL LEGACY</h3>
-                    <p style="color: var(--text-dim); font-size: 0.9rem; line-height: 1.6;">
-                        While CubeX³ used a static 8x8x8 grid, its **State Persistence** and **Symbolic Mapping** of
-                        board states
-                        provided the blueprints for the modern G-ynthetic Engine's fractal persistence system.
+                    <p style="color: var(--text-dim); font-size: 0.9rem; line-height: 1.7;">
+                        The CubeX³ TensorNode was the first working proof that board state could be represented as a
+                        spatially-indexed memory structure rather than a flat list of positions. Its decay functions,
+                        occupancy history, and influence scoring directly informed the architecture of the G-ynthetic
+                        Fractal Memory Lattice — which scales the same concept from 512 board cells to unbounded
+                        semantic coordinate space.
                     </p>
                 </div>
             </section>

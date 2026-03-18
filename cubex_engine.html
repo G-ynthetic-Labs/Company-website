@@ -107,32 +107,31 @@
 
             <section>
                 <div class="engine-card">
-                    <h2 style="font-family: var(--font-header); letter-spacing: -1px; margin-bottom: 1.5rem;">The Search
-                        Kernel</h2>
-                    <p style="color: var(--text-dim); line-height: 1.6; margin-bottom: 2rem;">
-                        The CubeX³ engine implements a high-performance **Minimax** algorithm with **Alpha-Beta
-                        pruning**.
-                        Despite its "Genesis" status, the kernel manages deep-tree searches across an 8x8x8 3D grid,
-                        evaluating thousands of positional states per turn.
+                    <h2 style="font-family: var(--font-header); letter-spacing: -1px; margin-bottom: 1.5rem;">The Search Kernel</h2>
+                    <p style="color: var(--text-dim); line-height: 1.7; margin-bottom: 2rem;">
+                        The CubeX³ engine implements a full Minimax algorithm with Alpha-Beta pruning across an 8×8×8 tensor
+                        field — 512 voxels of live board state. The branching factor of true 3D space is orders of magnitude
+                        greater than standard chess, which forced an architectural discipline around search efficiency from day one.
                     </p>
 
                     <div class="logic-step">
                         <h3
                             style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--accent-color); margin-bottom: 0.5rem;">
                             // ALPHA-BETA PRUNING</h3>
-                        <p style="font-size: 0.85rem; color: var(--text-dim);">Optimizes search efficiency by discarding
-                            branches that cannot possibly inform the final decision, maintaining competitive latency on
-                            edge hardware.</p>
+                        <p style="font-size: 0.85rem; color: var(--text-dim);">Branches are discarded the moment they
+                            cannot influence the final decision. This maintains real-time performance despite the expanded
+                            3D state space, with move ordering prioritizing captures and high-opportunity tensor coordinates
+                            to maximize cutoff efficiency.</p>
                     </div>
 
                     <div class="logic-step">
                         <h3
                             style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--accent-color); margin-bottom: 0.5rem;">
-                            // RECURSIVE DEPTH</h3>
-                        <p style="font-size: 0.85rem; color: var(--text-dim);">Fixed-depth lookahead optimized for
-                            immediate
-                            tactical response (Genesis Build limitation). The current engine prioritizes breadth of move
-                            generation over depth due to the high branching factor of 3D space.</p>
+                            // TWO-PHASE MOVE RESOLUTION</h3>
+                        <p style="font-size: 0.85rem; color: var(--text-dim);">Certain pieces — Rooks, Bishops, and the Fractal Knight —
+                            trigger a second movement phase mid-turn (the "dog-leg" mechanic). The search kernel fully
+                            accounts for these chained move sequences within the same Minimax tree, nesting Phase 2
+                            possibilities as sub-branches before evaluation.</p>
                     </div>
                 </div>
 
@@ -177,14 +176,13 @@
                     style="border-left: 1px solid var(--accent-color); background: rgba(255, 107, 0, 0.02);">
                     <h3
                         style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--accent-color); margin-bottom: 1rem;">
-                        // GENESIS NOTE</h3>
-                    <p style="color: var(--text-dim); font-size: 0.9rem; line-height: 1.6;">
-                        This move-calculator logic was so pervasive during development that it famously interfered with
-                        the author's CS-161 final.
-                        While the exam demanded manual procedural syntax, the author was already leveraging AI to
-                        architect high-dimensional
-                        vector spaces—proving that the ability to <strong>orchestrate complex logic</strong> is the
-                        superior engineering path.
+                        // ARCHITECTURAL SIGNIFICANCE</h3>
+                    <p style="color: var(--text-dim); font-size: 0.9rem; line-height: 1.7;">
+                        The move calculator established a principle that carries through every subsequent G-ynthetic system:
+                        <strong style="color: var(--text-main);">spatial accountability is non-negotiable.</strong>
+                        A move that cannot be validated against the full 3D coordinate field is not a valid move.
+                        This constraint — brutal in a chess engine — translates directly into the hallucination-resistance
+                        architecture of the G-ynthetic Lattice, where every output must resolve to an addressable node.
                     </p>
                 </div>
             </section>

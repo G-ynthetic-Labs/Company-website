@@ -112,10 +112,12 @@
                 <h2 style="font-family: var(--font-header); letter-spacing: -1px; margin-bottom: 2rem;">The Human-Agent
                     Interface</h2>
                 <p style="line-height: 1.8; color: var(--text-dim); margin-bottom: 2rem;">
-                    The `vantageService` in CubeX³ acts as a translator between the raw 512-cube board state and a Large
-                    Language Model.
-                    It allows players to "interview" individual pieces, who report on their localized experience and
-                    Morale status.
+                    The <code>vantageService</code> bridges the 512-cell board state and a Large Language Model
+                    by constructing a piece-specific context packet before every query.
+                    When a player selects a piece and opens dialogue, the system serializes that piece’s
+                    3D coordinate, morale state, kill history, skill loadout, and local threat pressure
+                    into a structured prompt. The LLM then responds in-character, speaking only from
+                    the tactical perspective of that specific unit — not the board as a whole.
                 </p>
 
                 <div style="margin: 4rem 0;">
@@ -137,10 +139,13 @@
                     <h3
                         style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--accent-color); margin-bottom: 1rem;">
                         // CONTEXT PACKET ASSEMBLY</h3>
-                    <p style="color: var(--text-dim); font-size: 0.9rem; line-height: 1.6;">
-                        The Vantage system filters the entire game world into a "Personal Semantic Buffer" for the
-                        selected piece, ensuring the AI
-                        only speaks from its specific 3D coordinate and hierarchical rank.
+                    <p style="color: var(--text-dim); font-size: 0.9rem; line-height: 1.7;">
+                        This is the conceptual precursor to what G-ynthetic calls <em>Prelinguistic Inference</em>.
+                        Rather than asking an LLM to interpret a situation from scratch, Vantage Chat pre-computes
+                        the full structural context — coordinates, morale, threat vectors, allied layout — and
+                        injects it as a governed prompt frame. The LLM renders language; the architecture governs
+                        what that language can claim. The piece cannot lie about its position, because its position
+                        is part of the prompt.
                     </p>
                 </div>
             </section>
