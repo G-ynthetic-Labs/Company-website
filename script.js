@@ -14,20 +14,39 @@
     document.body.prepend(progressBar);
 
     // ============================================================
-    // STICKY NAV — appears after scrolling past header
+    // NAVIGATION CONTROLLER
     // ============================================================
-    const nav = document.createElement('nav');
-    nav.className = 'site-nav';
-    nav.innerHTML = `
-    <div class="nav-logo" style="white-space: nowrap;">G-YNTHETIC LABS</div>
-    <ul class="nav-links">
-      <li><a href="#vision">Foundation</a></li>
-      <li><a href="#core-tech">Projects</a></li>
-      <li><a href="#research">Research</a></li>
-      <li><a href="#ai-problems">Problem Space</a></li>
-    </ul>
-  `;
-    document.body.prepend(nav);
+    const siteNav = document.querySelector('.site-nav');
+    const header = document.querySelector('header');
+    const headerHeight = header ? header.offsetHeight : 500;
+
+    function handleNavigation() {
+        if (!siteNav) return;
+
+        // 1. Auto-set Active Link
+        const currentPath = window.location.pathname.split('/').pop() || 'index.html';
+        const navLinks = siteNav.querySelectorAll('.nav-links a');
+        
+        navLinks.forEach(link => {
+            const href = link.getAttribute('href');
+            if (href === currentPath || (currentPath === 'index.html' && href === 'index.html')) {
+                link.classList.add('active');
+            } else {
+                link.classList.remove('active');
+            }
+        });
+
+        // 2. Scroll-driven visibility (for Homepage)
+        if (currentPath === 'index.html' || currentPath === '') {
+            window.addEventListener('scroll', () => {
+                const scrollY = window.scrollY;
+                siteNav.classList.toggle('visible', scrollY > headerHeight * 0.4);
+            }, { passive: true });
+        } else {
+            // Always visible on sub-pages
+            siteNav.classList.add('visible');
+        }
+    }
 
     // ============================================================
     // INTERSECTION OBSERVER — Staggered reveals
@@ -140,33 +159,7 @@
         });
     }
 
-    // ============================================================
-    // SCROLL HANDLER — progress bar + sticky nav
-    // ============================================================
-    let ticking = false;
-    const header = document.querySelector('header');
-    const headerHeight = header ? header.offsetHeight : 500;
-
-    function onScroll() {
-        if (!ticking) {
-            requestAnimationFrame(() => {
-                const scrollY = window.scrollY;
-                const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-                const progress = docHeight > 0 ? (scrollY / docHeight) * 100 : 0;
-
-                // Update progress bar width
-                progressBar.style.width = progress + '%';
-
-                // Toggle nav visibility
-                nav.classList.toggle('visible', scrollY > headerHeight * 0.6);
-
-                ticking = false;
-            });
-            ticking = true;
-        }
-    }
-
-    window.addEventListener('scroll', onScroll, { passive: true });
+    // REMOVED old scroll logic here, moved to handleNavigation()
 
     // ============================================================
     // SMOOTH SCROLL for anchor links
@@ -291,8 +284,16 @@
         // Research Overlay
         initResearchOverlay();
 
-        // Initial scroll state
-        onScroll();
+        // Navigation & Scroll Initialization
+        handleNavigation();
+
+        // Update progress bar on scroll (Simplified)
+        window.addEventListener('scroll', () => {
+            const scrollY = window.scrollY;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const progress = docHeight > 0 ? (scrollY / docHeight) * 100 : 0;
+            progressBar.style.width = progress + '%';
+        }, { passive: true });
 
         // Console branding
         console.log(

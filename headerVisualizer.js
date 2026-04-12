@@ -276,7 +276,7 @@ function createLatticeInstance(canvasId) {
 }
 
 function initAllVisualizers() {
-  createLatticeInstance('header-lattice');
+  createLatticeInstance('hypercube-header');
   createLatticeInstance('lattice-section');
 }
 

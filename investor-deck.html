@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>G-ynthetic Labs — Holographic Investor Package</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  --S:620px; --H:calc(var(--S)/2);
+  --cyan:#00FFFF; --purple:#9B30FF;
+  --rx:14deg; --ry:-22deg;
+  --font-sans:'Space Grotesk',sans-serif;
+  --font-mono:'JetBrains Mono',monospace;
+  --x-tint:rgba(220,60,60,.038); --y-tint:rgba(60,200,80,.032); --z-tint:rgba(60,120,255,.036);
+  --x-grid:rgba(220,60,60,.072); --y-grid:rgba(60,200,80,.065); --z-grid:rgba(60,120,255,.07);
+}
+
+html,body{width:100%;height:100%;overflow:hidden;background:#03030C;font-family:var(--font-sans);color:#080812}
+
+/* ── background ─────────────────────────────────────────── */
+#hc-canvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none}
+.bg-grid{position:fixed;inset:0;z-index:1;pointer-events:none;
+  background-image:linear-gradient(rgba(0,255,255,.014) 1px,transparent 1px),
+                   linear-gradient(90deg,rgba(0,255,255,.014) 1px,transparent 1px);
+  background-size:72px 72px}
+.bg-ambient{position:fixed;inset:0;z-index:2;pointer-events:none;
+  background:radial-gradient(ellipse 75% 65% at 50% 50%,rgba(0,255,255,.022) 0%,rgba(155,48,255,.015) 45%,transparent 72%)}
+
+/* ── cube stage ─────────────────────────────────────────── */
+.cube-stage{position:fixed;inset:0;z-index:10;display:flex;align-items:center;justify-content:center;perspective:1600px;perspective-origin:50% 46%}
+.cube{width:var(--S);height:var(--S);position:relative;transform-style:preserve-3d;
+  transform:rotateX(var(--rx)) rotateY(var(--ry));
+  transition:transform 1.1s cubic-bezier(.4,0,.2,1);will-change:transform}
+.cube.extracting{transition:transform 1.65s cubic-bezier(.22,1,.36,1)!important}
+.cube::before,.cube::after{content:'';position:absolute;pointer-events:none;z-index:1;
+  width:var(--S);height:var(--S);border:1px solid rgba(0,255,255,.12);transform-style:preserve-3d}
+.cube::before{transform:translateZ(var(--H))}
+.cube::after{transform:rotateY(180deg) translateZ(var(--H))}
+
+/* ── faces ──────────────────────────────────────────────── */
+.face{position:absolute;width:var(--S);height:var(--S);
+  backface-visibility:hidden;-webkit-backface-visibility:hidden;
+  overflow:hidden;outline:1px solid rgba(255,255,255,.06);
+  transition:transform .35s ease, opacity .5s ease}
+.face::after{content:'';position:absolute;inset:0;pointer-events:none;z-index:1;
+  background-image:linear-gradient(var(--gx) 1px,transparent 1px),linear-gradient(90deg,var(--gx) 1px,transparent 1px);
+  background-size:calc(var(--S)/7) calc(var(--S)/7)}
+.face-z{background:var(--z-tint);--gx:var(--z-grid)}
+.face-x{background:var(--x-tint);--gx:var(--x-grid)}
+.face-y{background:var(--y-tint);--gx:var(--y-grid)}
+
+/* --sep var drives dock-hover face separation pop */
+.face-front {transform:translateZ(calc(var(--H) + var(--sep,0px)))}
+.face-back  {transform:rotateY(180deg) translateZ(calc(var(--H) + var(--sep,0px)))}
+.face-right {transform:rotateY(90deg)  translateZ(calc(var(--H) + var(--sep,0px)))}
+.face-left  {transform:rotateY(-90deg) translateZ(calc(var(--H) + var(--sep,0px)))}
+.face-top   {transform:rotateX(90deg)  translateZ(calc(var(--H) + var(--sep,0px)))}
+.face-bottom{transform:rotateX(-90deg) translateZ(calc(var(--H) + var(--sep,0px)))}
+
+.doc{position:absolute;inset:22px;background:rgba(248,248,251,.96);
+  box-shadow:0 2px 12px rgba(0,0,0,.35),0 0 40px rgba(0,255,255,.04);
+  padding:28px 32px 24px;overflow-y:auto;scrollbar-width:none}
+.doc::-webkit-scrollbar{display:none}
+
+.axis-strip{position:absolute;bottom:0;left:0;right:0;height:3px;z-index:2;pointer-events:none}
+.face-z .axis-strip{background:linear-gradient(90deg,transparent,rgba(60,120,255,.45),transparent)}
+.face-x .axis-strip{background:linear-gradient(90deg,transparent,rgba(220,60,60,.45),transparent)}
+.face-y .axis-strip{background:linear-gradient(90deg,transparent,rgba(60,200,80,.45),transparent)}
+
+/* ── doc typography ─────────────────────────────────────── */
+.dt{display:flex;justify-content:space-between;align-items:center;padding-bottom:10px;margin-bottom:18px;border-bottom:1.5px solid #080812}
+.dw{font-family:var(--font-mono);font-size:9px;font-weight:500;letter-spacing:.18em;color:#080812;text-transform:uppercase}
+.dw em{color:#9B30FF;font-style:normal}
+.di{font-family:var(--font-mono);font-size:8px;color:#6A6A8A;letter-spacing:.1em}
+.de{font-family:var(--font-mono);font-size:9px;letter-spacing:.13em;text-transform:uppercase;color:#9B30FF;margin-bottom:6px}
+.dh{font-size:20px;font-weight:700;letter-spacing:-.02em;line-height:1.2;color:#080812;margin-bottom:6px}
+.dl{font-size:11.5px;line-height:1.65;color:#2A2A42;margin-bottom:12px}
+.dl b,.dp b{color:#080812;font-weight:600}
+.dp{font-size:11px;line-height:1.7;color:#2A2A42;margin-bottom:7px}
+.ds{font-size:10px;font-weight:600;letter-spacing:.11em;text-transform:uppercase;color:#080812;margin-bottom:6px;margin-top:16px;padding-bottom:4px;border-bottom:1px solid #E2E2EE}
+.du{list-style:none;padding:0}
+.du li{font-size:11px;line-height:1.65;color:#2A2A42;padding-left:14px;position:relative;margin-bottom:4px}
+.du li::before{content:'—';position:absolute;left:0;color:#9B30FF}
+.du li b{color:#080812;font-weight:600}
+.dq{margin:12px 0;padding:12px 16px;border-left:3px solid #9B30FF;background:rgba(155,48,255,.04)}
+.dq p{font-size:12px;font-style:italic;line-height:1.55;color:#080812;margin-bottom:7px}
+.dqa{font-family:var(--font-mono);font-size:8px;letter-spacing:.11em;color:#9B30FF;text-transform:uppercase}
+.dstats{display:flex;gap:0;margin:14px 0;border:1.5px solid #080812}
+.dst{flex:1;padding:10px 12px;border-right:1px solid #E2E2EE}
+.dst:last-child{border-right:none}
+.dsl{font-family:var(--font-mono);font-size:8px;letter-spacing:.12em;text-transform:uppercase;color:#6A6A8A;margin-bottom:3px}
+.dsv{font-size:18px;font-weight:700;color:#080812;letter-spacing:-.02em}
+.dtbl{width:100%;border-collapse:collapse;margin:6px 0}
+.dtbl tr{border-bottom:1px solid #E2E2EE}
+.dtbl tr:last-child{border-bottom:none}
+.dtbl td{padding:6px 8px;font-size:11px;color:#2A2A42}
+.dtbl td:first-child{font-family:var(--font-mono);font-size:9px;color:#6A6A8A;letter-spacing:.05em;width:60%}
+.dtbl td:last-child{font-weight:600;color:#080812;text-align:right}
+.dfoot{margin-top:14px;padding-top:10px;border-top:1px solid #E2E2EE;font-family:var(--font-mono);font-size:8px;color:#AAAACC}
+
+/* ══ FRACTAL GRID ══════════════════════════════════════════ */
+.frac-label{font-family:var(--font-mono);font-size:8px;letter-spacing:.15em;text-transform:uppercase;margin-bottom:8px;display:flex;gap:8px;align-items:center}
+.fl-dim{border:1px solid rgba(60,200,80,.5);padding:1px 6px;color:rgba(60,200,80,.85)}
+.fl-state{border:1px solid rgba(155,48,255,.4);padding:1px 6px;color:rgba(155,48,255,.7)}
+.arc-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:2px}
+.arc-col{border:1px solid rgba(0,160,160,.26);background:rgba(0,160,160,.022);display:flex;flex-direction:column;position:relative;overflow:hidden}
+.arc-col.atot{border-color:rgba(155,48,255,.38);background:rgba(155,48,255,.035)}
+.arc-col.acon{border-color:rgba(155,48,255,.28);background:rgba(155,48,255,.025)}
+.arc-head{background:rgba(0,180,180,.065);padding:4px 5px 3px;border-bottom:1px solid rgba(0,180,180,.16);position:relative}
+.arc-col.atot .arc-head,.arc-col.acon .arc-head{background:rgba(155,48,255,.08);border-bottom-color:rgba(155,48,255,.2)}
+.arc-id{font-family:var(--font-mono);font-size:6px;font-weight:500;color:rgba(0,185,185,.7);letter-spacing:.1em;text-transform:uppercase;margin-bottom:2px}
+.arc-col.atot .arc-id,.arc-col.acon .arc-id{color:rgba(155,48,255,.65)}
+.arc-nm{font-family:var(--font-mono);font-size:6.5px;font-weight:500;color:#080812;line-height:1.3}
+.arc-co{position:absolute;top:3px;right:4px;font-family:var(--font-mono);font-size:5px;color:rgba(0,185,185,.3);letter-spacing:.04em}
+.arc-col.atot .arc-co,.arc-col.acon .arc-co{color:rgba(155,48,255,.3)}
+.arc-body{flex:1;padding:4px 5px}
+.arc-amt{font-family:var(--font-mono);font-size:8px;font-weight:500;color:#080812;letter-spacing:.01em;margin-bottom:2px}
+.arc-pct{font-family:var(--font-mono);font-size:6px;color:#6A6A8A;margin-bottom:3px}
+.arc-bar{height:2px;background:rgba(0,0,0,.07);border-radius:1px;overflow:hidden}
+.arc-fill{height:100%;border-radius:1px;background:rgba(0,185,185,.5)}
+.arc-col.atot .arc-fill,.arc-col.acon .arc-fill{background:rgba(155,48,255,.5)}
+.arc-hint{margin-top:4px;padding:2px 4px;border:1px dashed rgba(0,185,185,.18);background:rgba(0,185,185,.02);font-family:var(--font-mono);font-size:5.5px;color:rgba(0,185,185,.38);text-align:center}
+.arc-col.atot .arc-hint,.arc-col.acon .arc-hint{border-color:rgba(155,48,255,.18);color:rgba(155,48,255,.38)}
+.arc-items{list-style:none;border-top:1px solid rgba(0,160,160,.14);padding:0;margin:0}
+.arc-item{padding:2px 5px;border-bottom:1px solid rgba(0,0,0,.04);display:flex;flex-direction:column;gap:1px;opacity:0;transform:translateY(2px);transition:opacity .28s ease,transform .28s ease}
+.arc-item.on{opacity:1;transform:none}
+.arc-iname{font-family:var(--font-mono);font-size:5.5px;color:#6A6A8A;line-height:1.25}
+.arc-iamt{font-family:var(--font-mono);font-size:7px;font-weight:500;color:#080812}
+.arc-icoord{font-family:var(--font-mono);font-size:4.5px;color:rgba(0,185,185,.28);letter-spacing:.04em}
+.arc-col.atot .arc-icoord,.arc-col.acon .arc-icoord{color:rgba(155,48,255,.28)}
+.arc-foot{border-top:1px solid rgba(0,185,185,.22);padding:3px 5px;background:rgba(0,185,185,.03)}
+.arc-col.atot .arc-foot,.arc-col.acon .arc-foot{border-top-color:rgba(155,48,255,.22);background:rgba(155,48,255,.035)}
+.arc-ftot{font-family:var(--font-mono);font-size:7.5px;font-weight:600;color:#080812}
+.arc-flbl{font-family:var(--font-mono);font-size:5px;color:#6A6A8A;letter-spacing:.07em;text-transform:uppercase}
+.frac-foot{margin-top:8px;padding:5px 8px;border:1px solid rgba(60,200,80,.18);background:rgba(60,200,80,.015);display:flex;gap:14px;align-items:center}
+.ff-item{font-family:var(--font-mono);font-size:7px;color:#6A6A8A}
+.ff-item span{color:#080812;font-weight:600}
+.ff-eq{font-family:var(--font-mono);font-size:7px;color:rgba(60,200,80,.5);letter-spacing:.06em;margin-left:auto}
+
+/* ── scan beam ──────────────────────────────────────────── */
+.scan-beam{position:absolute;left:-4px;right:-4px;height:2px;z-index:50;
+  background:linear-gradient(90deg,transparent,rgba(60,200,80,.4) 20%,rgba(60,200,80,.95) 50%,rgba(60,200,80,.4) 80%,transparent);
+  box-shadow:0 0 10px rgba(60,200,80,.6),0 0 24px rgba(60,200,80,.3);
+  pointer-events:none;top:0;animation:sbMove var(--sbd,1.65s) linear forwards;animation-delay:.1s}
+@keyframes sbMove{from{top:-2px;opacity:0}5%{opacity:1}95%{opacity:1}to{top:calc(100%+2px);opacity:0}}
+@keyframes glitchOut{0%{opacity:1;filter:brightness(1)}20%{opacity:1;filter:brightness(2.5) saturate(2)}55%{opacity:.5;filter:brightness(1.4) hue-rotate(25deg)}100%{opacity:0;filter:brightness(0) blur(1px)}}
+@keyframes scanIn{from{clip-path:inset(0 0 100% 0)}to{clip-path:inset(0 0 0 0)}}
+
+/* ══ DOCK ═══════════════════════════════════════════════════ */
+.dock-shell{
+  position:fixed;right:18px;top:50%;transform:translateY(-50%);
+  z-index:100;display:flex;flex-direction:column;gap:7px}
+.dock-btn{
+  display:flex;flex-direction:column;align-items:flex-start;gap:2px;
+  padding:8px 13px;min-width:104px;
+  background:rgba(6,6,18,.78);border-radius:3px;cursor:pointer;
+  font-family:var(--font-mono);user-select:none;backdrop-filter:blur(10px);
+  position:relative;will-change:transform;transform:translateY(0) translateZ(0);
+  transition:transform .2s ease, box-shadow .2s ease, background .2s ease, border-color .2s ease}
+.db-z{border:1px solid rgba(60,120,255,.2);
+  box-shadow:0 1px 0 rgba(255,255,255,.07) inset,0 -1px 0 rgba(0,0,0,.4) inset,0 4px 16px rgba(0,0,0,.6),0 0 14px rgba(60,120,255,.05)}
+.db-x{border:1px solid rgba(220,60,60,.2);
+  box-shadow:0 1px 0 rgba(255,255,255,.07) inset,0 -1px 0 rgba(0,0,0,.4) inset,0 4px 16px rgba(0,0,0,.6),0 0 14px rgba(220,60,60,.05)}
+.db-y{border:1px solid rgba(60,200,80,.2);
+  box-shadow:0 1px 0 rgba(255,255,255,.07) inset,0 -1px 0 rgba(0,0,0,.4) inset,0 4px 16px rgba(0,0,0,.6),0 0 14px rgba(60,200,80,.05)}
+.dock-btn:hover{transform:translateY(-4px) translateZ(0)}
+.db-z:hover{background:rgba(60,120,255,.09);border-color:rgba(60,120,255,.4);
+  box-shadow:0 1px 0 rgba(255,255,255,.1) inset,0 -1px 0 rgba(0,0,0,.4) inset,0 9px 24px rgba(0,0,0,.7),0 0 22px rgba(60,120,255,.12)}
+.db-x:hover{background:rgba(220,60,60,.09);border-color:rgba(220,60,60,.4);
+  box-shadow:0 1px 0 rgba(255,255,255,.1) inset,0 -1px 0 rgba(0,0,0,.4) inset,0 9px 24px rgba(0,0,0,.7),0 0 22px rgba(220,60,60,.12)}
+.db-y:hover{background:rgba(60,200,80,.09);border-color:rgba(60,200,80,.4);
+  box-shadow:0 1px 0 rgba(255,255,255,.1) inset,0 -1px 0 rgba(0,0,0,.4) inset,0 9px 24px rgba(0,0,0,.7),0 0 22px rgba(60,200,80,.12)}
+.dock-btn.pressed{transform:translateY(3px) translateZ(0)!important;transition:transform .06s ease!important}
+.db-z.pressed{box-shadow:0 -1px 0 rgba(255,255,255,.04) inset,0 1px 0 rgba(0,0,0,.55) inset,0 1px 5px rgba(0,0,0,.7);background:rgba(60,120,255,.06)}
+.db-x.pressed{box-shadow:0 -1px 0 rgba(255,255,255,.04) inset,0 1px 0 rgba(0,0,0,.55) inset,0 1px 5px rgba(0,0,0,.7);background:rgba(220,60,60,.06)}
+.db-y.pressed{box-shadow:0 -1px 0 rgba(255,255,255,.04) inset,0 1px 0 rgba(0,0,0,.55) inset,0 1px 5px rgba(0,0,0,.7);background:rgba(60,200,80,.06)}
+@keyframes btnBounce{
+  0%  {transform:translateY(3px) translateZ(0)}
+  42% {transform:translateY(-7px) translateZ(0)}
+  68% {transform:translateY(-1px) translateZ(0)}
+  84% {transform:translateY(-4px) translateZ(0)}
+  100%{transform:translateY(0) translateZ(0)}}
+.dock-btn.bouncing{animation:btnBounce .44s cubic-bezier(.34,1.56,.64,1) forwards;transition:none!important}
+.db-z.db-active{border-color:rgba(60,120,255,.5);background:rgba(60,120,255,.11);
+  box-shadow:0 1px 0 rgba(255,255,255,.1) inset,0 -1px 0 rgba(0,0,0,.4) inset,0 4px 18px rgba(0,0,0,.65),0 0 26px rgba(60,120,255,.16)}
+.db-x.db-active{border-color:rgba(220,60,60,.5);background:rgba(220,60,60,.11);
+  box-shadow:0 1px 0 rgba(255,255,255,.1) inset,0 -1px 0 rgba(0,0,0,.4) inset,0 4px 18px rgba(0,0,0,.65),0 0 26px rgba(220,60,60,.16)}
+.db-y.db-active{border-color:rgba(60,200,80,.5);background:rgba(60,200,80,.11);
+  box-shadow:0 1px 0 rgba(255,255,255,.1) inset,0 -1px 0 rgba(0,0,0,.4) inset,0 4px 18px rgba(0,0,0,.65),0 0 26px rgba(60,200,80,.16)}
+.db-axis{font-size:7px;letter-spacing:.2em;font-weight:500;opacity:.6}
+.db-z .db-axis,.db-z.db-active .db-axis{color:rgba(130,175,255,.95)}
+.db-x .db-axis,.db-x.db-active .db-axis{color:rgba(255,130,130,.95)}
+.db-y .db-axis,.db-y.db-active .db-axis{color:rgba(100,230,130,.95)}
+.db-title{font-size:8px;letter-spacing:.11em;text-transform:uppercase;color:rgba(255,255,255,.5);line-height:1.2;white-space:nowrap}
+.dock-btn.db-active .db-title{color:rgba(255,255,255,.82)}
+
+/* ══ FOCUS OVERLAY ══════════════════════════════════════════ */
+.focus-overlay{
+  position:fixed;inset:0;z-index:200;
+  background:rgba(3,3,12,.88);backdrop-filter:blur(4px);
+  display:flex;align-items:center;justify-content:center;
+  opacity:0;pointer-events:none;transition:opacity .45s ease}
+.focus-overlay.visible{opacity:1;pointer-events:all}
+.focus-doc-wrap{
+  width:min(700px,88vw);max-height:90vh;overflow-y:auto;
+  background:rgba(248,248,251,.99);padding:40px 48px 52px;
+  box-shadow:0 20px 120px rgba(0,0,0,.9),0 0 200px rgba(0,255,255,.03);
+  scrollbar-width:thin;scrollbar-color:rgba(155,48,255,.28) transparent;position:relative}
+.focus-overlay.visible .focus-doc-wrap{animation:focusIn .5s cubic-bezier(.34,1.15,.64,1) both}
+@keyframes focusIn{from{transform:scale(.93) translateY(12px)}to{transform:scale(1) translateY(0)}}
+.focus-doc-wrap::-webkit-scrollbar{width:4px}
+.focus-doc-wrap::-webkit-scrollbar-track{background:transparent}
+.focus-doc-wrap::-webkit-scrollbar-thumb{background:rgba(155,48,255,.28);border-radius:2px}
+/* override .doc positioning inside overlay */
+.focus-doc-wrap .doc{
+  position:static!important;inset:auto!important;
+  box-shadow:none!important;background:transparent!important;
+  padding:0!important;overflow:visible!important;height:auto!important}
+
+/* ── back button ────────────────────────────────────────── */
+.back-btn{
+  position:fixed;top:20px;left:20px;z-index:210;
+  display:none;align-items:center;gap:7px;
+  background:rgba(5,5,16,.8);border:1px solid rgba(255,255,255,.15);
+  color:rgba(255,255,255,.6);padding:9px 20px;border-radius:2px;
+  font-family:var(--font-mono);font-size:9px;letter-spacing:.18em;text-transform:uppercase;
+  cursor:pointer;backdrop-filter:blur(10px);transition:all .2s ease}
+.back-btn:hover{border-color:rgba(0,255,255,.45);color:rgba(0,255,255,.9);
+  background:rgba(0,255,255,.05);box-shadow:0 0 20px rgba(0,255,255,.07)}
+.back-btn::before{content:'←';font-size:12px;opacity:.8;margin-right:2px}
+
+/* ── nav ────────────────────────────────────────────────── */
+.nav-shell{position:fixed;bottom:16px;left:50%;transform:translateX(-50%);z-index:100;display:flex;flex-direction:column;align-items:center;gap:6px}
+.nav-ring{display:flex;align-items:center;gap:10px}
+.nav-btn{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.4);width:26px;height:26px;border-radius:50%;cursor:pointer;font-size:12px;display:flex;align-items:center;justify-content:center;transition:all .2s;backdrop-filter:blur(6px);font-family:var(--font-mono)}
+.nav-btn:hover{border-color:rgba(0,255,255,.5);color:rgba(0,255,255,.9);background:rgba(0,255,255,.06)}
+.nav-face-id{font-family:var(--font-mono);font-size:8px;letter-spacing:.16em;color:rgba(255,255,255,.18);text-transform:uppercase;text-align:center}
+.key-hint{position:fixed;bottom:16px;right:16px;font-family:var(--font-mono);font-size:7px;color:rgba(255,255,255,.1);letter-spacing:.1em;z-index:100;line-height:1.8}
+</style>
+</head>
+<body>
+
+<canvas id="hc-canvas"></canvas>
+<div class="bg-grid"></div>
+<div class="bg-ambient"></div>
+
+<div class="cube-stage">
+<div class="cube" id="cube">
+
+  <!-- FRONT · Z+ · ORIGIN -->
+  <div class="face face-z face-front" id="face-front">
+    <div class="axis-strip"></div>
+    <div class="doc">
+      <div class="dt"><div class="dw">G<em>-</em>YNTHETIC LABS</div><div class="di">Z+ · ORIGIN · FACE 1/6</div></div>
+      <div class="de">Investor Package · Seed Round · March 2026</div>
+      <div class="dh">Synthetic Cognition<br>for the Post-Linguistic Era</div>
+      <div class="dl">Deep technology R&amp;D building the foundational infrastructure for <b>artificial cognition</b> — inherently explainable, hallucination-proof, domain-agnostic.</div>
+      <div class="dq">
+        <p>"I think many everyday users underestimate just exactly what AI can really do. If we think small, then we ask small, and little is what we obtain."</p>
+        <div class="dqa">— William Wallace Morehead // Founder</div>
+      </div>
+      <div class="dstats">
+        <div class="dst"><div class="dsl">Raise</div><div class="dsv">$275K</div></div>
+        <div class="dst"><div class="dsl">Equity</div><div class="dsv">10%</div></div>
+        <div class="dst"><div class="dsl">Pre-Money</div><div class="dsv">$2.75M</div></div>
+        <div class="dst"><div class="dsl">Min. Ticket</div><div class="dsv">$25K</div></div>
+      </div>
+      <div class="dfoot">G-ynthetic-Labs@proton.me · g-ynthetic-labs.github.io/Company-website</div>
+    </div>
+  </div>
+
+  <!-- BACK · Z− · THE ASK -->
+  <div class="face face-z face-back" id="face-back">
+    <div class="axis-strip"></div>
+    <div class="doc">
+      <div class="dt"><div class="dw">G<em>-</em>YNTHETIC LABS</div><div class="di">Z− · THE ASK · FACE 2/6</div></div>
+      <div class="de">Seed Round</div>
+      <div class="dh">The Investment</div>
+      <div class="dl"><b>The architecture is built. Now comes commercialization.</b> 18–24 month runway to first enterprise revenue.</div>
+      <div class="ds">Terms</div>
+      <table class="dtbl">
+        <tr><td>Total Raise</td><td>$275,000</td></tr>
+        <tr><td>Equity Offered</td><td>10%</td></tr>
+        <tr><td>Pre-Money Valuation</td><td>$2,750,000</td></tr>
+        <tr><td>Minimum per Investor</td><td>$25,000</td></tr>
+      </table>
+      <div class="ds">What This Achieves</div>
+      <ul class="du">
+        <li>IP protection — provisional and utility patent filings</li>
+        <li>Scale demos to production-grade enterprise systems</li>
+        <li>18–24 months full-time development and commercialization</li>
+        <li>First enterprise licensing conversations with production-ready system</li>
+      </ul>
+      <div class="ds">Contact</div>
+      <p class="dp" style="font-family:var(--font-mono);font-size:10px">G-ynthetic-Labs@proton.me</p>
+      <p class="dp" style="font-family:var(--font-mono);font-size:9px;color:#6A6A8A">g-ynthetic-labs.github.io/Company-website</p>
+      <div class="dfoot">© 2026 G-ynthetic Labs · Public Disclosure · Defensible Prior Art Active</div>
+    </div>
+  </div>
+
+  <!-- RIGHT · X+ · THESIS -->
+  <div class="face face-x face-right" id="face-right">
+    <div class="axis-strip"></div>
+    <div class="doc">
+      <div class="dt"><div class="dw">G<em>-</em>YNTHETIC LABS</div><div class="di">X+ · THESIS · FACE 3/6</div></div>
+      <div class="de">Problem &amp; Solution</div>
+      <div class="dh">The $3B Problem &amp; Its Structural Fix</div>
+      <div class="ds">Three Compounding Failures</div>
+      <p class="dp"><b>Hallucination</b> — no deterministic reasoning scaffold; LLMs invent information by design. <b>Semantic Drift</b> — linear token windows degrade context over time. <b>Accountability Opacity</b> — no inspectable reasoning path in regulated industries.</p>
+      <div class="ds">The G-ynthetic Architecture</div>
+      <p class="dp"><b>Symbolic Logic Layer</b> — bootstraps LLMs; channeling gradient descent into a logical symbolic processor. The LLM is a rendering engine, not a reasoning engine. <b>Hallucination architecturally impossible.</b></p>
+      <p class="dp"><b>Fractal Memory Lattice</b> — 343-node holographic coordinate system. Spatially-indexed persistent memory. Context doesn't degrade — <b>it compounds.</b></p>
+      <p class="dp"><b>Pre-Linguistic Inference</b> — decomposes input into irreducible primitives <b>before token generation</b>. Actual cognition, not statistical mimicry.</p>
+      <p class="dp"><b>Domain Agnosticism</b> — same rules, any domain. No retraining. No fine-tuning. One engine.</p>
+      <div class="dfoot">© 2026 G-ynthetic Labs · Public Disclosure · Defensible Prior Art Active</div>
+    </div>
+  </div>
+
+  <!-- LEFT · X− · VALIDATION -->
+  <div class="face face-x face-left" id="face-left">
+    <div class="axis-strip"></div>
+    <div class="doc">
+      <div class="dt"><div class="dw">G<em>-</em>YNTHETIC LABS</div><div class="di">X− · VALIDATION · FACE 4/6</div></div>
+      <div class="de">Market &amp; Demonstrated Capabilities</div>
+      <div class="dh">$21B Market &amp; Five Working Systems</div>
+      <div class="dstats" style="margin:10px 0">
+        <div class="dst"><div class="dsl">XAI 2025</div><div class="dsv" style="font-size:14px">$11B</div></div>
+        <div class="dst"><div class="dsl">XAI 2030</div><div class="dsv" style="font-size:14px">$21B+</div></div>
+        <div class="dst"><div class="dsl">AI 2034</div><div class="dsv" style="font-size:14px">$2.48T</div></div>
+      </div>
+      <p class="dp">Regulatory mandates (GDPR, FDA, AI governance) are forcing enterprises to adopt <b>inherently explainable AI</b>. Incumbents are post-hoc. We are pre-hoc — we eliminate the need for explainability dashboards entirely.</p>
+      <div class="ds">Five Working Implementations</div>
+      <ul class="du">
+        <li><b>F.R.A.C.C. Cognitive Matrix</b> — real-time deterministic sentence decomposition on 7-Arc topology</li>
+        <li><b>Final Dawn of Eideus</b> — multi-galactic NL RPG; zero semantic drift across thousands of interactions</li>
+        <li><b>City SeCUReD</b> — autonomous civil infrastructure crisis mitigation</li>
+        <li><b>Cubex³</b> — 8×8×8 tensor field chess engine; high-dimensional reasoning at computational limits</li>
+        <li><b>OrbitGen-AI</b> — fractal templates → full world metadata in minutes, not months</li>
+      </ul>
+      <div class="dfoot">© 2026 G-ynthetic Labs · Public Disclosure · Defensible Prior Art Active</div>
+    </div>
+  </div>
+
+  <!-- TOP · Y+ · BROAD STROKES -->
+  <div class="face face-y face-top" id="face-top">
+    <div class="axis-strip"></div>
+    <div class="doc">
+      <div class="dt"><div class="dw">G<em>-</em>YNTHETIC LABS</div><div class="di">Y+ · BROAD STROKES · FACE 5/6</div></div>
+      <div class="de">Use of Funds — Superposition State</div>
+      <div class="dh" style="font-size:17px">Broad Strokes Allocation</div>
+      <div class="dl" style="font-size:10.5px;margin-bottom:8px">Six budget arcs across the <b>7-Arc topological framework</b>. Each arc is a compressed superposition of its itemized line items.</div>
+      <div class="frac-label">
+        <span class="fl-dim">1 × 3 × 7</span>
+        <span class="fl-state">SUPERPOSITION · 21 NODES</span>
+        <span style="font-family:var(--font-mono);font-size:7px;color:rgba(60,200,80,.45);margin-left:auto">↓ EXTRACT TO Y−</span>
+      </div>
+      <div class="arc-grid" id="broad-grid"></div>
+      <div class="frac-foot">
+        <div class="ff-item">Arcs <span>7</span></div>
+        <div class="ff-item">Rows <span>3</span></div>
+        <div class="ff-item">Nodes <span>21</span></div>
+        <div class="ff-item">Total <span>$275,000</span></div>
+        <div class="ff-eq">1 × 3 × 7 = 21 → ROTATE ↓</div>
+      </div>
+      <div class="dfoot">Each node contains compressed sub-state · expand on Y− face</div>
+    </div>
+  </div>
+
+  <!-- BOTTOM · Y− · ITEMIZED -->
+  <div class="face face-y face-bottom" id="face-bottom">
+    <div class="axis-strip"></div>
+    <div class="doc" id="itemized-doc">
+      <div class="dt"><div class="dw">G<em>-</em>YNTHETIC LABS</div><div class="di">Y− · ITEMIZED · FACE 6/6</div></div>
+      <div class="de">Use of Funds — Expanded State</div>
+      <div class="dh" style="font-size:17px">Itemized Allocation</div>
+      <div class="dl" style="font-size:10.5px;margin-bottom:8px">Each superposition node from Y+ expanded into constituent line items. <b>Fractal self-similarity at both scales.</b></div>
+      <div class="frac-label">
+        <span class="fl-dim">3 × 3 × 7</span>
+        <span class="fl-state">EXPANDED · 63 NODES</span>
+        <span style="font-family:var(--font-mono);font-size:7px;color:rgba(155,48,255,.5);margin-left:auto">← COLLAPSE TO Y+</span>
+      </div>
+      <div class="arc-grid" id="itemized-grid"></div>
+      <div class="frac-foot" style="border-color:rgba(155,48,255,.2);background:rgba(155,48,255,.015)">
+        <div class="ff-item">Arcs <span>7</span></div>
+        <div class="ff-item">Layers <span>3</span></div>
+        <div class="ff-item">Nodes <span>63</span></div>
+        <div class="ff-item">Total <span>$272,000</span></div>
+        <div class="ff-eq" style="color:rgba(155,48,255,.5)">3 × 3 × 7 = 63 · FULLY OBSERVED</div>
+      </div>
+      <div class="dfoot">All six faces observed · © 2026 G-ynthetic Labs · Defensible Prior Art Active</div>
+    </div>
+  </div>
+
+</div><!-- /cube -->
+</div><!-- /cube-stage -->
+
+<!-- ══ DOCK ══════════════════════════════════════════════════ -->
+<div class="dock-shell" id="dock">
+  <button class="dock-btn db-z db-active" data-face="front" data-band="0" data-vert="0">
+    <span class="db-axis">Z+</span><span class="db-title">ORIGIN</span>
+  </button>
+  <button class="dock-btn db-x" data-face="right" data-band="1" data-vert="0">
+    <span class="db-axis">X+</span><span class="db-title">THESIS</span>
+  </button>
+  <button class="dock-btn db-z" data-face="back" data-band="2" data-vert="0">
+    <span class="db-axis">Z−</span><span class="db-title">THE ASK</span>
+  </button>
+  <button class="dock-btn db-x" data-face="left" data-band="3" data-vert="0">
+    <span class="db-axis">X−</span><span class="db-title">VALIDATION</span>
+  </button>
+  <button class="dock-btn db-y" data-face="top" data-band="0" data-vert="1">
+    <span class="db-axis">Y+</span><span class="db-title">BROAD STROKES</span>
+  </button>
+  <button class="dock-btn db-y" data-face="bottom" data-band="0" data-vert="-1">
+    <span class="db-axis">Y−</span><span class="db-title">ITEMIZED</span>
+  </button>
+</div>
+
+<!-- ══ FOCUS OVERLAY ════════════════════════════════════════ -->
+<div class="focus-overlay" id="focus-overlay">
+  <div class="focus-doc-wrap" id="focus-doc-wrap"></div>
+</div>
+<button class="back-btn" id="back-btn">BACK TO CUBE</button>
+
+<!-- Navigation -->
+<div class="nav-shell">
+  <div class="nav-ring">
+    <button class="nav-btn" id="btn-left">&#8592;</button>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:4px">
+      <button class="nav-btn" id="btn-up">&#8593;</button>
+      <div class="nav-face-id" id="face-label">Z+ · ORIGIN</div>
+      <button class="nav-btn" id="btn-down">&#8595;</button>
+    </div>
+    <button class="nav-btn" id="btn-right">&#8594;</button>
+  </div>
+</div>
+<div class="key-hint">← → ↑ ↓ KEYS · ESC CLOSE<br>CLICK DOCK → OPEN DOC</div>
+
+<script type="importmap">{"imports":{"three":"https://unpkg.com/three@0.161.0/build/three.module.js"}}</script>
+<script type="module">
+import * as THREE from 'three';
+
+// ─── TESSERACT ────────────────────────────────────────────────────────────────
+const canvas=document.getElementById('hc-canvas');
+const renderer=new THREE.WebGLRenderer({canvas,alpha:true,antialias:true});
+renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+renderer.setClearColor(0x000000,0);
+const scene=new THREE.Scene(),camera=new THREE.PerspectiveCamera(58,1,.1,1000);
+camera.position.set(0,0,5.2);
+function resize(){renderer.setSize(innerWidth,innerHeight);camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix()}
+resize();window.addEventListener('resize',resize);
+
+const V4=[];
+for(let i=0;i<16;i++) V4.push([(i&1)?1:-1,(i&2)?1:-1,(i&4)?1:-1,(i&8)?1:-1]);
+const EDGES=[];
+for(let a=0;a<16;a++) for(let b=a+1;b<16;b++){let d=0;for(let k=0;k<4;k++)if(V4[a][k]!==V4[b][k])d++;if(d===1)EDGES.push([a,b]);}
+
+function r4(v,t){
+  let[x,y,z,w]=v;
+  let s=Math.sin(t*.17),c=Math.cos(t*.17),nx,nw;
+  nx=x*c-w*s;nw=x*s+w*c;x=nx;w=nw;
+  s=Math.sin(t*.11);c=Math.cos(t*.11);let ny=y*c-w*s;nw=y*s+w*c;y=ny;w=nw;
+  s=Math.sin(t*.08);c=Math.cos(t*.08);let nz=z*c-w*s;nw=z*s+w*c;z=nz;w=nw;
+  s=Math.sin(t*.05);c=Math.cos(t*.05);nx=x*c-y*s;ny=x*s+y*c;x=nx;y=ny;
+  return[x,y,z,w];
+}
+function p43([x,y,z,w],d=2.4){const s=d/(d-w);return new THREE.Vector3(x*s,y*s,z*s)}
+
+const pa=new Float32Array(EDGES.length*6),ca=new Float32Array(EDGES.length*6);
+const geo=new THREE.BufferGeometry();
+geo.setAttribute('position',new THREE.BufferAttribute(pa,3));
+geo.setAttribute('color',new THREE.BufferAttribute(ca,3));
+const cC=new THREE.Color(0x00FFFF),cP=new THREE.Color(0x9B30FF);
+for(let e=0;e<EDGES.length;e++){
+  const[a,b]=EDGES[e];const ca2=a<8?cC:cP,cb=b<8?cC:cP;
+  ca[e*6]=ca2.r;ca[e*6+1]=ca2.g;ca[e*6+2]=ca2.b;
+  ca[e*6+3]=cb.r;ca[e*6+4]=cb.g;ca[e*6+5]=cb.b;
+}
+geo.attributes.color.needsUpdate=true;
+const mL=new THREE.LineBasicMaterial({vertexColors:true,transparent:true,opacity:.045,blending:THREE.AdditiveBlending,depthTest:false,depthWrite:false});
+const mG=new THREE.LineBasicMaterial({vertexColors:true,transparent:true,opacity:.018,blending:THREE.AdditiveBlending,depthTest:false,depthWrite:false});
+const lL=new THREE.LineSegments(geo,mL);lL.scale.set(1.85,1.85,1.85);scene.add(lL);
+const lG=new THREE.LineSegments(geo,mG);lG.scale.set(1.9,1.9,1.9);scene.add(lG);
+
+// ─── FRACTAL DATA ─────────────────────────────────────────────────────────────
+const BROAD=[
+  {id:'ARC·I',  nm:'Core Technical\nInfra.',  amt:21250, pct:7.7,  cls:'',    hint:'6 nodes'},
+  {id:'ARC·II', nm:'Founder\nEssentials',      amt:34000, pct:12.4, cls:'',    hint:'2 nodes'},
+  {id:'ARC·III',nm:'Legal &\nCompliance',       amt:8500,  pct:3.1,  cls:'',    hint:'3 nodes'},
+  {id:'ARC·IV', nm:'Business\nCo-Founder',      amt:60000, pct:21.8, cls:'acon',hint:'1 node'},
+  {id:'ARC·V',  nm:'Market Entry\n& Ops',       amt:35000, pct:12.7, cls:'acon',hint:'2 nodes'},
+  {id:'ARC·VI', nm:'Contingency\nBuffer',        amt:113250,pct:41.2, cls:'acon',hint:'1 node'},
+  {id:'ARC·VII',nm:'TOTAL\nRAISE',              amt:272000,pct:100,  cls:'atot',hint:'Σ'},
+];
+const ITEMS=[
+  {id:'ARC·I', nm:'Core Technical',cls:'',sub:21250,items:[{n:'Primary Workstation',a:5250},{n:'Cooling & Power',a:5000},{n:'Air-Gapped Server',a:4000},{n:'Security & Logging',a:3500},{n:'Compliance Monitor',a:3000},{n:'Patents (3x)',a:500}]},
+  {id:'ARC·II',nm:'Founder\nEssentials',cls:'',sub:34000,items:[{n:'Living Expenses 24mo',a:33000},{n:'LLM Subscriptions 2yr',a:1000}]},
+  {id:'ARC·III',nm:'Legal &\nCompliance',cls:'',sub:8500,items:[{n:'IP Assignment & Cap',a:2000},{n:'Investor Docs',a:2000},{n:'Dual-Use Compliance',a:4500}]},
+  {id:'ARC·IV',nm:'Business\nCo-Founder',cls:'acon',sub:60000,items:[{n:'Runway 12mo',a:60000}]},
+  {id:'ARC·V', nm:'Market Entry',cls:'acon',sub:35000,items:[{n:'Cloud Infrastructure',a:20000},{n:'Go-to-Market Exec.',a:15000}]},
+  {id:'ARC·VI',nm:'Contingency\nBuffer',cls:'acon',sub:113250,items:[{n:'Strategic Buffer',a:113250}]},
+  {id:'ARC·VII',nm:'TOTAL',cls:'atot',sub:272000,items:[{n:'TOTAL RAISE',a:272000}]},
+];
+const fmt=n=>'$'+n.toLocaleString();
+
+function buildBroad(){
+  const g=document.getElementById('broad-grid');
+  BROAD.forEach((a,ci)=>{
+    const c=document.createElement('div');c.className='arc-col '+a.cls;
+    c.innerHTML=`<div class="arc-head"><div class="arc-id">${a.id}</div><div class="arc-nm">${a.nm.replace('\n','<br>')}</div><div class="arc-co">1·0·${ci}</div></div><div class="arc-body"><div class="arc-amt">${fmt(a.amt)}</div><div class="arc-pct">${a.pct}%</div><div class="arc-bar"><div class="arc-fill" style="width:${a.pct}%"></div></div><div class="arc-hint">▸ ${a.hint}</div></div>`;
+    g.appendChild(c);
+  });
+}
+function buildItemized(){
+  const g=document.getElementById('itemized-grid');
+  ITEMS.forEach((a,ci)=>{
+    const c=document.createElement('div');c.className='arc-col '+a.cls;
+    const iH=a.items.map((it,ri)=>`<li class="arc-item" data-ci="${ci}" data-ri="${ri}"><span class="arc-iname">${it.n}</span><span class="arc-iamt">${fmt(it.a)}</span><span class="arc-icoord">3·${ri}·${ci}</span></li>`).join('');
+    c.innerHTML=`<div class="arc-head"><div class="arc-id">${a.id}</div><div class="arc-nm">${a.nm.replace('\n','<br>')}</div><div class="arc-co">3·0·${ci}</div></div><ul class="arc-items">${iH}</ul><div class="arc-body" style="padding-top:3px"><div class="arc-bar"><div class="arc-fill" style="width:${BROAD[ci].pct}%"></div></div></div><div class="arc-foot"><div class="arc-flbl">subtotal</div><div class="arc-ftot">${fmt(a.sub)}</div></div>`;
+    g.appendChild(c);
+  });
+}
+buildBroad();buildItemized();
+
+function spawnItems(base=0){
+  document.querySelectorAll('#itemized-grid .arc-item').forEach(el=>{
+    const delay=base+parseInt(el.dataset.ci)*55+parseInt(el.dataset.ri)*35;
+    setTimeout(()=>el.classList.add('on'),delay);
+  });
+}
+function resetItems(){document.querySelectorAll('#itemized-grid .arc-item').forEach(el=>el.classList.remove('on'));}
+
+// ─── NAVIGATION ───────────────────────────────────────────────────────────────
+const BAND=[
+  {id:'front',label:'Z+ · ORIGIN',     rx:0, ry:0  },
+  {id:'right',label:'X+ · THESIS',     rx:0, ry:-90},
+  {id:'back', label:'Z− · THE ASK',    rx:0, ry:180},
+  {id:'left', label:'X− · VALIDATION', rx:0, ry:90 },
+];
+const TOP_FACE={id:'top',   label:'Y+ · BROAD STROKES',rx:-90,ry:0};
+const BOT_FACE={id:'bottom',label:'Y− · ITEMIZED',      rx:90, ry:0};
+
+let bandIdx=0,vertical=0,busy=false,pulse=0,extractMode=false;
+const cubeEl=document.getElementById('cube');
+const labelEl=document.getElementById('face-label');
+
+function setCubeRot(rx,ry,extracting=false){
+  cubeEl.classList.toggle('extracting',extracting);
+  cubeEl.style.transform=`rotateX(${rx}deg) rotateY(${ry}deg)`;
+}
+setCubeRot(14,-22);
+
+function updateActiveDock(faceId){
+  document.querySelectorAll('.dock-btn').forEach(b=>b.classList.toggle('db-active',b.dataset.face===faceId));
+}
+
+function goFace(newBandIdx,newVertical,isExtraction=false){
+  if(busy) return;
+  busy=true;
+  pulse=isExtraction?7.0:1.2;
+  if(isExtraction){extractMode=true;resetItems();}
+  const face=newVertical===1?TOP_FACE:newVertical===-1?BOT_FACE:BAND[newBandIdx];
+
+  if(isExtraction){
+    const topDoc=document.querySelector('.face-top .doc');
+    topDoc.style.animation='glitchOut .4s ease-in forwards';
+    const botDoc=document.getElementById('itemized-doc');
+    const beam=document.createElement('div');
+    beam.className='scan-beam';beam.style.setProperty('--sbd','1.65s');
+    botDoc.appendChild(beam);
+    botDoc.style.clipPath='inset(0 0 100% 0)';
+    botDoc.style.animation='scanIn 1.65s cubic-bezier(.16,1,.3,1) forwards';
+    botDoc.style.animationDelay='.1s';
+    setTimeout(()=>{
+      setCubeRot(face.rx,face.ry,true);
+      bandIdx=newBandIdx;vertical=newVertical;
+      labelEl.textContent=face.label;
+      updateActiveDock(face.id);
+      spawnItems(400);
+      setTimeout(()=>{
+        topDoc.style.animation='';
+        botDoc.style.animation='';botDoc.style.clipPath='';
+        beam.remove();extractMode=false;busy=false;
+      },1800);
+    },350);
+  } else {
+    setCubeRot(face.rx,face.ry,false);
+    bandIdx=newBandIdx;vertical=newVertical;
+    labelEl.textContent=face.label;
+    updateActiveDock(face.id);
+    if(newVertical===-1){resetItems();spawnItems(150);}
+    setTimeout(()=>{busy=false;},1150);
+  }
+}
+
+document.getElementById('btn-left').onclick=()=>{
+  if(vertical!==0) goFace(bandIdx,0); else goFace((bandIdx+3)%4,0);
+};
+document.getElementById('btn-right').onclick=()=>{
+  if(vertical!==0) goFace(bandIdx,0); else goFace((bandIdx+1)%4,0);
+};
+document.getElementById('btn-up').onclick=()=>{
+  if(vertical===0||vertical===-1) goFace(bandIdx,1);
+};
+document.getElementById('btn-down').onclick=()=>{
+  if(vertical===1) goFace(bandIdx,-1,true);
+  else if(vertical===-1) goFace(bandIdx,0);
+  else goFace(bandIdx,-1);
+};
+document.addEventListener('keydown',e=>{
+  if(e.key==='ArrowLeft')  document.getElementById('btn-left').click();
+  if(e.key==='ArrowRight') document.getElementById('btn-right').click();
+  if(e.key==='ArrowUp')    document.getElementById('btn-up').click();
+  if(e.key==='ArrowDown')  document.getElementById('btn-down').click();
+  if(e.key==='Escape')     exitFocus();
+});
+
+// ─── FACE SEPARATION ──────────────────────────────────────────────────────────
+function setSeparation(faceId){
+  document.querySelectorAll('.face').forEach(el=>{
+    el.style.setProperty('--sep',el.id==='face-'+faceId?'22px':'-6px');
+  });
+}
+function clearSeparation(){
+  document.querySelectorAll('.face').forEach(el=>el.style.removeProperty('--sep'));
+}
+
+// ─── FOCUS MODE ───────────────────────────────────────────────────────────────
+const overlay=document.getElementById('focus-overlay');
+const focusWrap=document.getElementById('focus-doc-wrap');
+const backBtn=document.getElementById('back-btn');
+let focusActive=false;
+
+function enterFocus(faceId){
+  const faceEl=document.getElementById('face-'+faceId);
+  if(!faceEl) return;
+  const docEl=faceEl.querySelector('.doc');
+  const clone=docEl.cloneNode(true);
+  clone.style.animation='';clone.style.clipPath='';
+  clone.querySelectorAll('.scan-beam').forEach(el=>el.remove());
+  if(faceId==='bottom') clone.querySelectorAll('.arc-item').forEach(el=>el.classList.add('on'));
+  focusWrap.innerHTML='';
+  focusWrap.appendChild(clone);
+  focusActive=true;
+  overlay.classList.add('visible');
+  backBtn.style.display='flex';
+}
+function exitFocus(){
+  if(!focusActive) return;
+  overlay.classList.remove('visible');
+  backBtn.style.display='none';
+  focusActive=false;
+  setTimeout(()=>{focusWrap.innerHTML='';},500);
+}
+backBtn.addEventListener('click',exitFocus);
+overlay.addEventListener('click',e=>{if(e.target===overlay)exitFocus();});
+
+// ─── DOCK ─────────────────────────────────────────────────────────────────────
+document.querySelectorAll('.dock-btn').forEach(btn=>{
+  const faceId=btn.dataset.face;
+  const bandI=parseInt(btn.dataset.band);
+  const vertI=parseInt(btn.dataset.vert);
+
+  btn.addEventListener('mouseenter',()=>{
+    setSeparation(faceId);
+    btn.classList.remove('bouncing');
+  });
+  btn.addEventListener('mouseleave',()=>{
+    clearSeparation();
+    btn.classList.remove('pressed');
+  });
+  btn.addEventListener('mousedown',()=>{
+    btn.classList.remove('bouncing');
+    btn.classList.add('pressed');
+  });
+  btn.addEventListener('mouseup',()=>{
+    btn.classList.remove('pressed');
+    btn.classList.add('bouncing');
+    btn.addEventListener('animationend',()=>btn.classList.remove('bouncing'),{once:true});
+    const isExtraction=(faceId==='bottom'&&vertical===1);
+    goFace(bandI,vertI,isExtraction);
+    const delay=isExtraction?2200:1250;
+    setTimeout(()=>enterFocus(faceId),delay);
+  });
+});
+
+// ─── RENDER LOOP ──────────────────────────────────────────────────────────────
+const clock=new THREE.Clock();
+function animate(){
+  requestAnimationFrame(animate);
+  const t=clock.getElapsedTime();
+  const spd=extractMode?2.6:1.0,tR=t*spd;
+  for(let e=0;e<EDGES.length;e++){
+    const p0=p43(r4(V4[EDGES[e][0]],tR));
+    const p1=p43(r4(V4[EDGES[e][1]],tR));
+    pa[e*6]=p0.x;pa[e*6+1]=p0.y;pa[e*6+2]=p0.z;
+    pa[e*6+3]=p1.x;pa[e*6+4]=p1.y;pa[e*6+5]=p1.z;
+  }
+  geo.attributes.position.needsUpdate=true;
+  const breath=.5+.5*Math.sin(t*.3);
+  const base=.025+breath*.018;
+  if(pulse>0) pulse=Math.max(0,pulse-(extractMode?.006:.016));
+  const burst=pulse*(extractMode?.20:.15);
+  mL.opacity=base+burst;mG.opacity=base*.35+burst*.4;
+  renderer.render(scene,camera);
+}
+animate();
+</script>
+</body>
+</html>

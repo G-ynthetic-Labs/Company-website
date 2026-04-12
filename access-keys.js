@@ -4,7 +4,11 @@ const ACCESS_KEYS = {
     "PATENT-EXAMINER": 2,
     "CITY-SECURED-V1": 3,
     "ADMIN-OVERRIDE": 3,
-    "MASTER-KEY": 3 // Added master key
+    "MASTER-KEY": 3, // Added master key
+    // Investor deck access keys
+    "INVESTOR-2026": 1,       // General investor link
+    "SEED-ROUND-2026": 1,     // Alternative shareable key
+    "ANGEL-NETWORK-2026": 1,  // Angel investor network specific
 };
 
 function decodeSecureKey(key) {

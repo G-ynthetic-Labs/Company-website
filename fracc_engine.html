@@ -140,16 +140,15 @@
     </style>
 </head>
 <body>
-    <nav class="site-nav visible" style="position: fixed; top: 0; left: 0; right: 0; z-index: 1000; padding: 0 10%; height: 48px; display: flex; align-items: center; justify-content: space-between; background: rgba(6,6,8,0.85); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(255,255,255,0.04);">
-        <a href="index.html" style="font-family: inherit; font-size: 0.75rem; font-weight: 600; color: #dfe0e6; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none;">G-<span style="color: #00e4f5;">YNTHETIC</span> LABS</a>
-        <ul style="display: flex; gap: 2.5rem; list-style: none; margin: 0; padding: 0;">
-            <li><a href="index.html#vision" style="font-family: inherit; font-size: 0.6rem; color: #6e6e7a; text-decoration: none; text-transform: uppercase; letter-spacing: 0.12em; transition: color 0.2s;" onmouseover="this.style.color='#00e4f5'" onmouseout="this.style.color='#6e6e7a'">Foundation</a></li>
-            <li><a href="index.html#core-tech" style="font-family: inherit; font-size: 0.6rem; color: #6e6e7a; text-decoration: none; text-transform: uppercase; letter-spacing: 0.12em; transition: color 0.2s;" onmouseover="this.style.color='#00e4f5'" onmouseout="this.style.color='#6e6e7a'">Projects</a></li>
-            <li><a href="index.html#research" style="font-family: inherit; font-size: 0.6rem; color: #6e6e7a; text-decoration: none; text-transform: uppercase; letter-spacing: 0.12em; transition: color 0.2s;" onmouseover="this.style.color='#00e4f5'" onmouseout="this.style.color='#6e6e7a'">Research</a></li>
-            <li><a href="index.html#ai-problems" style="font-family: inherit; font-size: 0.6rem; color: #6e6e7a; text-decoration: none; text-transform: uppercase; letter-spacing: 0.12em; transition: color 0.2s;" onmouseover="this.style.color='#00e4f5'" onmouseout="this.style.color='#6e6e7a'">Problem Space</a></li>
-            <li><a href="about.html" style="font-family: inherit; font-size: 0.6rem; color: #6e6e7a; text-decoration: none; text-transform: uppercase; letter-spacing: 0.12em; transition: color 0.2s;" onmouseover="this.style.color='#00e4f5'" onmouseout="this.style.color='#6e6e7a'">About</a></li>
-            <li><a href="cognitive_sovereignty.html" style="font-family: inherit; font-size: 0.6rem; color: #6e6e7a; text-decoration: none; text-transform: uppercase; letter-spacing: 0.12em; transition: color 0.2s;" onmouseover="this.style.color='#00e4f5'" onmouseout="this.style.color='#6e6e7a'">Mission</a></li>
-            <li><a href="research_portfolio.html" style="font-family: inherit; font-size: 0.6rem; color: #6e6e7a; text-decoration: none; text-transform: uppercase; letter-spacing: 0.12em; transition: color 0.2s;" onmouseover="this.style.color='#00e4f5'" onmouseout="this.style.color='#6e6e7a'">Research Portfolio</a></li>
+    <nav class="site-nav">
+        <a href="index.html" class="nav-logo" style="text-decoration:none;">G-<span>YNTHETIC</span> LABS</a>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="architecture.html">Architecture</a></li>
+            <li><a href="systems.html">Systems</a></li>
+            <li><a href="proof.html">Proof</a></li>
+            <li><a href="research.html">Research</a></li>
+            <li><a href="about.html">About</a></li>
         </ul>
     </nav>
 <div class="dashboard">
@@ -194,11 +193,72 @@
     const ARCS = ["essence", "form", "action", "frame", "intent", "relation", "value"];
     let state = [];
 
-    function init() {
-        state = ARCS.map((arc, i) => ({
-            arc, mag: 0, p1: 0, p2: 0, p3: 0, sum: 0, total: 0, rank: i + 1
-        }));
-        render();
+    // Arc lexicons: words that indicate a token belongs to this arc.
+    // Attribution count becomes magnitude — the user's investment in that arc appearing in output.
+    const ARC_LEXICON = {
+        essence: ['core', 'fundamental', 'basic', 'primary', 'central', 'root', 'meaning', 'nature', 'underlying', 'inherent', 'essentially', 'truly', 'actual', 'real', 'define', 'truth', 'foundation'],
+        form:    ['structure', 'structures', 'shape', 'design', 'pattern', 'format', 'architecture', 'framework', 'model', 'organized', 'construct', 'layer', 'schema', 'template', 'logic', 'built', 'system', 'systems', 'build'],
+        action:  ['automate', 'automation', 'execute', 'implement', 'deploy', 'run', 'operate', 'perform', 'drive', 'trigger', 'process', 'act', 'activate', 'apply', 'create', 'produce', 'generate', 'rapid', 'move', 'change', 'force'],
+        frame:   ['context', 'perspective', 'view', 'approach', 'consider', 'within', 'given', 'under', 'through', 'scope', 'lens', 'situation', 'condition', 'environment', 'setting', 'if', 'when', 'assuming', 'not', 'unless', 'into'],
+        intent:  ['want', 'need', 'goal', 'purpose', 'aim', 'objective', 'target', 'desire', 'plan', 'intend', 'try', 'hope', 'seek', 'should', 'must', 'will', 'ensure', 'guarantee', 'protect', 'built', 'safety', 'safe', 'build'],
+        relation:['connect', 'relate', 'between', 'affect', 'impact', 'interact', 'depend', 'influence', 'link', 'associate', 'together', 'interaction', 'relationship', 'network', 'dynamic', 'feedback', 'systems', 'with'],
+        value:   ['important', 'matter', 'worth', 'benefit', 'cost', 'risk', 'ethical', 'safe', 'safety', 'agency', 'right', 'wrong', 'good', 'bad', 'harm', 'protect', 'freedom', 'human', 'moral', 'principle', 'integrity', 'threatens', 'threat']
+    };
+
+    // Arc polarity: how each arc's attributed content is semantically framed.
+    const ARC_POLARITY = {
+        essence: {
+            pos: ['core', 'fundamental', 'truth', 'principle', 'foundation', 'real', 'actual', 'clear', 'defined', 'established'],
+            neg: ['undefined', 'missing', 'lost', 'corrupted', 'flawed', 'distorted', 'unclear', 'vague']
+        },
+        form: {
+            pos: ['logic', 'logical', 'coherent', 'designed', 'built', 'framework', 'structured', 'organized'],
+            neg: ['unstructured', 'chaotic', 'broken', 'flawed', 'inconsistent', 'rapid', 'unstable']
+        },
+        action: {
+            pos: ['enable', 'build', 'create', 'improve', 'implement', 'deploy', 'perform'],
+            neg: ['threatens', 'automation', 'rapid', 'force', 'automate', 'disrupt', 'override']
+        },
+        frame: {
+            pos: ['established', 'clear', 'defined', 'stable', 'reliable', 'given', 'within'],
+            neg: ['if', 'not', 'unless', 'without', 'threatened', 'uncertain', 'when']
+        },
+        intent: {
+            pos: ['ensure', 'protect', 'safety', 'safe', 'built', 'should', 'must', 'guarantee', 'build', 'want', 'need'],
+            neg: ['threatens', 'harm', 'exploit', 'ignore', 'neglect', 'override', 'not']
+        },
+        relation: {
+            pos: ['connect', 'integrate', 'align', 'support', 'reinforce', 'together', 'with'],
+            neg: ['threatens', 'disrupts', 'breaks', 'undermines', 'against', 'isolates']
+        },
+        value: {
+            pos: ['safety', 'safe', 'human', 'agency', 'protect', 'freedom', 'right', 'ethical', 'moral', 'integrity', 'good', 'benefit', 'important'],
+            neg: ['threatens', 'threat', 'harm', 'wrong', 'bad', 'risk', 'danger', 'cost', 'corrupt']
+        }
+    };
+
+    // Phase emphasis: each phase evaluates a different semantic dimension of the input.
+    const PHASE_EMPHASIS = {
+        p1: { // Input Phase — logical grounding
+            pos: ['logical', 'logic', 'clear', 'defined', 'structured', 'rational', 'explicit', 'systematic', 'coherent'],
+            neg: ['vague', 'ambiguous', 'unclear', 'threatens', 'threat', 'problem', 'not', 'risk']
+        },
+        p2: { // Identity Phase — environmental stability
+            pos: ['stable', 'coherent', 'reliable', 'established', 'resilient', 'consistent', 'built', 'core', 'systems'],
+            neg: ['rapid', 'disrupted', 'unstable', 'automation', 'undermining', 'threatens', 'threat', 'eroding']
+        },
+        p3: { // Inception Phase — intentional charge
+            pos: ['protect', 'ensure', 'safety', 'safe', 'human', 'freedom', 'agency', 'built', 'build', 'enable'],
+            neg: ['harm', 'threatens', 'exploit', 'danger', 'wrong', 'bad', 'threat', 'corrupt']
+        }
+    };
+
+    function tokenize(input) {
+        return input.toLowerCase().split(/\s+/).map(w => w.replace(/[^a-z]/g, '')).filter(Boolean);
+    }
+
+    function countMatches(words, keywords) {
+        return words.filter(w => keywords.includes(w)).length;
     }
 
     function fmt(val) {
@@ -211,7 +271,7 @@
         tbody.innerHTML = state.map(d => `
             <tr>
                 <td class="arc-col">${d.arc}</td>
-                <td>${d.mag || '-'}</td>
+                <td>${d.mag ? d.mag : '-'}</td>
                 <td>${d.mag ? fmt(d.p1) : '-'}</td>
                 <td>${d.mag ? fmt(d.p2) : '-'}</td>
                 <td>${d.mag ? fmt(d.p3) : '-'}</td>
@@ -222,17 +282,13 @@
         `).join('');
     }
 
-    function simpleHash(str, salt) {
-        let hash = 0, comb = str + salt;
-        for (let i = 0; i < comb.length; i++) {
-            hash = ((hash << 5) - hash) + comb.charCodeAt(i);
-            hash |= 0; 
-        }
-        return Math.abs(hash);
+    function init() {
+        state = ARCS.map(arc => ({ arc, mag: 0, p1: 0, p2: 0, p3: 0, sum: 0, total: 0, rank: 0 }));
+        render();
     }
 
     async function executePipeline() {
-        const input = document.getElementById('userInput').value.trim().toLowerCase();
+        const input = document.getElementById('userInput').value.trim();
         if (!input) return;
 
         const btn = document.getElementById('runBtn');
@@ -241,25 +297,63 @@
         btn.innerText = "Processing...";
         matrix.classList.add('processing');
 
-        // Simulate network/compute latency for realism
         await new Promise(r => setTimeout(r, 600));
 
-        const words = input.split(/\s+/).filter(Boolean);
-        const baseMag = Math.max(2, Math.min(12, Math.floor(words.length / 1.5)));
+        const words = tokenize(input);
 
-        state.forEach(d => {
-            const hM = simpleHash(input, d.arc + "m");
-            const h1 = simpleHash(input, d.arc + "1");
-            const h2 = simpleHash(input, d.arc + "2");
-            const h3 = simpleHash(input, d.arc + "3");
+        // Step 1: Arc attribution.
+        // Count tokens contributing to each arc. This is the magnitude —
+        // the user's investment in that arc being reflected in the output.
+        const attributions = {};
+        let totalAttr = 0;
+        ARCS.forEach(arc => {
+            attributions[arc] = countMatches(words, ARC_LEXICON[arc]);
+            totalAttr += attributions[arc];
+        });
 
-            d.mag = Math.max(2, Math.min(12, baseMag + (hM % 5) - 2));
-            d.p1 = ((h1 % 600) / 100) - 3.0;
-            d.p2 = ((h2 % 600) / 100) - 3.0;
-            d.p3 = ((h3 % 600) / 100) - 3.0;
-            
-            d.sum = d.p1 + d.p2 + d.p3;
-            d.total = d.mag + d.sum;
+        if (totalAttr === 0) {
+            ARCS.forEach(arc => attributions[arc] = 1);
+            totalAttr = ARCS.length;
+        }
+
+        // Step 2: Phase emphasis scores — held in cache until triadic tally is complete.
+        const emphDiff = {
+            p1: countMatches(words, PHASE_EMPHASIS.p1.pos) - countMatches(words, PHASE_EMPHASIS.p1.neg),
+            p2: countMatches(words, PHASE_EMPHASIS.p2.pos) - countMatches(words, PHASE_EMPHASIS.p2.neg),
+            p3: countMatches(words, PHASE_EMPHASIS.p3.pos) - countMatches(words, PHASE_EMPHASIS.p3.neg)
+        };
+
+        // Step 3: Score each arc.
+        state = ARCS.map(arc => {
+            const arcCount  = attributions[arc];
+            const mag       = arcCount * 2;
+            const arcWeight = arcCount / totalAttr;
+
+            // Arc polarity: how this arc's content is semantically framed in the input.
+            const polarity  = ARC_POLARITY[arc];
+            const baseScore = countMatches(words, polarity.pos) - countMatches(words, polarity.neg);
+
+            // Triadic phase scores: arc polarity modulated by each phase's emphasis dimension,
+            // weighted by this arc's proportion of total attribution.
+            function phaseScore(key) {
+                const raw = (baseScore + emphDiff[key] * 0.4) * arcWeight * 2;
+                return parseFloat(Math.max(-3, Math.min(3, raw)).toFixed(2));
+            }
+
+            const p1  = phaseScore('p1');
+            const p2  = phaseScore('p2');
+            const p3  = phaseScore('p3');
+            const sum = parseFloat((p1 + p2 + p3).toFixed(2));
+
+            // Step 4: Sign-preserving total.
+            // Magnitude is added after the triadic tally as pure numerical weight.
+            // It amplifies existing polarity without flipping it — a positive arc
+            // becomes more positive; a negative arc, more negative.
+            const total = sum === 0
+                ? parseFloat(mag.toFixed(2))
+                : parseFloat((Math.sign(sum) * (Math.abs(sum) + mag)).toFixed(2));
+
+            return { arc, mag, p1, p2, p3, sum, total, rank: 0 };
         });
 
         state.sort((a, b) => b.total - a.total);
@@ -274,8 +368,8 @@
             arc: d.arc.toUpperCase(),
             rank: d.rank,
             magnitude: d.mag,
-            triadic_scores: [parseFloat(d.p1.toFixed(2)), parseFloat(d.p2.toFixed(2)), parseFloat(d.p3.toFixed(2))],
-            final_weight: parseFloat(d.total.toFixed(2))
+            triadic_scores: [d.p1, d.p2, d.p3],
+            final_weight: d.total
         }));
 
         document.getElementById('jsonPayload').innerText = JSON.stringify({

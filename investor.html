@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>G-ynthetic Labs | Investor Access</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="assets/favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#03030C; --panel:rgba(8,8,22,.92);
+  --cyan:#00F0FF; --purple:#9B30FF;
+  --text:#E8E8F0; --dim:rgba(232,232,240,.38);
+  --border:rgba(0,240,255,.16);
+  --font-sans:'Space Grotesk',sans-serif;
+  --font-mono:'JetBrains Mono',monospace;
+}
+html,body{width:100%;height:100%;background:var(--bg);font-family:var(--font-sans);color:var(--text);overflow:hidden}
+
+/* ── background ────────────────────────────── */
+.bg-grid{position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:linear-gradient(rgba(0,240,255,.013) 1px,transparent 1px),
+                   linear-gradient(90deg,rgba(0,240,255,.013) 1px,transparent 1px);
+  background-size:68px 68px}
+.bg-glow{position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:radial-gradient(ellipse 70% 60% at 50% 50%,rgba(0,240,255,.018) 0%,rgba(155,48,255,.012) 50%,transparent 72%)}
+
+/* ── gate overlay ──────────────────────────── */
+.gate{
+  position:fixed;inset:0;z-index:500;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  transition:opacity .6s ease, transform .6s ease;
+}
+.gate.dismissed{opacity:0;pointer-events:none;transform:scale(1.04)}
+
+.gate-card{
+  width:min(520px,90vw);
+  background:var(--panel);
+  border:1px solid var(--border);
+  padding:48px 52px 44px;
+  box-shadow:0 0 60px rgba(0,240,255,.04), 0 24px 80px rgba(0,0,0,.8);
+  position:relative;
+}
+/* top accent bar */
+.gate-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,var(--cyan) 30%,var(--purple) 70%,transparent);
+}
+
+.gate-logo{
+  font-family:var(--font-mono);font-size:11px;letter-spacing:.28em;
+  color:var(--cyan);text-transform:uppercase;margin-bottom:28px;opacity:.8;
+}
+.gate-logo span{color:rgba(255,255,255,.45)}
+.gate-title{font-size:24px;font-weight:700;letter-spacing:-.02em;color:var(--text);margin-bottom:6px}
+.gate-sub{font-family:var(--font-mono);font-size:9px;letter-spacing:.2em;color:var(--dim);text-transform:uppercase;margin-bottom:36px}
+.gate-label{font-family:var(--font-mono);font-size:8px;letter-spacing:.18em;text-transform:uppercase;color:var(--dim);margin-bottom:10px}
+.gate-input-wrap{position:relative;margin-bottom:10px}
+.gate-input{
+  width:100%;background:rgba(0,0,0,.4);
+  border:1px solid rgba(0,240,255,.22);
+  border-bottom:2px solid var(--cyan);
+  color:var(--cyan);
+  font-family:var(--font-mono);font-size:14px;
+  letter-spacing:.18em;text-transform:uppercase;
+  padding:14px 16px;outline:none;
+  transition:border-color .2s, box-shadow .2s;
+}
+.gate-input:focus{border-color:rgba(0,240,255,.5);box-shadow:0 0 20px rgba(0,240,255,.08)}
+.gate-input::placeholder{color:rgba(0,240,255,.22);letter-spacing:.12em}
+.gate-btn{
+  width:100%;margin-top:16px;
+  background:rgba(0,240,255,.06);
+  border:1px solid rgba(0,240,255,.28);
+  color:var(--cyan);
+  font-family:var(--font-mono);font-size:10px;letter-spacing:.22em;text-transform:uppercase;
+  padding:14px;cursor:pointer;
+  transition:all .2s ease;
+}
+.gate-btn:hover{background:rgba(0,240,255,.12);border-color:rgba(0,240,255,.5);box-shadow:0 0 24px rgba(0,240,255,.08)}
+.gate-btn:active{background:rgba(0,240,255,.18);transform:scale(.995)}
+.gate-status{
+  font-family:var(--font-mono);font-size:8px;letter-spacing:.14em;text-transform:uppercase;
+  margin-top:14px;text-align:center;height:14px;transition:color .2s;
+}
+.gate-status.ok{color:rgba(100,230,130,.8)}
+.gate-status.err{color:rgba(255,100,100,.8)}
+.gate-status.loading{color:var(--dim)}
+
+.gate-footer{
+  margin-top:32px;padding-top:18px;border-top:1px solid rgba(255,255,255,.06);
+  display:flex;justify-content:space-between;align-items:center;
+}
+.gate-site-link{
+  font-family:var(--font-mono);font-size:7px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--dim);text-decoration:none;transition:color .2s;
+}
+.gate-site-link:hover{color:var(--cyan)}
+.gate-badge{font-family:var(--font-mono);font-size:7px;letter-spacing:.1em;color:rgba(155,48,255,.5);text-transform:uppercase}
+
+/* ── deck iframe ───────────────────────────── */
+.deck-frame{
+  position:fixed;inset:0;z-index:100;
+  width:100%;height:100%;border:none;
+  opacity:0;pointer-events:none;
+  transition:opacity .65s ease;
+}
+.deck-frame.visible{opacity:1;pointer-events:all}
+
+/* ── return button (shown when deck is open) ── */
+.return-btn{
+  position:fixed;top:14px;left:14px;z-index:600;
+  display:none;align-items:center;gap:6px;
+  background:rgba(3,3,12,.82);
+  border:1px solid rgba(255,255,255,.12);
+  color:rgba(255,255,255,.5);
+  padding:7px 14px;border-radius:2px;
+  font-family:var(--font-mono);font-size:8px;letter-spacing:.16em;text-transform:uppercase;
+  cursor:pointer;backdrop-filter:blur(10px);
+  transition:all .2s ease; text-decoration:none;
+}
+.return-btn:hover{border-color:rgba(0,240,255,.4);color:rgba(0,240,255,.9);background:rgba(0,240,255,.05)}
+.return-btn::before{content:'←';font-size:11px;opacity:.7}
+</style>
+</head>
+<body>
+
+<div class="bg-grid"></div>
+<div class="bg-glow"></div>
+
+<!-- ── Deck iframe ── -->
+<iframe class="deck-frame" id="deck-frame" src="about:blank" allow="autoplay" title="G-ynthetic Labs Investor Deck"></iframe>
+
+<!-- ── Return link (visible while deck is shown) ── -->
+<a class="return-btn" id="return-btn" href="index.html">RETURN TO SITE</a>
+
+<!-- ── Access gate ── -->
+<div class="gate" id="gate">
+  <div class="gate-card">
+    <div class="gate-logo">G<span>-</span>YNTHETIC LABS</div>
+    <div class="gate-title">Investor Access</div>
+    <div class="gate-sub">Seed Round · March 2026 · Confidential</div>
+
+    <div class="gate-label">Access Key</div>
+    <div class="gate-input-wrap">
+      <input class="gate-input" id="key-input" type="text"
+        placeholder="ENTER ACCESS KEY"
+        autocomplete="off" autocorrect="off" spellcheck="false">
+    </div>
+    <button class="gate-btn" id="access-btn">ACCESS INVESTOR PACKAGE</button>
+    <div class="gate-status" id="gate-status"></div>
+
+    <div class="gate-footer">
+      <a class="gate-site-link" href="index.html">← g-ynthetic-labs.github.io</a>
+      <span class="gate-badge">CONFIDENTIAL · F.R.A.C.C. ARCHITECTURE</span>
+    </div>
+  </div>
+</div>
+
+<script src="access-keys.js"></script>
+<script>
+(function(){
+  const gateEl    = document.getElementById('gate');
+  const frameEl   = document.getElementById('deck-frame');
+  const returnBtn = document.getElementById('return-btn');
+  const inputEl   = document.getElementById('key-input');
+  const statusEl  = document.getElementById('gate-status');
+  const accessBtn = document.getElementById('access-btn');
+
+  // ── Read key from URL (?k= or ?key= or #HASH) ────────────────────────────
+  function getUrlKey(){
+    const p = new URLSearchParams(window.location.search);
+    return p.get('k') || p.get('key') || window.location.hash.replace('#','') || '';
+  }
+
+  function setStatus(msg, cls){
+    statusEl.textContent = msg;
+    statusEl.className = 'gate-status ' + (cls||'');
+  }
+
+  function unlock(){
+    gateEl.classList.add('dismissed');
+    frameEl.src = 'investor-deck.html';
+    frameEl.classList.add('visible');
+    returnBtn.style.display = 'flex';
+    // Store in session so reload doesn't re-gate
+    sessionStorage.setItem('gyn-investor-unlocked','1');
+  }
+
+  function attemptAccess(key){
+    if(!key){ setStatus('ACCESS KEY REQUIRED','err'); return; }
+    setStatus('VERIFYING …','loading');
+    // Small delay for UX polish
+    setTimeout(()=>{
+      if(isLevelUnlocked(key, 1)){
+        setStatus('ACCESS GRANTED — LOADING PACKAGE','ok');
+        setTimeout(unlock, 680);
+      } else {
+        setStatus('INVALID OR EXPIRED KEY','err');
+        inputEl.classList.add('err');
+        setTimeout(()=>inputEl.classList.remove('err'), 1200);
+      }
+    }, 420);
+  }
+
+  // Auto-unlock if valid key in URL
+  const urlKey = getUrlKey();
+  if(urlKey){
+    inputEl.value = urlKey.toUpperCase();
+    if(isLevelUnlocked(urlKey, 1)){
+      // Silent instant unlock — key is already good
+      unlock();
+    }
+  }
+
+  // Check session (persists across reload)
+  if(sessionStorage.getItem('gyn-investor-unlocked')==='1'){
+    unlock();
+  }
+
+  accessBtn.addEventListener('click',()=> attemptAccess(inputEl.value.trim()));
+  inputEl.addEventListener('keydown', e=>{ if(e.key==='Enter') attemptAccess(inputEl.value.trim()); });
+  inputEl.addEventListener('input', ()=>{ statusEl.textContent=''; statusEl.className='gate-status'; });
+})();
+</script>
+</body>
+</html>
