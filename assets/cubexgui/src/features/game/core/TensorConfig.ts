@@ -1,0 +1,132 @@
+// src/features/game/core/TensorConfig.ts
+
+export enum TI {
+    // --- TIER 0: BASE STATE (0-7) ---
+    STATE_ID = 0,
+    OWNER_ID = 1,
+    LAST_CHANGE_TURN = 2,
+    IS_VALID_MOVE = 3,
+    VELOCITY = 4,
+    ENTROPY = 5,
+    INFLUENCE_GRAD = 6,
+    STRUCTURAL_STAB = 7,
+
+    // --- TIER 1: LOCAL HEURISTICS (8-15) ---
+    T1_ATTACK_VECTOR = 8,
+    T1_DEFENSE_VECTOR = 9,
+    T1_DIRECT_THREAT = 10,
+    T1_VULNERABILITY = 11,
+    T1_KING_SAFETY = 12,
+    T1_PIN_PRESSURE = 13,
+    T1_OVEREXTENSION = 14,
+    T1_DANGER_ZONES = 15,
+
+    // --- TIER 2: STRUCTURAL MOTIFS (16-23) ---
+    T2_OPPORTUNITY = 16,
+    T2_POSITIONAL = 17,
+    T2_MOBILITY = 18,
+    T2_CENTER_CONTROL = 19,
+    T2_PROMOTION = 20,
+    T2_KILL_ZONE = 21,
+    T2_DOMINANCE = 22,
+    T2_TRAPPED = 23,
+
+    // --- TIER 3: STRATEGIC RELATION (24-31) ---
+    T3_SYNERGY = 24,
+    T3_SUPPORT = 25,
+    T3_OPENNESS = 26,
+    T3_DEVELOPMENT = 27,
+    T3_COORDINATION = 28,
+    T3_KING_TROPISM = 29,
+    T3_SPACE = 30,
+    T3_WIN_CORRELATION = 31,
+
+    // --- RPG FUNDAMENTALS (32-47) ---
+    F1_MIGHT = 32,
+    F2_IMPACT = 33,
+    F3_PRESSURE = 34,
+    F4_BREAKOUT = 35,
+    O1_ADAPT = 36,
+    O2_REFLEX = 37,
+    O3_FLUX = 38,
+    O4_WEAVE = 39,
+    M1_CLARITY = 40,
+    M2_BALANCE = 41,
+    M3_STASIS = 42,
+    M4_ALIGN = 43,
+    X1_MOMENTUM = 44,
+    X2_PHASE = 45,
+    X3_CASCADE = 46,
+    X4_HARMONY = 47,
+
+    // --- META & DYNAMICS (48-63) ---
+    LEARNING_RATE = 48,
+    IMPORTANCE_WT = 49,
+    PATTERN_HASH = 50,
+    LINK_STRENGTH = 51,
+    PLASTICITY = 52,
+    POLARITY = 53,
+    DYNAMIC_START = 52,
+    DYNAMIC_END = 55,
+
+    // MEMORY BLOCK (56-63)
+    OCCUPANCY_H1 = 56,
+    OCCUPANCY_H2 = 57,
+    OCCUPANCY_H3 = 58,
+    THREAT_MATERIAL_SUM = 60,
+    THREAT_HISTORY_1 = 61,
+    THREAT_HISTORY_2 = 62,
+    RESERVED_63 = 63,
+
+    // --- ALIASES FOR COMPATIBILITY (Synced with codebase) ---
+    ATTACK_VECTOR_SUM = 8,
+    THREAT_INCOMING = 8,
+    DEFENSE_VECTOR_SUM = 9,
+    SUPPORT_INCOMING = 9,
+
+    R1_DIRECT_THREAT = 10,
+    R2_VULNERABILITY = 11,
+    R3_KING_SAFETY = 12,
+    R4_PIN_PRESSURE = 13,
+    R5_OVEREXTENSION = 14,
+    R6_DANGER_ZONES = 15,
+    R7_TRAPPED = 23,
+
+    W1_OPPORTUNITY = 16,
+    W2_POSITIONAL = 17,
+    W3_MOBILITY = 18,
+    W4_CENTER_CONTROL = 19,
+    W5_PROMOTION = 20,
+    W6_KILL_ZONE = 21,
+    W7_DOMINANCE = 22,
+
+    L1_SYNERGY = 24,
+    L2_SUPPORT = 25,
+    L3_OPENNESS = 26,
+    L4_DEVELOPMENT = 27,
+    L5_COORDINATION = 28,
+    L6_KING_TROPISM = 29,
+    L7_SPACE = 30,
+
+    DIRECT_THREAT = 10,
+    THREAT_SCORE = 10,
+    OPPORTUNITY = 16,
+    SYNERGY_SCORE = 24,
+    CONTROL_VAL = 22,
+    LOS_OPENNESS = 26,
+    PATH_COST = 18,
+    WIN_CORRELATION = 31,
+    LOSS_CORRELATION = 50,
+    TIME_DECAY = 52, // Mapped to Plasticity/DecayAccum
+    STRUCTURAL_STABILITY = 7,
+    INFLUENCE_GRADIENT = 6,
+    MOBILITY_FLUX = 18, // Re-mapped
+    CHANGE_VELOCITY = 4,
+    LOCAL_ENTROPY = 5,
+    DECAY_ACCUM = 52, // Mapped to Plasticity
+    UPDATE_COUNT = 53, // Mapped to Polarity
+}
+
+export const TENSOR_SIZE = 64;
+export const CUBE_COUNT = 512;
+export const EMBEDDING_SIZE = 32;
