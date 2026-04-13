@@ -3844,7 +3844,7 @@ QLabel {
                    </font>
                   </property>
                   <property name="title">
-                   <string>Gynthetic 3 x 9 x 63 (^3) Big Block</string>
+                   <string>G-ynthetic 3 x 9 x 63 (^3) Big Block</string>
                   </property>
                   <property name="flat">
                    <bool>true</bool>

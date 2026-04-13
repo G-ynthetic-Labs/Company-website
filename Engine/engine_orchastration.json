@@ -1,5 +1,5 @@
 {
-  "project": "G_ynthetic F.R.A.C.C. Multi-Agent Cluster",
+  "project": "G-ynthetic F.R.A.C.C. Multi-Agent Cluster",
   "version": "0.2.0-F.R.A.C.C. Alpha",
   "goal": "Implement an optional, modular F.R.A.C.C. pipeline with granular control over 5 specialized agents and Coral TPU integration, ensuring a functional system with any combination of components activated.",
   "estimated_agents": 5,
@@ -10,21 +10,21 @@
       "steps": [
         {
           "step": 1.1,
-          "task": "Update 'G_ynthetic/types.ts' to define new control flags and specific model slots.",
+          "task": "Update 'G-ynthetic/types.ts' to define new control flags and specific model slots.",
           "details": "Add 4 boolean flags: `useFractalOrchestration` (master switch), `useCoralScorer` (TPU offload), `usePhaseAgents` (P1/P2/P3), `useDecomposerSynthesizer` (P0/P4). Add dedicated model strings: `ollamaDecomposerModel` (Encoder/Ranker), `ollamaPhase1Model`, `ollamaPhase2Model`, `ollamaPhase3Model`, and `ollamaSynthesizerModel` (1.7B).",
-          "files": ["G_ynthetic/types.ts"]
+          "files": ["G-ynthetic/types.ts"]
         },
         {
           "step": 1.2,
-          "task": "Update 'G_ynthetic/hooks/useConfig.ts' to manage all new states.",
+          "task": "Update 'G-ynthetic/hooks/useConfig.ts' to manage all new states.",
           "details": "Add `useState` declarations for all 4 boolean flags (defaulting to `false`) and the 5 specific F.R.A.C.C. models. Expose all new setters/getters in the `ConfigAPI` interface.",
-          "files": ["G_ynthetic/hooks/useConfig.ts"]
+          "files": ["G-ynthetic/hooks/useConfig.ts"]
         },
         {
           "step": 1.3,
-          "task": "Create 'G_ynthetic/services/coralService.ts' (Placeholder).",
+          "task": "Create 'G-ynthetic/services/coralService.ts' (Placeholder).",
           "details": "This stub will contain the `calculateTriadScores(data)` function, simulating the fast, deterministic logic evaluation that would be offloaded to the Coral Edge TPU. It will simply return a JSON structure with Polarity Scores, decoupling the hardware from the LLM logic.",
-          "files": ["G_ynthetic/services/coralService.ts (NEW)"]
+          "files": ["G-ynthetic/services/coralService.ts (NEW)"]
         }
       ]
     },
@@ -35,7 +35,7 @@
           "step": 2.1,
           "task": "Refactor 'G_synthetic/components/ConfigModal.tsx' to include F.R.A.C.C. Control.",
           "details": "Create a dedicated 'F.R.A.C.C. Orchestration' section within the 'Ollama' tab. Add 4 checkboxes for the modular components. Add 5 separate model dropdowns populated by `availableOllamaModels` for the specialist agents.",
-          "files": ["G_ynthetic/components/ConfigModal.tsx"]
+          "files": ["G-ynthetic/components/ConfigModal.tsx"]
         }
       ]
     },
@@ -46,25 +46,25 @@
           "step": 3.1,
           "task": "Implement the 'runFractalOrchestration' module in 'G_synthetic/services/runLlmService.ts'.",
           "details": "This function will contain the sequential, conditional pipeline. It must execute the three phases and the final synthesis based on the boolean flags.",
-          "files": ["G_ynthetic/services/runLlmService.ts"]
+          "files": ["G-ynthetic/services/runLlmService.ts"]
         },
         {
           "step": 3.2,
           "task": "Implement Conditional Gating for Macro-Phases.",
           "details": "Use a sequential `if/else` logic flow for Phases 1, 2, and 3. If a phase agent is disabled, the input for the next phase must use the output of the *last active* phase (or the Decomposer), ensuring the pipeline is never broken.",
-          "files": ["G_ynthetic/services/runLlmService.ts"]
+          "files": ["G-ynthetic/services/runLlmService.ts"]
         },
         {
           "step": 3.3,
           "task": "Implement Coral/TPU Gating (Scoring Logic).",
           "details": "The Triad Ranking step must check `if (config.useCoralScorer)`. If true, call `coralService.calculateTriadScores()`. If false, use a simple formula (e.g., token count or semantic load) as a CPU fallback for the score.",
-          "files": ["G_ynthetic/services/runLlmService.ts", "G_ynthetic/services/coralService.ts"]
+          "files": ["G-ynthetic/services/runLlmService.ts", "G-ynthetic/services/coralService.ts"]
         },
         {
           "step": 3.4,
           "task": "Update 'runLLMGenerationAndAnalysis' to check the master switch.",
           "details": "The main dispatcher logic must first check if `config.useFractalOrchestration` is true. If so, call `runFractalOrchestration`. If false, proceed with the standard RAG fallback (current logic).",
-          "files": ["G_ynthetic/services/runLlmService.ts"]
+          "files": ["G-ynthetic/services/runLlmService.ts"]
         }
       ]
     }

@@ -72,7 +72,7 @@ export const useMemoryCore = (): MemoryAPI => {
         }
     }, [lattices.length, viewLatticeIndex]);
 
-    // --- Core Logic: Write to G_ynthetic ---
+    // --- Core Logic: Write to G-ynthetic ---
     const handleSendMessage = async (rpConfig: RoleplayConfig, llmConfig: LLMConfig) => {
         if (!input.trim() || isLoading) return;
 
@@ -170,7 +170,7 @@ export const useMemoryCore = (): MemoryAPI => {
             setLinearLog(prev => [...prev, { role: 'model', text: aiResponseText, name: rpConfig.aiName, avatar: rpConfig.avatar }]);
 
         } catch (error) {
-            console.error("G_ynthetic Memory Write Error:", error);
+            console.error("G-ynthetic Memory Write Error:", error);
             setLinearLog(prev => [...prev, { role: 'system', text: "Error: Memory Write Failed. " + (error as any).message }]);
         } finally {
             setIsLoading(false);

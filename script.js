@@ -313,7 +313,7 @@
         },
         p1: {
             title: "G-ynthetic Architecture Part 1",
-            abstract: "Initial specifications for a hierarchical state propagation engine. This paper outlines the move from linear token processing to a multi-dimensional holographic memory lattice, allowing for persistent context across extended inference sessions.",
+            abstract: "Initial specifications for a hierarchical state propagation engine. This paper outlines the move from linear token processing to a multi-dimensional Memory Cognitive Lattice, allowing for persistent context across extended inference sessions.",
             url: "research_p1.html"
         },
         p2: {

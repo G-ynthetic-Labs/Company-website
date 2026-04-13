@@ -288,7 +288,7 @@ if __name__ == "__main__":
     lattice.add_voxel(v2)
     lattice.add_voxel(v3)
 
-    print("--- Memory Lattice Initialized ---")
+    print("--- Memory Cognitive Lattice Initialized ---")
     
     # --- 2. Test Toolcalls ---
     
