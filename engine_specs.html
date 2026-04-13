@@ -156,20 +156,20 @@
 
         <section>
             <h2 style="font-family: var(--font-header); font-size: 1.5rem; margin-bottom: 1.5rem;">3. RELEVANCE SCORING
-                (CORAL TPU)</h2>
+                (HYPERSCALE TPU)</h2>
             <p style="color: var(--text-dim); line-height: 1.8;">
-                The engine benchmarks every arc against the loaded domain template using high-speed edge acceleration.
+                The engine benchmarks every arc against the loaded domain template using high-speed hardware acceleration (Cloud TPUs/GPUs).
             </p>
             <div class="code-block" style="color: var(--accent-cyan); border-color: var(--accent-cyan);">
-                // TPU ACCELERATION PROTOCOL
+                // TPU/GPU HYPERSCALE PROTOCOL
                 // -------------------------
                 // INPUT: Arc_Embeddings, Template_Tensor
                 // PROCESS: Cosine_Similarity_Matrix * Weighting_Bias
                 // OUTPUT: Relevance_Score [-3.0 to +3.0]
 
                 def score_relevance(self, arc_text: str, template_text: str) -> float:
-                # COSINE SIMILARITY SCORING VIA TPU
-                embeddings = self.coral_interface.embed([arc_text, template_text])
+                # COSINE SIMILARITY SCORING VIA CLOUD ACCELERATORS
+                embeddings = self.tpu_interface.embed([arc_text, template_text])
                 dot_product = np.dot(embeddings[0], embeddings[1])
                 norm = np.linalg.norm(embeddings[0]) * np.linalg.norm(embeddings[1])
                 return (dot_product / norm) * 3.0
