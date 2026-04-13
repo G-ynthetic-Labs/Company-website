@@ -364,7 +364,7 @@
         btn.disabled = false;
         btn.innerText = "Process";
 
-        const top3 = state.slice(0, 3).map(d => ({
+        const allArcs = state.map(d => ({
             arc: d.arc.toUpperCase(),
             rank: d.rank,
             magnitude: d.mag,
@@ -374,7 +374,7 @@
 
         document.getElementById('jsonPayload').innerText = JSON.stringify({
             instruction: "Synthesize response using ranked semantic primitives.",
-            dominant_arcs: top3
+            semantic_decomposition: allArcs
         }, null, 2);
     }
 
