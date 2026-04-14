@@ -109,19 +109,17 @@
                 <div class="engine-card">
                     <h2 style="font-family: var(--font-header); letter-spacing: -1px; margin-bottom: 1.5rem;">The Search Kernel</h2>
                     <p style="color: var(--text-dim); line-height: 1.7; margin-bottom: 2rem;">
-                        The CubeX³ engine implements a full Minimax algorithm with Alpha-Beta pruning across an 8×8×8 tensor
+                        The CubeX³ engine implements a full Recursive Minimax algorithm across an 8×8×8 tensor
                         field — 512 voxels of live board state. The branching factor of true 3D space is orders of magnitude
-                        greater than standard chess, which forced an architectural discipline around search efficiency from day one.
+                        greater than standard chess, forcing an architectural discipline around search depth and 
+                        computational efficiency from day one.
                     </p>
 
                     <div class="logic-step">
                         <h3
                             style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--accent-color); margin-bottom: 0.5rem;">
-                            // ALPHA-BETA PRUNING</h3>
-                        <p style="font-size: 0.85rem; color: var(--text-dim);">Branches are discarded the moment they
-                            cannot influence the final decision. This maintains real-time performance despite the expanded
-                            3D state space, with move ordering prioritizing captures and high-opportunity tensor coordinates
-                            to maximize cutoff efficiency.</p>
+                            // RECURSIVE SEARCH DEPTH</h3>
+                        <p style="font-size: 0.85rem; color: var(--text-dim);">The engine prioritizes raw search depth across the 512-voxel state space. This maintains deterministic evaluation despite the massive branching factor, with move ordering prioritizing high-opportunity tensor coordinates to maximize computational throughput.</p>
                     </div>
 
                     <div class="logic-step">

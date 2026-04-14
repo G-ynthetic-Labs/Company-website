@@ -87,6 +87,154 @@
         </div>
     </section>
 
+    <!-- THE 3×3×7 INVARIANT -->
+    <section id="invariant" style="background: var(--bg-elevated);">
+        <div class="section-header reveal">
+            <h2 class="section-title">The 3×3×7 Invariant</h2>
+            <p class="section-subtitle">Orthogonal Axis Generation · Voxel Mapping</p>
+        </div>
+        <div class="reveal" style="max-width: 900px;">
+            <p style="font-size: 1.05rem; color: var(--text-main); line-height: 1.8; margin-bottom: 2rem;">
+                The MCL is not an arbitrary grid. The <strong>3×3×7</strong> constraint is a <em>design invariant</em> — a fractal recursion rule that governs how new cognitive depth is generated without restructuring existing memory.
+            </p>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1px; background: var(--border-color); border: 1px solid var(--border-color); margin-bottom: 2rem;">
+                <div style="background: var(--bg-color); padding: 2rem;">
+                    <h4 style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--accent-cyan); margin-bottom: 0.8rem;">3 × SPATIAL AXES</h4>
+                    <p style="color: var(--text-dim); font-size: 0.85rem; line-height: 1.6;">X (Input/Output), Y (Neural/Associative), Z (World State). Each axis is orthogonal — no cross-contamination between event data, context data, and factual data.</p>
+                </div>
+                <div style="background: var(--bg-color); padding: 2rem;">
+                    <h4 style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--accent-cyan); margin-bottom: 0.8rem;">3 × SHELL DEPTHS</h4>
+                    <p style="color: var(--text-dim); font-size: 0.85rem; line-height: 1.6;">S0 (Origin/Active), S1 (Adjacent/Recent), S2–S3 (Peripheral/Historical). Influence decays predictably with distance from the coordinate origin.</p>
+                </div>
+                <div style="background: var(--bg-color); padding: 2rem;">
+                    <h4 style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--accent-cyan); margin-bottom: 0.8rem;">7 × RHETORICAL ARCS</h4>
+                    <p style="color: var(--text-dim); font-size: 0.85rem; line-height: 1.6;">Essence, Form, Action, Frame, Intent, Relation, Value. The semantic decomposition layer that governs <em>how</em> data is structured before storage.</p>
+                </div>
+            </div>
+
+            <div style="padding: 1.5rem; border-left: 2px solid var(--accent-cyan); background: rgba(0, 228, 245, 0.03);">
+                <p style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--accent-cyan); margin-bottom: 0.5rem;">// WHY 3×3×7 IS A FEATURE</p>
+                <p style="color: var(--text-dim); font-size: 0.9rem; line-height: 1.7;">The invariant guarantees that every new data point can be placed without reorganizing existing nodes. Growth is <strong>local and append-only</strong>. This is the fundamental property that separates the MCL from vector databases, which require global reindexing as they scale.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- THE FACE MODEL -->
+    <section id="face-model">
+        <div class="section-header reveal">
+            <h2 class="section-title">The Face Model</h2>
+            <p class="section-subtitle">6 Typed Faces · 1 Address · Multi-Modal Payload</p>
+        </div>
+        <div class="reveal" style="max-width: 900px;">
+            <p style="font-size: 0.95rem; color: var(--text-dim); line-height: 1.8; margin-bottom: 2rem;">
+                Every voxel in the MCL is a cube with <strong>6 typed faces</strong>. A single coordinate address holds a complete multi-modal cognitive payload. This is not metadata — it is the memory itself.
+            </p>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border-color); border: 1px solid var(--border-color); margin-bottom: 2rem;">
+                <!-- X Axis -->
+                <div style="background: var(--bg-color); padding: 1.5rem; border-left: 3px solid rgba(220, 60, 60, 0.6);">
+                    <h4 style="font-family: var(--font-mono); font-size: 0.6rem; color: rgba(220, 60, 60, 0.8); margin-bottom: 0.5rem;">X AXIS // THE EVENT</h4>
+                    <p style="color: var(--text-main); font-size: 0.85rem; margin-bottom: 0.3rem;"><strong>X+</strong> Input — Summed input of the interaction turn</p>
+                    <p style="color: var(--text-main); font-size: 0.85rem;"><strong>X−</strong> Output — Summed output of the interaction turn</p>
+                </div>
+                <!-- Y Axis -->
+                <div style="background: var(--bg-color); padding: 1.5rem; border-left: 3px solid rgba(60, 200, 80, 0.6);">
+                    <h4 style="font-family: var(--font-mono); font-size: 0.6rem; color: rgba(60, 200, 80, 0.8); margin-bottom: 0.5rem;">Y AXIS // THE CONTEXT</h4>
+                    <p style="color: var(--text-main); font-size: 0.85rem; margin-bottom: 0.3rem;"><strong>Y+</strong> Embeddings — Up to 7 float vectors (neural)</p>
+                    <p style="color: var(--text-main); font-size: 0.85rem;"><strong>Y−</strong> Tags — Up to 7 associative semantic tags</p>
+                </div>
+                <!-- Z Axis -->
+                <div style="background: var(--bg-color); padding: 1.5rem; border-left: 3px solid rgba(60, 120, 255, 0.6);">
+                    <h4 style="font-family: var(--font-mono); font-size: 0.6rem; color: rgba(60, 120, 255, 0.8); margin-bottom: 0.5rem;">Z AXIS // THE FACTS</h4>
+                    <p style="color: var(--text-main); font-size: 0.85rem; margin-bottom: 0.3rem;"><strong>Z+</strong> Entity Cards — Character/object metadata involved</p>
+                    <p style="color: var(--text-main); font-size: 0.85rem;"><strong>Z−</strong> Lorekey — Location address for this coordinate</p>
+                </div>
+                <!-- FractalAddress -->
+                <div style="background: var(--bg-color); padding: 1.5rem; border-left: 3px solid var(--accent-cyan);">
+                    <h4 style="font-family: var(--font-mono); font-size: 0.6rem; color: var(--accent-cyan); margin-bottom: 0.5rem;">FRACTAL ADDRESS // ANCESTRY</h4>
+                    <p style="color: var(--text-dim); font-size: 0.85rem; line-height: 1.6;">Path <code style="color: var(--accent-cyan);">(2,4,1) → (0,3,6)</code> inherently encodes: Galaxy 2, Star 4, Object 1 → Saga 0, Chapter 3, Page 6. The address <em>is</em> the metadata.</p>
+                </div>
+            </div>
+
+            <div style="background: #0a0a0a; border: 1px solid var(--border-color); padding: 1.5rem; font-family: var(--font-mono); font-size: 0.8rem; line-height: 1.7; color: var(--text-main); position: relative; overflow-x: auto;">
+                <div style="position: absolute; top: 0; right: 0; background: var(--accent-cyan); color: #000; font-size: 0.55rem; padding: 2px 8px; font-weight: bold;">MEMORY_VOXEL.PY</div>
+                <span style="color: var(--accent-cyan);">class</span> MemoryVoxel:<br>
+                &nbsp;&nbsp;<span style="color: var(--text-dim);"># X Axis: I/O (The Event)</span><br>
+                &nbsp;&nbsp;x_pos: <span style="color: var(--accent-cyan);">str</span> = <span style="color: #98c379;">""</span>&nbsp;&nbsp;<span style="color: var(--text-dim);"># Input</span><br>
+                &nbsp;&nbsp;x_neg: <span style="color: var(--accent-cyan);">str</span> = <span style="color: #98c379;">""</span>&nbsp;&nbsp;<span style="color: var(--text-dim);"># Output</span><br>
+                <br>
+                &nbsp;&nbsp;<span style="color: var(--text-dim);"># Y Axis: Neural/Associative (The Context)</span><br>
+                &nbsp;&nbsp;y_pos: <span style="color: var(--accent-cyan);">List[List[float]]</span>&nbsp;&nbsp;<span style="color: var(--text-dim);"># Embeddings (Up to 7 vectors)</span><br>
+                &nbsp;&nbsp;y_neg: <span style="color: var(--accent-cyan);">List[str]</span>&nbsp;&nbsp;<span style="color: var(--text-dim);"># Tags (Up to 7 associative tags)</span><br>
+                <br>
+                &nbsp;&nbsp;<span style="color: var(--text-dim);"># Z Axis: World State (The Facts)</span><br>
+                &nbsp;&nbsp;z_pos: <span style="color: var(--accent-cyan);">List[Dict]</span>&nbsp;&nbsp;<span style="color: var(--text-dim);"># Entity Character Cards</span><br>
+                &nbsp;&nbsp;z_neg: <span style="color: var(--accent-cyan);">str</span> = <span style="color: #98c379;">""</span>&nbsp;&nbsp;<span style="color: var(--text-dim);"># Lorekey for this location</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- THE MOAT -->
+    <section id="moat" style="background: var(--bg-elevated);">
+        <div class="section-header reveal">
+            <h2 class="section-title">The Moat</h2>
+            <p class="section-subtitle">MCL vs. Standard Vector Databases</p>
+        </div>
+        <div class="reveal" style="max-width: 900px;">
+            <p style="font-size: 0.95rem; color: var(--text-dim); line-height: 1.8; margin-bottom: 2rem;">
+                The Memory Cognitive Lattice is not a vector database with extra steps. It is a fundamentally different data structure with properties that vector databases cannot replicate without architectural redesign.
+            </p>
+
+            <table style="width: 100%; border-collapse: collapse; font-family: var(--font-mono); font-size: 0.8rem; border: 1px solid var(--border-color);">
+                <thead>
+                    <tr style="border-bottom: 2px solid var(--accent-cyan);">
+                        <th style="text-align: left; padding: 1.2rem; color: var(--text-dim); font-weight: 400; width: 30%;">PROPERTY</th>
+                        <th style="text-align: left; padding: 1.2rem; color: var(--accent-purple);">VECTOR DB</th>
+                        <th style="text-align: left; padding: 1.2rem; color: var(--accent-cyan);">MCL</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr style="border-bottom: 1px solid var(--border-color);">
+                        <td style="padding: 1rem 1.2rem; color: var(--text-dim);">Data Structure</td>
+                        <td style="padding: 1rem 1.2rem; color: var(--text-main);">Flat index</td>
+                        <td style="padding: 1rem 1.2rem; color: var(--accent-cyan);">3D coordinate lattice</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid var(--border-color);">
+                        <td style="padding: 1rem 1.2rem; color: var(--text-dim);">Retrieval Method</td>
+                        <td style="padding: 1rem 1.2rem; color: var(--text-main);">Global similarity search</td>
+                        <td style="padding: 1rem 1.2rem; color: var(--accent-cyan);">Local spatial adjacency</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid var(--border-color);">
+                        <td style="padding: 1rem 1.2rem; color: var(--text-dim);">Write Cost</td>
+                        <td style="padding: 1rem 1.2rem; color: var(--text-main);">O(n) reindexing</td>
+                        <td style="padding: 1rem 1.2rem; color: var(--accent-cyan);">O(1) local append</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid var(--border-color);">
+                        <td style="padding: 1rem 1.2rem; color: var(--text-dim);">Payload Type</td>
+                        <td style="padding: 1rem 1.2rem; color: var(--text-main);">Single embedding vector</td>
+                        <td style="padding: 1rem 1.2rem; color: var(--accent-cyan);">6-face multi-modal cube</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid var(--border-color);">
+                        <td style="padding: 1rem 1.2rem; color: var(--text-dim);">Temporal Ordering</td>
+                        <td style="padding: 1rem 1.2rem; color: var(--text-main);">Metadata tag (external)</td>
+                        <td style="padding: 1rem 1.2rem; color: var(--accent-cyan);">Intrinsic (TemporalKey axis)</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid var(--border-color);">
+                        <td style="padding: 1rem 1.2rem; color: var(--text-dim);">Address = Metadata</td>
+                        <td style="padding: 1rem 1.2rem; color: var(--text-main);">No</td>
+                        <td style="padding: 1rem 1.2rem; color: var(--accent-cyan);">Yes (Fractal Ancestry)</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 1rem 1.2rem; color: var(--text-dim);">Global Rebalancing</td>
+                        <td style="padding: 1rem 1.2rem; color: var(--accent-purple);">Required</td>
+                        <td style="padding: 1rem 1.2rem; color: var(--accent-cyan); font-weight: 700;">Never</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
     <section id="principles">
         <div class="section-header reveal">
             <h2 class="section-title">Design Principles</h2>

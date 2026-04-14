@@ -137,6 +137,17 @@
 
         /* Processing Animation */
         .processing { opacity: 0.5; filter: blur(2px); pointer-events: none; }
+        
+        .matrix-container::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 2px;
+            background: var(--accent-primary);
+            opacity: 0;
+            animation: scan 2s linear infinite;
+        }
+        .processing::after { opacity: 1; }
+        @keyframes scan { 0% { top: 0; } 100% { top: 100%; } }
     </style>
 </head>
 <body>
@@ -161,7 +172,7 @@
     </div>
 
     <div class="input-group">
-        <input type="text" id="userInput" placeholder="Enter input to decompose..." value="The rapid automation of systems threatens human agency if safety is not built into the core logic.">
+        <input type="text" id="userInput" placeholder="Enter input to decompose..." value="The rapid automation of systems threatens human agency if safety is not built into the core logic." readonly>
         <button id="runBtn" onclick="executePipeline()">Process</button>
     </div>
 
@@ -180,7 +191,8 @@
                 </tr>
             </thead>
             <tbody id="tableBody">
-                </tbody>
+                <tr class="placeholder-row"><td colspan="8" style="text-align: center; color: var(--text-muted); opacity: 0.3;">System idle. Waiting for telemetry...</td></tr>
+            </tbody>
         </table>
     </div>
 
@@ -193,8 +205,6 @@
     const ARCS = ["essence", "form", "action", "frame", "intent", "relation", "value"];
     let state = [];
 
-    // Arc lexicons: words that indicate a token belongs to this arc.
-    // Attribution count becomes magnitude — the user's investment in that arc appearing in output.
     const ARC_LEXICON = {
         essence: ['core', 'fundamental', 'basic', 'primary', 'central', 'root', 'meaning', 'nature', 'underlying', 'inherent', 'essentially', 'truly', 'actual', 'real', 'define', 'truth', 'foundation'],
         form:    ['structure', 'structures', 'shape', 'design', 'pattern', 'format', 'architecture', 'framework', 'model', 'organized', 'construct', 'layer', 'schema', 'template', 'logic', 'built', 'system', 'systems', 'build'],
@@ -205,7 +215,6 @@
         value:   ['important', 'matter', 'worth', 'benefit', 'cost', 'risk', 'ethical', 'safe', 'safety', 'agency', 'right', 'wrong', 'good', 'bad', 'harm', 'protect', 'freedom', 'human', 'moral', 'principle', 'integrity', 'threatens', 'threat']
     };
 
-    // Arc polarity: how each arc's attributed content is semantically framed.
     const ARC_POLARITY = {
         essence: {
             pos: ['core', 'fundamental', 'truth', 'principle', 'foundation', 'real', 'actual', 'clear', 'defined', 'established'],
@@ -237,20 +246,10 @@
         }
     };
 
-    // Phase emphasis: each phase evaluates a different semantic dimension of the input.
     const PHASE_EMPHASIS = {
-        p1: { // Input Phase — logical grounding
-            pos: ['logical', 'logic', 'clear', 'defined', 'structured', 'rational', 'explicit', 'systematic', 'coherent'],
-            neg: ['vague', 'ambiguous', 'unclear', 'threatens', 'threat', 'problem', 'not', 'risk']
-        },
-        p2: { // Identity Phase — environmental stability
-            pos: ['stable', 'coherent', 'reliable', 'established', 'resilient', 'consistent', 'built', 'core', 'systems'],
-            neg: ['rapid', 'disrupted', 'unstable', 'automation', 'undermining', 'threatens', 'threat', 'eroding']
-        },
-        p3: { // Inception Phase — intentional charge
-            pos: ['protect', 'ensure', 'safety', 'safe', 'human', 'freedom', 'agency', 'built', 'build', 'enable'],
-            neg: ['harm', 'threatens', 'exploit', 'danger', 'wrong', 'bad', 'threat', 'corrupt']
-        }
+        p1: { pos: ['logical', 'logic', 'clear', 'defined', 'structured', 'rational', 'explicit', 'systematic', 'coherent'], neg: ['vague', 'ambiguous', 'unclear', 'threatens', 'threat', 'problem', 'not', 'risk'] },
+        p2: { pos: ['stable', 'coherent', 'reliable', 'established', 'resilient', 'consistent', 'built', 'core', 'systems'], neg: ['rapid', 'disrupted', 'unstable', 'automation', 'undermining', 'threatens', 'threat', 'eroding'] },
+        p3: { pos: ['protect', 'ensure', 'safety', 'safe', 'human', 'freedom', 'agency', 'built', 'build', 'enable'], neg: ['harm', 'threatens', 'exploit', 'danger', 'wrong', 'bad', 'threat', 'corrupt'] }
     };
 
     function tokenize(input) {
@@ -266,10 +265,9 @@
         return `<span class="${val > 0 ? 'val-pos' : 'val-neg'}">${val > 0 ? '+' : ''}${val.toFixed(2)}</span>`;
     }
 
-    function render() {
-        const tbody = document.getElementById('tableBody');
-        tbody.innerHTML = state.map(d => `
-            <tr>
+    function createRowHTML(d) {
+        return `
+            <tr class="engine-row" style="opacity: 0; transform: translateY(10px); transition: all 0.4s ease;">
                 <td class="arc-col">${d.arc}</td>
                 <td>${d.mag ? d.mag : '-'}</td>
                 <td>${d.mag ? fmt(d.p1) : '-'}</td>
@@ -279,12 +277,7 @@
                 <td class="final-score">${d.mag ? fmt(d.total) : '-'}</td>
                 <td>${d.mag ? '#' + d.rank : '-'}</td>
             </tr>
-        `).join('');
-    }
-
-    function init() {
-        state = ARCS.map(arc => ({ arc, mag: 0, p1: 0, p2: 0, p3: 0, sum: 0, total: 0, rank: 0 }));
-        render();
+        `;
     }
 
     async function executePipeline() {
@@ -293,17 +286,18 @@
 
         const btn = document.getElementById('runBtn');
         const matrix = document.getElementById('matrixContainer');
+        const tbody = document.getElementById('tableBody');
+        const jsonPre = document.getElementById('jsonPayload');
+
         btn.disabled = true;
         btn.innerText = "Processing...";
         matrix.classList.add('processing');
+        tbody.innerHTML = '';
+        jsonPre.innerText = "// Initializing scanning sequence...";
 
-        await new Promise(r => setTimeout(r, 600));
+        await new Promise(r => setTimeout(r, 800));
 
         const words = tokenize(input);
-
-        // Step 1: Arc attribution.
-        // Count tokens contributing to each arc. This is the magnitude —
-        // the user's investment in that arc being reflected in the output.
         const attributions = {};
         let totalAttr = 0;
         ARCS.forEach(arc => {
@@ -316,25 +310,19 @@
             totalAttr = ARCS.length;
         }
 
-        // Step 2: Phase emphasis scores — held in cache until triadic tally is complete.
         const emphDiff = {
             p1: countMatches(words, PHASE_EMPHASIS.p1.pos) - countMatches(words, PHASE_EMPHASIS.p1.neg),
             p2: countMatches(words, PHASE_EMPHASIS.p2.pos) - countMatches(words, PHASE_EMPHASIS.p2.neg),
             p3: countMatches(words, PHASE_EMPHASIS.p3.pos) - countMatches(words, PHASE_EMPHASIS.p3.neg)
         };
 
-        // Step 3: Score each arc.
         state = ARCS.map(arc => {
             const arcCount  = attributions[arc];
             const mag       = arcCount * 2;
             const arcWeight = arcCount / totalAttr;
-
-            // Arc polarity: how this arc's content is semantically framed in the input.
             const polarity  = ARC_POLARITY[arc];
             const baseScore = countMatches(words, polarity.pos) - countMatches(words, polarity.neg);
 
-            // Triadic phase scores: arc polarity modulated by each phase's emphasis dimension,
-            // weighted by this arc's proportion of total attribution.
             function phaseScore(key) {
                 const raw = (baseScore + emphDiff[key] * 0.4) * arcWeight * 2;
                 return parseFloat(Math.max(-3, Math.min(3, raw)).toFixed(2));
@@ -344,11 +332,6 @@
             const p2  = phaseScore('p2');
             const p3  = phaseScore('p3');
             const sum = parseFloat((p1 + p2 + p3).toFixed(2));
-
-            // Step 4: Sign-preserving total.
-            // Magnitude is added after the triadic tally as pure numerical weight.
-            // It amplifies existing polarity without flipping it — a positive arc
-            // becomes more positive; a negative arc, more negative.
             const total = sum === 0
                 ? parseFloat(mag.toFixed(2))
                 : parseFloat((Math.sign(sum) * (Math.abs(sum) + mag)).toFixed(2));
@@ -359,10 +342,21 @@
         state.sort((a, b) => b.total - a.total);
         state.forEach((d, i) => d.rank = i + 1);
 
-        render();
-        matrix.classList.remove('processing');
-        btn.disabled = false;
-        btn.innerText = "Process";
+        for (let i = 0; i < state.length; i++) {
+            const rowHTML = createRowHTML(state[i]);
+            const tempWrap = document.createElement('tbody');
+            tempWrap.innerHTML = rowHTML;
+            const rowEl = tempWrap.firstElementChild;
+            tbody.appendChild(rowEl);
+            
+            await new Promise(r => setTimeout(r, 150));
+            rowEl.style.opacity = '1';
+            rowEl.style.transform = 'translateY(0)';
+            
+            jsonPre.innerText = `// Computing arc [${i+1}/${state.length}]: ${state[i].arc.toUpperCase()}...`;
+        }
+
+        await new Promise(r => setTimeout(r, 400));
 
         const allArcs = state.map(d => ({
             arc: d.arc.toUpperCase(),
@@ -372,13 +366,15 @@
             final_weight: d.total
         }));
 
-        document.getElementById('jsonPayload').innerText = JSON.stringify({
+        jsonPre.innerText = JSON.stringify({
             instruction: "Synthesize response using ranked semantic primitives.",
             semantic_decomposition: allArcs
         }, null, 2);
-    }
 
-    window.onload = init;
+        matrix.classList.remove('processing');
+        btn.disabled = false;
+        btn.innerText = "Process";
+    }
 </script>
 </body>
 </html>

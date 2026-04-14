@@ -136,6 +136,96 @@
         </table>
     </section>
 
+    <!-- QUARANTINE LOGS -->
+    <section id="quarantine-logs">
+        <div class="section-header reveal">
+            <h2 class="section-title">Quarantine Logs</h2>
+            <p class="section-subtitle">Violation Arc · Conflict Resolution · State Integrity</p>
+        </div>
+        <div class="reveal" style="max-width: 900px;">
+            <p style="color: var(--text-dim); font-size: 0.9rem; line-height: 1.8; margin-bottom: 2rem;">
+                The MCL includes a built-in quarantine policy. When incoming data conflicts with existing lattice state, the system isolates the violation, logs the conflict, and preserves structural integrity. Below is a real conflict resolution trace.
+            </p>
+
+            <!-- Terminal-style log output -->
+            <div style="background: #0a0a0a; border: 1px solid var(--border-color); padding: 0; font-family: var(--font-mono); font-size: 0.75rem; line-height: 1.8; overflow-x: auto;">
+                <!-- Terminal header -->
+                <div style="background: rgba(0, 228, 245, 0.06); border-bottom: 1px solid var(--border-color); padding: 0.5rem 1rem; display: flex; justify-content: space-between; align-items: center;">
+                    <span style="color: var(--accent-cyan); font-size: 0.6rem; letter-spacing: 0.1em;">QUARANTINE_ENGINE // VIOLATION_ARC_DETECTOR</span>
+                    <span style="color: var(--text-dim); font-size: 0.55rem;">SESSION: s0.b1.c3 · TIMESTAMP: 2026-03-18T14:32:07Z</span>
+                </div>
+                <div style="padding: 1.5rem;">
+                    <span style="color: var(--text-dim);">[14:32:07]</span> <span style="color: var(--accent-cyan);">INGEST</span> New voxel received at <span style="color: var(--text-main);">g1.s1.o1.c1.ct5.r1 :: s0.b1.c3.p14</span><br>
+                    <span style="color: var(--text-dim);">[14:32:07]</span> <span style="color: var(--accent-cyan);">FACE_X_NEG</span> Output: <span style="color: var(--text-main);">"Lyra has never visited the Neon Market."</span><br>
+                    <span style="color: var(--text-dim);">[14:32:08]</span> <span style="color: var(--accent-purple);">CONFLICT</span> Cross-referencing Z+ face at <span style="color: var(--text-main);">s0.b1.c1.p2</span><br>
+                    <span style="color: var(--text-dim);">[14:32:08]</span> <span style="color: var(--accent-purple);">CONFLICT</span> Entity <span style="color: var(--text-main);">npc_lyra_01</span> present in Z+ at <span style="color: var(--text-main);">g1.s1.o1.c1.ct5.r1</span> on pages <span style="color: var(--text-main);">p2, p3</span><br>
+                    <span style="color: var(--text-dim);">[14:32:08]</span> <span style="color: #ff4444;">VIOLATION_ARC</span> Contradiction detected: Entity location assertion conflicts with <span style="color: var(--text-main);">2 existing voxels</span><br>
+                    <span style="color: var(--text-dim);">[14:32:08]</span> <span style="color: #ff4444;">QUARANTINE</span> Voxel <span style="color: var(--text-main);">p14</span> isolated. X_NEG face flagged. Lattice write <span style="color: #ff4444;">BLOCKED</span><br>
+                    <span style="color: var(--text-dim);">[14:32:09]</span> <span style="color: var(--accent-cyan);">RESOLUTION</span> Fallback: Retrieve canonical state from <span style="color: var(--text-main);">latest_at_location(g1.s1.o1.c1.ct5.r1)</span><br>
+                    <span style="color: var(--text-dim);">[14:32:09]</span> <span style="color: var(--accent-cyan);">RESOLUTION</span> Canonical X_NEG: <span style="color: var(--text-main);">"Lyra accepts. Reputation +5."</span> <span style="color: var(--text-dim);">(p3)</span><br>
+                    <span style="color: var(--text-dim);">[14:32:09]</span> <span style="color: #22c55e;">INTEGRITY</span> Lattice state preserved. Violation logged to audit trail.<br>
+                    <span style="color: var(--text-dim);">[14:32:09]</span> <span style="color: #22c55e;">INTEGRITY</span> Hallucination <span style="color: #22c55e;">PREVENTED</span>. Confidence: <span style="color: var(--text-main);">100%</span> (spatial proof)
+                </div>
+            </div>
+
+            <div style="margin-top: 1.5rem; padding: 1.5rem; border-left: 2px solid var(--accent-cyan); background: rgba(0, 228, 245, 0.03);">
+                <p style="color: var(--text-dim); font-size: 0.85rem; line-height: 1.7;">
+                    <strong style="color: var(--text-main);">Why this matters:</strong> The quarantine system doesn't rely on probability thresholds or confidence scores. It uses <strong>spatial proof</strong> — the entity's coordinate history is an immutable fact in the lattice. If the output contradicts the lattice, the output is wrong. No ambiguity.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- LIVE PATH TRACKING -->
+    <section id="path-tracking" style="background: var(--bg-elevated);">
+        <div class="section-header reveal">
+            <h2 class="section-title">Live Path Tracking</h2>
+            <p class="section-subtitle">Fractal Path Readout · Coordinate Shift Visualization</p>
+        </div>
+        <div class="reveal" style="max-width: 900px;">
+            <p style="color: var(--text-dim); font-size: 0.9rem; line-height: 1.8; margin-bottom: 2rem;">
+                When the AI "drills in" to a concept, the MCL exposes the coordinate shifts in real time. Below is a trace from the Final Dawn of Eideus simulation showing how spatial and temporal keys resolve during an entity encounter.
+            </p>
+
+            <!-- Path readout -->
+            <div style="background: #0a0a0a; border: 1px solid var(--border-color); padding: 0; font-family: var(--font-mono); font-size: 0.75rem; line-height: 2; overflow-x: auto;">
+                <div style="background: rgba(0, 228, 245, 0.06); border-bottom: 1px solid var(--border-color); padding: 0.5rem 1rem; display: flex; justify-content: space-between;">
+                    <span style="color: var(--accent-cyan); font-size: 0.6rem; letter-spacing: 0.1em;">LATTICE_PATH_TRACKER // ENTITY_ENCOUNTER_WINDOW</span>
+                    <span style="color: var(--text-dim); font-size: 0.55rem;">TARGET: npc_lyra_01 · WINDOW: ±2 pages</span>
+                </div>
+                <div style="padding: 1.5rem;">
+                    <span style="color: var(--accent-cyan);">[SPATIAL]</span> <span style="color: var(--text-dim);">Lock:</span> <span style="color: var(--text-main);">g1.s1.o1.c1.ct5.r1</span> <span style="color: var(--text-dim);">→ Galaxy 1, Star 1, Object 1, City 5, Region 1</span><br>
+                    <br>
+                    <span style="color: var(--accent-purple);">[DRILL]</span> <span style="color: var(--text-dim);">t=p1</span> <span style="color: var(--text-main);">s0.b1.c1.p1</span><br>
+                    &nbsp;&nbsp;<span style="color: var(--text-dim);">FACE_X_POS:</span> <span style="color: var(--text-main);">"Player enters the Neon Market."</span><br>
+                    &nbsp;&nbsp;<span style="color: var(--text-dim);">FACE_Y_NEG:</span> <span style="color: var(--accent-purple);">[market, neon, arrival]</span><br>
+                    &nbsp;&nbsp;<span style="color: var(--text-dim);">FACE_Z_POS:</span> <span style="color: var(--text-dim);">[] (no entities)</span><br>
+                    &nbsp;&nbsp;<span style="color: #ff4444;">ENTITY_MATCH: MISS</span> <span style="color: var(--text-dim);">— npc_lyra_01 not in Z+ face</span><br>
+                    <br>
+                    <span style="color: var(--accent-cyan);">[DRILL]</span> <span style="color: var(--text-dim);">t=p2</span> <span style="color: var(--text-main);">s0.b1.c1.p2</span><br>
+                    &nbsp;&nbsp;<span style="color: var(--text-dim);">FACE_X_NEG:</span> <span style="color: var(--text-main);">"Lyra reveals herself. 'You're late,' she says."</span><br>
+                    &nbsp;&nbsp;<span style="color: var(--text-dim);">FACE_Y_NEG:</span> <span style="color: var(--accent-purple);">[dialogue, tension, npc_reveal]</span><br>
+                    &nbsp;&nbsp;<span style="color: var(--text-dim);">FACE_Z_POS:</span> <span style="color: var(--text-main);">[{name: "Lyra", id: "npc_lyra_01", class: "rogue"}]</span><br>
+                    &nbsp;&nbsp;<span style="color: #22c55e;">ENTITY_MATCH: HIT</span> <span style="color: var(--text-dim);">→ voxel included in window</span><br>
+                    <br>
+                    <span style="color: var(--accent-cyan);">[DRILL]</span> <span style="color: var(--text-dim);">t=p3</span> <span style="color: var(--text-main);">s0.b1.c1.p3</span><br>
+                    &nbsp;&nbsp;<span style="color: var(--text-dim);">FACE_X_NEG:</span> <span style="color: var(--text-main);">"Lyra accepts. Reputation +5."</span><br>
+                    &nbsp;&nbsp;<span style="color: var(--text-dim);">FACE_Y_NEG:</span> <span style="color: var(--accent-purple);">[trade, reputation_up, item_transfer]</span><br>
+                    &nbsp;&nbsp;<span style="color: var(--text-dim);">FACE_Z_POS:</span> <span style="color: var(--text-main);">[{name: "Lyra", id: "npc_lyra_01", class: "rogue"}]</span><br>
+                    &nbsp;&nbsp;<span style="color: #22c55e;">ENTITY_MATCH: HIT</span> <span style="color: var(--text-dim);">→ voxel included in window</span><br>
+                    <br>
+                    <span style="color: #22c55e;">[RESULT]</span> <span style="color: var(--text-main);">2 voxels returned</span> <span style="color: var(--text-dim);">via entity_encounter_window("npc_lyra_01", pivot=p3, window=2)</span>
+                </div>
+            </div>
+
+            <div style="margin-top: 1.5rem; padding: 1.5rem; border-left: 2px solid var(--accent-cyan); background: rgba(0, 228, 245, 0.03);">
+                <p style="color: var(--text-dim); font-size: 0.85rem; line-height: 1.7;">
+                    <strong style="color: var(--text-main);">The key insight:</strong> Every line above is a real operation against the MCL. The coordinate path is not a debug artifact — it <em>is</em> the reasoning trace. An auditor can reconstruct exactly which memories influenced any decision by reading the path.
+                </p>
+            </div>
+        </div>
+    </section>
+
     <section id="visual-proof">
         <div class="section-header reveal">
             <h2 class="section-title">Visual Evidence</h2>
