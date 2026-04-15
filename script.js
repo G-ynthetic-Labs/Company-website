@@ -333,7 +333,7 @@
         },
         fracc: {
             title: "F.R.A.C.C. Cognitive Architecture",
-            abstract: "Fractal Recursive Adaptive Cognitive Chains (FRACC) provide a methodology for hierarchical reasoning. By nesting logical evaluators at every level of the recursive stack, we ensure that output remains grounded in first principles.",
+            abstract: "Fractally Recursive Artificial Cognitive Computing (FRACC) provides a methodology for hierarchical reasoning. By nesting logical evaluators at every level of the recursive stack, we ensure that output remains grounded in first principles.",
             url: "research_fracc.html"
         },
         oracle: {
