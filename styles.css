@@ -7,13 +7,13 @@
   --bg-color: #060608;
   --bg-elevated: #0c0c10;
   --panel-bg: rgba(12, 12, 16, 0.95);
-  --accent-cyan: #00e4f5;
-  --accent-cyan-muted: rgba(0, 228, 245, 0.12);
-  --accent-cyan-dim: rgba(0, 228, 245, 0.06);
+  --accent-cyan: #00f3ff;
+  --accent-cyan-muted: rgba(0, 243, 255, 0.12);
+  --accent-cyan-dim: rgba(0, 243, 255, 0.06);
   --accent-gray: #3a3a3a;
   --accent-steel: #6e6e7a;
-  --accent-purple: #a855f7;
-  --accent-purple-muted: rgba(168, 85, 247, 0.12);
+  --accent-red: #ff3366;
+  --accent-red-muted: rgba(255, 51, 102, 0.12);
   --text-main: #dfe0e6;
   --text-dim: #8a8a96;
   --text-bright: #f4f4f7;

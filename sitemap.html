@@ -24,10 +24,16 @@
         }
 
         .category-block {
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid var(--border-color);
+            background: rgba(255, 255, 255, 0.01);
+            border: 1px solid var(--accent-cyan-dim);
             padding: 2rem;
             position: relative;
+            transition: border-color 0.3s ease, background 0.3s ease;
+        }
+
+        .category-block:hover {
+            border-color: var(--accent-cyan-muted);
+            background: rgba(0, 243, 255, 0.03);
         }
     </style>
 </head>
