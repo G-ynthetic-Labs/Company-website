@@ -719,10 +719,151 @@
     interactiveGrid.visible = false;
     heroGroup.add(interactiveGrid);
 
+    const voxelCubeSize = iGridStep * 0.92;
+    const voxelDetailGroup = new THREE.Group();
+    voxelDetailGroup.visible = false;
+    heroGroup.add(voxelDetailGroup);
+
+    const voxelCubeMesh = new THREE.Mesh(
+        new THREE.BoxGeometry(voxelCubeSize, voxelCubeSize, voxelCubeSize),
+        new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.22, blending: THREE.AdditiveBlending, depthWrite: false })
+    );
+    voxelDetailGroup.add(voxelCubeMesh);
+
+    const voxelCubeEdges = new THREE.LineSegments(
+        new THREE.EdgesGeometry(new THREE.BoxGeometry(voxelCubeSize, voxelCubeSize, voxelCubeSize)),
+        new THREE.LineBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.95, depthWrite: false })
+    );
+    voxelDetailGroup.add(voxelCubeEdges);
+
+    function createFaceLabelSprite(text, colorHex) {
+        const canvas = document.createElement('canvas');
+        canvas.width = 128;
+        canvas.height = 64;
+        const ctx = canvas.getContext('2d');
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = '#0a0a0a';
+        ctx.fillRect(18, 16, 92, 32);
+        ctx.strokeStyle = `#${colorHex.toString(16).padStart(6, '0')}`;
+        ctx.lineWidth = 2;
+        ctx.strokeRect(18, 16, 92, 32);
+        ctx.font = '700 26px monospace';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillStyle = '#f2f2f2';
+        ctx.fillText(text, canvas.width / 2, canvas.height / 2 + 1);
+
+        const texture = new THREE.CanvasTexture(canvas);
+        texture.needsUpdate = true;
+        const material = new THREE.SpriteMaterial({ map: texture, transparent: true, depthWrite: false });
+        const sprite = new THREE.Sprite(material);
+        sprite.scale.set(0.55, 0.275, 1);
+        return sprite;
+    }
+
+    const voxelFaceDefs = [
+        { name: 'x-', axis: 'x', sign: -1, rotation: [0, Math.PI / 2, 0], labelPos: [-0.46, 0, 0] },
+        { name: 'x+', axis: 'x', sign: 1, rotation: [0, -Math.PI / 2, 0], labelPos: [0.46, 0, 0] },
+        { name: 'y-', axis: 'y', sign: -1, rotation: [Math.PI / 2, 0, 0], labelPos: [0, -0.46, 0] },
+        { name: 'y+', axis: 'y', sign: 1, rotation: [-Math.PI / 2, 0, 0], labelPos: [0, 0.46, 0] },
+        { name: 'z-', axis: 'z', sign: -1, rotation: [0, 0, 0], labelPos: [0, 0, -0.46] },
+        { name: 'z+', axis: 'z', sign: 1, rotation: [0, Math.PI, 0], labelPos: [0, 0, 0.46] }
+    ];
+    const voxelFaceMeshes = [];
+
+    voxelFaceDefs.forEach(def => {
+        const face = new THREE.Mesh(
+            new THREE.PlaneGeometry(voxelCubeSize * 0.9, voxelCubeSize * 0.9),
+            new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.18, side: THREE.DoubleSide, depthWrite: false })
+        );
+        const faceOffset = voxelCubeSize / 2 + 0.01;
+        face.rotation.set(def.rotation[0], def.rotation[1], def.rotation[2]);
+        face.position[def.axis] = def.sign * faceOffset;
+        face.userData.faceName = def.name;
+        face.userData.baseOpacity = 0.18;
+        voxelDetailGroup.add(face);
+
+        const label = createFaceLabelSprite(def.name, 0xffffff);
+        label.position.set(def.labelPos[0], def.labelPos[1], def.labelPos[2]);
+        voxelDetailGroup.add(label);
+
+        voxelFaceMeshes.push({ mesh: face, label, name: def.name });
+    });
+
     function resetDummyTransform() {
         dummyObj.position.set(0, 0, 0);
         dummyObj.quaternion.identity();
         dummyObj.scale.set(1, 1, 1);
+    }
+
+    function resetInteractiveGridTransform(layer = null) {
+        interactiveGrid.position.set(0, 0, 0);
+        interactiveGrid.quaternion.identity();
+        interactiveGrid.scale.set(1, 1, 1);
+        if (layer) {
+            interactiveGrid.position.copy(layer.group.position);
+            interactiveGrid.position.y = 0;
+        }
+    }
+
+    function syncControlMode() {
+        const flatGridMode = selectedCivId !== null && selectedVoxelIndex === null;
+        controls.enableRotate = !flatGridMode;
+        controls.enablePan = !flatGridMode;
+    }
+
+    function getCivilizationCameraState() {
+        return getOffsetCameraState(new THREE.Vector3(0, 4.8, 0.001), new THREE.Vector3(0, 0, 0.001));
+    }
+
+    function getVoxelCameraState() {
+        return getOffsetCameraState(new THREE.Vector3(1.45, 1.25, 1.45), new THREE.Vector3(0, 0, 0));
+    }
+
+    function getCivColor(civName) {
+        return { 'Narrative X':0xff0055, 'Associative Y':0x00ff88, 'Facticity Z':0x0088ff }[civName] || 0xffffff;
+    }
+
+    function setVoxelDetailColor(colorHex) {
+        voxelCubeMesh.material.color.setHex(colorHex);
+        voxelCubeEdges.material.color.setHex(colorHex);
+        voxelFaceMeshes.forEach(({ mesh, label, name }) => {
+            mesh.material.color.setHex(colorHex);
+            label.material.map.dispose();
+            label.material.dispose();
+            const nextLabel = createFaceLabelSprite(name, colorHex);
+            label.material = nextLabel.material;
+        });
+    }
+
+    function updateVoxelFaceVisuals(activeFace = null) {
+        voxelFaceMeshes.forEach(({ mesh, label, name }) => {
+            const isActive = name === activeFace;
+            mesh.material.opacity = isActive ? 0.42 : mesh.userData.baseOpacity;
+            label.material.opacity = isActive ? 1 : 0.8;
+            label.scale.set(isActive ? 0.62 : 0.55, isActive ? 0.31 : 0.275, 1);
+        });
+    }
+
+    function showVoxelDetail(civName) {
+        setVoxelDetailColor(getCivColor(civName));
+        updateVoxelFaceVisuals();
+        voxelDetailGroup.position.set(0, 0, 0);
+        voxelDetailGroup.quaternion.identity();
+        voxelDetailGroup.scale.set(1, 1, 1);
+        voxelDetailGroup.visible = true;
+    }
+
+    function hideVoxelDetail() {
+        voxelDetailGroup.visible = false;
+        updateVoxelFaceVisuals();
+    }
+
+    function selectVoxelFace(faceName) {
+        if (selectedVoxelIndex === null) return;
+        selectedVoxelFace = faceName;
+        updateVoxelFaceVisuals(faceName);
+        updatePanelVoxel(selectedVoxelIndex, selectedCivId, faceName);
     }
 
     function buildFullGrid() {
@@ -742,6 +883,7 @@
     let focusedState = null;
     let selectedCivId = null;
     let selectedVoxelIndex = null;
+    let selectedVoxelFace = null;
     let isClosingHero = false;
     let heroAnimProgress = 1.0;
     const heroAnimStartPos = new THREE.Vector3();
@@ -837,10 +979,11 @@
         `;
     }
 
-    function updatePanelVoxel(idx, civName) {
+    function updatePanelVoxel(idx, civName, faceName = null) {
         const row = Math.floor(idx / res); const col = idx % res;
         const colorMap = { 'Narrative X':'#ff0055','Associative Y':'#00ff88','Facticity Z':'#0088ff' };
         const c = colorMap[civName] || '#aaa';
+        const faceLabel = faceName ? faceName.toUpperCase() : 'NONE';
         document.getElementById('panel-breadcrumb').textContent = `Node ${idx} // ${civName}`;
         document.getElementById('panel-title').textContent = `Coordinate [${col+1}, ${row+1}]`;
         document.getElementById('panel-subtitle').textContent = `${DIMENSION_NAMES[col]} × ${DIMENSION_NAMES[row]}`;
@@ -852,11 +995,30 @@
                 <div class="coord-cell"><span class="coord-label">ID</span><span class="coord-val">${idx}</span></div>
             </div>
             <div class="selected-info" style="margin-top:12px">
+                <div style="font-size:10px;color:#555;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px">Face Selection</div>
+                <div style="font-size:13px;color:${faceName ? c : '#777'};text-transform:uppercase;margin-bottom:8px">${faceName ? `Active Face: ${faceLabel}` : 'Select one of the six recursive faces'}</div>
+                <div style="display:grid;grid-template-columns:repeat(3, 1fr);gap:8px">
+                    <div class="coord-cell"><span class="coord-label">X-</span><span class="coord-val" style="font-size:14px;color:${faceName === 'x-' ? c : '#777'}">${faceName === 'x-' ? 'ACTIVE' : 'idle'}</span></div>
+                    <div class="coord-cell"><span class="coord-label">X+</span><span class="coord-val" style="font-size:14px;color:${faceName === 'x+' ? c : '#777'}">${faceName === 'x+' ? 'ACTIVE' : 'idle'}</span></div>
+                    <div class="coord-cell"><span class="coord-label">Y-</span><span class="coord-val" style="font-size:14px;color:${faceName === 'y-' ? c : '#777'}">${faceName === 'y-' ? 'ACTIVE' : 'idle'}</span></div>
+                    <div class="coord-cell"><span class="coord-label">Y+</span><span class="coord-val" style="font-size:14px;color:${faceName === 'y+' ? c : '#777'}">${faceName === 'y+' ? 'ACTIVE' : 'idle'}</span></div>
+                    <div class="coord-cell"><span class="coord-label">Z-</span><span class="coord-val" style="font-size:14px;color:${faceName === 'z-' ? c : '#777'}">${faceName === 'z-' ? 'ACTIVE' : 'idle'}</span></div>
+                    <div class="coord-cell"><span class="coord-label">Z+</span><span class="coord-val" style="font-size:14px;color:${faceName === 'z+' ? c : '#777'}">${faceName === 'z+' ? 'ACTIVE' : 'idle'}</span></div>
+                </div>
+            </div>
+            <div class="selected-info" style="margin-top:12px">
+                <div style="font-size:10px;color:#555;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px">Fractal Recursion</div>
+                <div style="font-size:13px;color:#eee;line-height:1.6">
+                    This voxel acts as a recursive container. Use the control below to unfold the selected node back into the complete holographic lattice.
+                </div>
+            </div>
+            <div class="selected-info" style="margin-top:12px">
                 <div style="font-size:10px;color:#555;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px">Semantic mapping</div>
                 <div style="font-size:13px;color:#eee">${DIMENSION_NAMES[col]}</div>
                 <div style="font-size:10px;color:#444;margin:4px 0">intersects with</div>
                 <div style="font-size:13px;color:#eee">${DIMENSION_NAMES[row]}</div>
             </div>
+            <button class="ctrl-btn" style="margin-top:16px;width:100%;padding:12px 16px;color:${c};border-color:${c};background:rgba(255,255,255,0.02)" onclick="recurseVoxelToTop()">Recurse To Full Lattice</button>
         `;
     }
 
@@ -907,34 +1069,46 @@
         heroAnimStartPos.copy(heroGroup.position); heroAnimStartRot.copy(heroGroup.quaternion);
         heroGroup.visible = true; heroAnimProgress = 0.0; isClosingHero = false;
         heroLayers.forEach(l => { l.group.visible = true; l.group.position.y = l.originalY; l.group.scale.set(1,1,1); l.wireframe.visible = true; l.mesh.visible = true; });
+        resetInteractiveGridTransform();
         interactiveGrid.visible = false;
-        selectedVoxelIndex = null; selectedCivId = null;
+        hideVoxelDetail();
+        selectedVoxelIndex = null; selectedVoxelFace = null; selectedCivId = null;
+        syncControlMode();
         updatePanelLayer(Math.floor(stackIndex / 3), stackIndex % 3, instanceId);
         document.getElementById('info-panel').classList.add('open');
     }
 
     function selectCivilization(layer) {
         selectedCivId = layer.civName;
+        selectedVoxelIndex = null;
+        selectedVoxelFace = null;
+        buildFullGrid();
+        resetInteractiveGridTransform(layer);
         heroLayers.forEach(l => {
             if (l === layer) {
                 interactiveGrid.visible = true;
                 iGridMat.color.setHex(l.color);
-                interactiveGrid.position.copy(l.group.position);
-                interactiveGrid.position.y = 0;
                 l.group.visible = false;
             } else {
                 l.group.visible = false;
             }
         });
-        const cs = getOffsetCameraState(new THREE.Vector3(0,4.2,0), new THREE.Vector3(0,0,0.5));
+        hideVoxelDetail();
+        syncControlMode();
+        const cs = getCivilizationCameraState();
         startCameraAnim(cs.pos, cs.target);
         updatePanelCiv(layer.civName, focusedState ? focusedState.instanceIndex : 0);
     }
 
     function exitCivilization() {
         selectedCivId = null;
+        selectedVoxelIndex = null;
+        selectedVoxelFace = null;
+        resetInteractiveGridTransform();
         interactiveGrid.visible = false;
+        hideVoxelDetail();
         heroLayers.forEach(l => { l.group.visible = true; l.group.position.y = l.originalY; l.group.scale.set(1,1,1); });
+        syncControlMode();
         const cs = getOffsetCameraState(new THREE.Vector3(8,6,8), new THREE.Vector3(0,0,0));
         startCameraAnim(cs.pos, cs.target);
         if (focusedState) updatePanelLayer(Math.floor(focusedState.stackIndex / 3), focusedState.stackIndex % 3, focusedState.instanceIndex);
@@ -942,36 +1116,72 @@
 
     function selectVoxel(index) {
         selectedVoxelIndex = index;
-        const half = CONFIG.gridSize / 2; const offset = iGridStep / 2;
-        let i = 0;
-        for (let z = 0; z < res; z++) for (let x = 0; x < res; x++) {
-            resetDummyTransform();
-            if (i === index) {
-                dummyObj.position.set(-half + x*iGridStep + offset, 0, -half + z*iGridStep + offset);
-            } else {
-                dummyObj.scale.set(0,0,0);
-            }
-            dummyObj.updateMatrix();
-            interactiveGrid.setMatrixAt(i++, dummyObj.matrix);
-        }
-        interactiveGrid.instanceMatrix.needsUpdate = true;
-        const row = Math.floor(index / res); const col = index % res;
-        const vX = -half + col * iGridStep + offset; const vZ = -half + row * iGridStep + offset;
-        const cs = getOffsetCameraState(new THREE.Vector3(vX, 4, vZ + 2), new THREE.Vector3(vX, 0, vZ));
+        selectedVoxelFace = null;
+        interactiveGrid.visible = false;
+        showVoxelDetail(selectedCivId);
+        syncControlMode();
+        const cs = getVoxelCameraState();
         startCameraAnim(cs.pos, cs.target);
         updatePanelVoxel(index, selectedCivId);
     }
 
     function exitVoxelMode() {
-        selectedVoxelIndex = null; buildFullGrid();
-        const cs = getOffsetCameraState(new THREE.Vector3(0,4.2,0), new THREE.Vector3(0,0,0.5));
+        selectedVoxelIndex = null;
+        selectedVoxelFace = null;
+        hideVoxelDetail();
+        buildFullGrid();
+        interactiveGrid.visible = true;
+        syncControlMode();
+        const cs = getCivilizationCameraState();
         startCameraAnim(cs.pos, cs.target);
         updatePanelCiv(selectedCivId, focusedState ? focusedState.instanceIndex : 0);
     }
 
+    function recurseVoxelToTop() {
+        if (selectedVoxelIndex === null) return;
+
+        hideVoxelDetail();
+        resetInteractiveGridTransform();
+        interactiveGrid.visible = false;
+        selectedVoxelIndex = null;
+        selectedVoxelFace = null;
+        selectedCivId = null;
+
+        if (focusedState) {
+            const stack = stacks[focusedState.stackIndex];
+            const idx = focusedState.instanceIndex;
+            stack.mesh.setMatrixAt(idx, focusedState.originalMatrix);
+            stack.wireframe.setMatrixAt(idx, focusedState.originalMatrix);
+            stack.mesh.instanceMatrix.needsUpdate = true;
+            stack.wireframe.instanceMatrix.needsUpdate = true;
+        }
+
+        focusedState = null;
+        heroGroup.position.set(0,0,0);
+        heroGroup.quaternion.identity();
+        heroGroup.scale.set(1,1,1);
+        heroGroup.visible = false;
+        contentGroup.visible = true;
+
+        expanded = false;
+        targetSpread = null;
+        spreadFactor = 0.0;
+        updateLayout();
+        document.getElementById('btn-expand').classList.remove('active');
+
+        camera.position.set(0,12,55);
+        controls.target.set(0,0,0);
+        controls.update();
+        camAnim.active = false;
+
+        syncControlMode();
+        updatePanelOverview();
+        document.getElementById('info-panel').classList.remove('open');
+    }
+
     function closeHeroLayer() {
         if (!focusedState) return;
-        selectedCivId = null; selectedVoxelIndex = null; interactiveGrid.visible = false;
+        selectedCivId = null; selectedVoxelIndex = null; selectedVoxelFace = null; resetInteractiveGridTransform(); interactiveGrid.visible = false; hideVoxelDetail();
         const stack = stacks[focusedState.stackIndex];
         stack.mesh.updateMatrixWorld();
         const tgt = focusedState.originalMatrix.clone().premultiply(stack.mesh.matrixWorld);
@@ -987,6 +1197,7 @@
         
         heroAnimStartPos.copy(heroGroup.position); heroAnimStartRot.copy(heroGroup.quaternion);
         heroAnimProgress = 0.0; isClosingHero = true;
+        syncControlMode();
         updatePanelOverview();
         document.getElementById('info-panel').classList.remove('open');
     }
@@ -1000,7 +1211,11 @@
             stack.wireframe.setMatrixAt(idx, focusedState.originalMatrix);
             stack.mesh.instanceMatrix.needsUpdate = true;
             stack.wireframe.instanceMatrix.needsUpdate = true;
+            heroGroup.position.set(0,0,0);
+            heroGroup.quaternion.identity();
+            heroGroup.scale.set(1,1,1);
             heroGroup.visible = false; focusedState = null; contentGroup.visible = true;
+            syncControlMode();
         } else {
             contentGroup.visible = false;
         }
@@ -1011,6 +1226,21 @@
         const rect = container.getBoundingClientRect();
         mouse.x =  ((e.clientX - rect.left) / rect.width)  * 2 - 1;
         mouse.y = -((e.clientY - rect.top)  / rect.height) * 2 + 1;
+        if (selectedVoxelIndex !== null) {
+            raycaster.setFromCamera(mouse, camera);
+            const hits = raycaster.intersectObjects(voxelFaceMeshes.map(f => f.mesh), false);
+            if (hits.length > 0) {
+                const faceName = hits[0].object.userData.faceName;
+                updateVoxelFaceVisuals(faceName);
+                tooltip.style.display = 'block'; tooltip.style.left = (e.clientX + 14) + 'px'; tooltip.style.top  = (e.clientY - 10) + 'px';
+                tooltip.textContent = `Face ${faceName.toUpperCase()}`;
+                container.style.cursor = 'pointer';
+            } else {
+                updateVoxelFaceVisuals(selectedVoxelFace);
+                tooltip.style.display = 'none'; container.style.cursor = 'default';
+            }
+            return;
+        }
         if (focusedState && !isClosingHero && !selectedCivId && heroAnimProgress >= 1.0) {
             raycaster.setFromCamera(mouse, camera);
             const hits = raycaster.intersectObjects(heroLayers.map(l => l.mesh), false);
@@ -1070,8 +1300,11 @@
         // Level 4 -> Level 3 (Voxel -> Civilization)
         if (selectedVoxelIndex !== null) {
             raycaster.setFromCamera(mouse, camera);
-            const hits = raycaster.intersectObject(interactiveGrid, false);
-            if (hits.length > 0 && hits[0].instanceId === selectedVoxelIndex) return;
+            const hits = raycaster.intersectObjects(voxelFaceMeshes.map(f => f.mesh), false);
+            if (hits.length > 0) {
+                selectVoxelFace(hits[0].object.userData.faceName);
+                return;
+            }
             exitVoxelMode(); return;
         }
         
