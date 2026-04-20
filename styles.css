@@ -463,6 +463,10 @@ section.has-glow::before {
   border: 1px solid var(--border-color);
 }
 
+.homepage-systems-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
 .card {
   background: var(--bg-color);
   padding: 2.8rem;
@@ -1082,6 +1086,10 @@ footer h2 {
   }
 
   .product-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .homepage-systems-grid {
     grid-template-columns: 1fr;
   }
 
