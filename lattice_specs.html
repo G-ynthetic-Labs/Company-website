@@ -112,16 +112,14 @@
                 if -3 <= xx <=3: res.append(node_id_from_parts(t, enc7(xx), ...)) </div>
         </section>
 
-        <div class="lattice-viz">
+        <div class="lattice-viz" style="height: 400px;">
+            <canvas id="lattice-section" style="width: 100%; height: 100%; border: none;"></canvas>
             <div
-                style="font-family: var(--font-mono); font-size: 0.6rem; color: var(--accent-cyan); position: absolute; top: 1rem; left: 1rem;">
+                style="font-family: var(--font-mono); font-size: 0.6rem; color: var(--accent-cyan); position: absolute; top: 1rem; left: 1rem; z-index: 10;">
                 343 ACTIVE NODES PER TRANSFORM</div>
-            <!-- Simple dots to simulate a grid -->
-            <div class="lattice-dot" style="top: 30%; left: 40%;"></div>
-            <div class="lattice-dot" style="top: 35%; left: 45%;"></div>
-            <div class="lattice-dot" style="top: 40%; left: 50%;"></div>
-            <div class="lattice-dot" style="top: 45%; left: 55%;"></div>
-            <div class="lattice-dot" style="top: 50%; left: 60%;"></div>
+            <div style="position: absolute; bottom: 1rem; right: 1rem; z-index: 10;">
+                <a href="lattice_visualizer.html" class="btn-primary" style="font-size: 0.6rem; padding: 0.4rem 0.8rem;">Interactive Mode →</a>
+            </div>
         </div>
 
         <section>
@@ -150,6 +148,15 @@
                 DEFENSIBLE PRIOR ART AS OF FEB 2026</p>
         </footer>
     </div>
+    <!-- Visualizer Systems -->
+    <script type="importmap">
+        {
+          "imports": {
+            "three": "https://unpkg.com/three@0.161.0/build/three.module.js"
+          }
+        }
+    </script>
+    <script type="module" src="headerVisualizer.js"></script>
 </body>
 
 </html>

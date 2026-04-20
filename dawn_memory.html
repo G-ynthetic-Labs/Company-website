@@ -101,17 +101,31 @@
                 <h2 style="font-family: var(--font-header); letter-spacing: -1px; margin-bottom: 2rem;">The 6D Semantic Space</h2>
                 <div class="reveal">
                     <p style="line-height: 1.8; color: var(--text-dim); margin-bottom: 2rem;">
-                        The Memory Cognitive Lattice is a proprietary vector persistence engine that stores every narrative turn as a coordinate in high-dimensional space.
+                        The Memory Cognitive Lattice is a proprietary vector persistence engine that stores information as a coordinate in high-dimensional space.
+                    </p>
+                    <div style="margin-top: 1.5rem; padding: 1.5rem; border-left: 2px solid var(--accent-purple); background: rgba(188,0,245,0.03);">
+                        <p style="font-size: 0.85rem; color: var(--accent-purple); font-weight: 700; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 0.5rem;">Versatile Organizational Architecture</p>
+                        <p style="font-size: 0.9rem; color: var(--text-dim); line-height: 1.6;">
+                            While this implementation is tuned for narrative memory in <strong>Eideus Dawn</strong>, the MCL is a <strong>domain-agnostic framework</strong>. It can be reconfigured for any structural hierarchy—from enterprise project management to large-scale codebase mapping—by redefining the axis dimensions and voxel relationships.
+                        </p>
+                    </div>
+                    <p style="line-height: 1.8; color: var(--text-dim); margin-bottom: 2rem;">
                         These voxels are addressed using a 6D spatial key and 4D temporal key, enabling instant recursive lookups.
                     </p>
+                    
+                    <div style="margin-bottom: 3rem; border: 1px solid var(--border-color); padding: 1rem; background: rgba(0,0,0,0.5);">
+                        <img src="assets/dawn_pics/dawn_mem_panel.png" alt="Memory Panel showing tiered civilization stacks"
+                            style="width: 100%; display: block; opacity: 0.9;">
+                        <div style="font-family: var(--font-mono); font-size: 0.6rem; color: var(--accent-cyan); margin-top: 0.5rem; text-align: right;">
+                            FIG 1.1 // MULTI-GALAXY MEMORY ARCHITECTURE // RELATIONAL STACKING
+                        </div>
+                    </div>
                 </div>
 
-                <div class="lattice-graphic">
-                    <div class="voxel-stack">
-                        <div class="voxel-proxy"></div>
-                        <div class="voxel-proxy"></div>
-                        <div class="voxel-proxy"></div>
-                        <div class="voxel-proxy" style="border-style: dashed; opacity: 0.5;"></div>
+                <div class="lattice-graphic" style="height: 400px; padding: 0;">
+                    <canvas id="lattice-section" style="width: 100%; h-full; border: none;"></canvas>
+                    <div style="position: absolute; bottom: 2rem; right: 2rem; z-index: 10;">
+                        <a href="lattice_visualizer.html" class="btn-primary" style="font-size: 0.7rem; padding: 0.5rem 1rem;">Launch Interactive Visualizer →</a>
                     </div>
                 </div>
 
@@ -168,6 +182,15 @@
             });
         });
     </script>
+    <!-- Visualizer Systems -->
+    <script type="importmap">
+        {
+          "imports": {
+            "three": "https://unpkg.com/three@0.161.0/build/three.module.js"
+          }
+        }
+    </script>
+    <script type="module" src="headerVisualizer.js"></script>
 </body>
 
 </html>

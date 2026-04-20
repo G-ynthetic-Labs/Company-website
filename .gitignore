@@ -1,0 +1,4 @@
+.codex-staging/
+node_modules/
+.DS_Store
+*.log

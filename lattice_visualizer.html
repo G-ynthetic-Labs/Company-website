@@ -1,0 +1,1131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>G-YNTHETIC LABS // Interactive 7×7×7 Lattice</title>
+    <link rel="icon" href="assets/favicon.ico">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background: #000;
+            color: #e8e8e8;
+            font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+            overflow: hidden;
+            height: 100vh;
+            width: 100vw;
+        }
+
+        #canvas-container {
+            position: absolute;
+            inset: 0;
+        }
+
+        /* ── Top bar ── */
+        #topbar {
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.85), transparent);
+            z-index: 20;
+            pointer-events: none;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        #topbar-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            pointer-events: all;
+        }
+
+        .back-link {
+            font-size: 10px;
+            letter-spacing: 2px;
+            color: #00ff88;
+            text-decoration: none;
+            text-transform: uppercase;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            opacity: 0.7;
+            transition: opacity 0.2s;
+        }
+        .back-link:hover { opacity: 1; }
+
+        #logo {
+            font-size: 16px;
+            font-weight: 700;
+            letter-spacing: 4px;
+            color: #fff;
+            text-transform: uppercase;
+            margin-left: 20px;
+            border-left: 1px solid rgba(255,255,255,0.2);
+            padding-left: 20px;
+        }
+
+        #logo span {
+            color: #00ff88;
+        }
+
+        #topbar-right {
+            display: flex;
+            gap: 8px;
+            pointer-events: all;
+        }
+
+        .ctrl-btn {
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.12);
+            color: #aaa;
+            font-size: 10px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            padding: 8px 16px;
+            cursor: pointer;
+            border-radius: 2px;
+            transition: all 0.15s;
+        }
+        .ctrl-btn:hover { background: rgba(255,255,255,0.12); color: #fff; }
+        .ctrl-btn.active { border-color: #00ff88; color: #00ff88; background: rgba(0,255,136,0.05); }
+
+        /* ── Side info panel ── */
+        #info-panel {
+            position: absolute;
+            top: 0; right: 0;
+            width: 360px;
+            height: 100%;
+            background: rgba(2,2,2,0.85);
+            border-left: 1px solid rgba(255,255,255,0.1);
+            z-index: 15;
+            display: flex;
+            flex-direction: column;
+            transform: translateX(100%);
+            transition: transform 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+        #info-panel.open { transform: translateX(0); }
+
+        #panel-header {
+            padding: 32px 24px 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+        }
+
+        #panel-breadcrumb {
+            font-size: 9px;
+            letter-spacing: 3px;
+            color: #555;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        #panel-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #fff;
+            line-height: 1.2;
+            letter-spacing: -0.5px;
+        }
+
+        #panel-subtitle {
+            font-size: 11px;
+            color: #00ff88;
+            margin-top: 6px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-weight: 500;
+            opacity: 0.8;
+        }
+
+        #panel-body {
+            flex: 1;
+            overflow-y: auto;
+            padding: 24px;
+            scrollbar-width: thin;
+            scrollbar-color: #333 transparent;
+        }
+
+        .panel-section {
+            margin-bottom: 32px;
+        }
+
+        .panel-label {
+            font-size: 9px;
+            letter-spacing: 3px;
+            color: #444;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+            font-weight: 700;
+        }
+
+        .panel-value {
+            font-size: 13px;
+            color: #999;
+            line-height: 1.6;
+        }
+
+        .coord-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 8px;
+            margin-top: 4px;
+        }
+
+        .coord-cell {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 3px;
+            padding: 12px 10px;
+            text-align: center;
+        }
+
+        .coord-cell .coord-label {
+            font-size: 8px;
+            letter-spacing: 2px;
+            color: #444;
+            text-transform: uppercase;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .coord-cell .coord-val {
+            font-size: 20px;
+            font-weight: 700;
+            color: #fff;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .axis-legend {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .axis-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 8px;
+            background: rgba(255,255,255,0.02);
+            border-radius: 4px;
+        }
+
+        .axis-dot {
+            width: 8px; height: 8px;
+            border-radius: 50%;
+            flex-shrink: 0;
+            box-shadow: 0 0 10px currentColor;
+        }
+
+        .axis-name {
+            font-size: 11px;
+            color: #ccc;
+            flex: 1;
+            font-weight: 500;
+        }
+
+        .axis-desc {
+            font-size: 10px;
+            color: #555;
+            text-align: right;
+            font-family: monospace;
+        }
+
+        .dim-list {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .dim-row {
+            display: flex;
+            align-items: baseline;
+            gap: 12px;
+            padding: 8px 12px;
+            background: rgba(255,255,255,0.02);
+            border-radius: 3px;
+            border-left: 2px solid transparent;
+            transition: all 0.2s;
+        }
+        .dim-row:hover { background: rgba(255,255,255,0.04); border-left-color: #00ff88; }
+
+        .dim-num {
+            font-size: 10px;
+            color: #444;
+            width: 16px;
+            text-align: right;
+            flex-shrink: 0;
+            font-weight: 700;
+        }
+
+        .dim-name {
+            font-size: 12px;
+            color: #00ff88;
+            font-weight: 700;
+            width: 80px;
+            flex-shrink: 0;
+            letter-spacing: 0.5px;
+        }
+
+        .dim-def {
+            font-size: 11px;
+            color: #666;
+            line-height: 1.4;
+        }
+
+        .selected-info {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 4px;
+            padding: 16px;
+            margin-top: 8px;
+        }
+
+        #panel-close-btn {
+            margin: 16px 24px 24px;
+            background: transparent;
+            border: 1px solid rgba(255,255,255,0.1);
+            color: #666;
+            font-size: 10px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            padding: 12px;
+            cursor: pointer;
+            border-radius: 3px;
+            transition: all 0.2s;
+            text-align: center;
+            font-weight: 700;
+        }
+        #panel-close-btn:hover { border-color: rgba(255,255,255,0.3); color: #ccc; background: rgba(255,255,255,0.03); }
+
+        /* ── Bottom hint bar ── */
+        #hint-bar {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 32px;
+            z-index: 20;
+            pointer-events: none;
+            transition: opacity 0.3s;
+            background: rgba(0,0,0,0.4);
+            padding: 10px 30px;
+            border-radius: 30px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .hint-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 10px;
+            letter-spacing: 1.5px;
+            color: #666;
+            text-transform: uppercase;
+        }
+
+        .hint-key {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 3px;
+            padding: 3px 8px;
+            font-size: 9px;
+            color: #999;
+            font-weight: 700;
+        }
+
+        /* ── Hover tooltip ── */
+        #tooltip {
+            position: absolute;
+            background: rgba(0,0,0,0.9);
+            border: 1px solid #00ff8844;
+            border-radius: 3px;
+            padding: 8px 12px;
+            font-size: 11px;
+            letter-spacing: 1px;
+            color: #eee;
+            pointer-events: none;
+            z-index: 30;
+            display: none;
+            backdrop-filter: blur(12px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        /* ── Intro overlay ── */
+        #intro {
+            position: absolute;
+            inset: 0;
+            background: rgba(0,0,0,0.85);
+            z-index: 40;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(15px);
+            transition: opacity 0.8s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+
+        #intro-card {
+            max-width: 560px;
+            padding: 60px;
+            border: 1px solid rgba(0,255,136,0.2);
+            background: rgba(5,5,5,0.8);
+            text-align: center;
+            box-shadow: 0 30px 100px rgba(0,255,136,0.05);
+        }
+
+        #intro-tag {
+            font-size: 10px;
+            letter-spacing: 5px;
+            color: #00ff88;
+            text-transform: uppercase;
+            margin-bottom: 24px;
+            font-weight: 700;
+        }
+
+        #intro-title {
+            font-size: 32px;
+            font-weight: 700;
+            color: #fff;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            letter-spacing: -1px;
+        }
+
+        #intro-body {
+            font-size: 14px;
+            color: #888;
+            line-height: 1.8;
+            margin-bottom: 40px;
+        }
+
+        #intro-btn {
+            background: transparent;
+            border: 1px solid #00ff88;
+            color: #00ff88;
+            font-size: 12px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            padding: 16px 40px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 700;
+        }
+        #intro-btn:hover { background: #00ff88; color: #000; box-shadow: 0 0 30px rgba(0,255,136,0.3); }
+
+        /* scrollbar */
+        #panel-body::-webkit-scrollbar { width: 4px; }
+        #panel-body::-webkit-scrollbar-track { background: transparent; }
+        #panel-body::-webkit-scrollbar-thumb { background: #222; border-radius: 2px; }
+    </style>
+</head>
+<body>
+
+<!-- Canvas -->
+<div id="canvas-container"></div>
+
+<!-- Top bar -->
+<div id="topbar">
+    <div id="topbar-left">
+        <a href="index.html" class="back-link">← Terminal</a>
+        <div id="logo">G-YNTHETIC <span>LABS</span></div>
+    </div>
+    <div id="topbar-right">
+        <button class="ctrl-btn" id="btn-expand">Separate Axes</button>
+        <button class="ctrl-btn" id="btn-reset">Reset Origin</button>
+        <button class="ctrl-btn" id="btn-info" onclick="document.getElementById('info-panel').classList.toggle('open')">Node Info</button>
+    </div>
+</div>
+
+<!-- Side info panel -->
+<div id="info-panel">
+    <div id="panel-header">
+        <div id="panel-breadcrumb">Core System</div>
+        <div id="panel-title">Memory Cognitive Lattice</div>
+        <div id="panel-subtitle">SYS-002 // SUBSURFACE PERSISTENCE</div>
+    </div>
+    <div id="panel-body">
+        <div class="panel-section" id="panel-dynamic">
+            <!-- filled dynamically -->
+        </div>
+
+        <div class="panel-section">
+            <div class="panel-label">Superposition Orientation</div>
+            <div class="axis-legend">
+                <div class="axis-row">
+                    <div class="axis-dot" style="background:#0088ff; color:#0088ff;"></div>
+                    <div class="axis-name">Z-Axis Facticity</div>
+                    <div class="axis-desc">WORLD_STATE</div>
+                </div>
+                <div class="axis-row">
+                    <div class="axis-dot" style="background:#00ff88; color:#00ff88;"></div>
+                    <div class="axis-name">Y-Axis Associative</div>
+                    <div class="axis-desc">NEURAL_SPACE</div>
+                </div>
+                <div class="axis-row">
+                    <div class="axis-dot" style="background:#ff0055; color:#ff0055;"></div>
+                    <div class="axis-name">X-Axis Narrative</div>
+                    <div class="axis-desc">EVENT_STREAM</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel-section">
+            <div class="panel-label">Core Architecture</div>
+            <div class="panel-value">
+                The MCL maps complex hierarchies into a <strong style="color:#eee">343-node holographic grid</strong>. This system is domain-agnostic: every node, axis, and dimension is user-configurable, allowing for a deterministic, spatially-indexed mapping of any data set.
+            </div>
+        </div>
+
+        <div class="panel-section">
+            <div class="panel-label">7 Relational Dimensions</div>
+            <div class="dim-list">
+                <div class="dim-row"><div class="dim-num">1</div><div class="dim-name">Essence</div><div class="dim-def">Fundamental identity</div></div>
+                <div class="dim-row"><div class="dim-num">2</div><div class="dim-name">Form</div><div class="dim-def">Observed configuration</div></div>
+                <div class="dim-row"><div class="dim-num">3</div><div class="dim-name">Frame</div><div class="dim-def">Contextual boundary</div></div>
+                <div class="dim-row"><div class="dim-num">4</div><div class="dim-name">Action</div><div class="dim-def">Operative cause/effect</div></div>
+                <div class="dim-row"><div class="dim-num">5</div><div class="dim-name">Intent</div><div class="dim-def">Teleological goal</div></div>
+                <div class="dim-row"><div class="dim-num">6</div><div class="dim-name">Relation</div><div class="dim-def">Networked adjacency</div></div>
+                <div class="dim-row"><div class="dim-num">7</div><div class="dim-name">Value</div><div class="dim-def">Narrative significance</div></div>
+            </div>
+        </div>
+
+        <div class="panel-section">
+            <div class="panel-label">Coordination Capacity</div>
+            <div class="coord-grid">
+                <div class="coord-cell"><span class="coord-label">Voxels</span><span class="coord-val">343</span></div>
+                <div class="coord-cell"><span class="coord-label">Faces</span><span class="coord-val">6</span></div>
+                <div class="coord-cell"><span class="coord-label">States</span><span class="coord-val">3</span></div>
+            </div>
+        </div>
+    </div>
+    <button id="panel-close-btn" onclick="document.getElementById('info-panel').classList.remove('open')">Return to Visualizer</button>
+</div>
+
+<!-- Tooltip -->
+<div id="tooltip"></div>
+
+<!-- Hint bar -->
+<div id="hint-bar">
+    <div class="hint-item"><span class="hint-key">Left Click</span> Extract / Select Layer</div>
+    <div class="hint-item"><span class="hint-key">Drag</span> Orbit View</div>
+    <div class="hint-item"><span class="hint-key">Scroll</span> Depth</div>
+</div>
+
+<!-- Intro overlay -->
+<div id="intro">
+    <div id="intro-card">
+        <div id="intro-tag">MCL // VIZ_PROBE_0.19</div>
+        <div id="intro-title">Memory Cognitive Lattice</div>
+        <div id="intro-body">
+            The MCL is a <strong>highly configurable organizational engine</strong>. While demonstrated here as a narrative memory grid, the 7x7x7 lattice is domain-agnostic and can be mapped to any structural hierarchy—from project management to codebase architecture.
+        </div>
+        <button id="intro-btn" onclick="dismissIntro()">Initialize Link</button>
+    </div>
+</div>
+
+<!-- Scripts -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+    // OrbitControls implementation
+    THREE.OrbitControls = function(e,t){var o=this;this.object=e,this.domElement=t,this.enabled=!0,this.target=new THREE.Vector3,this.minDistance=0,this.maxDistance=Infinity,this.enableDamping=!0,this.dampingFactor=.08,this.enableZoom=!0,this.zoomSpeed=1,this.enableRotate=!0,this.rotateSpeed=.6,this.enablePan=!0,this.panSpeed=.8,this.autoRotate=!1,this.autoRotateSpeed=2;var i={NONE:-1,ROTATE:0,DOLLY:1,PAN:2},a=i.NONE,n=new THREE.Spherical,r=new THREE.Spherical,s=[1],l=new THREE.Vector3,d=new THREE.Vector2,p=new THREE.Vector2,u=new THREE.Vector2,c=new THREE.Vector2,f=new THREE.Vector2,h=new THREE.Vector2,m=new THREE.Vector2,g=new THREE.Vector2,v=new THREE.Vector2,M=new THREE.Vector3;function T(e,t){var i=o.domElement;if(o.object.isPerspectiveCamera){M.copy(o.object.position).sub(o.target);var a=M.length();a*=Math.tan(o.object.fov/2*Math.PI/180),function(e,t){M.setFromMatrixColumn(t,0),M.multiplyScalar(-e),l.add(M)}(2*e*a/i.clientHeight,o.object.matrix),function(e,t){M.setFromMatrixColumn(t,1),M.multiplyScalar(e),l.add(M)}(2*t*a/i.clientHeight,o.object.matrix)}}var y=new THREE.Vector3,w=new THREE.Quaternion,X=new THREE.Vector3;this.update=function(){var e=new THREE.Vector3,t=new THREE.Quaternion().setFromUnitVectors(o.object.up,new THREE.Vector3(0,1,0)),i=t.clone().invert();return function(){var a=o.object.position;e.copy(a).sub(o.target),e.applyQuaternion(t),n.setFromVector3(e),o.autoRotate&&a===i.NONE&&function(e){r.theta-=e}(2*Math.PI/3600*o.autoRotateSpeed),o.enableDamping?(n.theta+=r.theta*o.dampingFactor,n.phi+=r.phi*o.dampingFactor):(n.theta+=r.theta,n.phi+=r.phi),n.phi=Math.max(.001,Math.min(Math.PI-.001,n.phi)),n.makeSafe(),n.radius*=s[0],n.radius=Math.max(o.minDistance,Math.min(o.maxDistance,n.radius)),o.target.add(l),e.setFromSpherical(n),e.applyQuaternion(i),a.copy(o.target).add(e),o.object.lookAt(o.target),o.enableDamping?(r.theta*=1-o.dampingFactor,r.phi*=1-o.dampingFactor,l.multiplyScalar(1-o.dampingFactor)):(r.set(0,0,0),l.set(0,0,0)),s[0]=1}}();this.dispose=function(){t.removeEventListener("mousedown",P),t.removeEventListener("wheel",L),t.removeEventListener("contextmenu",D)};function P(e){if(o.enabled){e.preventDefault();if(0===e.button){if(!o.enableRotate)return;a=i.ROTATE,d.set(e.clientX,e.clientY)}else if(1===e.button){if(!o.enableZoom)return;a=i.DOLLY,m.set(e.clientX,e.clientY)}else if(2===e.button){if(!o.enablePan)return;a=i.PAN,c.set(e.clientX,e.clientY)}document.addEventListener("mousemove",E),document.addEventListener("mouseup",x)}}function E(e){if(o.enabled)if(a===i.ROTATE){p.set(e.clientX,e.clientY),u.subVectors(p,d).multiplyScalar(o.rotateSpeed);var t=o.domElement;function n(e){r.theta-=e}function s(e){r.phi-=e}n(2*Math.PI*u.x/t.clientHeight),s(2*Math.PI*u.y/t.clientHeight),d.copy(p),o.update()}else if(a===i.DOLLY){g.set(e.clientX,e.clientY),v.subVectors(g,m),v.y>0?function(e){s[0]/=e}(Math.pow(.95,o.zoomSpeed)):v.y<0&&function(e){s[0]*=e}(Math.pow(.95,o.zoomSpeed)),m.copy(g),o.update()}else if(a===i.PAN)f.set(e.clientX,e.clientY),h.subVectors(f,c).multiplyScalar(o.panSpeed),T(h.x,h.y),c.copy(f),o.update()}function x(){document.removeEventListener("mousemove",E),document.removeEventListener("mouseup",x),a=i.NONE}function L(e){if(o.enabled&&o.enableZoom){e.preventDefault();var t=Math.pow(.95,o.zoomSpeed);e.deltaY<0?function(e){s[0]*=e}(t):function(e){s[0]/=e}(t),o.update()}}function D(e){o.enabled&&e.preventDefault()}t.addEventListener("mousedown",P),t.addEventListener("wheel",L,{passive:!1}),t.addEventListener("contextmenu",D)};
+
+    // Constants
+    const CONFIG = {
+        gridSize: 3.5,
+        gridResolution: 7,
+        planeThickness: 0.04,
+        pulseSpeed: 2.0,
+        extractDistanceY: 5.0,
+        extractDistanceX: 5.5,
+        baseFillOpacity: 0.12,
+        baseWireOpacity: 0.35,
+        hoverScale: 1.1,
+        voxelBaseOpacity: 0.8,
+        cubeCount: 3,
+        cubeSpacing: 16.5,
+    };
+
+    const DIMENSION_NAMES = ['Essence','Form','Frame','Function','Intent','Relation','Value'];
+    const DIVISION_NAMES  = ['Division I','Division II','Division III'];
+    const STATE_COLORS    = [0x0088ff, 0x00ff88, 0xff0055];
+
+    function dismissIntro() {
+        const el = document.getElementById('intro');
+        el.style.opacity = '0';
+        el.style.pointerEvents = 'none';
+        setTimeout(() => el.style.display = 'none', 800);
+    }
+
+    const container = document.getElementById('canvas-container');
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: 'high-performance' });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setSize(container.clientWidth, container.clientHeight);
+    container.appendChild(renderer.domElement);
+
+    const scene = new THREE.Scene();
+    scene.fog = new THREE.FogExp2(0x000000, 0.018);
+
+    const camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 200);
+    camera.position.set(0, 12, 55);
+
+    const controls = new THREE.OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true;
+    controls.minDistance = 3;
+    controls.maxDistance = 120;
+    controls.target.set(0, 0, 0);
+
+    const clock = new THREE.Clock();
+    const contentGroup = new THREE.Group();
+    scene.add(contentGroup);
+
+    const heroGroup = new THREE.Group();
+    heroGroup.visible = false;
+    scene.add(heroGroup);
+
+    const raycaster = new THREE.Raycaster();
+    const mouse = new THREE.Vector2(999, 999);
+    const mouseDownPos = new THREE.Vector2();
+    const dummyObj = new THREE.Object3D();
+    const tempMatrix = new THREE.Matrix4();
+
+    const highlightMesh = new THREE.Mesh(
+        new THREE.BoxGeometry(CONFIG.gridSize, CONFIG.planeThickness, CONFIG.gridSize),
+        new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.6, blending: THREE.AdditiveBlending, depthWrite: false })
+    );
+    highlightMesh.matrixAutoUpdate = false;
+    highlightMesh.visible = false;
+    scene.add(highlightMesh);
+
+    const { gridSize, gridResolution, cubeCount, cubeSpacing } = CONFIG;
+    const halfSize = gridSize / 2;
+    const step = gridSize / (gridResolution - 1);
+    const pts = [];
+    for (let x = 0; x < gridResolution; x++)
+        for (let y = 0; y < gridResolution; y++)
+            for (let z = 0; z < gridResolution; z++)
+                pts.push(-halfSize + x * step, -halfSize + y * step, -halfSize + z * step);
+
+    const pointGeo = new THREE.BufferGeometry();
+    pointGeo.setAttribute('position', new THREE.Float32BufferAttribute(pts, 3));
+    const pointMat = new THREE.PointsMaterial({
+        color: 0x666666, size: 0.05, sizeAttenuation: true,
+        transparent: true, opacity: 0.35, blending: THREE.AdditiveBlending, depthWrite: false
+    });
+
+    const voxelGrids = [];
+    for (let c = 0; c < cubeCount; c++) {
+        const offsetX = (c - (cubeCount - 1) / 2) * cubeSpacing;
+        const mesh = new THREE.Points(pointGeo, pointMat);
+        contentGroup.add(mesh);
+        voxelGrids.push({ mesh, targetPos: new THREE.Vector3(offsetX, 0, 0) });
+    }
+
+    const stacks = [];
+    const fillMaterials = [];
+    const wireframeMaterials = [];
+    const sliceGeo = new THREE.BoxGeometry(gridSize, CONFIG.planeThickness, gridSize);
+    const baseFill = new THREE.MeshBasicMaterial({ transparent: true, opacity: CONFIG.baseFillOpacity, blending: THREE.AdditiveBlending, depthWrite: false });
+    const baseWire = new THREE.MeshBasicMaterial({ transparent: true, opacity: CONFIG.baseWireOpacity, blending: THREE.AdditiveBlending, wireframe: true, depthWrite: false });
+
+    const axisData = [
+        { color: 0x0088ff, axis: 'z', flattenRot: new THREE.Euler(Math.PI / 2, 0, 0) },
+        { color: 0x00ff88, axis: 'y', flattenRot: new THREE.Euler(0, 0, 0) },
+        { color: 0xff0055, axis: 'x', flattenRot: new THREE.Euler(0, 0, Math.PI / 2) }
+    ];
+
+    const posTop   = new THREE.Vector3(0, CONFIG.extractDistanceY, 0);
+    const posLeft  = new THREE.Vector3(-CONFIG.extractDistanceX, 0, 0);
+    const posRight = new THREE.Vector3(CONFIG.extractDistanceX, 0, 0);
+
+    for (let c = 0; c < cubeCount; c++) {
+        const offsetX = (c - (cubeCount - 1) / 2) * cubeSpacing;
+        const cubeOffset = new THREE.Vector3(offsetX, 0, 0);
+        let topIdx, leftIdx, rightIdx;
+        if (c === 0)      { topIdx = 1; leftIdx = 0; rightIdx = 2; }
+        else if (c === 1) { topIdx = 2; leftIdx = 1; rightIdx = 0; }
+        else              { topIdx = 0; leftIdx = 2; rightIdx = 1; }
+
+        const stackDefs = [
+            { ...axisData[leftIdx],  targetPos: posLeft },
+            { ...axisData[topIdx],   targetPos: posTop  },
+            { ...axisData[rightIdx], targetPos: posRight }
+        ];
+
+        stackDefs.forEach(def => {
+            const fillMat = baseFill.clone(); fillMat.color.setHex(def.color); fillMaterials.push(fillMat);
+            const wireMat = baseWire.clone(); wireMat.color.setHex(def.color); wireframeMaterials.push(wireMat);
+            const mesh     = new THREE.InstancedMesh(sliceGeo, fillMat, gridResolution);
+            const wireMesh = new THREE.InstancedMesh(sliceGeo, wireMat, gridResolution);
+            const layerStep = gridSize / (gridResolution - 1);
+            const layerHalf = gridSize / 2;
+            for (let i = 0; i < gridResolution; i++) {
+                const offset = -layerHalf + i * layerStep;
+                dummyObj.position.set(0,0,0); dummyObj.rotation.set(0,0,0); dummyObj.scale.set(1,1,1);
+                if      (def.axis === 'y') dummyObj.position.y = offset;
+                else if (def.axis === 'x') { dummyObj.rotation.z = Math.PI/2; dummyObj.position.x = offset; }
+                else                       { dummyObj.rotation.x = Math.PI/2; dummyObj.position.z = offset; }
+                dummyObj.updateMatrix();
+                mesh.setMatrixAt(i, dummyObj.matrix);
+                wireMesh.setMatrixAt(i, dummyObj.matrix);
+            }
+            mesh.instanceMatrix.needsUpdate = true;
+            wireMesh.instanceMatrix.needsUpdate = true;
+            contentGroup.add(mesh); contentGroup.add(wireMesh);
+            stacks.push({ mesh, wireframe: wireMesh, color: def.color, axis: def.axis, startPos: new THREE.Vector3(0,0,0), targetPos: cubeOffset.clone().add(def.targetPos), startRot: new THREE.Euler(0,0,0), targetRot: def.flattenRot });
+        });
+    }
+
+    const heroLayerConfigs = [ { color: 0xff0055, civ: 'Narrative X', y: -0.5 }, { color: 0x00ff88, civ: 'Associative Y', y: 0 }, { color: 0x0088ff, civ: 'Facticity Z', y: 0.5 } ];
+    const heroLayers = [];
+    const heroGeo = new THREE.BoxGeometry(CONFIG.gridSize, CONFIG.planeThickness, CONFIG.gridSize, CONFIG.gridResolution, 1, CONFIG.gridResolution);
+    const gridVertices = [];
+    const sz = CONFIG.gridSize; const res = CONFIG.gridResolution;
+    const gStep = sz / res; const gHalf = sz / 2; const yvOff = CONFIG.planeThickness / 2 + 0.002;
+    for (let i = 0; i <= res; i++) {
+        const p = -gHalf + i * gStep;
+        gridVertices.push(p, yvOff, -gHalf, p, yvOff, gHalf);
+        gridVertices.push(-gHalf, yvOff, p, gHalf, yvOff, p);
+    }
+    const wireGeo = new THREE.BufferGeometry();
+    wireGeo.setAttribute('position', new THREE.Float32BufferAttribute(gridVertices, 3));
+
+    heroLayerConfigs.forEach(cfg => {
+        const layerGroup = new THREE.Group();
+        layerGroup.position.y = cfg.y;
+        const mat = new THREE.MeshBasicMaterial({ color: cfg.color, transparent: true, opacity: 0.15, blending: THREE.AdditiveBlending, depthWrite: false, side: THREE.DoubleSide });
+        const mesh = new THREE.Mesh(heroGeo, mat);
+        const wireMat = new THREE.LineBasicMaterial({ color: cfg.color, transparent: true, opacity: 0.3, blending: THREE.AdditiveBlending, depthWrite: false });
+        const wireframe = new THREE.LineSegments(wireGeo, wireMat);
+        mesh.add(wireframe);
+        layerGroup.add(mesh);
+        heroGroup.add(layerGroup);
+        heroLayers.push({ group: layerGroup, mesh, wireframe, color: cfg.color, civName: cfg.civ, originalY: cfg.y });
+    });
+
+    const iGridStep = CONFIG.gridSize / CONFIG.gridResolution;
+    const iGridGeo  = new THREE.BoxGeometry(iGridStep * 0.92, CONFIG.planeThickness, iGridStep * 0.92);
+    const iGridMat  = new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.28, blending: THREE.AdditiveBlending, depthWrite: false });
+    const interactiveGrid = new THREE.InstancedMesh(iGridGeo, iGridMat, res * res);
+    interactiveGrid.instanceMatrix.setUsage(THREE.DynamicDrawUsage);
+    interactiveGrid.visible = false;
+    heroGroup.add(interactiveGrid);
+
+    function buildFullGrid() {
+        const half = CONFIG.gridSize / 2; const offset = iGridStep / 2; let i = 0;
+        for (let z = 0; z < res; z++) for (let x = 0; x < res; x++) {
+            dummyObj.position.set(-half + x * iGridStep + offset, 0, -half + z * iGridStep + offset);
+            dummyObj.scale.set(1,1,1); dummyObj.updateMatrix();
+            interactiveGrid.setMatrixAt(i++, dummyObj.matrix);
+        }
+        interactiveGrid.instanceMatrix.needsUpdate = true;
+    }
+    buildFullGrid();
+
+    let spreadFactor = 0.0;
+    let targetSpread = null;
+    let focusedState = null;
+    let selectedCivId = null;
+    let selectedVoxelIndex = null;
+    let isClosingHero = false;
+    let heroAnimProgress = 1.0;
+    const heroAnimStartPos = new THREE.Vector3();
+    const heroAnimTargetPos = new THREE.Vector3();
+    const heroAnimStartRot = new THREE.Quaternion();
+    const heroAnimTargetRot = new THREE.Quaternion();
+    let currentHover = { active: false, stackIndex: -1, instanceIndex: -1, scale: 1.0 };
+    const camAnim = { active: false, startPos: new THREE.Vector3(), targetPos: new THREE.Vector3(), startTarget: new THREE.Vector3(), targetTarget: new THREE.Vector3(), progress: 0 };
+
+    function updateLayout() {
+        stacks.forEach(st => {
+            st.mesh.position.lerpVectors(st.startPos, st.targetPos, spreadFactor);
+            st.wireframe.position.copy(st.mesh.position);
+            st.mesh.rotation.set( THREE.MathUtils.lerp(st.startRot.x, st.targetRot.x, spreadFactor), THREE.MathUtils.lerp(st.startRot.y, st.targetRot.y, spreadFactor), THREE.MathUtils.lerp(st.startRot.z, st.targetRot.z, spreadFactor) );
+            st.wireframe.rotation.copy(st.mesh.rotation);
+        });
+        voxelGrids.forEach(vg => vg.mesh.position.lerpVectors(new THREE.Vector3(0,0,0), vg.targetPos, spreadFactor));
+    }
+
+    function startCameraAnim(pos, target) {
+        camAnim.active = true; camAnim.progress = 0;
+        camAnim.startPos.copy(camera.position); camAnim.targetPos.copy(pos);
+        camAnim.startTarget.copy(controls.target); camAnim.targetTarget.copy(target);
+    }
+
+    function easeInOutCubic(x) { return x < 0.5 ? 4*x*x*x : 1 - Math.pow(-2*x+2, 3) / 2; }
+
+    function getOffsetCameraState(pos, lookAt) {
+        const PANEL = document.getElementById('info-panel').classList.contains('open') ? 360 : 0;
+        if (PANEL === 0) return { pos, target: lookAt };
+        const pixelShift = PANEL / 2;
+        const forward = new THREE.Vector3().subVectors(lookAt, pos).normalize();
+        let up = new THREE.Vector3(0,1,0);
+        if (Math.abs(forward.y) > 0.95) up.set(0,0,-1);
+        const right = new THREE.Vector3().crossVectors(forward, up).normalize();
+        const dist = pos.distanceTo(lookAt);
+        const fov = camera.fov * Math.PI / 180;
+        const aspect = container.clientWidth / container.clientHeight;
+        const visW = 2 * dist * Math.tan(fov/2) * aspect;
+        const worldShift = (pixelShift / container.clientWidth) * visW;
+        const sv = right.multiplyScalar(worldShift);
+        return { pos: pos.clone().add(sv), target: lookAt.clone().add(sv) };
+    }
+
+    function updatePanelOverview() {
+        document.getElementById('panel-breadcrumb').textContent = 'Core System';
+        document.getElementById('panel-title').textContent = 'Memory Cognitive Lattice';
+        document.getElementById('panel-subtitle').textContent = 'SYS-002 // SUBSURFACE PERSISTENCE';
+        document.getElementById('panel-dynamic').innerHTML = `
+            <div class="panel-label">System Protocol</div>
+            <div class="panel-value">
+                Select a coordinate layer to inspect local memory state. Use <strong style="color:#00ff88">Separate Axes</strong> to visualize the orthogonal decomposition of facts, narrative, and context.
+            </div>
+        `;
+    }
+
+    function updatePanelLayer(cubeIdx, stackIdx, layerIdx) {
+        const stateIdx = stacks[cubeIdx * 3 + stackIdx] ? stacks[cubeIdx*3+stackIdx].color : 0;
+        const colorHex = '#' + stateIdx.toString(16).padStart(6,'0');
+        const axisLabel = ['Z','Y','X'][stackIdx % 3] || 'Z';
+        document.getElementById('panel-breadcrumb').textContent = `Layer ${layerIdx + 1} // ${DIVISION_NAMES[cubeIdx]}`;
+        document.getElementById('panel-title').textContent = `${DIMENSION_NAMES[layerIdx]} Plane`;
+        document.getElementById('panel-subtitle').textContent = `${axisLabel}-Axis State Projection`;
+        document.getElementById('panel-dynamic').innerHTML = `
+            <div class="panel-label">Address Matrix</div>
+            <div class="selected-info">
+                <div style="display:flex;gap:8px;align-items:center;margin-bottom:10px">
+                    <div style="width:10px;height:10px;border-radius:50%;background:${colorHex};box-shadow:0 0 5px ${colorHex}"></div>
+                    <span style="font-size:12px;color:#aaa">Active state projection: ${axisLabel}</span>
+                </div>
+                <div class="coord-grid" style="grid-template-columns:1fr 1fr">
+                    <div class="coord-cell"><span class="coord-label">Division</span><span class="coord-val">${cubeIdx+1}</span></div>
+                    <div class="coord-cell"><span class="coord-label">Dimension</span><span class="coord-val">${layerIdx+1}</span></div>
+                </div>
+            </div>
+        `;
+    }
+
+    function updatePanelCiv(civName, layerIdx) {
+        const colorMap = { 'Narrative X':'#ff0055','Associative Y':'#00ff88','Facticity Z':'#0088ff' };
+        const c = colorMap[civName] || '#aaa';
+        document.getElementById('panel-breadcrumb').textContent = `Layer ${layerIdx+1} // State Selection`;
+        document.getElementById('panel-title').textContent = civName;
+        document.getElementById('panel-subtitle').textContent = '49 addressable relational nodes';
+        document.getElementById('panel-dynamic').innerHTML = `
+            <div class="panel-label">Structural Details</div>
+            <div class="selected-info">
+                <p style="color:${c};font-size:13px;font-weight:700;margin-bottom:8px">${civName} Matrix</p>
+                <div style="font-size:11px;color:#777;line-height:1.6">
+                    Drilling into a 2D slice of the 3D lattice allows for pinpoint inspection of relational intersections. Every node in this grid represents a persistent memory fragment.
+                </div>
+            </div>
+        `;
+    }
+
+    function updatePanelVoxel(idx, civName) {
+        const row = Math.floor(idx / res); const col = idx % res;
+        const colorMap = { 'Narrative X':'#ff0055','Associative Y':'#00ff88','Facticity Z':'#0088ff' };
+        const c = colorMap[civName] || '#aaa';
+        document.getElementById('panel-breadcrumb').textContent = `Node ${idx} // ${civName}`;
+        document.getElementById('panel-title').textContent = `Coordinate [${col+1}, ${row+1}]`;
+        document.getElementById('panel-subtitle').textContent = `${DIMENSION_NAMES[col]} × ${DIMENSION_NAMES[row]}`;
+        document.getElementById('panel-dynamic').innerHTML = `
+            <div class="panel-label">Node Parameters</div>
+            <div class="coord-grid">
+                <div class="coord-cell"><span class="coord-label">X-Axis</span><span class="coord-val" style="color:${c}">${col+1}</span></div>
+                <div class="coord-cell"><span class="coord-label">Z-Axis</span><span class="coord-val" style="color:${c}">${row+1}</span></div>
+                <div class="coord-cell"><span class="coord-label">ID</span><span class="coord-val">${idx}</span></div>
+            </div>
+            <div class="selected-info" style="margin-top:12px">
+                <div style="font-size:10px;color:#555;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px">Semantic mapping</div>
+                <div style="font-size:13px;color:#eee">${DIMENSION_NAMES[col]}</div>
+                <div style="font-size:10px;color:#444;margin:4px 0">intersects with</div>
+                <div style="font-size:13px;color:#eee">${DIMENSION_NAMES[row]}</div>
+            </div>
+        `;
+    }
+
+    updatePanelOverview();
+    
+    let expanded = false;
+
+    function toggleGridExpansion(forceState) {
+        if (focusedState) return;
+        expanded = (forceState !== undefined) ? forceState : !expanded;
+        targetSpread = expanded ? 1.0 : 0.0;
+        document.getElementById('btn-expand').classList.toggle('active', expanded);
+        
+        if (expanded) {
+            const cs = getOffsetCameraState(new THREE.Vector3(0,12,55), new THREE.Vector3(0,2.5,0));
+            startCameraAnim(cs.pos, cs.target);
+        } else {
+            startCameraAnim(new THREE.Vector3(0,12,55), new THREE.Vector3(0,0,0));
+        }
+    }
+
+    document.getElementById('btn-expand').addEventListener('click', () => toggleGridExpansion());
+
+    document.getElementById('btn-reset').addEventListener('click', () => {
+        if (focusedState) closeHeroLayer();
+        if (expanded) toggleGridExpansion(false);
+        startCameraAnim(new THREE.Vector3(0,12,55), new THREE.Vector3(0,0,0));
+    });
+
+    function openHeroLayer(stackIndex, instanceId) {
+        const stack = stacks[stackIndex];
+        stack.mesh.getMatrixAt(instanceId, tempMatrix);
+        const worldMatrix = tempMatrix.clone().premultiply(stack.mesh.matrixWorld);
+        focusedState = { stackIndex, instanceIndex: instanceId, originalMatrix: tempMatrix.clone() };
+        dummyObj.scale.set(0,0,0); dummyObj.updateMatrix();
+        stack.mesh.setMatrixAt(instanceId, dummyObj.matrix);
+        stack.wireframe.setMatrixAt(instanceId, dummyObj.matrix);
+        stack.mesh.instanceMatrix.needsUpdate = true;
+        stack.wireframe.instanceMatrix.needsUpdate = true;
+        currentHover.scale = 0; highlightMesh.visible = false;
+        worldMatrix.decompose(heroGroup.position, heroGroup.quaternion, heroGroup.scale);
+        heroGroup.scale.set(1,1,1);
+        heroAnimTargetPos.set(0,0,0); heroAnimTargetRot.setFromEuler(new THREE.Euler(0,0,0));
+        const cs = getOffsetCameraState(new THREE.Vector3(8,6,8), new THREE.Vector3(0,0,0));
+        startCameraAnim(cs.pos, cs.target);
+        heroAnimStartPos.copy(heroGroup.position); heroAnimStartRot.copy(heroGroup.quaternion);
+        heroGroup.visible = true; heroAnimProgress = 0.0; isClosingHero = false;
+        heroLayers.forEach(l => { l.group.visible = true; l.group.position.y = l.originalY; l.group.scale.set(1,1,1); l.wireframe.visible = true; l.mesh.visible = true; });
+        interactiveGrid.visible = false;
+        selectedVoxelIndex = null; selectedCivId = null;
+        updatePanelLayer(Math.floor(stackIndex / 3), stackIndex % 3, instanceId);
+        document.getElementById('info-panel').classList.add('open');
+    }
+
+    function selectCivilization(layer) {
+        selectedCivId = layer.civName;
+        heroLayers.forEach(l => {
+            if (l === layer) {
+                interactiveGrid.visible = true;
+                iGridMat.color.setHex(l.color);
+                interactiveGrid.position.copy(l.group.position);
+                interactiveGrid.position.y = 0;
+                l.group.visible = false;
+            } else {
+                l.group.visible = false;
+            }
+        });
+        const cs = getOffsetCameraState(new THREE.Vector3(0,4.2,0), new THREE.Vector3(0,0,0.5));
+        startCameraAnim(cs.pos, cs.target);
+        updatePanelCiv(layer.civName, focusedState ? focusedState.instanceIndex : 0);
+    }
+
+    function exitCivilization() {
+        selectedCivId = null;
+        interactiveGrid.visible = false;
+        heroLayers.forEach(l => { l.group.visible = true; l.group.position.y = l.originalY; l.group.scale.set(1,1,1); });
+        const cs = getOffsetCameraState(new THREE.Vector3(8,6,8), new THREE.Vector3(0,0,0));
+        startCameraAnim(cs.pos, cs.target);
+        if (focusedState) updatePanelLayer(Math.floor(focusedState.stackIndex / 3), focusedState.stackIndex % 3, focusedState.instanceIndex);
+    }
+
+    function selectVoxel(index) {
+        selectedVoxelIndex = index;
+        const half = CONFIG.gridSize / 2; const offset = iGridStep / 2;
+        let i = 0;
+        for (let z = 0; z < res; z++) for (let x = 0; x < res; x++) {
+            if (i === index) { dummyObj.position.set(-half + x*iGridStep + offset, 0, -half + z*iGridStep + offset); dummyObj.scale.set(1,1,1); }
+            else             { dummyObj.position.set(0,0,0); dummyObj.scale.set(0,0,0); }
+            dummyObj.updateMatrix(); interactiveGrid.setMatrixAt(i++, dummyObj.matrix);
+        }
+        interactiveGrid.instanceMatrix.needsUpdate = true;
+        const row = Math.floor(index / res); const col = index % res;
+        const vX = -half + col * iGridStep + offset; const vZ = -half + row * iGridStep + offset;
+        const cs = getOffsetCameraState(new THREE.Vector3(vX, 4, vZ + 2), new THREE.Vector3(vX, 0, vZ));
+        startCameraAnim(cs.pos, cs.target);
+        updatePanelVoxel(index, selectedCivId);
+    }
+
+    function exitVoxelMode() {
+        selectedVoxelIndex = null; buildFullGrid();
+        const cs = getOffsetCameraState(new THREE.Vector3(0,4.2,0), new THREE.Vector3(0,0,0.5));
+        startCameraAnim(cs.pos, cs.target);
+        updatePanelCiv(selectedCivId, focusedState ? focusedState.instanceIndex : 0);
+    }
+
+    function closeHeroLayer() {
+        if (!focusedState) return;
+        selectedCivId = null; selectedVoxelIndex = null; interactiveGrid.visible = false;
+        const stack = stacks[focusedState.stackIndex];
+        stack.mesh.updateMatrixWorld();
+        const tgt = focusedState.originalMatrix.clone().premultiply(stack.mesh.matrixWorld);
+        tgt.decompose(heroAnimTargetPos, heroAnimTargetRot, dummyObj.scale);
+        
+        // Drill up to the current expansion state (Expanded or Merged)
+        if (expanded) {
+            const cs = getOffsetCameraState(new THREE.Vector3(0,12,55), new THREE.Vector3(0,2.5,0));
+            startCameraAnim(cs.pos, cs.target);
+        } else {
+            startCameraAnim(new THREE.Vector3(0,12,55), new THREE.Vector3(0,0,0));
+        }
+        
+        heroAnimStartPos.copy(heroGroup.position); heroAnimStartRot.copy(heroGroup.quaternion);
+        heroAnimProgress = 0.0; isClosingHero = true;
+        updatePanelOverview();
+        document.getElementById('info-panel').classList.remove('open');
+    }
+
+    function onHeroAnimComplete() {
+        if (!focusedState) return;
+        if (isClosingHero) {
+            const stack = stacks[focusedState.stackIndex];
+            const idx = focusedState.instanceIndex;
+            stack.mesh.setMatrixAt(idx, focusedState.originalMatrix);
+            stack.wireframe.setMatrixAt(idx, focusedState.originalMatrix);
+            stack.mesh.instanceMatrix.needsUpdate = true;
+            stack.wireframe.instanceMatrix.needsUpdate = true;
+            heroGroup.visible = false; focusedState = null; contentGroup.visible = true;
+        } else {
+            contentGroup.visible = false;
+        }
+    }
+
+    const tooltip = document.getElementById('tooltip');
+    container.addEventListener('mousemove', e => {
+        const rect = container.getBoundingClientRect();
+        mouse.x =  ((e.clientX - rect.left) / rect.width)  * 2 - 1;
+        mouse.y = -((e.clientY - rect.top)  / rect.height) * 2 + 1;
+        if (focusedState && !isClosingHero && !selectedCivId && heroAnimProgress >= 1.0) {
+            raycaster.setFromCamera(mouse, camera);
+            const hits = raycaster.intersectObjects(heroLayers.map(l => l.mesh), false);
+            if (hits.length > 0) {
+                const hitLayer = heroLayers.find(l => l.mesh === hits[0].object);
+                heroLayers.forEach(l => { const active = l === hitLayer; l.group.scale.setScalar(active ? 1.05 : 1.0); l.mesh.material.opacity = active ? 0.5 : 0.15; });
+                container.style.cursor = 'pointer';
+            } else {
+                heroLayers.forEach(l => { l.group.scale.setScalar(1.0); l.mesh.material.opacity = 0.15; });
+                container.style.cursor = 'default';
+            }
+            return;
+        }
+        if (selectedCivId && selectedVoxelIndex === null) {
+            raycaster.setFromCamera(mouse, camera);
+            const hits = raycaster.intersectObject(interactiveGrid, false);
+            if (hits.length > 0 && hits[0].instanceId !== undefined) {
+                const idx = hits[0].instanceId;
+                const row = Math.floor(idx / res); const col = idx % res;
+                tooltip.style.display = 'block'; tooltip.style.left = (e.clientX + 14) + 'px'; tooltip.style.top  = (e.clientY - 10) + 'px';
+                tooltip.textContent = `${DIMENSION_NAMES[col]} × ${DIMENSION_NAMES[row]}`;
+                container.style.cursor = 'pointer';
+            } else {
+                tooltip.style.display = 'none'; container.style.cursor = 'default';
+            }
+            return;
+        }
+        if (!focusedState) {
+            contentGroup.updateMatrixWorld();
+            raycaster.setFromCamera(mouse, camera);
+            const hits = raycaster.intersectObjects(stacks.map(s => s.mesh), false);
+            if (hits.length > 0 && hits[0].instanceId !== undefined) {
+                const hit = hits[0];
+                const si = stacks.findIndex(s => s.mesh === hit.object);
+                if (si !== -1) {
+                    currentHover.active = true; currentHover.stackIndex = si; currentHover.instanceIndex = hit.instanceId;
+                    hit.object.getMatrixAt(hit.instanceId, dummyObj.matrix);
+                    highlightMesh.matrix.multiplyMatrices(hit.object.matrixWorld, dummyObj.matrix);
+                    highlightMesh.material.color.setHex(stacks[si].color);
+                    highlightMesh.visible = true;
+                    tooltip.style.display = 'block'; tooltip.style.left = (e.clientX + 14) + 'px'; tooltip.style.top  = (e.clientY - 10) + 'px';
+                    const axLabel = ['Z','Y','X'][si % 3];
+                    tooltip.textContent = `${DIVISION_NAMES[Math.floor(si/3)]} · ${axLabel}-Axis · ${DIMENSION_NAMES[hit.instanceId]}`;
+                    container.style.cursor = 'pointer';
+                    return;
+                }
+            }
+            currentHover.active = false; highlightMesh.visible = false; tooltip.style.display = 'none'; container.style.cursor = 'default';
+        }
+    });
+
+    container.addEventListener('mousedown', e => mouseDownPos.set(e.clientX, e.clientY));
+    container.addEventListener('click', e => {
+        const moveDist = mouseDownPos.distanceTo(new THREE.Vector2(e.clientX, e.clientY));
+        if (moveDist > 5 || camAnim.active) return;
+        
+        // Level 4 -> Level 3 (Voxel -> Civilization)
+        if (selectedVoxelIndex !== null) {
+            raycaster.setFromCamera(mouse, camera);
+            const hits = raycaster.intersectObject(interactiveGrid, false);
+            if (hits.length > 0 && hits[0].instanceId === selectedVoxelIndex) return;
+            exitVoxelMode(); return;
+        }
+        
+        // Level 3 -> Level 2 (Civilization -> Layer)
+        if (selectedCivId && selectedVoxelIndex === null) {
+            raycaster.setFromCamera(mouse, camera);
+            const hits = raycaster.intersectObject(interactiveGrid, false);
+            if (hits.length > 0 && hits[0].instanceId !== undefined) selectVoxel(hits[0].instanceId);
+            else exitCivilization();
+            return;
+        }
+        
+        // Level 2 -> Level 1/0 (Layer -> Cube View)
+        if (focusedState && !selectedCivId && heroAnimProgress >= 1.0) {
+            raycaster.setFromCamera(mouse, camera);
+            const hits = raycaster.intersectObjects(heroLayers.map(l => l.mesh), false);
+            if (hits.length > 0) { 
+                const hitLayer = heroLayers.find(l => l.mesh === hits[0].object); 
+                if (hitLayer) selectCivilization(hitLayer); 
+            } else {
+                closeHeroLayer();
+            }
+            return;
+        }
+        
+        // Main View Interactions
+        if (!focusedState) {
+            contentGroup.updateMatrixWorld();
+            raycaster.setFromCamera(mouse, camera);
+            const hits = raycaster.intersectObjects(stacks.map(s => s.mesh), false);
+            
+            if (hits.length > 0 && hits[0].instanceId !== undefined) {
+                // If merged, first extract superpositions (Level 0 -> Level 1)
+                if (!expanded) {
+                    toggleGridExpansion(true);
+                } else {
+                    // If already extracted, drill down (Level 1 -> Level 2)
+                    const si = stacks.findIndex(s => s.mesh === hits[0].object); 
+                    if (si !== -1) openHeroLayer(si, hits[0].instanceId);
+                }
+            } else if (expanded) {
+                // Clicking off extracted objects -> Merge (Level 1 -> Level 0)
+                toggleGridExpansion(false);
+            }
+        }
+    });
+
+    window.addEventListener('resize', () => { camera.aspect = container.clientWidth / container.clientHeight; camera.updateProjectionMatrix(); renderer.setSize(container.clientWidth, container.clientHeight); });
+
+    function animate() {
+        requestAnimationFrame(animate);
+        const delta = Math.min(clock.getDelta(), 0.05);
+        const elapsed = clock.getElapsedTime();
+        if (!focusedState && spreadFactor < 0.99 && targetSpread !== 1.0) { contentGroup.rotation.y += delta * 0.1; contentGroup.rotation.x = Math.sin(elapsed * 0.2) * 0.05; }
+        if (targetSpread !== null) { if (Math.abs(spreadFactor - targetSpread) > 0.001) { spreadFactor = THREE.MathUtils.lerp(spreadFactor, targetSpread, delta * 3.0); updateLayout(); } else { spreadFactor = targetSpread; updateLayout(); targetSpread = null; } }
+        if (focusedState && heroAnimProgress < 1.0) { heroAnimProgress = Math.min(1.0, heroAnimProgress + delta * 2.0); const t = easeInOutCubic(heroAnimProgress); heroGroup.position.lerpVectors(heroAnimStartPos, heroAnimTargetPos, t); heroGroup.quaternion.slerpQuaternions(heroAnimStartRot, heroAnimTargetRot, t); if (heroAnimProgress === 1.0) onHeroAnimComplete(); }
+        if (camAnim.active) { camAnim.progress = Math.min(1.0, camAnim.progress + delta * 1.5); if (camAnim.progress >= 1.0) camAnim.active = false; const t = easeInOutCubic(camAnim.progress); camera.position.lerpVectors(camAnim.startPos, camAnim.targetPos, t); controls.target.lerpVectors(camAnim.startTarget, camAnim.targetTarget, t); }
+        if (!focusedState) {
+            currentHover.scale = THREE.MathUtils.lerp(currentHover.scale, currentHover.active ? CONFIG.hoverScale : 1.0, delta * 10);
+            if (highlightMesh.visible) { highlightMesh.matrix.decompose(dummyObj.position, dummyObj.quaternion, dummyObj.scale); dummyObj.scale.setScalar(currentHover.scale); highlightMesh.matrix.compose(dummyObj.position, dummyObj.quaternion, dummyObj.scale); highlightMesh.matrixWorldNeedsUpdate = true; }
+            const pulse = 0.5 + Math.sin(elapsed * CONFIG.pulseSpeed) * 0.5;
+            wireframeMaterials.forEach(m => m.opacity = CONFIG.baseWireOpacity * (0.7 + 0.3 * pulse));
+            fillMaterials.forEach(m => m.opacity = CONFIG.baseFillOpacity);
+        }
+        controls.update();
+        renderer.render(scene, camera);
+    }
+    animate();
+</script>
+</body>
+</html>
