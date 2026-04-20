@@ -998,12 +998,12 @@
                 <div style="font-size:10px;color:#555;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px">Face Selection</div>
                 <div style="font-size:13px;color:${faceName ? c : '#777'};text-transform:uppercase;margin-bottom:8px">${faceName ? `Active Face: ${faceLabel}` : 'Select one of the six recursive faces'}</div>
                 <div style="display:grid;grid-template-columns:repeat(3, 1fr);gap:8px">
-                    <div class="coord-cell"><span class="coord-label">X-</span><span class="coord-val" style="font-size:14px;color:${faceName === 'x-' ? c : '#777'}">${faceName === 'x-' ? 'ACTIVE' : 'idle'}</span></div>
-                    <div class="coord-cell"><span class="coord-label">X+</span><span class="coord-val" style="font-size:14px;color:${faceName === 'x+' ? c : '#777'}">${faceName === 'x+' ? 'ACTIVE' : 'idle'}</span></div>
-                    <div class="coord-cell"><span class="coord-label">Y-</span><span class="coord-val" style="font-size:14px;color:${faceName === 'y-' ? c : '#777'}">${faceName === 'y-' ? 'ACTIVE' : 'idle'}</span></div>
-                    <div class="coord-cell"><span class="coord-label">Y+</span><span class="coord-val" style="font-size:14px;color:${faceName === 'y+' ? c : '#777'}">${faceName === 'y+' ? 'ACTIVE' : 'idle'}</span></div>
-                    <div class="coord-cell"><span class="coord-label">Z-</span><span class="coord-val" style="font-size:14px;color:${faceName === 'z-' ? c : '#777'}">${faceName === 'z-' ? 'ACTIVE' : 'idle'}</span></div>
-                    <div class="coord-cell"><span class="coord-label">Z+</span><span class="coord-val" style="font-size:14px;color:${faceName === 'z+' ? c : '#777'}">${faceName === 'z+' ? 'ACTIVE' : 'idle'}</span></div>
+                    <button class="ctrl-btn" style="padding:10px 8px;color:${faceName === 'x-' ? c : '#aaa'};border-color:${faceName === 'x-' ? c : 'rgba(255,255,255,0.12)'};background:${faceName === 'x-' ? 'rgba(255,255,255,0.06)' : 'rgba(255,255,255,0.02)'}" onclick="selectVoxelFace('x-')">X-</button>
+                    <button class="ctrl-btn" style="padding:10px 8px;color:${faceName === 'x+' ? c : '#aaa'};border-color:${faceName === 'x+' ? c : 'rgba(255,255,255,0.12)'};background:${faceName === 'x+' ? 'rgba(255,255,255,0.06)' : 'rgba(255,255,255,0.02)'}" onclick="selectVoxelFace('x+')">X+</button>
+                    <button class="ctrl-btn" style="padding:10px 8px;color:${faceName === 'y-' ? c : '#aaa'};border-color:${faceName === 'y-' ? c : 'rgba(255,255,255,0.12)'};background:${faceName === 'y-' ? 'rgba(255,255,255,0.06)' : 'rgba(255,255,255,0.02)'}" onclick="selectVoxelFace('y-')">Y-</button>
+                    <button class="ctrl-btn" style="padding:10px 8px;color:${faceName === 'y+' ? c : '#aaa'};border-color:${faceName === 'y+' ? c : 'rgba(255,255,255,0.12)'};background:${faceName === 'y+' ? 'rgba(255,255,255,0.06)' : 'rgba(255,255,255,0.02)'}" onclick="selectVoxelFace('y+')">Y+</button>
+                    <button class="ctrl-btn" style="padding:10px 8px;color:${faceName === 'z-' ? c : '#aaa'};border-color:${faceName === 'z-' ? c : 'rgba(255,255,255,0.12)'};background:${faceName === 'z-' ? 'rgba(255,255,255,0.06)' : 'rgba(255,255,255,0.02)'}" onclick="selectVoxelFace('z-')">Z-</button>
+                    <button class="ctrl-btn" style="padding:10px 8px;color:${faceName === 'z+' ? c : '#aaa'};border-color:${faceName === 'z+' ? c : 'rgba(255,255,255,0.12)'};background:${faceName === 'z+' ? 'rgba(255,255,255,0.06)' : 'rgba(255,255,255,0.02)'}" onclick="selectVoxelFace('z+')">Z+</button>
                 </div>
             </div>
             <div class="selected-info" style="margin-top:12px">
