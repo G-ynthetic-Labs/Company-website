@@ -10,6 +10,8 @@
   --accent-cyan: #00f3ff;
   --accent-cyan-muted: rgba(0, 243, 255, 0.12);
   --accent-cyan-dim: rgba(0, 243, 255, 0.06);
+  --accent-blue-soft: #8ea7ff;
+  --accent-blue-light: #b8c8ff;
   --accent-gray: #3a3a3a;
   --accent-steel: #6e6e7a;
   --accent-red: #ff3366;
@@ -1341,15 +1343,15 @@ body.dev-mode-active a.dev-only {
     content: "└─";
   }
 
-  .sitemap-category {
-    font-family: var(--font-mono);
-    font-size: 0.7rem;
-    color: var(--accent-purple);
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    margin-top: 2.5rem;
-    display: block;
-  }
+.sitemap-category {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--accent-blue-light);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-top: 2.5rem;
+  display: block;
+}
 
   /* Index styles */
   .index-grid {
@@ -1375,12 +1377,12 @@ body.dev-mode-active a.dev-only {
     margin-bottom: 0.4rem;
   }
 
-  .index-list a {
-    font-size: 0.9rem;
-    color: var(--text-dim);
-    text-decoration: none;
-    transition: color 0.2s;
-  }
+.index-list a {
+  font-size: 0.9rem;
+  color: var(--accent-blue-light);
+  text-decoration: none;
+  transition: color 0.2s;
+}
 
   .index-list a:hover {
     color: var(--accent-cyan);
@@ -1394,15 +1396,15 @@ body.dev-mode-active a.dev-only {
     justify-content: center;
   }
 
-  .letter-nav a {
-    font-family: var(--font-mono);
-    font-size: 0.8rem;
-    color: var(--accent-steel);
-    text-decoration: none;
-    padding: 4px 8px;
-    border: 1px solid var(--border-color);
-    transition: all 0.2s;
-  }
+.letter-nav a {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--accent-blue-soft);
+  text-decoration: none;
+  padding: 4px 8px;
+  border: 1px solid var(--border-color);
+  transition: all 0.2s;
+}
 
   .letter-nav a:hover {
     color: var(--accent-cyan);
