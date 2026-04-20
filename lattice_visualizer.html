@@ -719,11 +719,18 @@
     interactiveGrid.visible = false;
     heroGroup.add(interactiveGrid);
 
+    function resetDummyTransform() {
+        dummyObj.position.set(0, 0, 0);
+        dummyObj.quaternion.identity();
+        dummyObj.scale.set(1, 1, 1);
+    }
+
     function buildFullGrid() {
         const half = CONFIG.gridSize / 2; const offset = iGridStep / 2; let i = 0;
         for (let z = 0; z < res; z++) for (let x = 0; x < res; x++) {
+            resetDummyTransform();
             dummyObj.position.set(-half + x * iGridStep + offset, 0, -half + z * iGridStep + offset);
-            dummyObj.scale.set(1,1,1); dummyObj.updateMatrix();
+            dummyObj.updateMatrix();
             interactiveGrid.setMatrixAt(i++, dummyObj.matrix);
         }
         interactiveGrid.instanceMatrix.needsUpdate = true;
@@ -884,7 +891,9 @@
         stack.mesh.getMatrixAt(instanceId, tempMatrix);
         const worldMatrix = tempMatrix.clone().premultiply(stack.mesh.matrixWorld);
         focusedState = { stackIndex, instanceIndex: instanceId, originalMatrix: tempMatrix.clone() };
-        dummyObj.scale.set(0,0,0); dummyObj.updateMatrix();
+        resetDummyTransform();
+        dummyObj.scale.set(0,0,0);
+        dummyObj.updateMatrix();
         stack.mesh.setMatrixAt(instanceId, dummyObj.matrix);
         stack.wireframe.setMatrixAt(instanceId, dummyObj.matrix);
         stack.mesh.instanceMatrix.needsUpdate = true;
@@ -936,9 +945,14 @@
         const half = CONFIG.gridSize / 2; const offset = iGridStep / 2;
         let i = 0;
         for (let z = 0; z < res; z++) for (let x = 0; x < res; x++) {
-            if (i === index) { dummyObj.position.set(-half + x*iGridStep + offset, 0, -half + z*iGridStep + offset); dummyObj.scale.set(1,1,1); }
-            else             { dummyObj.position.set(0,0,0); dummyObj.scale.set(0,0,0); }
-            dummyObj.updateMatrix(); interactiveGrid.setMatrixAt(i++, dummyObj.matrix);
+            resetDummyTransform();
+            if (i === index) {
+                dummyObj.position.set(-half + x*iGridStep + offset, 0, -half + z*iGridStep + offset);
+            } else {
+                dummyObj.scale.set(0,0,0);
+            }
+            dummyObj.updateMatrix();
+            interactiveGrid.setMatrixAt(i++, dummyObj.matrix);
         }
         interactiveGrid.instanceMatrix.needsUpdate = true;
         const row = Math.floor(index / res); const col = index % res;
