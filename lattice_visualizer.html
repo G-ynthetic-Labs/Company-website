@@ -513,6 +513,8 @@
 <!-- Tooltip -->
 <div id="tooltip"></div>
 
+<button id="voxel-recurse-btn" class="ctrl-btn" style="display:none;position:absolute;left:24px;bottom:96px;z-index:25;padding:12px 18px;border-color:#00ff88;color:#00ff88;background:rgba(0,0,0,0.82)" onclick="recurseVoxelToTop()">Recurse To Full Lattice</button>
+
 <!-- Hint bar -->
 <div id="hint-bar">
     <div class="hint-item"><span class="hint-key">Left Click</span> Extract / Select Layer</div>
@@ -738,16 +740,16 @@
 
     function createFaceLabelSprite(text, colorHex) {
         const canvas = document.createElement('canvas');
-        canvas.width = 128;
-        canvas.height = 64;
+        canvas.width = 512;
+        canvas.height = 256;
         const ctx = canvas.getContext('2d');
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         ctx.fillStyle = '#0a0a0a';
-        ctx.fillRect(18, 16, 92, 32);
+        ctx.fillRect(72, 64, 368, 128);
         ctx.strokeStyle = `#${colorHex.toString(16).padStart(6, '0')}`;
-        ctx.lineWidth = 2;
-        ctx.strokeRect(18, 16, 92, 32);
-        ctx.font = '700 26px monospace';
+        ctx.lineWidth = 8;
+        ctx.strokeRect(72, 64, 368, 128);
+        ctx.font = '700 100px monospace';
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
         ctx.fillStyle = '#f2f2f2';
@@ -755,10 +757,18 @@
 
         const texture = new THREE.CanvasTexture(canvas);
         texture.needsUpdate = true;
+        texture.minFilter = THREE.LinearFilter;
+        texture.magFilter = THREE.LinearFilter;
         const material = new THREE.SpriteMaterial({ map: texture, transparent: true, depthWrite: false });
         const sprite = new THREE.Sprite(material);
         sprite.scale.set(0.55, 0.275, 1);
         return sprite;
+    }
+
+    function getVoxelFaceColor(faceName) {
+        if (faceName.startsWith('x')) return 0xff3355;
+        if (faceName.startsWith('y')) return 0x00ff88;
+        return 0x1e90ff;
     }
 
     const voxelFaceDefs = [
@@ -774,16 +784,16 @@
     voxelFaceDefs.forEach(def => {
         const face = new THREE.Mesh(
             new THREE.PlaneGeometry(voxelCubeSize * 0.9, voxelCubeSize * 0.9),
-            new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.18, side: THREE.DoubleSide, depthWrite: false })
+            new THREE.MeshBasicMaterial({ color: getVoxelFaceColor(def.name), transparent: true, opacity: 0.22, side: THREE.DoubleSide, depthWrite: false })
         );
         const faceOffset = voxelCubeSize / 2 + 0.01;
         face.rotation.set(def.rotation[0], def.rotation[1], def.rotation[2]);
         face.position[def.axis] = def.sign * faceOffset;
         face.userData.faceName = def.name;
-        face.userData.baseOpacity = 0.18;
+        face.userData.baseOpacity = 0.22;
         voxelDetailGroup.add(face);
 
-        const label = createFaceLabelSprite(def.name, 0xffffff);
+        const label = createFaceLabelSprite(def.name, getVoxelFaceColor(def.name));
         label.position.set(def.labelPos[0], def.labelPos[1], def.labelPos[2]);
         voxelDetailGroup.add(label);
 
@@ -828,10 +838,11 @@
         voxelCubeMesh.material.color.setHex(colorHex);
         voxelCubeEdges.material.color.setHex(colorHex);
         voxelFaceMeshes.forEach(({ mesh, label, name }) => {
-            mesh.material.color.setHex(colorHex);
+            const faceColor = getVoxelFaceColor(name);
+            mesh.material.color.setHex(faceColor);
             label.material.map.dispose();
             label.material.dispose();
-            const nextLabel = createFaceLabelSprite(name, colorHex);
+            const nextLabel = createFaceLabelSprite(name, faceColor);
             label.material = nextLabel.material;
         });
     }
@@ -852,11 +863,15 @@
         voxelDetailGroup.quaternion.identity();
         voxelDetailGroup.scale.set(1, 1, 1);
         voxelDetailGroup.visible = true;
+        const btn = document.getElementById('voxel-recurse-btn');
+        if (btn) btn.style.display = 'block';
     }
 
     function hideVoxelDetail() {
         voxelDetailGroup.visible = false;
         updateVoxelFaceVisuals();
+        const btn = document.getElementById('voxel-recurse-btn');
+        if (btn) btn.style.display = 'none';
     }
 
     function selectVoxelFace(faceName) {
