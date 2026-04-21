@@ -36,6 +36,15 @@
         #canvas-container {
             position: absolute;
             inset: 0;
+            touch-action: none;
+            overscroll-behavior: contain;
+        }
+
+        #canvas-container canvas {
+            display: block;
+            width: 100%;
+            height: 100%;
+            touch-action: none;
         }
 
         /* ── Top bar ── */
@@ -553,8 +562,255 @@
 <!-- Scripts -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>
-    // OrbitControls implementation
-    THREE.OrbitControls = function(e,t){var o=this;this.object=e,this.domElement=t,this.enabled=!0,this.target=new THREE.Vector3,this.minDistance=0,this.maxDistance=Infinity,this.enableDamping=!0,this.dampingFactor=.08,this.enableZoom=!0,this.zoomSpeed=1,this.enableRotate=!0,this.rotateSpeed=.6,this.enablePan=!0,this.panSpeed=.8,this.autoRotate=!1,this.autoRotateSpeed=2;var i={NONE:-1,ROTATE:0,DOLLY:1,PAN:2},a=i.NONE,n=new THREE.Spherical,r=new THREE.Spherical,s=[1],l=new THREE.Vector3,d=new THREE.Vector2,p=new THREE.Vector2,u=new THREE.Vector2,c=new THREE.Vector2,f=new THREE.Vector2,h=new THREE.Vector2,m=new THREE.Vector2,g=new THREE.Vector2,v=new THREE.Vector2,M=new THREE.Vector3;function T(e,t){var i=o.domElement;if(o.object.isPerspectiveCamera){M.copy(o.object.position).sub(o.target);var a=M.length();a*=Math.tan(o.object.fov/2*Math.PI/180),function(e,t){M.setFromMatrixColumn(t,0),M.multiplyScalar(-e),l.add(M)}(2*e*a/i.clientHeight,o.object.matrix),function(e,t){M.setFromMatrixColumn(t,1),M.multiplyScalar(e),l.add(M)}(2*t*a/i.clientHeight,o.object.matrix)}}var y=new THREE.Vector3,w=new THREE.Quaternion,X=new THREE.Vector3;this.update=function(){var e=new THREE.Vector3,t=new THREE.Quaternion().setFromUnitVectors(o.object.up,new THREE.Vector3(0,1,0)),i=t.clone().invert();return function(){var a=o.object.position;e.copy(a).sub(o.target),e.applyQuaternion(t),n.setFromVector3(e),o.autoRotate&&a===i.NONE&&function(e){r.theta-=e}(2*Math.PI/3600*o.autoRotateSpeed),o.enableDamping?(n.theta+=r.theta*o.dampingFactor,n.phi+=r.phi*o.dampingFactor):(n.theta+=r.theta,n.phi+=r.phi),n.phi=Math.max(.001,Math.min(Math.PI-.001,n.phi)),n.makeSafe(),n.radius*=s[0],n.radius=Math.max(o.minDistance,Math.min(o.maxDistance,n.radius)),o.target.add(l),e.setFromSpherical(n),e.applyQuaternion(i),a.copy(o.target).add(e),o.object.lookAt(o.target),o.enableDamping?(r.theta*=1-o.dampingFactor,r.phi*=1-o.dampingFactor,l.multiplyScalar(1-o.dampingFactor)):(r.set(0,0,0),l.set(0,0,0)),s[0]=1}}();this.dispose=function(){t.removeEventListener("mousedown",P),t.removeEventListener("wheel",L),t.removeEventListener("contextmenu",D)};function P(e){if(o.enabled){e.preventDefault();if(0===e.button){if(!o.enableRotate)return;a=i.ROTATE,d.set(e.clientX,e.clientY)}else if(1===e.button){if(!o.enableZoom)return;a=i.DOLLY,m.set(e.clientX,e.clientY)}else if(2===e.button){if(!o.enablePan)return;a=i.PAN,c.set(e.clientX,e.clientY)}document.addEventListener("mousemove",E),document.addEventListener("mouseup",x)}}function E(e){if(o.enabled)if(a===i.ROTATE){p.set(e.clientX,e.clientY),u.subVectors(p,d).multiplyScalar(o.rotateSpeed);var t=o.domElement;function n(e){r.theta-=e}function s(e){r.phi-=e}n(2*Math.PI*u.x/t.clientHeight),s(2*Math.PI*u.y/t.clientHeight),d.copy(p),o.update()}else if(a===i.DOLLY){g.set(e.clientX,e.clientY),v.subVectors(g,m),v.y>0?function(e){s[0]/=e}(Math.pow(.95,o.zoomSpeed)):v.y<0&&function(e){s[0]*=e}(Math.pow(.95,o.zoomSpeed)),m.copy(g),o.update()}else if(a===i.PAN)f.set(e.clientX,e.clientY),h.subVectors(f,c).multiplyScalar(o.panSpeed),T(h.x,h.y),c.copy(f),o.update()}function x(){document.removeEventListener("mousemove",E),document.removeEventListener("mouseup",x),a=i.NONE}function L(e){if(o.enabled&&o.enableZoom){e.preventDefault();var t=Math.pow(.95,o.zoomSpeed);e.deltaY<0?function(e){s[0]*=e}(t):function(e){s[0]/=e}(t),o.update()}}function D(e){o.enabled&&e.preventDefault()}t.addEventListener("mousedown",P),t.addEventListener("wheel",L,{passive:!1}),t.addEventListener("contextmenu",D)};
+    // OrbitControls implementation with mouse + touch support
+    THREE.OrbitControls = function(object, domElement) {
+        const scope = this;
+        this.object = object;
+        this.domElement = domElement;
+        this.enabled = true;
+        this.target = new THREE.Vector3();
+        this.minDistance = 0;
+        this.maxDistance = Infinity;
+        this.enableDamping = true;
+        this.dampingFactor = 0.08;
+        this.enableZoom = true;
+        this.zoomSpeed = 1;
+        this.enableRotate = true;
+        this.rotateSpeed = 0.6;
+        this.enablePan = true;
+        this.panSpeed = 0.8;
+
+        const STATE = { NONE: -1, ROTATE: 0, DOLLY: 1, PAN: 2 };
+        let state = STATE.NONE;
+        const spherical = new THREE.Spherical();
+        const sphericalDelta = new THREE.Spherical(0, 0, 0);
+        let scale = 1;
+        const panOffset = new THREE.Vector3();
+        const rotateStart = new THREE.Vector2();
+        const rotateEnd = new THREE.Vector2();
+        const rotateDelta = new THREE.Vector2();
+        const panStart = new THREE.Vector2();
+        const panEnd = new THREE.Vector2();
+        const panDelta = new THREE.Vector2();
+        const dollyStart = new THREE.Vector2();
+        const dollyEnd = new THREE.Vector2();
+        const dollyDelta = new THREE.Vector2();
+        const pointerPositions = new Map();
+        const panVector = new THREE.Vector3();
+        const offset = new THREE.Vector3();
+        const quat = new THREE.Quaternion().setFromUnitVectors(object.up, new THREE.Vector3(0, 1, 0));
+        const quatInverse = quat.clone().invert();
+
+        function getZoomScale() {
+            return Math.pow(0.95, scope.zoomSpeed);
+        }
+
+        function rotateLeft(angle) {
+            sphericalDelta.theta -= angle;
+        }
+
+        function rotateUp(angle) {
+            sphericalDelta.phi -= angle;
+        }
+
+        function dollyIn(dollyScale) {
+            scale *= dollyScale;
+        }
+
+        function dollyOut(dollyScale) {
+            scale /= dollyScale;
+        }
+
+        function pan(deltaX, deltaY) {
+            if (!scope.enablePan || !scope.object.isPerspectiveCamera) return;
+            offset.copy(scope.object.position).sub(scope.target);
+            const targetDistance = offset.length() * Math.tan((scope.object.fov / 2) * Math.PI / 180);
+
+            panVector.setFromMatrixColumn(scope.object.matrix, 0);
+            panVector.multiplyScalar((-2 * deltaX * targetDistance) / scope.domElement.clientHeight * scope.panSpeed);
+            panOffset.add(panVector);
+
+            panVector.setFromMatrixColumn(scope.object.matrix, 1);
+            panVector.multiplyScalar((2 * deltaY * targetDistance) / scope.domElement.clientHeight * scope.panSpeed);
+            panOffset.add(panVector);
+        }
+
+        function getTouches() {
+            return Array.from(pointerPositions.values());
+        }
+
+        function onMouseDown(event) {
+            if (!scope.enabled) return;
+            event.preventDefault();
+
+            if (event.button === 0) {
+                if (!scope.enableRotate) return;
+                state = STATE.ROTATE;
+                rotateStart.set(event.clientX, event.clientY);
+            } else if (event.button === 1) {
+                if (!scope.enableZoom) return;
+                state = STATE.DOLLY;
+                dollyStart.set(event.clientX, event.clientY);
+            } else if (event.button === 2) {
+                if (!scope.enablePan) return;
+                state = STATE.PAN;
+                panStart.set(event.clientX, event.clientY);
+            }
+
+            document.addEventListener('mousemove', onMouseMove);
+            document.addEventListener('mouseup', onMouseUp);
+        }
+
+        function onMouseMove(event) {
+            if (!scope.enabled) return;
+
+            if (state === STATE.ROTATE) {
+                rotateEnd.set(event.clientX, event.clientY);
+                rotateDelta.subVectors(rotateEnd, rotateStart).multiplyScalar(scope.rotateSpeed);
+                rotateLeft((2 * Math.PI * rotateDelta.x) / scope.domElement.clientHeight);
+                rotateUp((2 * Math.PI * rotateDelta.y) / scope.domElement.clientHeight);
+                rotateStart.copy(rotateEnd);
+            } else if (state === STATE.DOLLY) {
+                dollyEnd.set(event.clientX, event.clientY);
+                dollyDelta.subVectors(dollyEnd, dollyStart);
+                if (dollyDelta.y > 0) dollyOut(getZoomScale());
+                else if (dollyDelta.y < 0) dollyIn(getZoomScale());
+                dollyStart.copy(dollyEnd);
+            } else if (state === STATE.PAN) {
+                panEnd.set(event.clientX, event.clientY);
+                panDelta.subVectors(panEnd, panStart);
+                pan(panDelta.x, panDelta.y);
+                panStart.copy(panEnd);
+            }
+        }
+
+        function onMouseUp() {
+            document.removeEventListener('mousemove', onMouseMove);
+            document.removeEventListener('mouseup', onMouseUp);
+            state = STATE.NONE;
+        }
+
+        function onWheel(event) {
+            if (!scope.enabled || !scope.enableZoom) return;
+            event.preventDefault();
+            if (event.deltaY < 0) dollyIn(getZoomScale());
+            else if (event.deltaY > 0) dollyOut(getZoomScale());
+        }
+
+        function onPointerDown(event) {
+            if (!scope.enabled || event.pointerType === 'mouse') return;
+            pointerPositions.set(event.pointerId, { x: event.clientX, y: event.clientY });
+            domElement.setPointerCapture?.(event.pointerId);
+
+            const touches = getTouches();
+            if (touches.length === 1) {
+                if (!scope.enableRotate) return;
+                state = STATE.ROTATE;
+                rotateStart.set(touches[0].x, touches[0].y);
+            } else if (touches.length === 2) {
+                state = STATE.DOLLY;
+                const dx = touches[0].x - touches[1].x;
+                const dy = touches[0].y - touches[1].y;
+                dollyStart.set(0, Math.sqrt(dx * dx + dy * dy));
+            }
+        }
+
+        function onPointerMove(event) {
+            if (!scope.enabled || event.pointerType === 'mouse' || !pointerPositions.has(event.pointerId)) return;
+            event.preventDefault();
+            pointerPositions.set(event.pointerId, { x: event.clientX, y: event.clientY });
+            const touches = getTouches();
+
+            if (touches.length === 1 && state === STATE.ROTATE && scope.enableRotate) {
+                rotateEnd.set(touches[0].x, touches[0].y);
+                rotateDelta.subVectors(rotateEnd, rotateStart).multiplyScalar(scope.rotateSpeed);
+                rotateLeft((2 * Math.PI * rotateDelta.x) / scope.domElement.clientHeight);
+                rotateUp((2 * Math.PI * rotateDelta.y) / scope.domElement.clientHeight);
+                rotateStart.copy(rotateEnd);
+            } else if (touches.length === 2 && scope.enableZoom) {
+                const dx = touches[0].x - touches[1].x;
+                const dy = touches[0].y - touches[1].y;
+                dollyEnd.set(0, Math.sqrt(dx * dx + dy * dy));
+                dollyDelta.subVectors(dollyEnd, dollyStart);
+                if (dollyDelta.y > 0) dollyIn(getZoomScale());
+                else if (dollyDelta.y < 0) dollyOut(getZoomScale());
+                dollyStart.copy(dollyEnd);
+            }
+        }
+
+        function onPointerUp(event) {
+            if (event.pointerType === 'mouse') return;
+            pointerPositions.delete(event.pointerId);
+            const touches = getTouches();
+
+            if (touches.length === 1) {
+                state = STATE.ROTATE;
+                rotateStart.set(touches[0].x, touches[0].y);
+            } else {
+                state = STATE.NONE;
+            }
+        }
+
+        function onContextMenu(event) {
+            if (scope.enabled) event.preventDefault();
+        }
+
+        this.update = function() {
+            offset.copy(scope.object.position).sub(scope.target);
+            offset.applyQuaternion(quat);
+            spherical.setFromVector3(offset);
+
+            if (scope.enableDamping) {
+                spherical.theta += sphericalDelta.theta * scope.dampingFactor;
+                spherical.phi += sphericalDelta.phi * scope.dampingFactor;
+            } else {
+                spherical.theta += sphericalDelta.theta;
+                spherical.phi += sphericalDelta.phi;
+            }
+
+            spherical.phi = Math.max(0.001, Math.min(Math.PI - 0.001, spherical.phi));
+            spherical.makeSafe();
+            spherical.radius *= scale;
+            spherical.radius = Math.max(scope.minDistance, Math.min(scope.maxDistance, spherical.radius));
+            scope.target.add(panOffset);
+
+            offset.setFromSpherical(spherical);
+            offset.applyQuaternion(quatInverse);
+            scope.object.position.copy(scope.target).add(offset);
+            scope.object.lookAt(scope.target);
+
+            if (scope.enableDamping) {
+                sphericalDelta.theta *= 1 - scope.dampingFactor;
+                sphericalDelta.phi *= 1 - scope.dampingFactor;
+                panOffset.multiplyScalar(1 - scope.dampingFactor);
+            } else {
+                sphericalDelta.set(0, 0, 0);
+                panOffset.set(0, 0, 0);
+            }
+
+            scale = 1;
+        };
+
+        this.dispose = function() {
+            domElement.removeEventListener('mousedown', onMouseDown);
+            domElement.removeEventListener('wheel', onWheel);
+            domElement.removeEventListener('contextmenu', onContextMenu);
+            domElement.removeEventListener('pointerdown', onPointerDown);
+            domElement.removeEventListener('pointermove', onPointerMove);
+            domElement.removeEventListener('pointerup', onPointerUp);
+            domElement.removeEventListener('pointercancel', onPointerUp);
+            document.removeEventListener('mousemove', onMouseMove);
+            document.removeEventListener('mouseup', onMouseUp);
+        };
+
+        domElement.addEventListener('mousedown', onMouseDown);
+        domElement.addEventListener('wheel', onWheel, { passive: false });
+        domElement.addEventListener('contextmenu', onContextMenu);
+        domElement.addEventListener('pointerdown', onPointerDown, { passive: false });
+        domElement.addEventListener('pointermove', onPointerMove, { passive: false });
+        domElement.addEventListener('pointerup', onPointerUp);
+        domElement.addEventListener('pointercancel', onPointerUp);
+    };
 
     // Constants
     const CONFIG = {
@@ -588,6 +844,7 @@
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.setSize(container.clientWidth, container.clientHeight);
     container.appendChild(renderer.domElement);
+    renderer.domElement.style.touchAction = 'none';
 
     const scene = new THREE.Scene();
     scene.fog = new THREE.FogExp2(0x000000, 0.018);
@@ -612,6 +869,7 @@
     const raycaster = new THREE.Raycaster();
     const mouse = new THREE.Vector2(999, 999);
     const mouseDownPos = new THREE.Vector2();
+    const touchDownPos = new THREE.Vector2();
     const dummyObj = new THREE.Object3D();
     const tempMatrix = new THREE.Matrix4();
 
@@ -959,6 +1217,42 @@
         return { pos: pos.clone().add(sv), target: lookAt.clone().add(sv) };
     }
 
+    function isNarrowViewport() {
+        return Math.min(container.clientWidth, container.clientHeight) < 900;
+    }
+
+    function getBaseCameraState() {
+        const basePos = isNarrowViewport()
+            ? new THREE.Vector3(0, 15, 72)
+            : new THREE.Vector3(0, 12, 55);
+        const baseTarget = new THREE.Vector3(0, 0, 0);
+        return getOffsetCameraState(basePos, baseTarget);
+    }
+
+    function getExpandedCameraState() {
+        const expandedPos = isNarrowViewport()
+            ? new THREE.Vector3(0, 15, 72)
+            : new THREE.Vector3(0, 12, 55);
+        const expandedTarget = isNarrowViewport()
+            ? new THREE.Vector3(0, 1.8, 0)
+            : new THREE.Vector3(0, 2.5, 0);
+        return getOffsetCameraState(expandedPos, expandedTarget);
+    }
+
+    function frameCurrentView() {
+        if (selectedVoxelIndex !== null) return getVoxelCameraState();
+        if (selectedCivId !== null) return getCivilizationCameraState();
+        if (focusedState) return getOffsetCameraState(new THREE.Vector3(8, 6, 8), new THREE.Vector3(0, 0, 0));
+        if (expanded) return getExpandedCameraState();
+        return getBaseCameraState();
+    }
+
+    function updatePointerFromClient(clientX, clientY) {
+        const rect = container.getBoundingClientRect();
+        mouse.x = ((clientX - rect.left) / rect.width) * 2 - 1;
+        mouse.y = -((clientY - rect.top) / rect.height) * 2 + 1;
+    }
+
     function updatePanelOverview() {
         document.getElementById('panel-breadcrumb').textContent = 'Core System';
         document.getElementById('panel-title').textContent = 'Memory Cognitive Lattice';
@@ -1064,10 +1358,11 @@
         document.getElementById('btn-expand').classList.toggle('active', expanded);
         
         if (expanded) {
-            const cs = getOffsetCameraState(new THREE.Vector3(0,12,55), new THREE.Vector3(0,2.5,0));
+            const cs = getExpandedCameraState();
             startCameraAnim(cs.pos, cs.target);
         } else {
-            startCameraAnim(new THREE.Vector3(0,12,55), new THREE.Vector3(0,0,0));
+            const cs = getBaseCameraState();
+            startCameraAnim(cs.pos, cs.target);
         }
     }
 
@@ -1076,7 +1371,8 @@
     document.getElementById('btn-reset').addEventListener('click', () => {
         if (focusedState) closeHeroLayer();
         if (expanded) toggleGridExpansion(false);
-        startCameraAnim(new THREE.Vector3(0,12,55), new THREE.Vector3(0,0,0));
+        const cs = getBaseCameraState();
+        startCameraAnim(cs.pos, cs.target);
     });
 
     function openHeroLayer(stackIndex, instanceId) {
@@ -1200,8 +1496,9 @@
         updateLayout();
         document.getElementById('btn-expand').classList.remove('active');
 
-        camera.position.set(0,12,55);
-        controls.target.set(0,0,0);
+        const cs = getBaseCameraState();
+        camera.position.copy(cs.pos);
+        controls.target.copy(cs.target);
         controls.update();
         camAnim.active = false;
 
@@ -1220,10 +1517,11 @@
         
         // Drill up to the current expansion state (Expanded or Merged)
         if (expanded) {
-            const cs = getOffsetCameraState(new THREE.Vector3(0,12,55), new THREE.Vector3(0,2.5,0));
+            const cs = getExpandedCameraState();
             startCameraAnim(cs.pos, cs.target);
         } else {
-            startCameraAnim(new THREE.Vector3(0,12,55), new THREE.Vector3(0,0,0));
+            const cs = getBaseCameraState();
+            startCameraAnim(cs.pos, cs.target);
         }
         
         heroAnimStartPos.copy(heroGroup.position); heroAnimStartRot.copy(heroGroup.quaternion);
@@ -1253,10 +1551,64 @@
     }
 
     const tooltip = document.getElementById('tooltip');
+    function handleSceneTap() {
+        if (camAnim.active) return;
+        
+        // Level 4 -> Level 3 (Voxel -> Civilization)
+        if (selectedVoxelIndex !== null) {
+            raycaster.setFromCamera(mouse, camera);
+            const hits = raycaster.intersectObjects(voxelFaceMeshes.map(f => f.mesh), false);
+            if (hits.length > 0) {
+                selectVoxelFace(hits[0].object.userData.faceName);
+                return;
+            }
+            exitVoxelMode();
+            return;
+        }
+        
+        // Level 3 -> Level 2 (Civilization -> Layer)
+        if (selectedCivId && selectedVoxelIndex === null) {
+            raycaster.setFromCamera(mouse, camera);
+            const hits = raycaster.intersectObject(interactiveGrid, false);
+            if (hits.length > 0 && hits[0].instanceId !== undefined) selectVoxel(hits[0].instanceId);
+            else exitCivilization();
+            return;
+        }
+        
+        // Level 2 -> Level 1/0 (Layer -> Cube View)
+        if (focusedState && !selectedCivId && heroAnimProgress >= 1.0) {
+            raycaster.setFromCamera(mouse, camera);
+            const hits = raycaster.intersectObjects(heroLayers.map(l => l.mesh), false);
+            if (hits.length > 0) { 
+                const hitLayer = heroLayers.find(l => l.mesh === hits[0].object); 
+                if (hitLayer) selectCivilization(hitLayer); 
+            } else {
+                closeHeroLayer();
+            }
+            return;
+        }
+        
+        // Main View Interactions
+        if (!focusedState) {
+            contentGroup.updateMatrixWorld();
+            raycaster.setFromCamera(mouse, camera);
+            const hits = raycaster.intersectObjects(stacks.map(s => s.mesh), false);
+            
+            if (hits.length > 0 && hits[0].instanceId !== undefined) {
+                if (!expanded) {
+                    toggleGridExpansion(true);
+                } else {
+                    const si = stacks.findIndex(s => s.mesh === hits[0].object); 
+                    if (si !== -1) openHeroLayer(si, hits[0].instanceId);
+                }
+            } else if (expanded) {
+                toggleGridExpansion(false);
+            }
+        }
+    }
+
     container.addEventListener('mousemove', e => {
-        const rect = container.getBoundingClientRect();
-        mouse.x =  ((e.clientX - rect.left) / rect.width)  * 2 - 1;
-        mouse.y = -((e.clientY - rect.top)  / rect.height) * 2 + 1;
+        updatePointerFromClient(e.clientX, e.clientY);
         if (selectedVoxelIndex !== null) {
             raycaster.setFromCamera(mouse, camera);
             const hits = raycaster.intersectObjects(voxelFaceMeshes.map(f => f.mesh), false);
@@ -1324,66 +1676,43 @@
     });
 
     container.addEventListener('mousedown', e => mouseDownPos.set(e.clientX, e.clientY));
+    container.addEventListener('pointerdown', e => {
+        if (e.pointerType !== 'touch') return;
+        touchDownPos.set(e.clientX, e.clientY);
+        updatePointerFromClient(e.clientX, e.clientY);
+    }, { passive: false });
+    container.addEventListener('pointermove', e => {
+        if (e.pointerType !== 'touch') return;
+        updatePointerFromClient(e.clientX, e.clientY);
+    }, { passive: false });
+    container.addEventListener('pointerup', e => {
+        if (e.pointerType !== 'touch') return;
+        updatePointerFromClient(e.clientX, e.clientY);
+        const moveDist = touchDownPos.distanceTo(new THREE.Vector2(e.clientX, e.clientY));
+        if (moveDist <= 12) handleSceneTap();
+    });
     container.addEventListener('click', e => {
         const moveDist = mouseDownPos.distanceTo(new THREE.Vector2(e.clientX, e.clientY));
-        if (moveDist > 5 || camAnim.active) return;
-        
-        // Level 4 -> Level 3 (Voxel -> Civilization)
-        if (selectedVoxelIndex !== null) {
-            raycaster.setFromCamera(mouse, camera);
-            const hits = raycaster.intersectObjects(voxelFaceMeshes.map(f => f.mesh), false);
-            if (hits.length > 0) {
-                selectVoxelFace(hits[0].object.userData.faceName);
-                return;
-            }
-            exitVoxelMode(); return;
-        }
-        
-        // Level 3 -> Level 2 (Civilization -> Layer)
-        if (selectedCivId && selectedVoxelIndex === null) {
-            raycaster.setFromCamera(mouse, camera);
-            const hits = raycaster.intersectObject(interactiveGrid, false);
-            if (hits.length > 0 && hits[0].instanceId !== undefined) selectVoxel(hits[0].instanceId);
-            else exitCivilization();
-            return;
-        }
-        
-        // Level 2 -> Level 1/0 (Layer -> Cube View)
-        if (focusedState && !selectedCivId && heroAnimProgress >= 1.0) {
-            raycaster.setFromCamera(mouse, camera);
-            const hits = raycaster.intersectObjects(heroLayers.map(l => l.mesh), false);
-            if (hits.length > 0) { 
-                const hitLayer = heroLayers.find(l => l.mesh === hits[0].object); 
-                if (hitLayer) selectCivilization(hitLayer); 
-            } else {
-                closeHeroLayer();
-            }
-            return;
-        }
-        
-        // Main View Interactions
-        if (!focusedState) {
-            contentGroup.updateMatrixWorld();
-            raycaster.setFromCamera(mouse, camera);
-            const hits = raycaster.intersectObjects(stacks.map(s => s.mesh), false);
-            
-            if (hits.length > 0 && hits[0].instanceId !== undefined) {
-                // If merged, first extract superpositions (Level 0 -> Level 1)
-                if (!expanded) {
-                    toggleGridExpansion(true);
-                } else {
-                    // If already extracted, drill down (Level 1 -> Level 2)
-                    const si = stacks.findIndex(s => s.mesh === hits[0].object); 
-                    if (si !== -1) openHeroLayer(si, hits[0].instanceId);
-                }
-            } else if (expanded) {
-                // Clicking off extracted objects -> Merge (Level 1 -> Level 0)
-                toggleGridExpansion(false);
-            }
-        }
+        if (moveDist > 5) return;
+        handleSceneTap();
     });
 
-    window.addEventListener('resize', () => { camera.aspect = container.clientWidth / container.clientHeight; camera.updateProjectionMatrix(); renderer.setSize(container.clientWidth, container.clientHeight); });
+    function syncViewport(frameView = false) {
+        camera.aspect = container.clientWidth / container.clientHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(container.clientWidth, container.clientHeight);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        if (frameView) {
+            const cs = frameCurrentView();
+            camera.position.copy(cs.pos);
+            controls.target.copy(cs.target);
+            camAnim.active = false;
+            controls.update();
+        }
+    }
+
+    window.addEventListener('resize', () => syncViewport(true));
+    window.addEventListener('orientationchange', () => setTimeout(() => syncViewport(true), 150));
 
     function animate() {
         requestAnimationFrame(animate);
