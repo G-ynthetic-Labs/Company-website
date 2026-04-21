@@ -20,6 +20,71 @@
     const header = document.querySelector('header');
     const headerHeight = header ? header.offsetHeight : 500;
 
+    function closeMobileNav() {
+        if (!siteNav) return;
+        siteNav.classList.remove('nav-open');
+        const toggle = siteNav.querySelector('.nav-toggle');
+        if (toggle) toggle.setAttribute('aria-expanded', 'false');
+    }
+
+    function initResponsiveEnhancements() {
+        if (!siteNav) return;
+
+        const navLinks = siteNav.querySelector('.nav-links');
+        if (navLinks && !siteNav.querySelector('.nav-toggle')) {
+            if (!navLinks.id) navLinks.id = 'site-nav-links';
+
+            const toggle = document.createElement('button');
+            toggle.type = 'button';
+            toggle.className = 'nav-toggle';
+            toggle.setAttribute('aria-expanded', 'false');
+            toggle.setAttribute('aria-controls', navLinks.id);
+            toggle.setAttribute('aria-label', 'Toggle navigation menu');
+            toggle.innerHTML = '<span class="nav-toggle-lines" aria-hidden="true"></span>';
+            siteNav.insertBefore(toggle, navLinks);
+
+            toggle.addEventListener('click', () => {
+                const isOpen = siteNav.classList.toggle('nav-open');
+                toggle.setAttribute('aria-expanded', String(isOpen));
+            });
+
+            navLinks.querySelectorAll('a').forEach((link) => {
+                link.addEventListener('click', closeMobileNav);
+            });
+        }
+
+        document.querySelectorAll('header > .reveal > div, section > .reveal > div').forEach((row) => {
+            if (row.querySelectorAll('.btn-primary, .btn-dossier').length >= 2) {
+                row.classList.add('button-row');
+            }
+        });
+
+        document.querySelectorAll('[style*="grid-template-columns: 1fr 1fr"]').forEach((grid) => {
+            grid.classList.add('split-panel-grid');
+        });
+
+        document.querySelectorAll('footer > div').forEach((row) => {
+            const links = row.querySelectorAll(':scope > a');
+            const blocks = row.querySelectorAll(':scope > div');
+
+            if (links.length >= 2) {
+                row.classList.add('footer-link-row');
+            }
+
+            if (blocks.length >= 2) {
+                row.classList.add('footer-flex-row');
+            }
+        });
+
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 1024) closeMobileNav();
+        });
+
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape') closeMobileNav();
+        });
+    }
+
     function handleNavigation() {
         if (!siteNav) return;
 
@@ -280,6 +345,9 @@
 
         // Problem pulse
         initProblemPulse();
+
+        // Touch/mobile layout helpers
+        initResponsiveEnhancements();
 
         // Glitch Links
         initGlitchLinks();

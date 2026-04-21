@@ -4,6 +4,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>G-ynthetic Labs | F.R.A.C.C. Engine</title>
+    
+    
+    <meta property="og:url" content="https://g-ynthetic-labs.com/fracc_engine.html">
+    <link rel="canonical" href="https://g-ynthetic-labs.com/fracc_engine.html">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "SoftwareSourceCode",
+        "name": "F.R.A.C.C. Engine",
+        "url": "https://g-ynthetic-labs.com/fracc_engine.html",
+        "description": "F.R.A.C.C. is a deterministic decomposition engine that maps natural-language input across seven semantic arcs and three processing phases, then ranks the resulting primitives by weighted score.",
+        "abstract": "Fractally Recursive Artificial Cognitive Computing for triadic semantic decomposition and ranked synthesis.",
+        "programmingLanguage": "JavaScript",
+        "runtimePlatform": "Web Browser",
+        "keywords": [
+            "F.R.A.C.C.",
+            "deterministic reasoning",
+            "semantic decomposition",
+            "triadic processing",
+            "fractal logic"
+        ],
+        "creator": {
+            "@type": "Organization",
+            "name": "G-ynthetic Labs"
+        }
+    }
+    </script>
     <style>
         :root {
             --bg-base: #0a0a0f;
@@ -42,6 +69,38 @@
             display: flex;
             justify-content: space-between;
             align-items: flex-end;
+        }
+
+        .technical-brief {
+            background: linear-gradient(180deg, rgba(181, 55, 242, 0.08), rgba(0, 229, 255, 0.04));
+            border: 1px solid var(--border-subtle);
+            border-radius: 8px;
+            padding: 1.5rem;
+        }
+
+        .technical-brief h2 {
+            font-size: 0.9rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--accent-primary);
+            margin-bottom: 1rem;
+        }
+
+        .technical-brief p,
+        .technical-brief li {
+            color: var(--text-main);
+            font-size: 0.95rem;
+        }
+
+        .technical-brief p + p {
+            margin-top: 0.9rem;
+        }
+
+        .technical-brief ul {
+            margin-top: 1rem;
+            padding-left: 1.2rem;
+            display: grid;
+            gap: 0.6rem;
         }
 
         h1 { font-size: 1.5rem; color: var(--text-main); font-weight: 600; letter-spacing: 1px;}
@@ -171,6 +230,25 @@
         <div class="status-badge">SYSTEM ONLINE</div>
     </div>
 
+    <section class="technical-brief" aria-labelledby="fracc-brief-title">
+        <h2 id="fracc-brief-title">Technical Brief</h2>
+        <p>F.R.A.C.C. translates a sentence into a deterministic semantic profile. It classifies each input across seven arcs: essence, form, action, frame, intent, relation, and value.</p>
+        <p>Each arc is scored across three processing phases, combined into a triadic sum, and ranked into a final weighted output. The result is a reproducible synthesis payload rather than a freeform interpretation layer.</p>
+        <ul>
+            <li>Input model: tokenized natural language with arc-specific lexicon matching.</li>
+            <li>Processing model: three-phase scoring with bounded polarity and magnitude weighting.</li>
+            <li>Output model: ranked semantic primitives for downstream synthesis and inspection.</li>
+        </ul>
+    </section>
+
+    <noscript>
+        <section class="technical-brief" aria-labelledby="fracc-noscript-title">
+            <h2 id="fracc-noscript-title">No-JavaScript Technical Summary</h2>
+            <p>F.R.A.C.C. is a deterministic text decomposition engine. It scores a sentence across seven semantic arcs and three processing phases, then returns ranked primitives for synthesis.</p>
+            <p>The interactive matrix requires JavaScript, but the underlying model remains the same: lexicon attribution, polarity scoring, triadic summation, and ranked output weighting.</p>
+        </section>
+    </noscript>
+
     <div class="input-group">
         <input type="text" id="userInput" placeholder="Enter input to decompose..." value="The rapid automation of systems threatens human agency if safety is not built into the core logic." readonly>
         <button id="runBtn" onclick="executePipeline()">Process</button>
@@ -203,6 +281,15 @@
 
 <script>
     const ARCS = ["essence", "form", "action", "frame", "intent", "relation", "value"];
+    const ARC_LABELS = {
+        essence: "essence",
+        form: "form",
+        action: "intent",
+        frame: "frame",
+        intent: "intent",
+        relation: "relation",
+        value: "value"
+    };
     let state = [];
 
     const ARC_LEXICON = {
@@ -268,7 +355,7 @@
     function createRowHTML(d) {
         return `
             <tr class="engine-row" style="opacity: 0; transform: translateY(10px); transition: all 0.4s ease;">
-                <td class="arc-col">${d.arc}</td>
+                <td class="arc-col">${ARC_LABELS[d.arc] || d.arc}</td>
                 <td>${d.mag ? d.mag : '-'}</td>
                 <td>${d.mag ? fmt(d.p1) : '-'}</td>
                 <td>${d.mag ? fmt(d.p2) : '-'}</td>
@@ -378,3 +465,4 @@
 </script>
 </body>
 </html>
+
