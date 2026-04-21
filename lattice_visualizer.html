@@ -595,7 +595,6 @@
         const dollyStart = new THREE.Vector2();
         const dollyEnd = new THREE.Vector2();
         const dollyDelta = new THREE.Vector2();
-        const pointerPositions = new Map();
         const panVector = new THREE.Vector3();
         const offset = new THREE.Vector3();
         const quat = new THREE.Quaternion().setFromUnitVectors(object.up, new THREE.Vector3(0, 1, 0));
@@ -633,10 +632,6 @@
             panVector.setFromMatrixColumn(scope.object.matrix, 1);
             panVector.multiplyScalar((2 * deltaY * targetDistance) / scope.domElement.clientHeight * scope.panSpeed);
             panOffset.add(panVector);
-        }
-
-        function getTouches() {
-            return Array.from(pointerPositions.values());
         }
 
         function onMouseDown(event) {
@@ -697,39 +692,37 @@
             else if (event.deltaY > 0) dollyOut(getZoomScale());
         }
 
-        function onPointerDown(event) {
-            if (!scope.enabled || event.pointerType === 'mouse') return;
-            pointerPositions.set(event.pointerId, { x: event.clientX, y: event.clientY });
-            domElement.setPointerCapture?.(event.pointerId);
-
-            const touches = getTouches();
+        function onTouchStart(event) {
+            if (!scope.enabled) return;
+            event.preventDefault();
+            const touches = event.touches;
             if (touches.length === 1) {
                 if (!scope.enableRotate) return;
                 state = STATE.ROTATE;
-                rotateStart.set(touches[0].x, touches[0].y);
+                rotateStart.set(touches[0].clientX, touches[0].clientY);
             } else if (touches.length === 2) {
                 state = STATE.DOLLY;
-                const dx = touches[0].x - touches[1].x;
-                const dy = touches[0].y - touches[1].y;
+                const dx = touches[0].clientX - touches[1].clientX;
+                const dy = touches[0].clientY - touches[1].clientY;
                 dollyStart.set(0, Math.sqrt(dx * dx + dy * dy));
             }
         }
 
-        function onPointerMove(event) {
-            if (!scope.enabled || event.pointerType === 'mouse' || !pointerPositions.has(event.pointerId)) return;
+        function onTouchMove(event) {
+            if (!scope.enabled) return;
             event.preventDefault();
-            pointerPositions.set(event.pointerId, { x: event.clientX, y: event.clientY });
-            const touches = getTouches();
+            const touches = event.touches;
+            if (touches.length === 0) return;
 
             if (touches.length === 1 && state === STATE.ROTATE && scope.enableRotate) {
-                rotateEnd.set(touches[0].x, touches[0].y);
+                rotateEnd.set(touches[0].clientX, touches[0].clientY);
                 rotateDelta.subVectors(rotateEnd, rotateStart).multiplyScalar(scope.rotateSpeed);
                 rotateLeft((2 * Math.PI * rotateDelta.x) / scope.domElement.clientHeight);
                 rotateUp((2 * Math.PI * rotateDelta.y) / scope.domElement.clientHeight);
                 rotateStart.copy(rotateEnd);
             } else if (touches.length === 2 && scope.enableZoom) {
-                const dx = touches[0].x - touches[1].x;
-                const dy = touches[0].y - touches[1].y;
+                const dx = touches[0].clientX - touches[1].clientX;
+                const dy = touches[0].clientY - touches[1].clientY;
                 dollyEnd.set(0, Math.sqrt(dx * dx + dy * dy));
                 dollyDelta.subVectors(dollyEnd, dollyStart);
                 if (dollyDelta.y > 0) dollyIn(getZoomScale());
@@ -738,14 +731,11 @@
             }
         }
 
-        function onPointerUp(event) {
-            if (event.pointerType === 'mouse') return;
-            pointerPositions.delete(event.pointerId);
-            const touches = getTouches();
-
+        function onTouchEnd(event) {
+            const touches = event.touches;
             if (touches.length === 1) {
                 state = STATE.ROTATE;
-                rotateStart.set(touches[0].x, touches[0].y);
+                rotateStart.set(touches[0].clientX, touches[0].clientY);
             } else {
                 state = STATE.NONE;
             }
@@ -795,10 +785,10 @@
             domElement.removeEventListener('mousedown', onMouseDown);
             domElement.removeEventListener('wheel', onWheel);
             domElement.removeEventListener('contextmenu', onContextMenu);
-            domElement.removeEventListener('pointerdown', onPointerDown);
-            domElement.removeEventListener('pointermove', onPointerMove);
-            domElement.removeEventListener('pointerup', onPointerUp);
-            domElement.removeEventListener('pointercancel', onPointerUp);
+            domElement.removeEventListener('touchstart', onTouchStart);
+            domElement.removeEventListener('touchmove', onTouchMove);
+            domElement.removeEventListener('touchend', onTouchEnd);
+            domElement.removeEventListener('touchcancel', onTouchEnd);
             document.removeEventListener('mousemove', onMouseMove);
             document.removeEventListener('mouseup', onMouseUp);
         };
@@ -806,10 +796,10 @@
         domElement.addEventListener('mousedown', onMouseDown);
         domElement.addEventListener('wheel', onWheel, { passive: false });
         domElement.addEventListener('contextmenu', onContextMenu);
-        domElement.addEventListener('pointerdown', onPointerDown, { passive: false });
-        domElement.addEventListener('pointermove', onPointerMove, { passive: false });
-        domElement.addEventListener('pointerup', onPointerUp);
-        domElement.addEventListener('pointercancel', onPointerUp);
+        domElement.addEventListener('touchstart', onTouchStart, { passive: false });
+        domElement.addEventListener('touchmove', onTouchMove, { passive: false });
+        domElement.addEventListener('touchend', onTouchEnd, { passive: false });
+        domElement.addEventListener('touchcancel', onTouchEnd, { passive: false });
     };
 
     // Constants
@@ -1676,21 +1666,24 @@
     });
 
     container.addEventListener('mousedown', e => mouseDownPos.set(e.clientX, e.clientY));
-    container.addEventListener('pointerdown', e => {
-        if (e.pointerType !== 'touch') return;
-        touchDownPos.set(e.clientX, e.clientY);
-        updatePointerFromClient(e.clientX, e.clientY);
+    container.addEventListener('touchstart', e => {
+        if (e.touches.length !== 1) return;
+        const touch = e.touches[0];
+        touchDownPos.set(touch.clientX, touch.clientY);
+        updatePointerFromClient(touch.clientX, touch.clientY);
     }, { passive: false });
-    container.addEventListener('pointermove', e => {
-        if (e.pointerType !== 'touch') return;
-        updatePointerFromClient(e.clientX, e.clientY);
+    container.addEventListener('touchmove', e => {
+        if (e.touches.length === 0) return;
+        const touch = e.touches[0];
+        updatePointerFromClient(touch.clientX, touch.clientY);
     }, { passive: false });
-    container.addEventListener('pointerup', e => {
-        if (e.pointerType !== 'touch') return;
-        updatePointerFromClient(e.clientX, e.clientY);
-        const moveDist = touchDownPos.distanceTo(new THREE.Vector2(e.clientX, e.clientY));
+    container.addEventListener('touchend', e => {
+        const touch = e.changedTouches && e.changedTouches[0];
+        if (!touch) return;
+        updatePointerFromClient(touch.clientX, touch.clientY);
+        const moveDist = touchDownPos.distanceTo(new THREE.Vector2(touch.clientX, touch.clientY));
         if (moveDist <= 12) handleSceneTap();
-    });
+    }, { passive: false });
     container.addEventListener('click', e => {
         const moveDist = mouseDownPos.distanceTo(new THREE.Vector2(e.clientX, e.clientY));
         if (moveDist > 5) return;
