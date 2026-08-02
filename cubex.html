@@ -136,34 +136,37 @@
     </div>
 
     <div class="callout warn rv" style="margin-top:1.6rem">
-      <span class="lbl">We measured this, and it failed</span>
+      <span class="lbl">Measured — two axes hold, one collapses</span>
       <p>
-        Orthogonality is the load-bearing assumption of the decomposition, so we tested it
-        directly: 40 AI-versus-AI games, every candidate move at every ply scored on all three
-        axes as the evaluator computes them, <strong>n&nbsp;=&nbsp;535,326</strong>. The result
-        is a negative one and we are publishing it as such.
+        Each candidate move quantizes to a cell in a 3&nbsp;×&nbsp;3&nbsp;×&nbsp;3 coordinate
+        space: each axis is bucketed to −1, 0 or +1 against a threshold. We measured what the
+        evaluator actually resolves to across 25 self-play games, every candidate move at every
+        ply. Correlations are taken <em>within</em> a decision — across the moves genuinely
+        competing at one ply — because correlating across plies measures how a game depletes
+        over time, not whether the axes carry separate signal.
       </p>
       <table class="spec">
-        <tr><th>risk ↔ reward</th><td><strong>r = 0.914</strong></td></tr>
-        <tr><th>risk ↔ relation</th><td><strong>r = 0.817</strong></td></tr>
-        <tr><th>reward ↔ relation</th><td><strong>r = 0.845</strong></td></tr>
+        <tr><th>risk ↔ reward</th><td>r = 0.175 &mdash; <strong>independent</strong></td></tr>
+        <tr><th>reward ↔ relation</th><td>r = 0.173 &mdash; <strong>independent</strong></td></tr>
+        <tr><th>risk ↔ relation</th><td>r = 0.999 &mdash; <strong>redundant</strong></td></tr>
+        <tr><th>Axes disagree on the best move</th><td><strong>89%</strong> of decisions</td></tr>
       </table>
       <p>
-        <strong>As implemented, the three axes are not independent.</strong> They are near
-        collinear, and the cause is structural rather than subtle: all three functions sum over
-        the pieces still on the board. Material counts them, mobility counts the moves they
-        generate, morale counts their command value. One dominant factor — how much army is
-        left — is being measured three times and summed as though it were three.
+        <strong>Two of the three pairs are independent, and the axes disagree about which move
+        is best in 89% of positions.</strong> The decomposition carries real signal. But risk and
+        relation are all but the same measurement: material sums the surviving pieces and morale
+        sums their command value, so within a single decision — where candidates differ only by
+        what gets captured — they move together.
       </p>
       <p class="mb0">
-        Two honest boundaries on that result. It measures <em>this implementation</em> of the
-        triad, not the conceptual claim that decisions decompose into risk, reward and relation;
-        a different formulation of relation — one keyed to hierarchy intactness rather than
-        surviving count — could well come apart from the other two, and that is the next
-        experiment. And it has no bearing on playing strength, because the three axes collapse
-        into a single scalar before a move is selected. What it does mean is precise and
-        unwelcome: <strong>Cubex³ cannot presently be cited as evidence that the decomposition
-        is irreducible.</strong> It is the falsification surface, and this is it working.
+        The coordinate space shows the same thing geometrically. <strong>12 of the 27 cells are
+        ever occupied</strong>, and <strong>97.7% of moves score zero on the relation axis</strong>,
+        because its threshold is set at 8 while the relation differential has a standard deviation
+        near 3.4 — more than double the spread it is meant to discriminate. The cube is
+        operating as a plane. That is a calibration fault with a known fix, not a refutation of
+        the triad, and we would rather publish the fault than the intention. Relation needs to
+        measure the <em>shape</em> of a command hierarchy — orphan ratio, chains still intact —
+        rather than the <em>size</em> of the force, which material already counts.
       </p>
     </div>
   </div>
