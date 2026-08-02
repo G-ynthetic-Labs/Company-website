@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Memory Cognitive Lattice — G-ynthetic Labs</title>
+<meta name="description" content="A 7-cubed memory hologram: 342 addressed voxels per level with a centroid and six indexed faces, descending through a reserved portal for unbounded depth. Persistent, inspectable, local.">
+<link rel="icon" href="favicon.ico">
+<link rel="stylesheet" href="assets/css/base.css">
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-in">
+    <a class="brand" href="index.html"><span class="brand-mark"></span> G-YNTHETIC&nbsp;LABS</a>
+    <button class="nav-toggle" aria-expanded="false">Menu</button>
+    <div class="nav-links">
+      <a href="byte-for-byte.html">Byte for Byte</a>
+      <a href="architecture.html">Architecture</a>
+      <a href="platform.html">Lattice</a>
+      <a href="fracc.html">F.R.A.C.C.</a>
+      <a href="arc-lab.html">Arc Lab</a>
+      <a href="orbitgen.html">Key System</a>
+      <a href="cubex.html">Cubex³</a>
+      <a href="secured.html">SeCUReD</a>
+      <a href="investors.html" class="nav-cta">Investors</a>
+    </div>
+  </div>
+</nav>
+
+<header class="phead">
+  <div class="stage hero" data-gl="field" data-spin="0.02"></div>
+  <div class="hero-scrim"></div>
+  <div class="wrap">
+    <p class="crumb"><a href="index.html">Products</a> / 01 — Substrate</p>
+    <h1>Memory Cognitive Lattice</h1>
+    <p class="lead max">
+      A 7³ hologram holding <strong>342 data voxels</strong> — every memory a cell with a
+      unique address and six indexed faces. The 343rd cell is reserved: it is the portal the
+      structure descends through when the level fills. The longest-running demonstration
+      in the portfolio.
+    </p>
+    <ul class="tags">
+      <li>342 voxels per level</li>
+      <li>Six-face voxel</li>
+      <li>Base-7 odometer</li>
+      <li>Unbounded descent</li>
+      <li>741 addressing assertions</li>
+    </ul>
+  </div>
+</header>
+
+<!-- ============================================================ WHY -->
+<section>
+  <div class="wrap">
+    <div class="split wide-left">
+      <div class="rv">
+        <p class="eyebrow">Why not a vector database</p>
+        <h2>A neighbour is not an explanation.</h2>
+        <p>
+          A vector store answers one question well: <em>what is close to this?</em> It cannot
+          tell you where a memory lives, why it surfaced, what it is connected to, or what the
+          system chose not to recall. For a consumer chatbot that is fine. For a clinician, an
+          underwriter, or an incident commander it is unusable.
+        </p>
+        <p>
+          The lattice keeps the embedding — but puts it inside a structure. Each memory is a
+          <strong>cell with a coordinate</strong>. Each cell carries a centroid (its intent)
+          plus <strong>six faces</strong>, one per remaining explanatory arc, bound to
+          x±, y±, z±. Each face carries its own magnitude and answer text, so the cell states
+          what it is rather than merely occupying a point.
+        </p>
+        <p class="mb0">
+          That means a retrieval can be replayed. You can name the address, read the faces,
+          and show exactly which cell produced the answer — a year later, unchanged.
+        </p>
+      </div>
+      <div class="rv" data-delay="120">
+        <div class="stage framed tall" data-gl="lattice" data-spin="0.06">
+          <div class="stage-cap">7³ lattice · <b>drag to inspect</b> · amber cell = descent portal</div>
+          <div class="stage-hud">
+            LEVEL FILL <span data-hud="0.729" data-jitter="0.004" data-dec="3">0.729</span><br>
+            PORTAL <span>(6,6,6)</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="rule">
+
+<!-- ============================================================ CELL -->
+<section>
+  <div class="wrap">
+    <div class="max rv" style="margin-bottom:3rem">
+      <p class="eyebrow v2">The unit of memory</p>
+      <h2>The six-face voxel</h2>
+      <p class="mb0">
+        Most memory systems store a blob and an embedding. Ours stores a legible object. The
+        centroid holds intent; each of the six faces holds one explanatory arc. A human can
+        read a cell and know what it is — which is the whole point.
+      </p>
+    </div>
+
+    <div class="split">
+      <div class="rv">
+        <table class="spec">
+          <tr><th>Centroid</th><td>Intent — what this memory is <em>for</em></td></tr>
+          <tr><th>Face x−</th><td>Essence — what it fundamentally is</td></tr>
+          <tr><th>Face x+</th><td>Function — what it does</td></tr>
+          <tr><th>Face y−</th><td>Frame — the context it sits in</td></tr>
+          <tr><th>Face y+</th><td>Relation — what it connects to</td></tr>
+          <tr><th>Face z−</th><td>Value — what it is worth, and to whom</td></tr>
+          <tr><th>Face z+</th><td>Form — how it is structured</td></tr>
+        </table>
+        <p style="margin-top:1.4rem" class="mb0">
+          Each face carries its arc's magnitude, alignment, polarity and answer text. The same
+          axis pairing is used by the valence field, so a voxel's geometry and its valence are
+          addressed identically — one of a set of seven-arc invariants held under test across
+          the codebase.
+        </p>
+      </div>
+      <div class="rv" data-delay="100">
+        <div class="term">
+          <div class="term-bar"><span class="dot"></span> voxel read · addressed</div>
+          <div class="term-body"><span class="k">coord</span>      <span class="v">(3, 0, 2)</span>
+<span class="k">centroid</span>   <span class="d">"improve confidence tackling smaller tasks"</span>
+<span class="k">faces</span>
+  <span class="d">x−</span> essence   <span class="d">magnitude · alignment · polarity · text</span>
+  <span class="d">x+</span> function  <span class="d">…</span>
+  <span class="d">y−</span> frame     <span class="d">…</span>
+  <span class="d">y+</span> relation  <span class="d">…</span>
+  <span class="d">z−</span> value     <span class="d">…</span>
+  <span class="d">z+</span> form      <span class="d">…</span>
+<span class="k">path</span>       <span class="v">6,6,6/3,0,2</span> <span class="d">depth 1</span>
+<span class="k">metabolism</span> <span class="ok">active</span> <span class="d">turn-based, floor lifted by recall</span>
+<span class="k">injected</span>   <span class="ok">yes</span> <span class="d">reached the model this turn</span></div>
+        </div>
+        <p class="dim" style="font-size:.82rem;margin-top:14px;margin-bottom:0">
+          Illustrative shape of a real export. Full traces are available under NDA.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="rule">
+
+<!-- ============================================================ MECHANISMS -->
+<section>
+  <div class="wrap">
+    <div class="max rv" style="margin-bottom:3rem">
+      <p class="eyebrow">Live mechanisms</p>
+      <h2>Memory that behaves like memory.</h2>
+      <p class="mb0">
+        Storage is the easy half. What makes the lattice a memory system rather than a filing
+        cabinet is what happens to a cell between writes.
+      </p>
+    </div>
+    <div class="grid g3">
+      <div class="card rv">
+        <div class="idx"><span>MECHANISM 01</span></div>
+        <h3>Fractal descent</h3>
+        <p>A project-wide, monotonic write cursor fills a level one voxel per turn. When it
+        passes the last data cell it descends through the portal: depth increments and the path
+        gains a segment. Capacity is unbounded, addresses stay unique and human-readable.</p>
+      </div>
+      <div class="card rv" data-delay="70">
+        <div class="idx"><span>MECHANISM 02</span></div>
+        <h3>Metabolism &amp; decay</h3>
+        <p>Voxels decay on a <em>turn-based</em> clock rather than a wall clock, so an idle
+        system does not forget. Recall lifts the decay floor — a memory that gets used persists
+        longer than one that does not, within bounded limits.</p>
+      </div>
+      <div class="card rv" data-delay="140">
+        <div class="idx"><span>MECHANISM 03</span></div>
+        <h3>Layer consolidation</h3>
+        <p>Each completed plane of the level triggers a consolidation pass that writes an
+        episodic-to-semantic gist for that batch. Consolidation is a generative <em>view</em>:
+        it never overwrites the voxels it summarises.</p>
+      </div>
+      <div class="card rv">
+        <div class="idx"><span>MECHANISM 04</span></div>
+        <h3>Drift watchdog</h3>
+        <p>Output is measured against an acceptance cone around the declared intent. Deviation
+        beyond the cone is banded by severity and by how many consecutive turns it has
+        persisted, escalating from a quiet UI pulse to a visible correction to a hard abort. A
+        pure function of three numbers, so its behaviour is fully testable.</p>
+      </div>
+      <div class="card rv" data-delay="70">
+        <div class="idx"><span>MECHANISM 05</span></div>
+        <h3>Hebbian co-activation</h3>
+        <p>Co-activation edges are written by a single owning process, so the graph has exactly
+        one writer and cannot race. <strong>The retrieval-side consumer is disabled by
+        default</strong> and is enabled deliberately — we do not want an unmeasured signal
+        quietly steering recall.</p>
+      </div>
+      <div class="card rv" data-delay="140">
+        <div class="idx"><span>MECHANISM 06</span></div>
+        <h3>Injection audit</h3>
+        <p>Retrieving a memory and <em>using</em> one are different events. The trace records
+        both, separately. A system that retrieves and never injects is a dashboard, not a
+        memory — so we measure it.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="rule">
+
+<!-- ============================================================ RETRIEVAL CHAIN -->
+<section>
+  <div class="wrap">
+    <div class="split">
+      <div class="rv">
+        <p class="eyebrow v2">Retrieval</p>
+        <h2>Addressed reads, not just similarity.</h2>
+        <p>
+          Because a voxel has a coordinate, it can be fetched by <em>lookup</em> rather than by
+          resemblance — and lookups compose into operations a similarity index simply cannot
+          express.
+        </p>
+        <div class="term" style="margin-top:1.6rem">
+          <div class="term-bar"><span class="dot"></span> access patterns</div>
+          <div class="term-body"><span class="v">read_voxel</span>        <span class="d">one cell by address — a lookup, not a search</span>
+<span class="v">spatial slice</span>     <span class="d">a plane of the level</span>
+<span class="v">temporal slice</span>    <span class="d">a window of the timeline</span>
+<span class="v">first / latest</span>    <span class="d">at a given location</span>
+<span class="v">6-neighbour</span>       <span class="d">±x ±y ±z</span>
+<span class="v">26-neighbour</span>      <span class="d">full Moore neighbourhood</span>
+<span class="v">k-hop box</span>         <span class="d">expanding region read</span>
+<span class="v">prefix expand</span>     <span class="d">region → … → whole space</span>
+<span class="v">MMR rerank</span>        <span class="d">diversity-aware final selection</span></div>
+        </div>
+      </div>
+      <div class="rv" data-delay="120">
+        <div class="callout warn">
+          <span class="lbl">What the coordinate is — and is not</span>
+          <p>
+            Stated plainly, because it is the first thing a good technical reviewer will probe.
+            The coordinate is an <strong>identity handle and timeline index. It is not a
+            semantic signal.</strong> Placement is sequential — a base-7 odometer over the
+            level — so two related memories do not land near each other by virtue of being
+            related. They land where the cursor was when they were written.
+          </p>
+          <p class="mb0">
+            The semantics live in the voxel's <em>contents</em> — the seven arc scalars and
+            their faces — not in its (x, y, z). Any claim of semantic proximity in the current
+            path would be false, and we do not make it.
+          </p>
+        </div>
+        <div class="callout" style="margin-top:20px">
+          <span class="lbl">So what is the geometry for?</span>
+          <p class="mb0">
+            Identity, replay and unbounded growth. An address written a year ago still resolves
+            and still means the same cell; the structure deepens instead of rebalancing, so
+            nothing that pointed into it is ever invalidated. That is a different and more
+            durable property than "similar things are nearby" — and unlike similarity, it does
+            not decay as the store grows.
+          </p>
+        </div>
+        <div class="callout warn" style="margin-top:20px">
+          <span class="lbl">Honest scope</span>
+          <p class="mb0">
+            Direct addressing is real and is a genuine lookup on the addressed paths. The live
+            per-turn path is <em>hybrid</em> — it also runs embedding search with diversity
+            reranking — so it is not a pure coordinate lookup in the hot path. Flat retrieval
+            cost as conversations grow is a design property of the fixed per-tier context
+            budget, <strong>not a benchmarked measurement</strong>, and we quote no cost curve
+            until one is measured.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="rule">
+
+<!-- ============================================================ MATH -->
+<section>
+  <div class="wrap">
+    <div class="max rv" style="margin-bottom:3rem">
+      <p class="eyebrow v2">The addressing</p>
+      <h2>Bounded per level. Unbounded in depth.</h2>
+      <p class="mb0">
+        The whole growth story reduces to one mechanism, and it is small enough to state
+        completely. A level holds 342 data voxels. The 343rd is the portal. When the cursor
+        passes the last data cell, the address gains a portal segment and depth increments.
+      </p>
+    </div>
+
+    <div class="split">
+      <div class="rv">
+        <div class="term">
+          <div class="term-bar"><span class="dot"></span> descent · worked</div>
+          <div class="term-body"><span class="d">seq   depth  pos   (x,y,z)   path</span>
+<span class="d">────────────────────────────────────────────</span>
+<span class="v">0</span>       <span class="d">0</span>     <span class="d">0</span>   <span class="d">0,0,0</span>     <span class="v">0,0,0</span>
+<span class="v">2</span>       <span class="d">0</span>     <span class="d">2</span>   <span class="d">0,0,2</span>     <span class="v">0,0,2</span>
+<span class="v">50</span>      <span class="d">0</span>    <span class="d">50</span>   <span class="d">1,0,1</span>     <span class="v">1,0,1</span>
+<span class="v">341</span>     <span class="d">0</span>   <span class="d">341</span>   <span class="d">6,6,5</span>     <span class="v">6,6,5</span>   <span class="w">← level full</span>
+<span class="v">342</span>     <span class="d">1</span>     <span class="d">0</span>   <span class="d">0,0,0</span>     <span class="v">6,6,6/0,0,0</span>
+<span class="v">684</span>     <span class="d">2</span>     <span class="d">0</span>   <span class="d">0,0,0</span>     <span class="v">6,6,6/6,6,6/0,0,0</span>
+
+<span class="d">the map is a bijection on every level:</span>
+<span class="d">position ⇄ (x,y,z) in both directions, with</span>
+<span class="d">the portal and out-of-range cells refused.</span>
+
+<span class="k">capacity</span>   <span class="v">342 × depth, depth open</span>
+<span class="k">addresses</span>  <span class="ok">unique and human-readable at any depth</span></div>
+        </div>
+      </div>
+      <div class="rv" data-delay="100">
+        <p>
+          Read the last two rows again, because they are the entire architectural claim in
+          miniature. At sequence 342 the system did not get bigger — it got <em>deeper</em>. The
+          outer extent is identical. Every address written before that moment still resolves,
+          unchanged, forever.
+        </p>
+        <p>
+          Allocation and insert run inside a single transaction, so the project-wide cursor
+          cannot race two turns onto one address. The write cursor never resets per session; it
+          is monotonic across the life of the deployment.
+        </p>
+        <p class="mb0">
+          This is why we do not have a capacity conversation. There is no fill level to monitor
+          and no rebalancing event to fear. There is only depth, and depth is free.
+        </p>
+        <table class="spec" style="margin-top:1.6rem">
+          <tr><th>Addressing suite</th><td><strong>741 assertions, all passing.</strong> Every position on a level tested individually in both directions — not sampled — plus portal guards, out-of-range refusal, depth boundaries and all seven layer boundaries</td></tr>
+          <tr><th>Arc invariants</th><td>The face-to-arc mapping is verified to agree with every other arc map in the codebase</td></tr>
+          <tr><th>Schema integrity</th><td>Storage columns exist and are typed as specified</td></tr>
+          <tr><th>Field integration</th><td>Tensor-field reads verified over the flat face values</td></tr>
+          <tr><th>Metabolism</th><td>Decay clock and access-count floor confirmed live</td></tr>
+        </table>
+        <p class="dim" style="font-size:.82rem;margin-top:14px;margin-bottom:0">
+          An off-by-one in an odometer is silent, so the addressing suite is exhaustive by
+          design rather than statistical. Full suites available under diligence.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="rule">
+
+<!-- ============================================================ DEPLOYMENT -->
+<section>
+  <div class="wrap">
+    <div class="max rv" style="margin-bottom:2.4rem">
+      <p class="eyebrow">Deployment</p>
+      <h2>Local by default. That is a feature, not a limitation.</h2>
+    </div>
+    <div class="split">
+      <div class="rv">
+        <table class="spec">
+          <tr><th>Runtime</th><td>Runs against a local model server; no dependency on a hosted frontier API</td></tr>
+          <tr><th>Persistence</th><td>On-disk lattice store on the deploying machine</td></tr>
+          <tr><th>Model coupling</th><td>Model-agnostic; scoring calibrates itself per embedding model</td></tr>
+          <tr><th>Data egress</th><td>None required for core cognition or memory</td></tr>
+          <tr><th>Operator surfaces</th><td>Cockpit console (live pipeline stages) and a standalone audit panel with document export</td></tr>
+          <tr><th>Inspection</th><td>3D lattice viewer whose coordinates are read from the live backend, not illustrated</td></tr>
+        </table>
+      </div>
+      <div class="rv" data-delay="100">
+        <div class="stage framed" data-gl="lattice" data-spin="0.09" data-yaw="1.9" data-pitch="0.15">
+          <div class="stage-cap">Portal voxel at <b>(6,6,6)</b> → fractal descent</div>
+        </div>
+        <p class="dim" style="font-size:.82rem;margin-top:14px;margin-bottom:0">
+          For a regulated buyer, "the reasoning substrate never leaves the building" is often
+          the difference between a pilot and a procurement.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="pager">
+  <a href="index.html"><span class="lb">← Back</span><span class="tt">Overview</span></a>
+  <a class="next" href="fracc.html"><span class="lb">Next · 02</span><span class="tt">F.R.A.C.C. →</span></a>
+</div>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <a class="brand" href="index.html"><span class="brand-mark"></span> G-YNTHETIC&nbsp;LABS</a>
+        <p style="margin-top:16px;max-width:34ch;font-size:.9rem">
+          Infrastructure for AI memory and reasoning. Built for domains where a hallucination
+          is a liability.
+        </p>
+      </div>
+      <div>
+        <h5>Core</h5>
+        <ul>
+          <li><a href="byte-for-byte.html">Byte for Byte</a></li>
+          <li><a href="architecture.html">The Address Space</a></li>
+          <li><a href="platform.html">Memory Cognitive Lattice</a></li>
+          <li><a href="fracc.html">F.R.A.C.C.</a></li>
+          <li><a href="arc-lab.html">Arc Lab</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Applied</h5>
+        <ul>
+          <li><a href="orbitgen.html">Key System</a></li>
+          <li><a href="cubex.html">Cubex³</a></li>
+          <li><a href="secured.html">SeCUReD</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Company</h5>
+        <ul>
+          <li><a href="investors.html">Investors</a></li>
+          <li><a href="investors.html#research">Research</a></li>
+          <li><a href="mailto:G-ynthetic-Labs@proton.me">G-ynthetic-Labs@proton.me</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bot">
+      <span>© <span data-year>2026</span> G-YNTHETIC LABS · PORTLAND, OREGON</span>
+      <span>WE AREN'T TEACHING AI TO THINK — WE'RE GIVING IT A PLACE TO STAND</span>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/js/gl.js"></script>
+<script src="assets/js/site.js"></script>
+</body>
+</html>

@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Arc Lab — G-ynthetic Labs</title>
+<meta name="description" content="A model-agnostic, basis-agnostic laboratory for constructing explanatory bases over cognition — and empirically certifying that a basis is irreducible and exhaustive before you trust it.">
+<link rel="icon" href="favicon.ico">
+<link rel="stylesheet" href="assets/css/base.css">
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-in">
+    <a class="brand" href="index.html"><span class="brand-mark"></span> G-YNTHETIC&nbsp;LABS</a>
+    <button class="nav-toggle" aria-expanded="false">Menu</button>
+    <div class="nav-links">
+      <a href="byte-for-byte.html">Byte for Byte</a>
+      <a href="architecture.html">Architecture</a>
+      <a href="platform.html">Lattice</a>
+      <a href="fracc.html">F.R.A.C.C.</a>
+      <a href="arc-lab.html">Arc Lab</a>
+      <a href="orbitgen.html">Key System</a>
+      <a href="cubex.html">Cubex³</a>
+      <a href="secured.html">SeCUReD</a>
+      <a href="investors.html" class="nav-cta">Investors</a>
+    </div>
+  </div>
+</nav>
+
+<header class="phead">
+  <div class="stage hero" data-gl="arcs" data-spin="0.04"></div>
+  <div class="hero-scrim"></div>
+  <div class="wrap">
+    <p class="crumb"><a href="index.html">Products</a> / 03 — Explainability</p>
+    <h1>Arc Lab</h1>
+    <p class="lead max">
+      A laboratory for explainable AI. Not one instrument — a host. Bring any model and any
+      set of axes you want cognition explained in terms of; the lab projects onto that basis
+      <em>and</em> tells you whether the basis is valid.
+    </p>
+    <ul class="tags">
+      <li>Model-agnostic</li>
+      <li>Basis-agnostic</li>
+      <li>Irreducibility test</li>
+      <li>Exhaustiveness test</li>
+      <li>Pre-registered predictions</li>
+    </ul>
+  </div>
+</header>
+
+<!-- ============================================================ THE IDEA -->
+<section>
+  <div class="wrap">
+    <div class="split wide-left">
+      <div class="rv">
+        <p class="eyebrow">The idea</p>
+        <h2>Linear algebra, applied to meaning.</h2>
+        <p>
+          Every explanation is a projection onto a basis. "This loan was declined because of
+          debt ratio and payment history" projects a decision onto two axes. The interesting
+          question is never the projection — it is whether those axes were any good.
+        </p>
+        <p>
+          Two properties decide it. A basis must be <strong>irreducible</strong>: its axes must
+          be independent, or your attribution smears across entangled dimensions and means
+          nothing. And it must be <strong>exhaustive</strong>: the axes must span the space, or
+          whatever matters falls silently outside the explanation.
+        </p>
+        <p class="mb0">
+          Arc Lab tests both by measurement. That is what makes it a laboratory rather than a
+          configuration screen.
+        </p>
+      </div>
+      <div class="rv" data-delay="120">
+        <div class="stage framed tall" data-gl="arcs" data-spin="0.07">
+          <div class="stage-cap">7-axis basis · chords = <b>off-diagonal cosine</b> (entanglement)</div>
+          <div class="stage-hud">
+            AXES <span>7</span><br>
+            VERDICT <span>σ vs BASELINE</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="rule">
+
+<!-- ============================================================ TWO TESTS -->
+<section>
+  <div class="wrap">
+    <div class="max rv" style="margin-bottom:3rem">
+      <p class="eyebrow v2">The two verdicts</p>
+      <h2>Is this actually a basis?</h2>
+      <p class="mb0">
+        Both questions get answered by running the system, not by arguing about the taxonomy.
+      </p>
+    </div>
+
+    <div class="split">
+      <div class="card rv" style="padding:32px">
+        <div class="idx"><span>TEST 01 — IRREDUCIBLE</span><span class="tag">ORTHOGONALITY</span></div>
+        <h3>Are the axes independent?</h3>
+        <p style="margin-bottom:1.2rem">
+          The lab embeds each axis definition and computes the full pairwise cosine matrix.
+          The diagonal is meaningless; the off-diagonal is the finding. High off-diagonal
+          similarity means two axes are measuring overlapping things — and any investment score
+          split between them is arbitrary.
+        </p>
+        <p class="mb0">
+          Verdicts are reported in <strong>σ above a per-model baseline</strong>, not against a
+          hardcoded cosine cutoff. A fixed threshold would flip the verdict just by swapping the
+          embedding model. Standard deviations do not.
+        </p>
+      </div>
+
+      <div class="card rv" data-delay="100" style="padding:32px">
+        <div class="idx"><span>TEST 02 — EXHAUSTIVE</span><span class="tag">SPAN</span></div>
+        <h3>Do the axes cover the space?</h3>
+        <p style="margin-bottom:1.2rem">
+          Decompose an input into one answer per axis. Then <em>discard the original</em> and
+          reconstruct it from the per-axis answers alone. Measure how much of the original
+          survives.
+        </p>
+        <p class="mb0">
+          What is lost in the round trip is precisely what your basis cannot see. It is a direct,
+          falsifiable measurement of the blind spot — reported as fidelity renormalised against
+          the same per-model baseline, so it means the same thing across models.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="rule">
+
+<!-- ============================================================ AGNOSTIC -->
+<section>
+  <div class="wrap">
+    <div class="split">
+      <div class="rv">
+        <p class="eyebrow">Why model-agnosticism is load-bearing</p>
+        <h2>A verdict that changes with the embedder is not a verdict.</h2>
+        <p>
+          Early scoring used absolute cosine thresholds calibrated for one embedding model.
+          Swapping models silently broke it. One model separated related from unrelated pairs by
+          a wide, usable margin. Another compressed that margin to almost nothing — every score
+          collapsed toward noise, and nothing crossed the fixed threshold at all.
+        </p>
+        <p>
+          The fix was not to mandate a model. It was to make scoring calibrate itself: embed a
+          fixed unrelated corpus once per model, measure that model's own baseline mean and
+          spread, and express every subsequent score relative to it.
+        </p>
+        <p class="mb0">
+          The effect is that the same basis, measured with two different embedders, can land on
+          opposite sides of a fixed cutoff while being the same basis. Expressed in σ above each
+          model's own baseline, the verdict survives the swap. Agnosticism does not make models
+          equal; it makes their verdicts comparable.
+        </p>
+      </div>
+      <div class="rv" data-delay="120">
+        <div class="term">
+          <div class="term-bar"><span class="dot"></span> basis validation · run</div>
+          <div class="term-body"><span class="k">basis</span>        <span class="v">7 axes</span> <span class="d">(default tenant: rhetorical arcs)</span>
+<span class="k">embedder</span>     <span class="v">model-A</span>
+<span class="k">baseline</span>     <span class="d">μ, σ measured for this model</span>
+
+<span class="k">irreducible</span>
+  <span class="d">max off-diag</span>   <span class="w">σ above baseline</span>
+  <span class="d">mean off-diag</span>  <span class="v">σ above baseline</span>
+  <span class="d">raw cosine</span>     <span class="d">retained as evidence, not verdict</span>
+
+<span class="k">exhaustive</span>
+  <span class="d">round-trip</span>     <span class="d">decompose → discard → rebuild</span>
+  <span class="d">fidelity(rel)</span>  <span class="v">renormed to baseline</span>
+  <span class="d">residual</span>       <span class="w">what falls outside the basis</span>
+
+<span class="k">verdict</span>      <span class="w">revise axes 3 and 6</span></div>
+        </div>
+        <p class="dim" style="font-size:.82rem;margin-top:14px;margin-bottom:0">
+          Shape of the output, with values omitted — the numbers depend entirely on the basis
+          and the model you bring. The lab is designed to return "your basis is bad." That is
+          the feature.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="rule">
+
+<!-- ============================================================ TENANTS -->
+<section>
+  <div class="wrap">
+    <div class="max rv" style="margin-bottom:3rem">
+      <p class="eyebrow v2">Basis-agnostic</p>
+      <h2>The seven arcs are the default tenant, not the product.</h2>
+      <p class="mb0">
+        Our default basis decomposes input into essence, form, frame, function, intent,
+        relation and value. That is one configuration. The lab accepts any scheme from two to
+        twelve axes — rename them, add them, remove them, rewrite their definitions. The
+        mathematics is identical; only the basis the input is projected onto changes.
+      </p>
+    </div>
+    <div class="grid g3">
+      <div class="card rv">
+        <div class="idx"><span>TENANT — DEFAULT</span></div>
+        <h3>Rhetorical arcs</h3>
+        <p>Essence · form · frame · function · intent · relation · value. General-purpose
+        cognition, and the basis the lattice's six-face voxel is built around.</p>
+      </div>
+      <div class="card rv" data-delay="70">
+        <div class="idx"><span>TENANT — CLINICAL</span></div>
+        <h3>Your own axes</h3>
+        <p>A hospital brings clinical-reasoning axes. A lender brings credit-risk axes. Explanations
+        arrive in the vocabulary the regulator already audits against — not ours.</p>
+      </div>
+      <div class="card rv" data-delay="140">
+        <div class="idx"><span>TENANT — CERTIFIED</span></div>
+        <h3>And validated before use</h3>
+        <p>Crucially, the customer's own basis goes through the same two tests. If their taxonomy
+        is entangled or leaky, they find out by measurement, before deployment.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="rule">
+
+<!-- ============================================================ ANTE-HOC -->
+<section>
+  <div class="wrap">
+    <div class="split wide-left">
+      <div class="rv">
+        <p class="eyebrow">Ante-hoc</p>
+        <h2>The explanation is the computation.</h2>
+        <p>
+          SHAP, LIME and saliency maps are post-hoc: they observe a black box's inputs and
+          outputs and fit a story that accounts for them. The story can be plausible and wrong,
+          and there is no internal fact of the matter to check it against.
+        </p>
+        <p class="mb0">
+          In Arc Lab the arc decomposition <em>is</em> the control flow. Ranked arc influence
+          determines the tool chain the system executes and the memory it retrieves. There is no
+          gap between the explanation and the mechanism, because they are the same object. In a
+          regulated deployment, that distinction is the entire argument.
+        </p>
+      </div>
+      <div class="rv" data-delay="120">
+        <div class="callout">
+          <span class="lbl">Test bench</span>
+          <p class="mb0">
+            The lab includes an append-only prediction ledger. A prediction is registered with
+            explicit kill criteria before the run; the outcome is recorded whether or not it
+            was flattering; calibration is tracked across the whole history. Falsifiability is
+            a build requirement, not a slogan.
+          </p>
+        </div>
+        <div class="callout warn" style="margin-top:20px">
+          <span class="lbl">Stated plainly</span>
+          <p class="mb0">
+            Model-agnostic does not mean model-equal. The lab cannot manufacture signal a weak
+            embedder never had — it can only report, honestly and on one scale, how much signal
+            is there. We would rather say that than sell a number that flatters the setup.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="rule">
+
+<!-- ============================================================ SURFACES -->
+<section>
+  <div class="wrap">
+    <div class="max rv" style="margin-bottom:2.4rem">
+      <p class="eyebrow v2">Operator surfaces</p>
+      <h2>Two consoles over one cognition bus.</h2>
+    </div>
+    <table class="spec rv">
+      <tr><th>Cockpit</th><td>Product console. Input streams live through every pipeline stage, each with its own panel. The overview auto-detects failure signatures — a zero injection ratio, a collapsed set of arcs — instead of leaving them to be hand-diagnosed.</td></tr>
+      <tr><th>Audit panel</th><td>Standalone inspection surface that generates the exportable run document. Tunable depth (cognition tier) and width (lattice size).</td></tr>
+      <tr><th>Arc Lab panel</th><td>Define a basis, run the two validity tests, read the verdicts as heat by σ and relative round-trip fidelity.</td></tr>
+      <tr><th>Test bench</th><td>Append-only, pre-registered, falsifiable prediction ledger with kill criteria and calibration tracking.</td></tr>
+      <tr><th>Lattice viewer</th><td>Interactive 3D view of the memory substrate whose coordinates are read from the live backend.</td></tr>
+    </table>
+  </div>
+</section>
+
+<div class="pager">
+  <a href="fracc.html"><span class="lb">← Previous · 02</span><span class="tt">F.R.A.C.C.</span></a>
+  <a class="next" href="orbitgen.html"><span class="lb">Next · 04</span><span class="tt">OrbitGen-AI →</span></a>
+</div>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <a class="brand" href="index.html"><span class="brand-mark"></span> G-YNTHETIC&nbsp;LABS</a>
+        <p style="margin-top:16px;max-width:34ch;font-size:.9rem">
+          Infrastructure for AI memory and reasoning. Built for domains where a hallucination
+          is a liability.
+        </p>
+      </div>
+      <div>
+        <h5>Core</h5>
+        <ul>
+          <li><a href="byte-for-byte.html">Byte for Byte</a></li>
+          <li><a href="architecture.html">The Address Space</a></li>
+          <li><a href="platform.html">Memory Cognitive Lattice</a></li>
+          <li><a href="fracc.html">F.R.A.C.C.</a></li>
+          <li><a href="arc-lab.html">Arc Lab</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Applied</h5>
+        <ul>
+          <li><a href="orbitgen.html">Key System</a></li>
+          <li><a href="cubex.html">Cubex³</a></li>
+          <li><a href="secured.html">SeCUReD</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Company</h5>
+        <ul>
+          <li><a href="investors.html">Investors</a></li>
+          <li><a href="investors.html#research">Research</a></li>
+          <li><a href="mailto:G-ynthetic-Labs@proton.me">G-ynthetic-Labs@proton.me</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bot">
+      <span>© <span data-year>2026</span> G-YNTHETIC LABS · PORTLAND, OREGON</span>
+      <span>WE AREN'T TEACHING AI TO THINK — WE'RE GIVING IT A PLACE TO STAND</span>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/js/gl.js"></script>
+<script src="assets/js/site.js"></script>
+</body>
+</html>

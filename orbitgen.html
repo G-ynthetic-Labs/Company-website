@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Key System — OrbitGen-AI — G-ynthetic Labs</title>
+<meta name="description" content="A deterministic addressing scheme for generated content: G-S-O node keys over a 3x3x7 space, seven typed entity kinds, enforced referential integrity, and seeded reproducibility. Demonstrated in a world generator.">
+<link rel="icon" href="favicon.ico">
+<link rel="stylesheet" href="assets/css/base.css">
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-in">
+    <a class="brand" href="index.html"><span class="brand-mark"></span> G-YNTHETIC&nbsp;LABS</a>
+    <button class="nav-toggle" aria-expanded="false">Menu</button>
+    <div class="nav-links">
+      <a href="byte-for-byte.html">Byte for Byte</a>
+      <a href="architecture.html">Architecture</a>
+      <a href="platform.html">Lattice</a>
+      <a href="fracc.html">F.R.A.C.C.</a>
+      <a href="arc-lab.html">Arc Lab</a>
+      <a href="orbitgen.html">Key System</a>
+      <a href="cubex.html">Cubex³</a>
+      <a href="secured.html">SeCUReD</a>
+      <a href="investors.html" class="nav-cta">Investors</a>
+    </div>
+  </div>
+</nav>
+
+<header class="phead">
+  <div class="stage hero" data-gl="orbit" data-spin="0.03"></div>
+  <div class="hero-scrim"></div>
+  <div class="wrap">
+    <p class="crumb"><a href="index.html">Products</a> / 04 — Addressing</p>
+    <h1>The Key System</h1>
+    <p class="lead max">
+      The product is the addressing scheme, not the planet. A deterministic key structure that
+      gives every generated entity a typed, resolvable address, and refuses to export a world
+      whose references do not resolve — demonstrated inside OrbitGen-AI, a world generator built
+      for <em>Final Dawn</em>.
+    </p>
+    <ul class="tags">
+      <li>G–S–O node keys</li>
+      <li>3 × 3 × 7 address space</li>
+      <li>Seven typed kinds</li>
+      <li>Enforced referential integrity</li>
+      <li>Export blocked on invalid</li>
+    </ul>
+  </div>
+</header>
+
+<!-- ============================================================ FRAME -->
+<section>
+  <div class="wrap">
+    <div class="split wide-left">
+      <div class="rv">
+        <p class="eyebrow">Read this page correctly</p>
+        <h2>The world generator is the demo. The key system is the asset.</h2>
+        <p>
+          OrbitGen-AI renders a procedurally generated planet and populates it with
+          civilisations, leaders, cities, regions and quests. That is the visible surface, and
+          it exists because <em>Final Dawn</em> needed worlds to be generated.
+        </p>
+        <p>
+          Underneath it is the thing worth owning: a scheme that assigns every generated entity
+          a typed address and guarantees that every cross-reference between entities resolves —
+          or blocks the export. Generation is easy. Generated content you can
+          <strong>address, resolve, version and trust</strong> is the hard part, and it is the
+          part nobody ships.
+        </p>
+        <p class="mb0">
+          Nothing about it is specific to planets. It is a general answer to a general question:
+          how do you give machine-generated structure a stable identity?
+        </p>
+      </div>
+      <div class="rv" data-delay="120">
+        <div class="stage framed tall" data-gl="orbit" data-spin="0.06">
+          <div class="stage-cap">Address shells · <b>drag to orbit</b></div>
+          <div class="stage-hud">SLOTS <span>63</span><br>KINDS <span>7</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="rule">
+
+<!-- ============================================================ THE KEY -->
+<section>
+  <div class="wrap">
+    <div class="max rv" style="margin-bottom:3rem">
+      <p class="eyebrow v2">The node key</p>
+      <h2>The address <em>is</em> the constant.</h2>
+      <p class="mb0">
+        A world identifier takes the form <code>G{g}-S{s}-O{o}</code> — galaxy, system, object.
+        The validator enforces the ranges strictly: galaxy 1–3, system 1–3, object 1–7.
+        Three by three by seven. Sixty-three addressable object slots, refused at the boundary
+        rather than clamped.
+      </p>
+    </div>
+
+    <div class="split">
+      <div class="rv">
+        <div class="term">
+          <div class="term-bar"><span class="dot"></span> key structure</div>
+          <div class="term-body"><span class="k">node key</span>   <span class="v">G2-S3-O5</span>
+            <span class="d">│  │  └─ object   1–7</span>
+            <span class="d">│  └──── system   1–3</span>
+            <span class="d">└─────── galaxy   1–3</span>
+
+<span class="k">space</span>      <span class="v">3 × 3 × 7 = 63</span> <span class="d">object slots</span>
+<span class="k">validator</span>  <span class="ok">rejects out-of-range, no silent clamp</span>
+
+<span class="d">── entity keys, world-prefixed and typed ──</span>
+
+<span class="v">G2-S3-O5</span><span class="d">-</span><span class="k">CIV</span><span class="d">-…</span>   civilisation
+<span class="v">G2-S3-O5</span><span class="d">-</span><span class="k">LEAD</span><span class="d">-…</span>  leader
+<span class="v">G2-S3-O5</span><span class="d">-</span><span class="k">CITY</span><span class="d">-…</span>  city
+<span class="v">G2-S3-O5</span><span class="d">-</span><span class="k">GOV</span><span class="d">-…</span>   governor
+<span class="v">G2-S3-O5</span><span class="d">-</span><span class="k">NPC</span><span class="d">-…</span>   lieutenant
+<span class="v">G2-S3-O5</span><span class="d">-</span><span class="k">REG</span><span class="d">-…</span>   regional locale
+<span class="v">G2-S3-O5</span><span class="d">-</span><span class="k">Q</span><span class="d">-…</span>     quest
+
+<span class="k">kinds</span>      <span class="v">7</span>  <span class="d">same width, one level down</span></div>
+        </div>
+      </div>
+      <div class="rv" data-delay="100">
+        <p>
+          Below the node key, every entity carries a <strong>world-prefixed, kind-tagged
+          identifier</strong>. Seven kinds — the same width that recurs everywhere else in the
+          portfolio. Any key is self-describing: read it and you know which world it belongs to
+          and what type of thing it is, without a lookup.
+        </p>
+        <p>
+          This is the same property that makes the <a href="platform.html">Memory Cognitive
+          Lattice</a> work. A lattice cell is useful because it has a coordinate rather than
+          just a position in a similarity cloud. A generated entity is useful for exactly the
+          same reason.
+        </p>
+        <p class="mb0">
+          Generation and memory therefore share one namespace. Content produced by the generator
+          drops into the lattice without a translation layer, because both were built to the
+          same constant. That is the integration story, and it is structural rather than
+          aspirational.
+        </p>
+        <div class="btns">
+          <a class="btn" href="fracc.html">The constant <span class="arw">→</span></a>
+          <a class="btn" href="platform.html">The lattice <span class="arw">→</span></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="rule">
+
+<!-- ============================================================ GUARANTEES -->
+<section>
+  <div class="wrap">
+    <div class="max rv" style="margin-bottom:3rem">
+      <p class="eyebrow">What the system guarantees</p>
+      <h2>A model will happily invent a reference to something that does not exist.</h2>
+      <p class="mb0">
+        Ask a language model for a world and it will produce a quest given by a lieutenant who
+        was never generated, in a city that appears under two different names. If that reaches
+        your runtime, you are debugging a hallucination at load time. The key system exists to
+        make that impossible before export.
+      </p>
+    </div>
+    <div class="grid g3">
+      <div class="card rv">
+        <div class="idx"><span>GUARANTEE 01</span></div>
+        <h3>Normalisation</h3>
+        <p>Every generated identifier is rewritten into canonical form on a full traversal of
+        the world — prefixed with its world, tagged with its kind, and given a generated key if
+        the model omitted one.</p>
+      </div>
+      <div class="card rv" data-delay="70">
+        <div class="idx"><span>GUARANTEE 02</span></div>
+        <h3>Reference rewriting</h3>
+        <p>Renaming an entity is not enough — everything pointing at it has to follow. The
+        enforcer carries an old-to-new map through the whole graph, so quest-to-NPC and
+        region-to-city references stay resolvable after normalisation.</p>
+      </div>
+      <div class="card rv" data-delay="140">
+        <div class="idx"><span>GUARANTEE 03</span></div>
+        <h3>Parent-link repair</h3>
+        <p>Hierarchy links are re-derived from the actual tree, not trusted from the output. A
+        lieutenant's governor and city, a city's civilisation, a region's city — all reset from
+        structure.</p>
+      </div>
+      <div class="card rv">
+        <div class="idx"><span>GUARANTEE 04</span></div>
+        <h3>Format validation</h3>
+        <p>Node keys are matched against a strict pattern with enforced ranges. A malformed or
+        out-of-bounds address is an error with a message, not a value that quietly propagates.</p>
+      </div>
+      <div class="card rv" data-delay="70">
+        <div class="idx"><span>GUARANTEE 05</span></div>
+        <h3>Export refuses invalid worlds</h3>
+        <p>Validation is not advisory. If the world fails — a malformed node key, a wrong
+        civilisation count, a subordinate assigned to a region that does not exist — the export
+        throws and no bundle is written. A broken world cannot leave the tool.</p>
+      </div>
+      <div class="card rv" data-delay="140">
+        <div class="idx"><span>GUARANTEE 06</span></div>
+        <h3>Versioned export</h3>
+        <p>Worlds export under an explicit spec version as a bundle — record streams, built
+        indexes, sector maps and assets — so consumers target a contract instead of
+        reverse-engineering today's output.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="rule">
+
+<!-- ============================================================ WHY MATTERS -->
+<section>
+  <div class="wrap">
+    <div class="split">
+      <div class="rv">
+        <p class="eyebrow v2">Why this is the commercial object</p>
+        <h2>An address is worth more than a name.</h2>
+        <p>
+          Every entity in a generated world carries a key that says which world it belongs to
+          and what kind of thing it is, and every cross-reference between entities is guaranteed
+          to resolve. That is what makes the output <em>consumable</em> — a runtime can load it
+          incrementally, index it, and point at any part of it without parsing the whole.
+        </p>
+        <p>
+          The layout of the sector map is derived deterministically from a seed, so the spatial
+          arrangement is reproducible. <strong>The world's content is not.</strong> Lore, cast
+          and quests come from a language model, and re-running generation produces different
+          content — so a key identifies a world, it does not reconstruct one. We are not going
+          to claim otherwise on a page whose whole subject is referential honesty.
+        </p>
+        <p class="mb0">
+          The durable claim is narrower and still worth owning: generated structure that is
+          addressed, typed, internally consistent, and refused at the door when it is not.
+        </p>
+      </div>
+      <div class="rv" data-delay="120">
+        <table class="spec">
+          <tr><th>Node key</th><td>Galaxy · system · object, ranges 3 · 3 · 7</td></tr>
+          <tr><th>Address space</th><td>63 object slots per key space</td></tr>
+          <tr><th>Entity kinds</th><td>Civilisation, leader, city, governor, NPC, region, quest</td></tr>
+          <tr><th>Integrity</th><td>Normalisation, reference rewriting, parent-link repair, whole-world validation</td></tr>
+          <tr><th>Determinism</th><td>Sector-map layout is hash-seeded and reproducible; generated content is not</td></tr>
+          <tr><th>Export</th><td>Versioned spec, record-stream bundle with built indexes and sector maps</td></tr>
+          <tr><th>Providers</th><td>Hosted model or fully local model server</td></tr>
+          <tr><th>Persistence</th><td>Local workspace store, resumable per-phase generation</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="rule">
+
+<!-- ============================================================ GOVERNANCE -->
+<section>
+  <div class="wrap">
+    <div class="max rv" style="margin-bottom:3rem">
+      <p class="eyebrow">The general form</p>
+      <h2>This is a governor for small models.</h2>
+      <p class="mb0">
+        Strip out the planets and what remains is a control layer: a bounded space of slots, a
+        declared schema of what may occupy them, and an enforcement pass that repairs or rejects
+        anything that violates the structure. Point that at a small local model and you get
+        reliable structured output from a model that could not produce it unaided.
+      </p>
+    </div>
+
+    <div class="split wide-left">
+      <div class="rv">
+        <p>
+          The industry's default answer to unreliable output is a bigger model. That is
+          expensive, it requires sending your data to someone else, and it still gives you no
+          guarantee — only a lower error rate. The alternative is to stop asking the model for
+          guarantees and put them in the layer around it.
+        </p>
+        <p>
+          A small model does not need to know your invariants. It needs to fill a slot. The key
+          system decides what slots exist, what kind each one is, and how they may refer to each
+          other; the model supplies content; the enforcer normalises, rewrites references,
+          repairs hierarchy links and validates. Output that cannot be repaired does not ship.
+        </p>
+        <p class="mb0">
+          That is the difference between prompting a model and <strong>governing</strong> one.
+          It generalises to any task with structure worth preserving — case files, compliance
+          records, incident reports, catalogues, curricula, configuration — anywhere the output
+          must be semi-generative: free where it should be free, constrained where correctness
+          matters.
+        </p>
+      </div>
+      <div class="rv" data-delay="120">
+        <div class="callout">
+          <span class="lbl">Why it matters commercially</span>
+          <p>
+            It makes small, local, cheap models viable for work that currently requires a large
+            hosted one. That is a cost argument and a data-residency argument at the same time —
+            and both are what actually block adoption in the regulated buyers we target.
+          </p>
+          <p class="mb0">
+            It also closes the loop with the rest of the portfolio. The same discipline appears
+            as model-agnostic calibration in the <a href="arc-lab.html">Arc Lab</a> and as
+            provider-independent retrieval in the <a href="platform.html">lattice</a>: never let
+            a single model be the load-bearing element.
+          </p>
+        </div>
+        <table class="spec" style="margin-top:22px">
+          <tr><th>Model supplies</th><td>Content for a declared slot</td></tr>
+          <tr><th>System supplies</th><td>Address space, kinds, schema, referential rules</td></tr>
+          <tr><th>Enforcement</th><td>Normalise → rewrite references → repair links → validate</td></tr>
+          <tr><th>Failure mode</th><td>Rejected with a reason, not silently accepted</td></tr>
+          <tr><th>Result</th><td>Structural correctness independent of model capability</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="rule">
+
+<!-- ============================================================ DEMO -->
+<section>
+  <div class="wrap">
+    <div class="max rv" style="margin-bottom:2.4rem">
+      <p class="eyebrow">The demonstration</p>
+      <h2>OrbitGen-AI: the key system with a world attached.</h2>
+      <p class="mb0">
+        Built to generate worlds for <em>Final Dawn</em>, it exercises the addressing scheme
+        against the hardest case — a deep hierarchy, cross-cutting references, and content
+        produced by a model that does not care about your invariants.
+      </p>
+    </div>
+    <div class="split">
+      <div class="rv">
+        <ol class="steps">
+          <li>
+            <h4>T0 — World transform</h4>
+            <p>Planetary surface, atmosphere and history, rendered as an interactive body with
+            custom surface, atmosphere and cloud shaders. Establishes the node key.</p>
+          </li>
+          <li>
+            <h4>T1 — Cast transform</h4>
+            <p>Leaders, governors and lieutenants — three hierarchy levels, each entity carrying
+            its own system prompt, so the cast is directly instantiable as agents.</p>
+          </li>
+          <li>
+            <h4>T2 — Story transform</h4>
+            <p>Quests bound to a triad of NPCs — giver, middle, completion — with three ordered
+            steps. The densest cross-reference load in the graph, and the real test of the
+            enforcer.</p>
+          </li>
+          <li>
+            <h4>Normalise, validate, export</h4>
+            <p>Keys canonicalised, references rewritten, parent links repaired, world validated,
+            bundle written under a versioned spec.</p>
+          </li>
+        </ol>
+      </div>
+      <div class="rv" data-delay="100">
+        <div class="term">
+          <div class="term-bar"><span class="dot"></span> world graph · addressed</div>
+          <div class="term-body"><span class="k">world</span> <span class="v">G2-S3-O5</span>
+<span class="v">Civilization</span> <span class="d">G2-S3-O5-CIV-…</span>
+<span class="d">├─</span> <span class="k">primaryAttribute</span> <span class="d">STR | DEX | INT</span>
+<span class="d">├─</span> <span class="k">themes  conflictDrivers  taboos</span>
+<span class="d">├─</span> <span class="v">Leader</span>   <span class="d">G2-S3-O5-LEAD-…</span>
+<span class="d">├─</span> <span class="v">City[]</span>   <span class="d">G2-S3-O5-CITY-…</span>
+<span class="d">│  ├─</span> <span class="v">Governor</span>     <span class="d">-GOV-…</span>
+<span class="d">│  │  └─</span> <span class="v">Lieutenant[]</span> <span class="d">-NPC-…</span>
+<span class="d">│  └─</span> <span class="v">RegionalLocale[]</span> <span class="d">-REG-…</span>
+<span class="d">├─</span> <span class="v">GridVoxel[]</span> <span class="d">x, y, type A–D</span>
+<span class="d">└─</span> <span class="v">Quest[]</span> <span class="d">-Q-… · global index of 7</span>
+
+<span class="k">refs</span>     <span class="ok">all resolve</span> <span class="d">giver / middle / completion</span>
+<span class="k">export</span>   <span class="ok">spec version pinned</span></div>
+        </div>
+        <div class="callout" style="margin-top:22px">
+          <span class="lbl">Note the widths</span>
+          <p class="mb0">
+            Three civilisations, three generation phases, three hierarchy levels, three quest
+            steps — and seven quests, seven entity kinds, seven object slots. The generator was
+            built to the same constant as the reasoning and memory systems, which is why its
+            output drops straight into them.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="rule">
+
+<section class="tight">
+  <div class="wrap">
+    <div class="max rv">
+      <div class="callout warn">
+        <span class="lbl">Commercial read</span>
+        <p class="mb0">
+          Every team building with generative models eventually hits this wall: the output is
+          plausible but not referentially sound, and regeneration destroys identity. They solve
+          it once, badly, in-house. The key system is that layer built properly — addressing,
+          integrity enforcement, determinism and a versioned contract — with a working
+          demonstration attached to prove it holds under real generative load.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="pager">
+  <a href="arc-lab.html"><span class="lb">← Previous · 03</span><span class="tt">Arc Lab</span></a>
+  <a class="next" href="cubex.html"><span class="lb">Next · 05</span><span class="tt">Cubex³ →</span></a>
+</div>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <a class="brand" href="index.html"><span class="brand-mark"></span> G-YNTHETIC&nbsp;LABS</a>
+        <p style="margin-top:16px;max-width:34ch;font-size:.9rem">
+          Infrastructure for AI memory and reasoning. Built for domains where a hallucination
+          is a liability.
+        </p>
+      </div>
+      <div>
+        <h5>Core</h5>
+        <ul>
+          <li><a href="byte-for-byte.html">Byte for Byte</a></li>
+          <li><a href="architecture.html">The Address Space</a></li>
+          <li><a href="platform.html">Memory Cognitive Lattice</a></li>
+          <li><a href="fracc.html">F.R.A.C.C.</a></li>
+          <li><a href="arc-lab.html">Arc Lab</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Applied</h5>
+        <ul>
+          <li><a href="orbitgen.html">Key System</a></li>
+          <li><a href="cubex.html">Cubex³</a></li>
+          <li><a href="secured.html">SeCUReD</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Company</h5>
+        <ul>
+          <li><a href="investors.html">Investors</a></li>
+          <li><a href="investors.html#research">Research</a></li>
+          <li><a href="mailto:G-ynthetic-Labs@proton.me">G-ynthetic-Labs@proton.me</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bot">
+      <span>© <span data-year>2026</span> G-YNTHETIC LABS · PORTLAND, OREGON</span>
+      <span>WE AREN'T TEACHING AI TO THINK — WE'RE GIVING IT A PLACE TO STAND</span>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/js/gl.js"></script>
+<script src="assets/js/site.js"></script>
+</body>
+</html>

@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>G-ynthetic Labs — Infrastructure for AI Memory &amp; Reasoning</title>
+<meta name="description" content="G-ynthetic Labs builds the substrate that makes machine reasoning inspectable: a persistent, addressable memory lattice and a laboratory for constructing and certifying explanations. Built for domains where a hallucination is a liability.">
+<meta property="og:title" content="G-ynthetic Labs — Infrastructure for AI Memory &amp; Reasoning">
+<meta property="og:description" content="We aren't teaching AI to think. We're giving it a place to stand.">
+<meta property="og:type" content="website">
+<link rel="icon" href="favicon.ico">
+<link rel="stylesheet" href="assets/css/base.css">
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-in">
+    <a class="brand" href="index.html"><span class="brand-mark"></span> G-YNTHETIC&nbsp;LABS</a>
+    <button class="nav-toggle" aria-expanded="false">Menu</button>
+    <div class="nav-links">
+      <a href="byte-for-byte.html">Byte for Byte</a>
+      <a href="architecture.html">Architecture</a>
+      <a href="platform.html">Lattice</a>
+      <a href="fracc.html">F.R.A.C.C.</a>
+      <a href="arc-lab.html">Arc Lab</a>
+      <a href="orbitgen.html">Key System</a>
+      <a href="cubex.html">Cubex³</a>
+      <a href="secured.html">SeCUReD</a>
+      <a href="investors.html" class="nav-cta">Investors</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ============================================================ HERO -->
+<header class="hero">
+  <div class="stage hero" data-gl="lattice" data-spin="0.05"></div>
+  <div class="hero-scrim"></div>
+  <div class="wrap">
+    <div class="hero-in">
+      <p class="eyebrow">Research company · Portland, Oregon</p>
+      <h1>We aren't teaching AI to think.<br>We're giving it <em>a place to stand.</em></h1>
+      <p class="lead hero-sub">
+        Language models reason without a substrate. They have no persistent place to put what
+        they know, and no honest account of how they got there. G-ynthetic Labs is a research
+        company working that problem — and each system below is a running demonstration of a
+        piece of that research, built to be monetizable rather than merely written up.
+      </p>
+      <div class="btns">
+        <a class="btn primary" href="platform.html">Explore the lattice <span class="arw">→</span></a>
+        <a class="btn" href="investors.html">Investor brief</a>
+      </div>
+      <div class="stage-hud" style="position:static;text-align:left;margin-top:2.6rem;">
+        SUBSTRATE 7³ · <span>342</span> VOXELS PER LEVEL · DEPTH OPEN<br>
+        RUNTIME LOCAL · NO DATA EGRESS REQUIRED<br>
+        MANUAL_CODE_CONTRIBUTION: <span>0.00%</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ============================================================ THESIS -->
+<section>
+  <div class="wrap">
+    <div class="split wide-left">
+      <div class="rv">
+        <p class="eyebrow">The problem we are solving</p>
+        <h2>In regulated work, an unexplainable answer is not an answer.</h2>
+        <p>
+          Healthcare, finance, and defense cannot deploy a system whose reasoning is
+          reconstructed after the fact by a second model guessing at the first one. Every
+          mainstream interpretability method — SHAP, LIME, saliency — is post-hoc: it
+          produces a plausible story about a black box it never had access to.
+        </p>
+        <p>
+          Memory has the same defect. Vector databases return nearest neighbours from a
+          flat, opaque space. Nothing is addressable, nothing is inspectable, and nothing
+          explains why one memory surfaced and another did not.
+        </p>
+        <p class="mb0">
+          We attacked both from the substrate up. In our architecture the trace
+          <strong>is</strong> the control flow that produced the output. The explanation
+          isn't a reconstruction of the computation — it is the computation.
+        </p>
+      </div>
+      <div class="rv" data-delay="120">
+        <div class="callout">
+          <span class="lbl">Ante-hoc, not post-hoc</span>
+          <p class="mb0">
+            A post-hoc explainer answers <em>"what story fits this output?"</em> Ours answers
+            <em>"what steps produced it, and where is each one recorded?"</em> Those are
+            different questions, and only the second one survives an audit.
+          </p>
+        </div>
+        <div class="term" style="margin-top:22px">
+          <div class="term-bar"><span class="dot"></span> cognition trace · live export</div>
+          <div class="term-body"><span class="d">›</span> decompose      <span class="v">7 arcs</span> <span class="d">essence form frame function intent relation value</span>
+<span class="d">›</span> score          <span class="v">investment</span> <span class="d">per-arc, baseline-relative (σ)</span>
+<span class="d">›</span> cohere         <span class="v">3 phases</span> <span class="d">equal weight, descriptors configured per project</span>
+<span class="d">›</span> rank           <span class="v">influence %</span>
+<span class="d">›</span> plan           <span class="v">tool chain</span>
+<span class="d">›</span> retrieve       <span class="v">voxel read</span> <span class="d">coord + weighted search</span>
+<span class="d">›</span> persist        <span class="ok">committed</span> <span class="d">6-face voxel at a unique address</span>
+<span class="d">─────────────────────────────────────────────</span>
+<span class="d">›</span> every step above is addressable and exportable.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="rule">
+
+<!-- ============================================================ NUMBERS -->
+<section class="tight">
+  <div class="wrap">
+    <div class="grid g4">
+      <div class="stat rv"><span class="n"><i data-count="342">342</i></span><span class="k">Voxels per level · 7³ − portal</span></div>
+      <div class="stat rv" data-delay="80"><span class="n"><i data-count="63">63</i></span><span class="k">F.R.A.C.C. decomposition elements</span></div>
+      <div class="stat rv" data-delay="160"><span class="n"><i data-count="7">7</i></span><span class="k">Research working papers</span></div>
+      <div class="stat rv" data-delay="240"><span class="n"><i data-count="1686">1686</i></span><span class="k">Passing assertions · 0 failing</span></div>
+    </div>
+  </div>
+</section>
+
+<hr class="rule">
+
+<!-- ============================================================ PRODUCTS -->
+<section>
+  <div class="wrap">
+    <div class="split wide-left rv" style="margin-bottom:4rem">
+      <div>
+        <p class="eyebrow">Nearest to market</p>
+        <h2>Byte for Byte</h2>
+        <p class="lead">
+          It makes an expert's sign-off on an AI system stop expiring silently.
+        </p>
+        <p>
+          A qualified person validates an AI-assisted decision. Then a model tag is re-pulled, a
+          driver updates, hardware is replaced — and the system gives a different answer to the
+          same question. Nobody is told. The drifted system is not broken; it is perfectly
+          self-consistent, so every health check stays green.
+        </p>
+        <p class="mb0">
+          Two guards catch it: one proves the environment is stable now, the other proves it has
+          not quietly become stable at a <strong>different answer</strong> since sign-off. It
+          stands alone, wraps a model you already run, and has no dependencies.
+        </p>
+        <div class="btns">
+          <a class="btn primary" href="byte-for-byte.html">Byte for Byte <span class="arw">→</span></a>
+        </div>
+      </div>
+      <div>
+        <div class="stage framed" data-gl="chain" data-spin="0.02">
+          <div class="stage-cap">Sign-off, replay, and the drift that passes every health check</div>
+          <div class="stage-hud">PROBES <span>6/6</span><br>TESTS <span>50/50</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="split wide-left rv" style="margin-bottom:4rem">
+      <div>
+        <p class="eyebrow">The system underneath</p>
+        <h2>One address space, instantiated six times.</h2>
+        <p>
+          Every product here is the same structure pointed at a different domain: a fractally
+          recursive, holographic address space held in superimposed states. It is bounded in
+          extent and unbounded in depth, because it grows <strong>inward</strong> — descending
+          into a cell rather than branching outward into more of them.
+        </p>
+        <p class="mb0">
+          The specific widths you will see quoted are one configuration, not the invention. Any
+          numbers work provided the principles hold.
+        </p>
+        <div class="btns">
+          <a class="btn primary" href="architecture.html">Read the architecture <span class="arw">→</span></a>
+        </div>
+      </div>
+      <div>
+        <div class="stage framed" data-gl="recursive" data-spin="0.06">
+          <div class="stage-cap">Recursion <b>inward</b> · five levels, one structure</div>
+          <div class="stage-hud">EXTENT <span>BOUNDED</span><br>DEPTH <span>OPEN</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="max rv" style="margin-bottom:3rem">
+      <p class="eyebrow">Core products</p>
+      <h2>Seven systems.</h2>
+      <p class="mb0">
+        Each is a working demonstration of research, not a shipped product. Six stand on the
+        address space. Byte for Byte does not — it is a standalone module that travels onto a
+        customer's machine and wraps whatever model they already run, and it is the nearest to
+        being sold.
+      </p>
+    </div>
+
+    <div class="grid g3">
+      <a class="card rv" href="byte-for-byte.html">
+        <div class="idx"><span>00 / CERTIFICATION</span><span class="tag">STANDALONE</span></div>
+        <h3>Byte for Byte</h3>
+        <p>Certified inference. A within-run witness plus a hash-chained validation ledger that
+        catches silent drift no present-tense check can see. Shares no substrate with anything
+        else here — deliberately.</p>
+        <span class="go">Read the architecture →</span>
+      </a>
+
+      <a class="card rv" href="platform.html">
+        <div class="idx"><span>01 / SUBSTRATE</span><span class="tag">CORE</span></div>
+        <h3>Memory Cognitive Lattice</h3>
+        <p>A 7³ hologram holding 342 addressed memories, each a voxel with a centroid and six
+        indexed faces. Fills a level, then descends — bounded in extent, unbounded in depth.
+        Persistent, inspectable, local.</p>
+        <span class="go">Read the architecture →</span>
+      </a>
+
+      <a class="card rv" data-delay="70" href="fracc.html">
+        <div class="idx"><span>02 / REASONING</span><span class="tag">CORE</span></div>
+        <h3>F.R.A.C.C.</h3>
+        <p>Fractal Recursive Adaptive CognitiveCeiling — a decomposition constant that breaks
+        any goal into 3 × 3 × 7 = 63 tractable elements, recursively, with the tree preserved
+        as the reasoning path.</p>
+        <span class="go">Read the architecture →</span>
+      </a>
+
+      <a class="card rv" data-delay="140" href="arc-lab.html">
+        <div class="idx"><span>03 / EXPLAINABILITY</span><span class="tag">CORE</span></div>
+        <h3>Arc Lab</h3>
+        <p>A model-agnostic and basis-agnostic laboratory for building explanatory bases over
+        cognition — and empirically certifying that a basis is irreducible and exhaustive
+        before you trust anything it says.</p>
+        <span class="go">Read the architecture →</span>
+      </a>
+
+      <a class="card rv" href="orbitgen.html">
+        <div class="idx"><span>04 / GENERATION</span><span class="tag">APPLIED</span></div>
+        <h3>OrbitGen-AI</h3>
+        <p>A generator for metadata and simulation environments — the supply side of the
+        problem. Structured worlds and structured labels, produced to spec, for systems that
+        need to be trained and stress-tested.</p>
+        <span class="go">Read the architecture →</span>
+      </a>
+
+      <a class="card rv" data-delay="70" href="cubex.html">
+        <div class="idx"><span>05 / TESTBED</span><span class="tag">APPLIED</span></div>
+        <h3>Cubex³</h3>
+        <p>The architecture made executable. Three commanders, three axes, seven tactics — 63
+        doctrines per side — arbitrating a single decision under stress on an observable
+        board.</p>
+        <span class="go">Read the architecture →</span>
+      </a>
+
+      <a class="card rv" data-delay="140" href="secured.html">
+        <div class="idx"><span>06 / VERTICAL</span><span class="tag">APPLIED</span></div>
+        <h3>SeCUReD</h3>
+        <p>Smart-City Urban Resilience and Emergency Deployment. The lattice applied where a
+        wrong answer costs more than money, and where every decision has to survive a public
+        inquiry.</p>
+        <span class="go">Read the architecture →</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<hr class="rule">
+
+<!-- ============================================================ HOW -->
+<section>
+  <div class="wrap">
+    <div class="split">
+      <div class="rv">
+        <div class="stage framed" data-gl="fracc" data-spin="0.07">
+          <div class="stage-cap">F.R.A.C.C. · <b>3 × 3 × 7</b> recursion, 63 terminals</div>
+          <div class="stage-hud">DEPTH <span>04</span><br>TERMINALS <span>63</span></div>
+        </div>
+      </div>
+      <div class="rv" data-delay="120">
+        <p class="eyebrow v2">How a thought moves through the system</p>
+        <h2>Seven stages. Each one leaves a record.</h2>
+        <ol class="steps">
+          <li>
+            <h4>Decompose</h4>
+            <p>Input is projected onto an explanatory basis — by default seven rhetorical arcs:
+            essence, form, frame, function, intent, relation, value.</p>
+          </li>
+          <li>
+            <h4>Score &amp; cohere</h4>
+            <p>Each arc receives an investment score, measured against a per-model calibrated
+            baseline, then passed through three coherence phases.</p>
+          </li>
+          <li>
+            <h4>Rank &amp; plan</h4>
+            <p>Arcs are ranked by influence; that ranking drives the tool chain the system
+            actually executes.</p>
+          </li>
+          <li>
+            <h4>Retrieve</h4>
+            <p>Memory is read by coordinate and by weighted search across the cell's six faces.
+            Hebbian co-activation edges exist alongside this, but the retrieval-side consumer is
+            off by default.</p>
+          </li>
+          <li>
+            <h4>Persist</h4>
+            <p>The result is written back as a six-face voxel. Edges strengthen. Unused memory
+            metabolises and decays.</p>
+          </li>
+        </ol>
+        <div class="btns">
+          <a class="btn" href="platform.html">Full pipeline <span class="arw">→</span></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="rule">
+
+<!-- ============================================================ RIGOR -->
+<section>
+  <div class="wrap">
+    <div class="max center rv" style="margin-bottom:3rem">
+      <p class="eyebrow" style="justify-content:center">How we hold ourselves to it</p>
+      <h2>The lab is built to catch us being wrong.</h2>
+    </div>
+    <div class="grid g3">
+      <div class="card rv">
+        <div class="idx"><span>FALSIFIABILITY</span></div>
+        <h3>Pre-registered predictions</h3>
+        <p>The Test Bench is an append-only ledger. A prediction is registered with its kill
+        criteria <em>before</em> the run. Calibration is tracked over time, and a failed
+        prediction stays in the record.</p>
+      </div>
+      <div class="card rv" data-delay="80">
+        <div class="idx"><span>INDEPENDENCE</span></div>
+        <h3>Model-agnostic verdicts</h3>
+        <p>Scoring is calibrated per embedding model against a fixed baseline corpus, so a
+        verdict is reported in σ above baseline rather than a hardcoded cosine cutoff. Swap
+        the model; the verdict still means the same thing.</p>
+      </div>
+      <div class="card rv" data-delay="160">
+        <div class="idx"><span>AUDITABILITY</span></div>
+        <h3>Exportable traces</h3>
+        <p>A full cognition run exports as a document: every stage, every score, every memory
+        read and write, with coordinates. It is designed to be handed to someone whose job is
+        to disbelieve it.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="rule">
+
+<!-- ============================================================ PULL -->
+<section>
+  <div class="wrap">
+    <div class="max rv">
+      <blockquote class="pull">
+        “A similarity index gives you a neighbour. An address gives you the same cell a year
+        later, and a record of how it got there.”
+        <cite>William Wallace Morehead · Applied Intelligence Architect</cite>
+      </blockquote>
+    </div>
+  </div>
+</section>
+
+<hr class="rule">
+
+<!-- ============================================================ CTA -->
+<section>
+  <div class="wrap">
+    <div class="split">
+      <div class="rv">
+        <p class="eyebrow">For investors</p>
+        <h2>Seven systems. 1,686 passing assertions.</h2>
+        <p>
+          G-ynthetic Labs is a research company. What exists is research, and demonstrations
+          of that research that run: a locally-deployed engine that persists and exports its own
+          reasoning, backed by 1,686 passing assertions. Nothing has shipped. The work is to turn
+          the strongest of those demonstrations into something a regulated buyer can procure.
+        </p>
+        <div class="btns">
+          <a class="btn primary" href="investors.html">Read the investor brief <span class="arw">→</span></a>
+          <a class="btn" href="mailto:G-ynthetic-Labs@proton.me">Contact</a>
+        </div>
+      </div>
+      <div class="rv" data-delay="100">
+        <div class="stage framed wide" data-gl="orbit" data-spin="0.03">
+          <div class="stage-cap">OrbitGen-AI · nested generation shells</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ FOOTER -->
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <a class="brand" href="index.html"><span class="brand-mark"></span> G-YNTHETIC&nbsp;LABS</a>
+        <p style="margin-top:16px;max-width:34ch;font-size:.9rem">
+          Infrastructure for AI memory and reasoning. Built for domains where a hallucination
+          is a liability.
+        </p>
+      </div>
+      <div>
+        <h5>Core</h5>
+        <ul>
+          <li><a href="byte-for-byte.html">Byte for Byte</a></li>
+          <li><a href="architecture.html">The Address Space</a></li>
+          <li><a href="platform.html">Memory Cognitive Lattice</a></li>
+          <li><a href="fracc.html">F.R.A.C.C.</a></li>
+          <li><a href="arc-lab.html">Arc Lab</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Applied</h5>
+        <ul>
+          <li><a href="orbitgen.html">Key System</a></li>
+          <li><a href="cubex.html">Cubex³</a></li>
+          <li><a href="secured.html">SeCUReD</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Company</h5>
+        <ul>
+          <li><a href="investors.html">Investors</a></li>
+          <li><a href="investors.html#research">Research</a></li>
+          <li><a href="mailto:G-ynthetic-Labs@proton.me">G-ynthetic-Labs@proton.me</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bot">
+      <span>© <span data-year>2026</span> G-YNTHETIC LABS · PORTLAND, OREGON</span>
+      <span>WE AREN'T TEACHING AI TO THINK — WE'RE GIVING IT A PLACE TO STAND</span>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/js/gl.js"></script>
+<script src="assets/js/site.js"></script>
+</body>
+</html>

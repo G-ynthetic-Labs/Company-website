@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Byte for Byte — Certified Inference — G-ynthetic Labs</title>
+<meta name="description" content="Makes an expert's sign-off on an AI system stop expiring silently. A within-run witness plus a hash-chained validation ledger that catches silent drift no present-tense check can see.">
+<link rel="icon" href="favicon.ico">
+<link rel="stylesheet" href="assets/css/base.css">
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-in">
+    <a class="brand" href="index.html"><span class="brand-mark"></span> G-YNTHETIC&nbsp;LABS</a>
+    <button class="nav-toggle" aria-expanded="false">Menu</button>
+    <div class="nav-links">
+      <a href="byte-for-byte.html">Byte for Byte</a>
+      <a href="architecture.html">Architecture</a>
+      <a href="platform.html">Lattice</a>
+      <a href="fracc.html">F.R.A.C.C.</a>
+      <a href="arc-lab.html">Arc Lab</a>
+      <a href="orbitgen.html">Key System</a>
+      <a href="cubex.html">Cubex³</a>
+      <a href="secured.html">SeCUReD</a>
+      <a href="investors.html" class="nav-cta">Investors</a>
+    </div>
+  </div>
+</nav>
+
+<header class="phead">
+  <div class="stage hero" data-gl="chain" data-spin="0.02"></div>
+  <div class="hero-scrim"></div>
+  <div class="wrap">
+    <p class="crumb">Products / Certified Inference</p>
+    <h1>Byte for Byte</h1>
+    <p class="lead max">
+      It makes an expert's sign-off on an AI system stop expiring silently.
+    </p>
+    <p class="max">
+      Someone qualified validates an AI-assisted decision and signs off. Then a model tag is
+      re-pulled. A driver updates. Hardware is replaced. The system now gives a different
+      answer to the same question — and nobody is told. The sign-off is still on file, still
+      being cited, and no longer describes what the machine does.
+    </p>
+    <ul class="tags">
+      <li>Within-run witness</li>
+      <li>Hash-chained ledger</li>
+      <li>Local inference only</li>
+      <li>Zero dependencies</li>
+      <li>50/50 contract tests</li>
+      <li>6/6 falsification probes</li>
+    </ul>
+  </div>
+</header>
+
+<!-- ============================================================ THE PROBLEM -->
+<section>
+  <div class="wrap">
+    <div class="split wide-left">
+      <div class="rv">
+        <p class="eyebrow">The failure nothing else catches</p>
+        <h2>The drifted system is not broken.</h2>
+        <p>
+          That is the whole difficulty. A system that has drifted is perfectly self-consistent —
+          ask it the same question a thousand times and you get the same new answer every time.
+          Health checks pass. Smoke tests pass. Monitoring is green. There is nothing wrong with
+          the moment, so nothing that measures the moment can see it.
+        </p>
+        <p>
+          The only way to catch it is to have written down, at sign-off time, exactly what was
+          approved — and then to check today's bytes against that record at the moment of use.
+        </p>
+        <p class="mb0">
+          So there are two guards. One proves the environment is stable <em>right now</em>. The
+          other proves it has not quietly become stable at a <strong>different answer</strong>
+          since the day someone approved it. The second guard is the contribution: it is
+          invisible to every check that runs in the present tense.
+        </p>
+        <div class="btns">
+          <a class="btn primary" href="#verify">How it was falsified <span class="arw">→</span></a>
+        </div>
+      </div>
+      <div class="rv" data-delay="120">
+        <div class="stage framed tall" data-gl="chain" data-spin="0.03">
+          <div class="stage-cap">Ledger chain · <b>amber</b> = sign-off · <b>red</b> = stable-but-different</div>
+          <div class="stage-hud">RECORD <span>HASHES</span><br>TEXT <span>NEVER</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="rule">
+
+<!-- ============================================================ ANALOGY -->
+<section class="tight">
+  <div class="wrap">
+    <div class="max rv">
+      <div class="callout">
+        <span class="lbl">The plain-language version</span>
+        <p class="mb0">
+          <strong>This is weld procedure qualification for AI.</strong> Qualify the procedure,
+          verify the production work conforms to it, and keep a tamper-evident record that
+          survives an audit. That discipline is a century old in heavy industry. It does not
+          exist in this one.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="rule">
+
+<!-- ============================================================ MECHANISM -->
+<section>
+  <div class="wrap">
+    <div class="max rv" style="margin-bottom:3rem">
+      <p class="eyebrow v2">The mechanism</p>
+      <h2>Three generations, and a record that remembers.</h2>
+      <p class="mb0">
+        An armed call runs the identical frozen request three times. Two of the three exist
+        only to make the third trustworthy.
+      </p>
+    </div>
+
+    <div class="split">
+      <div class="rv">
+        <div class="term">
+          <div class="term-bar"><span class="dot"></span> armed call · contract</div>
+          <div class="term-body"><span class="d">1</span> <span class="v">warm-up</span>   <span class="w">DISCARDED</span>  <span class="d">forces the cache-warm path</span>
+<span class="d">2</span> <span class="v">kept</span>      <span class="d">returned iff step 3 agrees</span>
+<span class="d">3</span> <span class="v">witness</span>   <span class="d">must byte-match kept</span>
+
+<span class="d">           ↓ only witnessed bytes proceed</span>
+
+<span class="v">ledger</span>    <span class="d">compare against what THIS request</span>
+          <span class="d">produced when first recorded</span>
+
+<span class="d">──────────────────────────────────────────</span>
+<span class="k">within-run</span>   <span class="w">ReproducibilityError</span>
+<span class="k">across-time</span>  <span class="w">LedgerDriftError</span>
+<span class="k">record</span>       <span class="w">LedgerIntegrityError</span>
+
+<span class="d">every failure REFUSES. none returns bytes.</span></div>
+        </div>
+      </div>
+      <div class="rv" data-delay="100">
+        <h3>Why the warm-up is never skipped</h3>
+        <p>
+          An earlier version memoised it — skipping the warm-up when the same prompt had
+          already been warmed in-process. An adversarial probe broke that: after the server
+          evicts the model, the memo-skipped call takes the cold path and produces different
+          bytes. Server-side cache state is not observable from the client, so the warm-up now
+          runs on <strong>every</strong> frozen call, forever. It is the single largest cost in
+          the design, and it is deliberate.
+        </p>
+        <h3 style="margin-top:1.8rem">Why the witness is not theatre</h3>
+        <p class="mb0">
+          It was added after a one-off divergence under multi-model VRAM pressure that
+          controlled probes could not reproduce. Since the mechanism could not be pinned down,
+          the design was changed so that unreproduced bytes are never returned at all. When you
+          cannot explain a failure, you make the system refuse rather than assume.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="rule">
+
+<!-- ============================================================ NOT TEMP 0 -->
+<section>
+  <div class="wrap">
+    <div class="split">
+      <div class="rv">
+        <p class="eyebrow">The obvious objection</p>
+        <h2>"Isn't this just temperature zero?"</h2>
+        <p>
+          Necessary, and not sufficient. That gap is the entire reason this exists, and it was
+          found by measurement rather than argument.
+        </p>
+        <p>
+          Across three unrelated model families, two inputs and five runs each, frozen sampling
+          was byte-identical in <strong>five of six cells</strong>. The sixth failed in a
+          specific, reproducible shape: <strong>run 1 diverged and runs 2–5 were identical.</strong>
+        </p>
+        <p>
+          The cause is prompt-cache state. The first evaluation after a cache miss takes a
+          different numeric path — a different batch layout in the reduction kernels — than a
+          cache-warm evaluation of the same prompt. Both are internally consistent. Neither is
+          wrong. They differ in the last bits, and greedy decoding turns that into different
+          tokens.
+        </p>
+        <p class="mb0">
+          This is not a proprietary discovery — llama.cpp's own documentation notes that logits
+          are not guaranteed bit-identical across batch sizes, and that prompt caching can
+          therefore produce nondeterministic results. What this does is make cache state
+          <strong>part of the contract</strong> rather than an ambient property of server
+          history.
+        </p>
+      </div>
+      <div class="rv" data-delay="120">
+        <div class="callout warn">
+          <span class="lbl">The constraint is the customer</span>
+          <p>
+            This technique holds on <strong>local inference on fixed hardware</strong>. A hosted
+            cloud API voids it — you do not control the batch layout, the driver, or the weights
+            behind a model name.
+          </p>
+          <p class="mb0">
+            That sounds like a limitation until you notice who has the regulatory duty: pharma,
+            model risk management, defence programme offices. They already run models on their
+            own hardware, for the same reasons they need this. The constraint and the buyer
+            happen to coincide.
+          </p>
+        </div>
+        <table class="spec" style="margin-top:22px">
+          <tr><th>Guard off</th><td>Zero overhead — one ordinary call, nothing added, sampling untouched</td></tr>
+          <tr><th>Guard on</th><td>Three calls instead of one, on protected calls only</td></tr>
+          <tr><th>Storage</th><td>One short record per unique request — <strong>hashes only</strong>. No prompt text and no answer text is stored</td></tr>
+          <tr><th>CPU beyond generation</th><td>Two SHA-256 hashes; unmeasurable against token generation</td></tr>
+          <tr><th>Dependencies</th><td>None</td></tr>
+          <tr><th>Source size</th><td>About 1,200 lines across seven TypeScript files — meant to be read in an afternoon by the person who has to defend it</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="rule">
+
+<!-- ============================================================ VERIFY -->
+<section id="verify">
+  <div class="wrap">
+    <div class="max rv" style="margin-bottom:3rem">
+      <p class="eyebrow v2">Verification</p>
+      <h2>Six attempted falsifications, including one that must fail.</h2>
+      <p class="mb0">
+        The battery runs against a real local model. It includes a <strong>control that is
+        required to diverge</strong> — if the harness cannot detect nondeterminism when
+        nondeterminism is present, it has no business certifying anything.
+      </p>
+    </div>
+
+    <div class="split">
+      <div class="rv">
+        <div class="term">
+          <div class="term-bar"><span class="dot"></span> peer-review battery · run 2 Aug 2026</div>
+          <div class="term-body"><span class="d">model qwen2.5-coder:7b · replay runs=3 · seed 42</span>
+<span class="d">server settled: models unloaded (declared start)</span>
+
+<span class="ok">PASS</span>  embedder-repeat
+<span class="ok">PASS</span>  embedder-batch-mix
+<span class="ok">PASS</span>  replay-across-processes
+<span class="ok">PASS</span>  cache-eviction-attack
+<span class="ok">PASS</span>  interleave-attack
+<span class="ok">PASS</span>  control-divergence   <span class="d">3 distinct in 3 runs</span>
+
+<span class="v">VERDICT: PASS</span>
+<span class="d">byte-for-byte claim held under all falsification</span>
+<span class="d">attempts on this machine.</span>
+<span class="d">Scope: local fixed hardware; reproducibility,</span>
+<span class="d">not correctness.</span></div>
+        </div>
+      </div>
+      <div class="rv" data-delay="100">
+        <p>
+          Each probe is an attack, not a demonstration. <strong>Cache eviction</strong> unloads
+          the model between calls and demands the same bytes. <strong>Interleave</strong> runs
+          other work in between to disturb server state. <strong>Replay across processes</strong>
+          checks that a fresh process reproduces a previous one's output exactly.
+        </p>
+        <p>
+          Every armed run writes an evidence bundle — full raw outputs, full hashes, and
+          provenance including model, server version, seed and platform — so a reviewer checks
+          the artefact rather than the claim.
+        </p>
+        <table class="spec" style="margin-top:1.6rem">
+          <tr><th>Contract tests</th><td><strong>50 / 50 passing.</strong> Covering the three-call contract, no-memoisation, concurrency serialisation, torn-write tolerance, and refusal paths</td></tr>
+          <tr><th>Falsification battery</th><td><strong>6 / 6 held</strong> against a live local model, control included</td></tr>
+          <tr><th>Demonstration</th><td>Five acts, ~1 second, no GPU and no model required — including the guard-off control that shows the same drift passing silently</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="rule">
+
+<!-- ============================================================ WHO BUYS -->
+<section>
+  <div class="wrap">
+    <div class="max rv" style="margin-bottom:3rem">
+      <p class="eyebrow">Who buys this</p>
+      <h2>Not the AI team. They experience this as friction.</h2>
+      <p class="mb0">
+        The buyer is whoever is accountable when it goes wrong and currently cannot discharge
+        that accountability. Each duty below is a standing obligation under a named instrument
+        &mdash; and none of those instruments names this technique. The boundary note follows.
+      </p>
+    </div>
+    <div class="grid g4">
+      <div class="card rv">
+        <div class="idx"><span>SEGMENT 01</span></div>
+        <h3>Pharma &amp; medical device</h3>
+        <p>Under FDA 21 CFR Part 11 and EU GMP Annex 11 the duty is not one-time qualification
+        but maintaining the <em>validated state</em> &mdash; change control and periodic review
+        confirming the system still performs as validated. Done by hand today; not at all for
+        language models.</p>
+      </div>
+      <div class="card rv" data-delay="60">
+        <div class="idx"><span>SEGMENT 02</span></div>
+        <h3>Model risk management</h3>
+        <p>SR 11-7 / OCC 2011-12 requires ongoing monitoring to confirm the model in production
+        is the model that was validated. Today that confirmation is an assertion.</p>
+      </div>
+      <div class="card rv" data-delay="120">
+        <div class="idx"><span>SEGMENT 03</span></div>
+        <h3>Defence T&amp;E and ATO</h3>
+        <p>An authority to operate is granted against a described system, carrying a standing
+        continuous-monitoring duty. A programme office certified a model &mdash; is the fielded
+        system still that model? Nobody can currently answer.</p>
+      </div>
+      <div class="card rv" data-delay="180">
+        <div class="idx"><span>SEGMENT 04</span></div>
+        <h3>EU AI Act high-risk</h3>
+        <p>Automatic record-keeping across the system lifetime, post-market monitoring, and
+        technical documentation kept current. Providers must be able to <em>evidence</em> what the
+        system did, not assert it.</p>
+      </div>
+    </div>
+
+    <div class="callout warn rv" style="margin-top:2.6rem">
+      <span class="lbl">Said plainly</span>
+      <p class="mb0">
+        <strong>No regulation mandates byte-for-byte reproducibility checking.</strong> These
+        instruments impose an outcome duty &mdash; the validated system must still be the running
+        system, and you must be able to evidence it. This is one way to discharge that duty, as
+        far as we know the only automated one for local language models. It is not a compliance
+        certification, and nothing here is legal advice.
+      </p>
+    </div>
+  </div>
+</section>
+
+<hr class="rule">
+
+<!-- ============================================================ NOT CLAIMED -->
+<section>
+  <div class="wrap">
+    <div class="max rv" style="margin-bottom:2.4rem">
+      <p class="eyebrow v2">Boundaries</p>
+      <h2>What is explicitly not claimed.</h2>
+      <p class="mb0">
+        Stated as prominently as the claims, because a compliance buyer is going to test these
+        edges and should hear them from us first.
+      </p>
+    </div>
+    <div class="grid g3">
+      <div class="card rv">
+        <div class="idx"><span>NOT CLAIMED 01</span></div>
+        <h3>Correctness</h3>
+        <p>It does not claim any output is right. Whether the answer was correct is the expert's
+        judgement and stays the expert's judgement. This makes their sign-off durable; it does
+        not make it for them.</p>
+      </div>
+      <div class="card rv" data-delay="70">
+        <div class="idx"><span>NOT CLAIMED 02</span></div>
+        <h3>Prevention</h3>
+        <p>It does not prevent drift. It detects drift and makes it fail loudly at the moment of
+        use, rather than quietly at a deposition.</p>
+      </div>
+      <div class="card rv" data-delay="140">
+        <div class="idx"><span>NOT CLAIMED 03</span></div>
+        <h3>Tamper-proof</h3>
+        <p>It is tamper-<em>evident</em>. Editing a record breaks the chain and every later call
+        refuses to run. An attacker with full write access can rewrite and re-chain the file —
+        which is why the chain head hash belongs in an archive off the machine.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="rule">
+
+<!-- ============================================================ STANDS APART -->
+<section class="tight">
+  <div class="wrap">
+    <div class="max rv">
+      <div class="callout">
+        <span class="lbl">Where this sits in the portfolio</span>
+        <p>
+          Everything else on this site is one architecture seen from different angles — the
+          <a href="architecture.html">address space</a>, instantiated six ways. Byte for Byte
+          is not. It shares no substrate with them and depends on none of them.
+        </p>
+        <p class="mb0">
+          It is a standalone module that travels onto someone else's machine and wraps whatever
+          model they already run. That independence is the point: it can be sold, audited and
+          deployed without buying into any of our other ideas.
+        </p>
+      </div>
+      <div class="btns">
+        <a class="btn primary" href="investors.html">Investor brief <span class="arw">→</span></a>
+        <a class="btn" href="mailto:G-ynthetic-Labs@proton.me">Request the review package</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="pager">
+  <a href="index.html"><span class="lb">← Back</span><span class="tt">Overview</span></a>
+  <a class="next" href="architecture.html"><span class="lb">Next</span><span class="tt">The Address Space →</span></a>
+</div>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <a class="brand" href="index.html"><span class="brand-mark"></span> G-YNTHETIC&nbsp;LABS</a>
+        <p style="margin-top:16px;max-width:34ch;font-size:.9rem">
+          Infrastructure for AI memory and reasoning. Built for domains where a hallucination
+          is a liability.
+        </p>
+      </div>
+      <div>
+        <h5>Core</h5>
+        <ul>
+          <li><a href="byte-for-byte.html">Byte for Byte</a></li>
+          <li><a href="architecture.html">The Address Space</a></li>
+          <li><a href="platform.html">Memory Cognitive Lattice</a></li>
+          <li><a href="fracc.html">F.R.A.C.C.</a></li>
+          <li><a href="arc-lab.html">Arc Lab</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Applied</h5>
+        <ul>
+          <li><a href="orbitgen.html">Key System</a></li>
+          <li><a href="cubex.html">Cubex³</a></li>
+          <li><a href="secured.html">SeCUReD</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Company</h5>
+        <ul>
+          <li><a href="investors.html">Investors</a></li>
+          <li><a href="investors.html#research">Research</a></li>
+          <li><a href="mailto:G-ynthetic-Labs@proton.me">G-ynthetic-Labs@proton.me</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bot">
+      <span>© <span data-year>2026</span> G-YNTHETIC LABS · PORTLAND, OREGON</span>
+      <span>WE AREN'T TEACHING AI TO THINK — WE'RE GIVING IT A PLACE TO STAND</span>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/js/gl.js"></script>
+<script src="assets/js/site.js"></script>
+</body>
+</html>

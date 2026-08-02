@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Investors — G-ynthetic Labs</title>
+<meta name="description" content="One substrate, six systems, seven papers, a running engine. The investor brief for G-ynthetic Labs — including an honest account of what is built and what is not.">
+<link rel="icon" href="favicon.ico">
+<link rel="stylesheet" href="assets/css/base.css">
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-in">
+    <a class="brand" href="index.html"><span class="brand-mark"></span> G-YNTHETIC&nbsp;LABS</a>
+    <button class="nav-toggle" aria-expanded="false">Menu</button>
+    <div class="nav-links">
+      <a href="byte-for-byte.html">Byte for Byte</a>
+      <a href="architecture.html">Architecture</a>
+      <a href="platform.html">Lattice</a>
+      <a href="fracc.html">F.R.A.C.C.</a>
+      <a href="arc-lab.html">Arc Lab</a>
+      <a href="orbitgen.html">Key System</a>
+      <a href="cubex.html">Cubex³</a>
+      <a href="secured.html">SeCUReD</a>
+      <a href="investors.html" class="nav-cta">Investors</a>
+    </div>
+  </div>
+</nav>
+
+<header class="phead">
+  <div class="stage hero" data-gl="lattice" data-spin="0.04"></div>
+  <div class="hero-scrim"></div>
+  <div class="wrap">
+    <p class="crumb">Company / Investor brief</p>
+    <h1>A compliance layer<br>for AI nobody can currently audit.</h1>
+    <p class="lead max">
+      G-ynthetic Labs is a research company. The research is into evidence: proving a validated
+      AI system is still the system that was validated, and proving how it reached an answer.
+      Each system here is a running demonstration of that research, built to be monetizable
+      rather than merely written up.
+    </p>
+    <div class="btns">
+      <a class="btn primary" href="mailto:G-ynthetic-Labs@proton.me">Request the data room <span class="arw">→</span></a>
+      <a class="btn" href="#status">What is actually built</a>
+    </div>
+  </div>
+</header>
+
+<!-- ============================================================ THESIS -->
+<section>
+  <div class="wrap">
+    <div class="split wide-left">
+      <div class="rv">
+        <p class="eyebrow">Thesis</p>
+        <h2>The bottleneck has moved from capability to accountability.</h2>
+        <p>
+          Frontier models can already outperform professionals on a great many tasks. They are
+          nonetheless locked out of the highest-value work in healthcare, finance, defence and
+          the public sector — not because they are not smart enough, but because nobody can
+          answer the question a regulator asks: <em>how did it decide, and where is that
+          recorded?</em>
+        </p>
+        <p>
+          Every dominant answer to that question is post-hoc. A second system inspects a black
+          box and produces a plausible account. Plausible is not defensible, and in a
+          liability-bearing deployment the distinction is everything.
+        </p>
+        <p class="mb0">
+          We took the other route: build the substrate so the record exists by construction.
+          Memory has addresses. Decomposition has a shape. The explanation is the control flow.
+          Nothing is reconstructed after the fact because nothing needs to be.
+        </p>
+      </div>
+      <div class="rv" data-delay="120">
+        <div class="callout">
+          <span class="lbl">Why now</span>
+          <p>
+            Three things converged. Regulatory regimes for high-risk AI have moved from proposal
+            to enforcement, so auditability became a procurement requirement rather than a
+            preference. Small local models became good enough to run serious work on-premises,
+            which makes data residency achievable. And the first wave of agent deployments has
+            produced enough public failures that "it usually works" stopped being sellable.
+          </p>
+          <p class="mb0">
+            The market is now selecting for systems that can show their work. That is the only
+            kind we know how to build.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="rule">
+
+<!-- ============================================================ TWO PRODUCTS -->
+<section>
+  <div class="wrap">
+    <div class="max rv" style="margin-bottom:3rem">
+      <p class="eyebrow">Structure of the business</p>
+      <h2>A near-term regulatory product, and a long-term substrate.</h2>
+      <p class="mb0">
+        These have different buyers, different sales cycles and different risk profiles. Treating
+        them as one company has been the strategic error we are correcting.
+      </p>
+    </div>
+    <div class="split">
+      <div class="card rv" style="padding:32px">
+        <div class="idx"><span>PRODUCT A — NEAR TERM</span><span class="tag">REGULATORY</span></div>
+        <h3><a href="byte-for-byte.html">Byte for Byte</a></h3>
+        <p style="margin-bottom:1.1rem">
+          Certified inference. Makes an expert's sign-off stop expiring silently — a within-run
+          witness plus a hash-chained ledger that catches drift no present-tense check can see.
+        </p>
+        <p style="margin-bottom:1.1rem">
+          <strong>Why this is the wedge:</strong> the duty to keep a validated system in its
+          validated state already exists in these sectors, and there is no tooling for language
+          models. It is ~1,200 lines with no dependencies, it wraps a model they already run,
+          and it requires them to adopt none of our other ideas. It is separable, auditable and
+          sellable on its own.
+        </p>
+        <p class="mb0">
+          <strong>Status:</strong> 50/50 contract tests passing; 6/6 falsification probes held
+          against a live local model, control included.
+        </p>
+      </div>
+      <div class="card rv" data-delay="100" style="padding:32px">
+        <div class="idx"><span>PRODUCT B — LONG TERM</span><span class="tag">SUBSTRATE</span></div>
+        <h3><a href="architecture.html">The address space</a></h3>
+        <p style="margin-bottom:1.1rem">
+          Addressable memory, structured decomposition and ante-hoc explanation, all instantiated
+          from one recursive structure. Six systems, six angles.
+        </p>
+        <p style="margin-bottom:1.1rem">
+          <strong>Why it is second:</strong> it is a bigger claim requiring a longer proof. It
+          asks a buyer to change how their system reasons, not merely to wrap it. That is a
+          platform sale, and platform sales come after credibility.
+        </p>
+        <p class="mb0">
+          <strong>Status:</strong> 1,686 assertions passing, 0 failing; core recall demonstration
+          still open.
+        </p>
+      </div>
+    </div>
+    <div class="rv" style="margin-top:3rem">
+      <h3>Which duty, under which instrument</h3>
+      <p>
+        Named, because "regulated buyers must do this" is worth nothing without the citation.
+        None of these instruments names our technique &mdash; see the boundary note below &mdash;
+        but each creates an ongoing obligation that currently has no tooling behind it for
+        language models.
+      </p>
+      <table class="spec">
+        <tr>
+          <th>Pharma &amp; medical device</th>
+          <td><strong>GxP computer system validation</strong> &mdash; FDA 21 CFR Part 11 and EU
+          GMP Annex 11. The duty is not one-time qualification; it is maintaining the
+          <em>validated state</em>, with change control and periodic review confirming the system
+          still performs as validated. Done by hand today, and not at all for language models.</td>
+        </tr>
+        <tr>
+          <th>US banking</th>
+          <td><strong>SR 11-7 / OCC 2011-12</strong>, supervisory guidance on model risk
+          management. Requires <em>ongoing monitoring</em> to confirm the model in production is
+          the model that was validated and still performs as intended.</td>
+        </tr>
+        <tr>
+          <th>EU high-risk AI</th>
+          <td><strong>The EU AI Act</strong> &mdash; high-risk obligations include automatic
+          record-keeping across the system lifetime, post-market monitoring, and technical
+          documentation kept current. Providers must be able to <em>evidence</em> what the system
+          did, not assert it.</td>
+        </tr>
+        <tr>
+          <th>US federal systems</th>
+          <td><strong>NIST Risk Management Framework</strong> authority-to-operate, with its
+          continuous-monitoring requirement. An ATO is granted against a described system; the
+          duty to keep the fielded system matching that description is standing.</td>
+        </tr>
+        <tr>
+          <th>Voluntary frameworks</th>
+          <td><strong>NIST AI RMF</strong> and <strong>ISO/IEC 42001</strong>. Not binding, but
+          increasingly written into procurement language and contracts &mdash; which is often how
+          a voluntary framework becomes a purchase order.</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="callout warn rv" style="margin-top:2.2rem">
+      <span class="lbl">The boundary of that claim</span>
+      <p>
+        <strong>No regulation anywhere mandates byte-for-byte reproducibility checking.</strong>
+        We are not going to pretend otherwise, and anyone who checks will establish that in an
+        afternoon. What these instruments impose is an <em>outcome</em> duty: the validated
+        system must still be the running system, and you must be able to evidence it. This is one
+        way to discharge that duty, and as far as we know the only automated one for local
+        language models.
+      </p>
+      <p class="mb0">
+        That distinction is also the honest commercial risk. The sale is not "you are
+        non-compliant without us." It is "you discharge this obligation manually today, or not at
+        all." That is a real sale, but a longer one than a mandate would produce, and the plan is
+        priced accordingly. Nothing here is legal advice.
+      </p>
+    </div>
+
+    <div class="callout rv" style="margin-top:2.4rem">
+      <span class="lbl">Geography</span>
+      <p class="mb0">
+        The two are not symmetric across markets. US federal AI rulemaking is still settling, so
+        domestic demand for certified inference will follow enforcement rather than lead it. The
+        EU high-risk regime already carries logging and post-market monitoring duties on a fixed
+        schedule, with no mature tooling to discharge them. <strong>Byte for Byte is a European
+        product first</strong> — that is where the obligation exists today, and obligation is
+        what converts this from a nice-to-have into a line item.
+      </p>
+    </div>
+  </div>
+</section>
+
+<hr class="rule">
+
+<!-- ============================================================ ONE SYSTEM -->
+<section>
+  <div class="wrap">
+    <div class="max rv" style="margin-bottom:3rem">
+      <p class="eyebrow v2">Portfolio logic</p>
+      <h2>These are not six companies. They are one system, seen from six angles.</h2>
+      <p class="mb0">
+        The single most common misread of this portfolio is that it is unfocused. It is the
+        opposite: every system is built to the same structural constant, which is why they
+        compose without integration work.
+      </p>
+    </div>
+
+    <div class="grid g3">
+      <div class="card rv">
+        <div class="idx"><span>THE CONSTANT</span><span class="tag">3 · 3 · 7</span></div>
+        <h3>One geometry, everywhere</h3>
+        <p><a href="fracc.html">F.R.A.C.C.</a> decomposes into 3 × 3 × 7 = 63. <a href="cubex.html">Cubex³</a>
+        runs 63 doctrines per side. The <a href="orbitgen.html">key system</a> addresses a
+        3 × 3 × 7 space with seven entity kinds. The <a href="platform.html">lattice</a> is seven
+        per axis with a six-face cell. The <a href="arc-lab.html">Arc Lab</a> projects onto seven
+        arcs.</p>
+      </div>
+      <div class="card rv" data-delay="70">
+        <div class="idx"><span>THE CONSEQUENCE</span><span class="tag">NO GLUE</span></div>
+        <h3>Output drops straight in</h3>
+        <p>A decomposition maps onto lattice coordinates without translation. Generated content
+        arrives already addressed. An explanatory basis is the same width as the memory cell it
+        is stored in. The integration story is structural, not a roadmap promise.</p>
+      </div>
+      <div class="card rv" data-delay="140">
+        <div class="idx"><span>THE STRATEGY</span><span class="tag">SPEARHEAD</span></div>
+        <h3>One product leads</h3>
+        <p>Byte for Byte is nearest to being sold — it is separable and the duty already exists.
+        The rest are demonstrations at different stages: the substrate is the long thesis, the
+        testbed exists to falsify it, the key system governs generative output, and the vertical
+        names who would eventually buy.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="rule">
+
+<!-- ============================================================ STATUS -->
+<section id="status">
+  <div class="wrap">
+    <div class="max rv" style="margin-bottom:2.6rem">
+      <p class="eyebrow">Diligence</p>
+      <h2>What is built, and what is not.</h2>
+      <p class="mb0">
+        This table exists because a technical diligence process will produce it anyway, and we
+        would rather hand it over than have it discovered. Nothing below is aspirational.
+      </p>
+    </div>
+
+    <table class="spec rv">
+      <tr>
+        <th>Cognition engine</th>
+        <td><strong>Running.</strong> Full pipeline executes and persists against a local model server: arc decomposition, scoring, three-phase coherence, ranking, tool-chain planning, retrieval, write-back. Runs export as a complete, inspectable trace document.</td>
+      </tr>
+      <tr>
+        <th>Memory lattice</th>
+        <td><strong>Implemented and tested.</strong> Six-face voxels, unique addressing, turn-based decay with recall-lifted floor, layer consolidation, drift watchdog, addressed reads. Persists across sessions. The addressing map is covered by an <strong>exhaustive suite of 741 assertions, all passing</strong> — every position tested individually in both directions rather than sampled, because an off-by-one in an odometer is silent.</td>
+      </tr>
+      <tr>
+        <th>Unbounded capacity</th>
+        <td><strong>Implemented.</strong> A level holds 342 data voxels; the reserved portal cell descends to a fresh level, so capacity grows by depth while every previously written address stays valid and readable. Allocation and insert share one transaction, so the write cursor cannot race two turns onto one address.</td>
+      </tr>
+      <tr>
+        <th>Model-agnostic scoring</th>
+        <td><strong>Implemented and tested.</strong> Per-model baseline calibration; verdicts reported in σ above baseline rather than absolute cosine cutoffs. Verified against two embedding models with materially different resolving power.</td>
+      </tr>
+      <tr>
+        <th>Arc Lab</th>
+        <td><strong>Running.</strong> Basis definition, irreducibility test via pairwise cosine matrix, exhaustiveness test via round-trip reconstruction, both reported baseline-relative. Test bench ledger in place.</td>
+      </tr>
+      <tr>
+        <th>Operator surfaces</th>
+        <td><strong>Running.</strong> Cockpit console over the live pipeline, standalone audit panel with document export, 3D lattice viewer reading real backend coordinates.</td>
+      </tr>
+      <tr>
+        <th>Key system</th>
+        <td><strong>Runs; untested.</strong> Node-key validation, identifier normalisation, reference rewriting, parent-link repair, whole-world validation and versioned bundle export all work in the OrbitGen-AI demonstration — but the module has <strong>no test suite</strong>, and we are not going to describe unproven invariant enforcement as proven.</td>
+      </tr>
+      <tr>
+        <th>Cubex³</th>
+        <td><strong>Builds clean; least mature item here.</strong> The evaluation kernel, morale cascade and subordination hierarchy work, and the production build succeeds. It has <strong>no test suite</strong>, so a clean typecheck is evidence of internal consistency and nothing more. The multi-commander doctrine layer is designed, not built.</td>
+      </tr>
+      <tr>
+        <th>Long-range recall proof</th>
+        <td><strong>In progress.</strong> The demonstration we hold ourselves to: a fact planted early, buried under a dozen turns, recovered by coordinate read, visibly changing the answer. Injection auditing is implemented; the proving trace is the current milestone.</td>
+      </tr>
+      <tr>
+        <th>SeCUReD</th>
+        <td><strong>Research framework, unpublished.</strong> An extensive body of internal research on smart-city infrastructure and AI-driven crisis response. None of it is published, there is no deployed municipal system, and we present it as neither.</td>
+      </tr>
+      <tr>
+        <th>Byte for Byte — contract</th>
+        <td><strong>Implemented and tested. 50/50 passing.</strong> Three-call contract, no-memoisation guarantee, concurrency serialisation, torn-write tolerance, and refusal on every failure path. Zero runtime dependencies.</td>
+      </tr>
+      <tr>
+        <th>Byte for Byte — falsification</th>
+        <td><strong>6/6 probes held</strong> against a live local model, including cache-eviction and interleave attacks and a <strong>control that is required to diverge</strong> — the harness proves it can detect nondeterminism before it certifies anything. Each run writes an evidence bundle with full hashes and provenance.</td>
+      </tr>
+      <tr>
+        <th>Byte for Byte — scope limit</th>
+        <td><strong>Local fixed hardware only.</strong> A hosted cloud API voids the technique. Stated as a hard boundary, not a caveat — though it happens to coincide with where the regulated buyers already run their models.</td>
+      </tr>
+      <tr>
+        <th>Measured test coverage</th>
+        <td><strong>1,686 assertions passing, 0 failing</strong> across every suite that ran to completion, plus 141/141 capabilities routing and resolving. A further 263 passed in an integration run that crashed part-way on a test-fixture defect; we do not count those. Coverage is concentrated in the backend — two of the four repositories have no tests at all, stated plainly below.</td>
+      </tr>
+      <tr>
+        <th>Tamper-evident audit ledger</th>
+        <td><strong>Implemented and tested.</strong> The reproducibility ledger is a hash chain, verified to break loudly on an in-place edit or a deleted line, to treat a conflicting re-assertion as an integrity error rather than a silent replacement, and to survive a crash mid-append with earlier records still enforcing.</td>
+      </tr>
+      <tr>
+        <th>Commercial status</th>
+        <td><strong>Pre-release. Nothing has shipped.</strong> No product is in market, there is no revenue, and there are no customers. Everything described on this site is code that runs and is testable today, not a product you can buy.</td>
+      </tr>
+      <tr>
+        <th>Retrieval, stated precisely</th>
+        <td><strong>Hybrid, not pure lookup.</strong> Direct addressing is a genuine lookup on the addressed paths, but the live per-turn path also runs embedding search with diversity reranking. We say so rather than claiming pure coordinate retrieval.</td>
+      </tr>
+      <tr>
+        <th>Coordinate semantics</th>
+        <td><strong>Deliberately not claimed.</strong> Placement is sequential — the coordinate is an identity handle and timeline index, not a semantic signal. Related memories do not land near each other by virtue of being related; the semantics live in the voxel's seven arc scalars. Semantic placement exists only on a research bench and is not in the request path.</td>
+      </tr>
+      <tr>
+        <th>Hebbian reinforcement</th>
+        <td><strong>Wired, off by default.</strong> Co-activation edges are written by a single owning process; the retrieval-side consumer is disabled and must be enabled deliberately. We would rather leave it dark than let an unmeasured signal steer recall.</td>
+      </tr>
+      <tr>
+        <th>Retrieval cost curve</th>
+        <td><strong>Unbenchmarked.</strong> Flat cost as conversations grow is a design property of the fixed per-tier context budget, not a measured result. We quote no cost curve until one exists.</td>
+      </tr>
+      <tr>
+        <th>Scale</th>
+        <td><strong>Untested at volume.</strong> The lattice has been exercised at single-instance occupancy, not at production load. Descent is implemented and unit-proved but not yet stressed under real write pressure.</td>
+      </tr>
+    </table>
+
+    <div class="callout warn rv" style="margin-top:2.4rem">
+      <span class="lbl">The honest risk</span>
+      <p class="mb0">
+        The load-bearing commercial claim is persistent, inspectable, addressable memory that
+        reduces hallucination and yields a reasoning path. Inspectability is substantiated
+        today — every step is logged, addressed and exportable, and the addressing itself is
+        exhaustively tested. The claim still to be closed in public is the recall demonstration
+        above. The rows marked unbenchmarked or off-by-default are the honest edges of the
+        system. We publish them because you would find them anyway, and because a founder who
+        volunteers them is telling you what the rest of the table is worth.
+      </p>
+    </div>
+  </div>
+</section>
+
+<hr class="rule">
+
+<!-- ============================================================ MARKET -->
+<section>
+  <div class="wrap">
+    <div class="max rv" style="margin-bottom:3rem">
+      <p class="eyebrow v2">Who buys</p>
+      <h2>Domains where a hallucination is a liability.</h2>
+    </div>
+    <div class="grid g4">
+      <div class="card rv">
+        <div class="idx"><span>SEGMENT 01</span></div>
+        <h3>Healthcare</h3>
+        <p>Clinical decision support that must explain itself in clinical language and keep
+        patient data inside the institution.</p>
+      </div>
+      <div class="card rv" data-delay="60">
+        <div class="idx"><span>SEGMENT 02</span></div>
+        <h3>Financial services</h3>
+        <p>Credit and risk decisions subject to adverse-action explanation requirements and
+        model-governance review.</p>
+      </div>
+      <div class="card rv" data-delay="120">
+        <div class="idx"><span>SEGMENT 03</span></div>
+        <h3>Defence &amp; public safety</h3>
+        <p>Air-gapped deployment, multi-agency coordination, and decisions that end up in an
+        after-action review.</p>
+      </div>
+      <div class="card rv" data-delay="180">
+        <div class="idx"><span>SEGMENT 04</span></div>
+        <h3>AI platform teams</h3>
+        <p>Teams governing small local models who need structural guarantees rather than a
+        larger hosted model and hope.</p>
+      </div>
+    </div>
+
+    <div class="split" style="margin-top:3rem">
+      <div class="rv">
+        <h3>Why we win where we win</h3>
+        <p>
+          We do not compete with frontier labs on capability, and we are not trying to. We
+          compete on the property they structurally cannot offer: a locally-deployed reasoning
+          substrate whose every step is addressable, and an explanation that is the computation
+          rather than a second model's guess about it.
+        </p>
+        <p class="mb0">
+          Against vector databases, the argument is addressability and replay. Against post-hoc
+          interpretability tools, it is that we do not reconstruct. Against a hosted agent
+          platform, it is that nothing has to leave the building.
+        </p>
+      </div>
+      <div class="rv" data-delay="100">
+        <h3>What we are not</h3>
+        <p>
+          We are not training a foundation model. We are not claiming state-of-the-art
+          reasoning. We are not selling autonomy — the vertical product deliberately keeps a
+          human holding the decision.
+        </p>
+        <p class="mb0">
+          The company is a bet that the substrate layer is durable and that whoever owns the
+          audit trail owns the regulated market, regardless of which model wins underneath.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="rule">
+
+<!-- ============================================================ RESEARCH -->
+<section id="research">
+  <div class="wrap">
+    <div class="split wide-left">
+      <div class="rv">
+        <p class="eyebrow">Research</p>
+        <h2>The architecture is downstream of the research.</h2>
+        <p>
+          The systems did not come first. The body of work spans the cognitive architecture
+          itself, the applied urban-resilience domain, the mathematics, and the societal risk
+          analysis that motivates the whole approach.
+        </p>
+        <p>
+          These are <strong>working papers, not peer-reviewed publications</strong>, and we say
+          so rather than let a page count imply a review process that has not happened. Two
+          provisional patent applications cover the certified-inference mechanism and the
+          lattice.
+        </p>
+        <ul class="tags" style="margin-bottom:1.6rem">
+          <li>F.R.A.C.C. Cognitive Architecture</li>
+          <li>City SeCUReD</li>
+          <li>Global Crises Thesis</li>
+          <li>Kairos Incognita</li>
+          <li>Modernizing Mathematics</li>
+          <li>The Oracle Mirage</li>
+          <li>Heilmeier Confirmations</li>
+        </ul>
+        <p class="mb0 dim" style="font-size:.9rem">
+          Working papers. Full texts available on request or in the data room.
+        </p>
+      </div>
+      <div class="rv" data-delay="120">
+        <div class="callout">
+          <span class="lbl">The Oracle Mirage</span>
+          <p class="mb0">
+            A manifesto on the psychological and societal risks of large language models. It is
+            worth reading as founder context: this company exists because of a specific and
+            documented concern about opaque machine authority — which is also why every product
+            decision here bends toward legibility over capability.
+          </p>
+        </div>
+        <div class="callout" style="margin-top:20px">
+          <span class="lbl">Method</span>
+          <p class="mb0">
+            The engineering is tool-amplified by design and we publish that fact rather than
+            hide it. The architecture, the constants, the failure analyses and the decisions
+            about what to keep are the founder's; the throughput is not a secret we are keeping.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="rule">
+
+<!-- ============================================================ FOUNDER -->
+<section>
+  <div class="wrap">
+    <div class="split">
+      <div class="rv">
+        <p class="eyebrow v2">Founder</p>
+        <h2>William Wallace Morehead</h2>
+        <p class="mb0">
+          Applied Intelligence Architect. Founder of G-ynthetic Labs, Portland, Oregon.
+        </p>
+        <div class="btns">
+          <a class="btn" href="mailto:G-ynthetic-Labs@proton.me">G-ynthetic-Labs@proton.me</a>
+        </div>
+      </div>
+      <div class="rv" data-delay="100">
+        <div class="stage framed" data-gl="arcs" data-spin="0.05">
+          <div class="stage-cap">Explanatory basis under validation</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="rule">
+
+<section class="tight">
+  <div class="wrap">
+    <div class="max rv">
+      <blockquote class="pull">
+        “We aren't teaching AI to think. We're giving it a place to stand.”
+        <cite>G-ynthetic Labs</cite>
+      </blockquote>
+    </div>
+  </div>
+</section>
+
+<div class="pager">
+  <a href="secured.html"><span class="lb">← Previous · 06</span><span class="tt">SeCUReD</span></a>
+  <a class="next" href="index.html"><span class="lb">Return</span><span class="tt">Overview →</span></a>
+</div>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <a class="brand" href="index.html"><span class="brand-mark"></span> G-YNTHETIC&nbsp;LABS</a>
+        <p style="margin-top:16px;max-width:34ch;font-size:.9rem">
+          Infrastructure for AI memory and reasoning. Built for domains where a hallucination
+          is a liability.
+        </p>
+      </div>
+      <div>
+        <h5>Core</h5>
+        <ul>
+          <li><a href="byte-for-byte.html">Byte for Byte</a></li>
+          <li><a href="architecture.html">The Address Space</a></li>
+          <li><a href="platform.html">Memory Cognitive Lattice</a></li>
+          <li><a href="fracc.html">F.R.A.C.C.</a></li>
+          <li><a href="arc-lab.html">Arc Lab</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Applied</h5>
+        <ul>
+          <li><a href="orbitgen.html">Key System</a></li>
+          <li><a href="cubex.html">Cubex³</a></li>
+          <li><a href="secured.html">SeCUReD</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Company</h5>
+        <ul>
+          <li><a href="investors.html">Investors</a></li>
+          <li><a href="investors.html#research">Research</a></li>
+          <li><a href="mailto:G-ynthetic-Labs@proton.me">G-ynthetic-Labs@proton.me</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bot">
+      <span>© <span data-year>2026</span> G-YNTHETIC LABS · PORTLAND, OREGON</span>
+      <span>WE AREN'T TEACHING AI TO THINK — WE'RE GIVING IT A PLACE TO STAND</span>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/js/gl.js"></script>
+<script src="assets/js/site.js"></script>
+</body>
+</html>
