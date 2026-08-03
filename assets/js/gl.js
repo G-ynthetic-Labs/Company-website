@@ -606,6 +606,86 @@
       return { pts, lines, mode: 5, dist: 13.6, scale: 1.0 };
     },
 
+    /* The 2 Aug 2026 test tally, drawn as itself. Every column is a real suite
+       and its height is that suite's assertion count — nothing here is chosen
+       for looks. Suite 06 (voxel addressing, 741 exhaustive) is the tower; the
+       red stub is the integration run that crashed at section O after 263
+       assertions; the two hollow rings are the repositories with no tests at
+       all. Six markers ride above: the falsification probes, with the one that
+       is REQUIRED to diverge in amber. Heights are square-rooted or 741 would
+       flatten everything else into the floor. */
+    evidence() {
+      const r = rng(1686);
+      const pts = [], lines = [];
+      // [label-count, kind] — kind 0 = passing suite, 1 = crashed, 2 = no tests
+      const SUITES = [
+        [15,0],[20,0],[19,0],[19,0],[27,0],[741,0],[24,0],[11,0],
+        [22,0],[13,0],[32,0],[52,0],[96,0],[134,0],[78,0],[53,0],
+        [57,0],[25,0],[174,0],[24,0],[141,0],[50,0],
+        [263,1],            // integration run — crashed part-way
+        [0,2],[0,2]         // Cubex3, OrbitGen-AI — no suite
+      ];
+      const COLS = 5, GAP = 1.62, BASE = -2.2, TOP = 4.8;   // legend owns the lower third
+      const hOf = n => Math.sqrt(n) * 0.24;   // 741 would otherwise leave the frame
+
+      SUITES.forEach(([n, kind], i) => {
+        const cx = ((i % COLS) - (COLS - 1) / 2) * GAP;
+        const cz = (Math.floor(i / COLS) - 2) * GAP;
+        const param = (i / (SUITES.length - 1)) * 9;   // sweep walks them in order
+
+        if (kind === 2) {
+          // no test suite — a hollow footprint, nothing standing on it
+          for (let k = 0; k < 14; k++) {
+            const a = (k / 14) * 6.2832;
+            pts.push({
+              p: [cx + Math.cos(a) * 0.34, BASE, cz + Math.sin(a) * 0.34],
+              c: PALETTE.pale, size: 1.7, phase: r() * 6.28, param, flag: 0
+            });
+          }
+          return;
+        }
+
+        const h = hOf(n);
+        const c = kind === 1 ? PALETTE.red : PALETTE.cyan;
+        const steps = Math.max(3, Math.min(15, Math.round(h * 2.6)));
+        for (let s = 0; s <= steps; s++) {
+          const y = BASE + (s / steps) * h;
+          // four corners per rung — a column reads as built, not as a spike
+          for (let q = 0; q < 4; q++) {
+            const a = (q / 4) * 6.2832 + 0.785;
+            pts.push({
+              p: [cx + Math.cos(a) * 0.17, y, cz + Math.sin(a) * 0.17],
+              c, size: 2.0, phase: r() * 6.28, param, flag: 0
+            });
+          }
+        }
+        lines.push({ a: [cx, BASE, cz], b: [cx, BASE + h, cz], c, alpha: 0.34, seed: i * 0.3 });
+        // the crash: severed top, and it stops rather than finishing
+        if (kind === 1) {
+          for (let q = 0; q < 5; q++) {
+            const a = (q / 5) * 6.2832;
+            pts.push({
+              p: [cx + Math.cos(a) * 0.30, BASE + h + 0.22, cz + Math.sin(a) * 0.30],
+              c: PALETTE.red, size: 2.4, phase: 0, param, flag: 1
+            });
+          }
+        }
+      });
+
+      // the six falsification probes, riding above the field
+      for (let i = 0; i < 6; i++) {
+        const x = (i - 2.5) * 1.15;
+        const control = i === 5;                 // required to diverge
+        pts.push({
+          p: [x, TOP, 0], c: control ? PALETTE.amber : PALETTE.cyan,
+          size: control ? 7 : 5, phase: 0, param: 9, flag: 1
+        });
+        if (i > 0) lines.push({ a: [(i - 3.5) * 1.15, TOP, 0], b: [x, TOP, 0], c: PALETTE.cyan, alpha: 0.26, seed: i * 0.4 });
+      }
+
+      return { pts, lines, mode: 5, dist: 20.0, scale: 1.0 };
+    },
+
     /* Ambient substrate for page headers. */
     field() {
       const r = rng(9091);

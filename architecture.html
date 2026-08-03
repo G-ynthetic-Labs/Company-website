@@ -22,7 +22,7 @@
       <a href="arc-lab.html">Arc Lab</a>
       <a href="orbitgen.html">Key System</a>
       <a href="cubex.html">Cubex³</a>
-      <a href="secured.html">SeCUReD</a>
+      <a href="secured.html">SeCURED</a>
       <a href="evidence.html">Evidence</a>
       <a href="investors.html" class="nav-cta">Investors</a>
     </div>
@@ -36,9 +36,10 @@
     <p class="crumb">Company / The system underneath</p>
     <h1>The Address Space</h1>
     <p class="lead max">
-      Every product on this site is one instantiation of a single structure: a fractally
-      recursive, holographic address space held in superimposed states. It is bounded in
-      extent and unbounded in depth — it grows <em>inward</em>, never outward.
+      One structure runs underneath most of this site: a fractally recursive, holographic
+      address space held in superimposed states. It is bounded in extent and unbounded in
+      depth — it grows <em>inward</em>, never outward. It was not designed and then applied;
+      it was extracted from the earliest work and kept surviving contact with the next thing.
     </p>
     <ul class="tags">
       <li>Fractally recursive</li>
@@ -58,10 +59,10 @@
         <p class="eyebrow">First, a correction</p>
         <h2>The numbers are not the invention.</h2>
         <p>
-          You will see 7³ on the lattice page, 3 × 3 × 7 on the decomposition and doctrine
-          pages, seven axes in the explanatory basis, seven entity kinds in the key system. It
-          is tempting to conclude that the specific integers are the intellectual property.
-          They are not.
+          You will see 7³ on the lattice page, 3 × 3 × 7 on the decomposition page and in the
+          key system, seven axes in the explanatory basis, seven entity kinds in the generated
+          worlds. It is tempting to conclude that the specific integers are the intellectual
+          property. They are not.
         </p>
         <p>
           Those are the widths chosen for the current instantiations, because they suit the
@@ -123,21 +124,22 @@
         </div>
 
         <div style="margin-top:2.2rem;max-width:820px">
-          <h3>And why a prime width</h3>
+          <h3>Where the width actually came from</h3>
           <p>
-            Seven is prime, and that is not incidental. An edge length with no non-trivial
-            factors cannot be folded into a coarser tiling — there is no way to collapse the
-            address space into square sub-blocks and treat a group of cells as one. Every
-            address stays irreducible, and positional encoding in a prime base produces no
-            sub-block aliasing.
+            Not from theory. It came from a chess variant &mdash; <a href="cubex.html">Cubex³</a>,
+            built years before any of this was infrastructure. The board was 8 × 8 × 8 and the
+            evaluator needed a <strong>true centre</strong>: a single cell equidistant from every
+            face, that a piece could occupy. An even-edged cube has no such cell; its middle is a
+            corner shared by eight. Going odd produced one, and the code still carries the fix &mdash;
+            <code>ORIGIN_COORD = [3,3,3]</code>, the centre of a 7-wide cube.
           </p>
           <p class="mb0">
-            The design intuition goes further: a composite width invites a reasoner to
-            pattern-match the structure onto a familiar square decomposition instead of engaging
-            with it. A prime width removes that shortcut. We flag this honestly as
-            <strong>rationale, not a measured result</strong> — it is a reason the width was
-            chosen, and it is on the list of things the <a href="arc-lab.html">test bench</a>
-            exists to falsify.
+            Seven rather than nine is the ceiling argument above: past about seven, items at one
+            level stop being distinguishable. That seven is also <em>prime</em> is a real
+            consequence rather than the reason &mdash; an edge length with no non-trivial factors
+            cannot be folded into a coarser tiling, so no group of cells can be aliased into one.
+            Useful, and honestly labelled: it is a property we get, not a property we chose for,
+            and it has not been measured.
           </p>
         </div>
       </div>
@@ -241,21 +243,35 @@
         <p class="eyebrow">The one that matters most</p>
         <h2>Growing inward is the whole trick.</h2>
         <p>
-          Every conventional store grows outward. A tree adds nodes, a vector index adds points,
-          a graph adds vertices. Two things degrade as they do: locality stops meaning anything,
-          because what is near a given item keeps changing; and addresses stop being stable,
-          because the structure that defined them keeps being rebalanced.
+          Not every store has this problem — a content-addressed store like git never rebalances,
+          and a hash written years ago still resolves. But the stores you would actually reach for
+          here do: balanced trees split and move keys, vector indexes shift neighbourhoods as
+          points are added, LSM stores rewrite on compaction. Insertion rearranges, so what is
+          <em>near</em> a given item keeps changing and the physical structure that defined an
+          address keeps being rebuilt underneath it.
         </p>
         <p>
-          Descending inward has neither problem. A saturated region does not push its neighbours
-          apart — it opens beneath itself. The parent address remains exactly as valid as it was;
-          it simply now has an interior. An address written a year ago still resolves, and still
+          Descending inward avoids that. A saturated region does not push its neighbours apart —
+          it opens beneath itself. The parent address remains exactly as valid as it was; it
+          simply now has an interior. An address written a year ago still resolves, and still
           means the same place.
         </p>
+        <p>
+          <strong>This is not a new idea and we are not going to pretend it is.</strong> Octrees,
+          quadtrees and tries all add capacity by subdividing a cell rather than extending the
+          outer bound. What differs here is that they subdivide <em>adaptively</em> — cells split
+          where the data happens to be dense, so the shape of the structure depends on its
+          contents. This does not. Every level is the same 7³ with the same reserved portal, which
+          is why one implementation of retrieval, decay, scoring and validation runs at any depth
+          with no special-casing, and why any level can be enumerated exactly. The invariant
+          geometry is the contribution, not the inward growth.
+        </p>
         <p class="mb0">
-          This is what makes the memory system auditable across time rather than only within a
-          session. It is also why the capacity conversation is uninteresting: the structure does
-          not fill up, it deepens.
+          The honest trade: capacity is not free, it is relocated. Breadth is fixed and depth is
+          open, so a read at depth <em>d</em> walks <em>d</em> levels, and locality is preserved
+          within a level but not across one. Descent is implemented and unit-proved;
+          <strong>it has not been stressed under real write pressure</strong>, so we quote no
+          figure for what deep descent costs until we have measured one.
         </p>
       </div>
       <div class="rv" data-delay="120">
@@ -284,71 +300,6 @@
   </div>
 </section>
 
-<hr class="rule">
-
-<!-- ============================================================ DIMENSIONAL CYCLE -->
-<section>
-  <div class="wrap">
-    <div class="max rv" style="margin-bottom:3rem">
-      <p class="eyebrow v2">The cycle</p>
-      <h2>Two dimensions in. Four in the middle. Two back out.</h2>
-      <p class="mb0">
-        Knowledge arrives flat and has to leave flat, because those are the only forms humans
-        and machines respectively hand over cleanly. Everything interesting happens in between,
-        and the architecture is best understood as a loop through dimension.
-      </p>
-    </div>
-
-    <ol class="steps rv" style="max-width:820px">
-      <li>
-        <h4>2D — the graph comes in</h4>
-        <p>Knowledge arrives as relations: pairs, edges, this-connects-to-that. A flat graph is
-        how information actually presents itself, and it is what every upstream system already
-        emits.</p>
-      </li>
-      <li>
-        <h4>3D — mapped to structure</h4>
-        <p>The graph is placed into the lattice. This is what a flat graph cannot give you: an
-        address, a neighbourhood, and a fixed position that other things can point at and keep
-        pointing at.</p>
-      </li>
-      <li>
-        <h4>4D — held in superimposed states</h4>
-        <p>A position is not a value; it is a set of weighted candidate states carried through
-        time — strengthening, decaying, resolving. This is the layer where memory is alive
-        rather than stored, and where "what else could this have been?" is still answerable.</p>
-      </li>
-      <li>
-        <h4>3D — pumped back to algorithms</h4>
-        <p>Resolution collapses the superposition back onto the structure so ordinary spatial
-        machinery can run against it: coordinate reads, neighbourhood walks, decay, drift
-        detection, descent.</p>
-      </li>
-      <li>
-        <h4>2D — flattened to audit surfaces</h4>
-        <p>Finally back to flat, deliberately. A cosine matrix, a ranked influence table, a
-        trace document, a decomposition tree on a page. A human reviewer reads in two
-        dimensions, so the last step of an accountable system is always a flattening — and it
-        has to be lossless with respect to the decision.</p>
-      </li>
-    </ol>
-
-    <div class="callout rv" style="margin-top:2.6rem;max-width:820px">
-      <span class="lbl">Why the round trip is the point</span>
-      <p class="mb0">
-        Most architectures pick one representation and live in it. A vector store is flat all
-        the way down and can never give you an address. A knowledge graph is relational all the
-        way down and can never give you superposition or locality. This design refuses to choose:
-        it lifts into whatever dimension a stage actually needs and comes back down to be read.
-        The cost is complexity in the middle. The return is that nothing about the decision is
-        lost by the time it reaches a reviewer.
-      </p>
-    </div>
-  </div>
-</section>
-
-<hr class="rule">
-
 <!-- ============================================================ IMPLICATIONS -->
 <section>
   <div class="wrap">
@@ -361,18 +312,25 @@
       <tr><th><a href="fracc.html">F.R.A.C.C.</a></th><td>The address space used as decomposition. Cells hold candidate goal-elements; descent handles goals too large to act on; the flattening is the reasoning path.</td></tr>
       <tr><th><a href="arc-lab.html">Arc Lab</a></th><td>The address space used as explanation. The basis defines the faces; superposition holds competing readings; the flattening is the cosine matrix and the influence ranking.</td></tr>
       <tr><th><a href="orbitgen.html">Key System</a></th><td>The address space used as identity. Keys are addresses, kinds are faces, determinism is what makes an address reproduce its contents.</td></tr>
-      <tr><th><a href="cubex.html">Cubex³</a></th><td>The address space used as doctrine. Cells hold command options; superposition is three commanders holding incompatible intentions at once; the flattening is one move.</td></tr>
-      <tr><th><a href="secured.html">SeCUReD</a></th><td>The address space pointed at a domain that will audit it. Everything above, under a requirement to be defensible in public.</td></tr>
+      <tr><th><a href="cubex.html">Cubex³</a></th><td><strong>Not an instantiation — the origin.</strong> The tensor board, the evaluator and the coordinate scheme came first, and the move from an 8-wide board to a 7-wide one to obtain a true centre is where the width of everything above comes from. Its own multi-commander doctrine layer is designed and not built.</td></tr>
+      <tr><th><a href="secured.html">SeCURED</a></th><td>The applied domain, and the oldest work here alongside Cubex³. A 228-page manual on smart-city resilience and emergency deployment, plus a simulator — terrain, road network, EMS allocation, utilities and a doctrine clause system — that runs and typechecks clean. <strong>The simulator is days old and has no test suite</strong>; the manual is unpublished. Neither is a deployed municipal system and we present them as neither.</td></tr>
     </table>
 
     <div class="callout warn rv" style="margin-top:2.6rem">
-      <span class="lbl">The strategic read</span>
+      <span class="lbl">The strategic read — stated correctly</span>
+      <p>
+        It would be tidier to say this is one architecture instantiated six times. It is not, and
+        the true version is more interesting: <strong>the constants came out of the earliest work
+        and kept surviving</strong>. A 7-wide cube was chosen to give a chess evaluator a centre.
+        The same width later turned out to be the ceiling on distinguishable items in an
+        explanatory basis, the shape of a decomposition, and the address space of a world
+        generator — which now holds 63 of 63 object keys, complete, on disk.
+      </p>
       <p class="mb0">
-        This is why the portfolio is not six bets. It is one architectural claim, instantiated
-        six times, in six domains, at six different levels of maturity. If the claim is right,
-        the products are corollaries. If it is wrong, they fail together — and we would rather
-        find that out on a game board than in a hospital, which is exactly why
-        <a href="cubex.html">the testbed exists</a>.
+        That is convergence, not deduction, and it is worth less than a proof and more than a
+        coincidence. It is also checkable: the constants are literals in code, asserted by tests,
+        and countable in a directory tree. If the structure is wrong they fail together — and we
+        would rather find that out on a game board than in a hospital.
       </p>
     </div>
   </div>
@@ -425,7 +383,7 @@
         <ul>
           <li><a href="orbitgen.html">Key System</a></li>
           <li><a href="cubex.html">Cubex³</a></li>
-          <li><a href="secured.html">SeCUReD</a></li>
+          <li><a href="secured.html">SeCURED</a></li>
         </ul>
       </div>
       <div>

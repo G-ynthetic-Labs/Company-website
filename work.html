@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Work — Research and Software — G-ynthetic Labs</title>
+<meta name="description" content="Two halves of one body of work: the research that produced the invariants, and the software that runs on them. Same constants, arrived at from opposite directions.">
+<link rel="icon" href="favicon.ico">
+<link rel="stylesheet" href="assets/css/base.css">
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-in">
+    <a class="brand" href="index.html"><span class="brand-mark"></span> G-YNTHETIC&nbsp;LABS</a>
+    <button class="nav-toggle" aria-expanded="false">Menu</button>
+    <div class="nav-links">
+      <a href="work.html">The Work</a>
+      <a href="byte-for-byte.html">Byte for Byte</a>
+      <a href="architecture.html">Architecture</a>
+      <a href="platform.html">Lattice</a>
+      <a href="fracc.html">F.R.A.C.C.</a>
+      <a href="arc-lab.html">Arc Lab</a>
+      <a href="cubex.html">Cubex³</a>
+      <a href="evidence.html">Evidence</a>
+      <a href="investors.html" class="nav-cta">Investors</a>
+    </div>
+  </div>
+</nav>
+
+<header class="phead">
+  <div class="wrap">
+    <p class="crumb">Company / The work</p>
+    <h1>Two halves, one structure.</h1>
+    <p class="lead max">
+      The research came first and the software came second, and they are not a paper and its
+      implementation. They are two independent routes to the same set of constants.
+    </p>
+    <p class="max mb0">
+      Read either side first. The claim worth testing is that they meet in the middle.
+    </p>
+  </div>
+</header>
+
+<!-- ============================================================ THE SPLIT -->
+<section class="tight">
+  <div class="wrap">
+    <div class="fork rv">
+
+      <a class="fork-half" href="research.html">
+        <div class="stage fork-bg" data-gl="fracc" data-spin="0.03" data-fixed></div>
+        <div class="fork-scrim"></div>
+        <div class="fork-in">
+          <span class="fork-idx">SIDE A</span>
+          <h2>Research</h2>
+          <p class="fork-lead">Where the invariants came from.</p>
+          <p>
+            An unpublished body of work: the cognitive architecture, an
+            applied urban-resilience domain, and the societal-risk analysis that motivates the whole
+            approach. This is where 3 × 3 × 7, the seven-wide ceiling and the fractal template were
+            argued for — before any of it was code. None of it is peer reviewed and none of it is
+            offered as a credential.
+          </p>
+          <ul class="fork-list">
+            <li>Global Crises Thesis · scoring system · fractal template</li>
+            <li>City SeCURED — 228-page applied manual</li>
+            <li>F.R.A.C.C. Cognitive Architecture</li>
+            <li>The Oracle Mirage — societal risk</li>
+            <li>Heilmeier Confirmations</li>
+          </ul>
+          <span class="fork-go">Read the research <span class="arw">→</span></span>
+        </div>
+      </a>
+
+      <a class="fork-half" href="architecture.html">
+        <div class="stage fork-bg" data-gl="lattice" data-spin="0.03" data-fixed></div>
+        <div class="fork-scrim"></div>
+        <div class="fork-in">
+          <span class="fork-idx">SIDE B</span>
+          <h2>Software</h2>
+          <p class="fork-lead">Where they had to survive contact.</p>
+          <p>
+            A running cognition engine, an addressable memory lattice, an explanatory-basis
+            laboratory, a certified-inference module and a testbed built to falsify the whole
+            thesis. Every constant argued for on the research side is a literal in this code, and
+            every one of them is testable.
+          </p>
+          <ul class="fork-list">
+            <li>The Address Space</li>
+            <li>Memory Cognitive Lattice</li>
+            <li>F.R.A.C.C. decomposition</li>
+            <li>Arc Lab</li>
+            <li>Byte for Byte</li>
+            <li>Key System · Cubex³ · SeCURED</li>
+          </ul>
+          <span class="fork-go">Read the architecture <span class="arw">→</span></span>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<hr class="rule">
+
+<!-- ============================================================ THE MEETING POINT -->
+<section>
+  <div class="wrap">
+    <div class="max rv" style="margin-bottom:2.4rem">
+      <p class="eyebrow v2">Where they meet</p>
+      <h2>The same constants, from opposite directions.</h2>
+      <p class="mb0">
+        This is the only reason to publish both halves together. A constant that was argued for on
+        paper and then appears as a literal in unrelated code is a different kind of evidence than
+        either one alone — and it is checkable, which is the point.
+      </p>
+    </div>
+
+    <table class="spec rv">
+      <tr><th>3 × 3 × 7 = 63</th><td>Argued in the decomposition research; <code>domainLibrary.ts</code> slices a domain into 63 layers, and a test suite asserts <code>TOTAL_TOOLS === 63</code></td></tr>
+      <tr><th>Seven per axis</th><td>Argued as a ceiling on distinguishable items at one level; <code>CANONICAL_ARCS</code> is exactly seven, and the key system's address space is galaxy 1–3 · system 1–3 · object 1–7</td></tr>
+      <tr><th>342 + a portal</th><td>The fractal template's descent rule; <code>CUBE_DATA_CELLS = 342</code>, with (6,6,6) reserved and opening a full child level</td></tr>
+      <tr><th>Prime width</th><td>Argued as resistance to sub-block aliasing — and published as <strong>rationale, not a measured result</strong>, because it has not been tested</td></tr>
+    </table>
+
+    <div class="callout warn rv" style="margin-top:2.4rem">
+      <span class="lbl">Stated honestly</span>
+      <p class="mb0">
+        Convergence between writing and code by the same person is not independent replication,
+        and we are not going to present it as though it were. What it is: a design whose constants were
+        committed to in writing before the implementation existed, so the implementation can be
+        checked against them rather than the other way round.
+      </p>
+    </div>
+  </div>
+</section>
+
+<div class="pager">
+  <a href="index.html"><span class="lb">← Back</span><span class="tt">Overview</span></a>
+  <a class="next" href="evidence.html"><span class="lb">Next</span><span class="tt">Evidence →</span></a>
+</div>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <a class="brand" href="index.html"><span class="brand-mark"></span> G-YNTHETIC&nbsp;LABS</a>
+        <p style="margin-top:16px;max-width:34ch;font-size:.9rem">
+          Infrastructure for AI memory and reasoning. Built for domains where a hallucination
+          is a liability.
+        </p>
+      </div>
+      <div>
+        <h5>Core</h5>
+        <ul>
+          <li><a href="byte-for-byte.html">Byte for Byte</a></li>
+          <li><a href="architecture.html">The Address Space</a></li>
+          <li><a href="platform.html">Memory Cognitive Lattice</a></li>
+          <li><a href="fracc.html">F.R.A.C.C.</a></li>
+          <li><a href="arc-lab.html">Arc Lab</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Applied</h5>
+        <ul>
+          <li><a href="orbitgen.html">Key System</a></li>
+          <li><a href="cubex.html">Cubex³</a></li>
+          <li><a href="secured.html">SeCURED</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Company</h5>
+        <ul>
+          <li><a href="work.html">The Work</a></li>
+          <li><a href="research.html">Research</a></li>
+          <li><a href="evidence.html">Evidence</a></li>
+          <li><a href="investors.html">Investors</a></li>
+          <li><a href="mailto:G-ynthetic-Labs@proton.me">G-ynthetic-Labs@proton.me</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bot">
+      <span>© <span data-year>2026</span> G-YNTHETIC LABS · PORTLAND, OREGON</span>
+      <span>WE AREN'T TEACHING AI TO THINK — WE'RE GIVING IT A PLACE TO STAND</span>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/js/gl.js"></script>
+<script src="assets/js/site.js"></script>
+</body>
+</html>
