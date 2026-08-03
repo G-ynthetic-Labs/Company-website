@@ -298,6 +298,164 @@ section.tight { padding: clamp(44px, 5vw, 72px) 0; }
 }
 .stage-cap b { color: var(--c1); font-weight: 400; }
 
+/* ---------- descend — the interactive 7x7 you can fall into ---------- */
+
+.descend {
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  background: var(--ink-2);
+  padding: 22px;
+}
+.descend-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 16px;
+  margin-bottom: 16px;
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  color: var(--text-mute);
+}
+.descend-crumb { color: var(--c1); word-break: break-all; }
+.descend-up {
+  margin-left: auto;
+  border: 1px solid var(--line-2);
+  background: transparent;
+  color: var(--text-dim);
+  font: inherit;
+  letter-spacing: 0.08em;
+  padding: 5px 11px;
+  border-radius: var(--r);
+  cursor: pointer;
+  transition: all .2s var(--ease);
+}
+.descend-up:hover:not(:disabled) { border-color: var(--c1); color: var(--c1); }
+.descend-up:disabled { opacity: .3; cursor: default; }
+.descend-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+  aspect-ratio: 1 / 1;
+}
+.descend-cell {
+  border: 1px solid var(--line);
+  border-radius: 1px;
+  background: rgba(76, 240, 224, 0.045);
+  cursor: pointer;
+  position: relative;
+  transition: background .16s var(--ease), border-color .16s var(--ease), transform .16s var(--ease);
+}
+.descend-cell:hover { background: var(--c1-soft); border-color: var(--c1); transform: scale(1.07); }
+.descend-cell.sel { background: rgba(76,240,224,.3); border-color: var(--c1); }
+.descend-cell.portal {
+  background: rgba(255, 180, 87, 0.14);
+  border-color: var(--c3);
+}
+.descend-cell.portal::after {
+  content: "";
+  position: absolute; inset: 26%;
+  border: 1px solid var(--c3);
+  transform: rotate(45deg);
+}
+.descend-cell.portal:hover { background: rgba(255,180,87,.34); transform: scale(1.12); }
+.descend-read {
+  margin-top: 14px;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  line-height: 1.6;
+  color: var(--text-dim);
+  min-height: 3.2em;
+}
+.descend-read b { color: var(--text); font-weight: 400; }
+.descend-read .ok { color: #5ddc9a; }
+.descend-read .am { color: var(--c3); }
+@media (max-width: 560px) { .descend { padding: 14px; } .descend-grid { gap: 3px; } }
+
+/* ---------- fork — the two-half gateway ---------- */
+
+.fork {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  overflow: hidden;
+}
+.fork-half {
+  position: relative;
+  display: block;
+  min-height: 540px;
+  padding: 40px 38px;
+  background: var(--ink-2);
+  color: inherit;
+  isolation: isolate;
+  transition: background .3s var(--ease);
+}
+.fork-half:hover { background: var(--panel); }
+.fork-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  opacity: .5;
+  transition: opacity .4s var(--ease);
+  pointer-events: none;
+}
+.fork-half:hover .fork-bg { opacity: .78; }
+.fork-scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(4,6,11,.62) 0%, rgba(4,6,11,.88) 55%, rgba(4,6,11,.96) 100%);
+}
+.fork-in { position: relative; z-index: 2; }
+.fork-idx {
+  display: block;
+  font-family: var(--mono);
+  font-size: .64rem;
+  letter-spacing: .18em;
+  color: var(--text-mute);
+  margin-bottom: 1.1rem;
+}
+.fork-half h2 { margin-bottom: .5rem; }
+.fork-lead {
+  font-size: 1.05rem;
+  color: var(--c1);
+  margin-bottom: 1.1rem;
+}
+.fork-half p { color: var(--text-dim); font-size: .95rem; }
+.fork-list {
+  list-style: none;
+  padding: 0;
+  margin: 1.4rem 0 1.8rem;
+  border-top: 1px solid var(--line);
+}
+.fork-list li {
+  font-family: var(--mono);
+  font-size: .72rem;
+  letter-spacing: .06em;
+  color: var(--text-dim);
+  padding: 8px 0;
+  border-bottom: 1px solid var(--line);
+}
+.fork-go {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: .74rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--c1);
+}
+.fork-half:hover .fork-go .arw { transform: translateX(3px); }
+.fork-go .arw { display: inline-block; transition: transform .22s var(--ease); }
+
+@media (max-width: 860px) {
+  .fork { grid-template-columns: 1fr; }
+  .fork-half { min-height: 0; padding: 32px 24px; }
+}
+
 /* keyed legend — for stages that depict a mechanism rather than a mood */
 .stage-legend {
   position: absolute;

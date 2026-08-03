@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Investors — G-ynthetic Labs</title>
-<meta name="description" content="One substrate, six systems, seven papers, a running engine. The investor brief for G-ynthetic Labs — including an honest account of what is built and what is not.">
+<meta name="description" content="One substrate, six systems, a 228-page applied manual and a running engine. The investor brief for G-ynthetic Labs — including an honest account of what is built and what is not.">
 <link rel="icon" href="favicon.ico">
 <link rel="stylesheet" href="assets/css/base.css">
 </head>
@@ -22,7 +22,7 @@
       <a href="arc-lab.html">Arc Lab</a>
       <a href="orbitgen.html">Key System</a>
       <a href="cubex.html">Cubex³</a>
-      <a href="secured.html">SeCUReD</a>
+      <a href="secured.html">SeCURED</a>
       <a href="evidence.html">Evidence</a>
       <a href="investors.html" class="nav-cta">Investors</a>
     </div>
@@ -42,7 +42,7 @@
       rather than merely written up.
     </p>
     <div class="btns">
-      <a class="btn primary" href="mailto:G-ynthetic-Labs@proton.me">Request the data room <span class="arw">→</span></a>
+      <a class="btn primary" href="mailto:G-ynthetic-Labs@proton.me">Ask for what isn't here <span class="arw">→</span></a>
       <a class="btn" href="#status">What is actually built</a>
     </div>
   </div>
@@ -116,8 +116,8 @@
         </p>
         <p style="margin-bottom:1.1rem">
           <strong>Why this is the wedge:</strong> the duty to keep a validated system in its
-          validated state already exists in these sectors, and there is no tooling for language
-          models. It is ~1,200 lines with no dependencies, it wraps a model they already run,
+          validated state already exists in these sectors, and tooling for language models is
+          thin &mdash; not absent. It is ~1,200 lines with no dependencies, it wraps a model they already run,
           and it requires them to adopt none of our other ideas. It is separable, auditable and
           sellable on its own.
         </p>
@@ -149,8 +149,8 @@
       <p>
         Named, because "regulated buyers must do this" is worth nothing without the citation.
         None of these instruments names our technique &mdash; see the boundary note below &mdash;
-        but each creates an ongoing obligation that currently has no tooling behind it for
-        language models.
+        but each creates an ongoing obligation that is mostly discharged by hand today where
+        language models are involved.
       </p>
       <table class="spec">
         <tr>
@@ -195,8 +195,9 @@
         We are not going to pretend otherwise, and anyone who checks will establish that in an
         afternoon. What these instruments impose is an <em>outcome</em> duty: the validated
         system must still be the running system, and you must be able to evidence it. This is one
-        way to discharge that duty, and as far as we know the only automated one for local
-        language models.
+        way to discharge that duty. It is not the only one, and the combination of ideas it rests
+        on is neither novel nor commercially unoccupied &mdash; see the prior-art note on the
+        <a href="byte-for-byte.html#prior-art">product page</a>.
       </p>
       <p class="mb0">
         That distinction is also the honest commercial risk. The sale is not "you are
@@ -239,10 +240,11 @@
       <div class="card rv">
         <div class="idx"><span>THE CONSTANT</span><span class="tag">3 · 3 · 7</span></div>
         <h3>One geometry, everywhere</h3>
-        <p><a href="fracc.html">F.R.A.C.C.</a> decomposes into 3 × 3 × 7 = 63. <a href="cubex.html">Cubex³</a>
-        runs 63 doctrines per side. The <a href="orbitgen.html">key system</a> addresses a
-        3 × 3 × 7 space with seven entity kinds. The <a href="platform.html">lattice</a> is seven
-        per axis with a six-face cell. The <a href="arc-lab.html">Arc Lab</a> projects onto seven
+        <p><a href="fracc.html">F.R.A.C.C.</a> decomposes into 3 × 3 × 7 = 63. The
+        <a href="orbitgen.html">key system</a> addresses a 3 × 3 × 7 space with seven typed
+        entity kinds. The
+        <a href="platform.html">lattice</a> is seven per axis with a six-face cell, 342 data
+        cells and a reserved portal. The <a href="arc-lab.html">Arc Lab</a> projects onto seven
         arcs.</p>
       </div>
       <div class="card rv" data-delay="70">
@@ -316,7 +318,7 @@
         <td><strong>In progress.</strong> The demonstration we hold ourselves to: a fact planted early, buried under a dozen turns, recovered by coordinate read, visibly changing the answer. Injection auditing is implemented; the proving trace is the current milestone.</td>
       </tr>
       <tr>
-        <th>SeCUReD</th>
+        <th>SeCURED</th>
         <td><strong>Research framework, unpublished.</strong> An extensive body of internal research on smart-city infrastructure and AI-driven crisis response. None of it is published, there is no deployed municipal system, and we present it as neither.</td>
       </tr>
       <tr>
@@ -333,7 +335,7 @@
       </tr>
       <tr>
         <th>Measured test coverage</th>
-        <td><strong>1,686 assertions passing, 0 failing</strong> across every suite that ran to completion, plus 141/141 capabilities routing and resolving. A further 263 passed in an integration run that crashed part-way on a test-fixture defect; we do not count those. Coverage is concentrated in the backend — two of the four repositories have no tests at all, stated plainly below.</td>
+        <td><strong>1,686 assertions passing, 0 failing</strong> across every suite that ran to completion, plus 141/141 capabilities routing and resolving. A further 263 passed in an integration run that crashed part-way on a test-fixture defect; we do not count those. Coverage is concentrated in the backend: of the four repositories surveyed, two have no tests at all — the key system and Cubex³, both stated above. The survey covered the four these claims rest on and is not the whole portfolio; see the <a href="evidence.html">evidence page</a>.</td>
       </tr>
       <tr>
         <th>Tamper-evident audit ledger</th>
@@ -457,28 +459,24 @@
         <p class="eyebrow">Research</p>
         <h2>The architecture is downstream of the research.</h2>
         <p>
-          The systems did not come first. The body of work spans the cognitive architecture
-          itself, the applied urban-resilience domain, the mathematics, and the societal risk
-          analysis that motivates the whole approach.
+          The systems did not come first. In September 2024, with no computer science and no AI
+          background, the question was whether a discipline existed for reasoning top-down across
+          interconnected crises &mdash; climate, overpopulation, autonomous labour, human/machine
+          hybridisation. There wasn't one. Everything since is an attempt to build the instrument
+          that question needed.
         </p>
-        <p>
-          These are <strong>working papers, not peer-reviewed publications</strong>, and we say
-          so rather than let a page count imply a review process that has not happened. Two
-          provisional patent applications cover the certified-inference mechanism and the
-          lattice.
+        <p class="mb0">
+          What exists is a <strong>228-page manual</strong> on smart-city resilience and emergency
+          deployment, a cognitive-architecture paper, a crisis-scoring system with a fractal
+          template underneath it, and an analysis of the societal risk that motivates the whole
+          approach. None of it is peer reviewed, so it is not offered as a publication record or
+          as a credential. It matters for exactly one reason: <strong>the constants were argued
+          for in writing before they were literals in code</strong>, which is what makes the
+          implementation checkable against them rather than the other way round.
         </p>
-        <ul class="tags" style="margin-bottom:1.6rem">
-          <li>F.R.A.C.C. Cognitive Architecture</li>
-          <li>City SeCUReD</li>
-          <li>Global Crises Thesis</li>
-          <li>Kairos Incognita</li>
-          <li>Modernizing Mathematics</li>
-          <li>The Oracle Mirage</li>
-          <li>Heilmeier Confirmations</li>
-        </ul>
-        <p class="mb0 dim" style="font-size:.9rem">
-          Working papers. Full texts available on request or in the data room.
-        </p>
+        <div class="btns" style="margin-top:1.8rem">
+          <a class="btn" href="research.html">Read the research <span class="arw">→</span></a>
+        </div>
       </div>
       <div class="rv" data-delay="120">
         <div class="callout">
@@ -542,7 +540,7 @@
 </section>
 
 <div class="pager">
-  <a href="secured.html"><span class="lb">← Previous · 06</span><span class="tt">SeCUReD</span></a>
+  <a href="secured.html"><span class="lb">← Previous · 06</span><span class="tt">SeCURED</span></a>
   <a class="next" href="index.html"><span class="lb">Return</span><span class="tt">Overview →</span></a>
 </div>
 
@@ -571,7 +569,7 @@
         <ul>
           <li><a href="orbitgen.html">Key System</a></li>
           <li><a href="cubex.html">Cubex³</a></li>
-          <li><a href="secured.html">SeCUReD</a></li>
+          <li><a href="secured.html">SeCURED</a></li>
         </ul>
       </div>
       <div>

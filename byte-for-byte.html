@@ -22,7 +22,7 @@
       <a href="arc-lab.html">Arc Lab</a>
       <a href="orbitgen.html">Key System</a>
       <a href="cubex.html">Cubex³</a>
-      <a href="secured.html">SeCUReD</a>
+      <a href="secured.html">SeCURED</a>
       <a href="evidence.html">Evidence</a>
       <a href="investors.html" class="nav-cta">Investors</a>
     </div>
@@ -352,9 +352,66 @@
       <p class="mb0">
         <strong>No regulation mandates byte-for-byte reproducibility checking.</strong> These
         instruments impose an outcome duty &mdash; the validated system must still be the running
-        system, and you must be able to evidence it. This is one way to discharge that duty, as
-        far as we know the only automated one for local language models. It is not a compliance
-        certification, and nothing here is legal advice.
+        system, and you must be able to evidence it. This is one way to discharge that duty. It is
+        not the only one, it is not a compliance certification, and nothing here is legal advice.
+      </p>
+    </div>
+  </div>
+</section>
+
+<hr class="rule">
+
+<!-- ============================================================ PRIOR ART -->
+<section id="prior-art">
+  <div class="wrap">
+    <div class="max rv" style="margin-bottom:2.4rem">
+      <p class="eyebrow">Prior art</p>
+      <h2>Every ingredient here is old.</h2>
+      <p class="mb0">
+        This is the section a reviewer would otherwise have to assemble themselves, so we assemble
+        it for them. Nothing below is a concession extracted under questioning &mdash; it is the
+        same list we hand to technical reviewers before they start.
+      </p>
+    </div>
+
+    <table class="spec rv">
+      <tr>
+        <th>Hash-chained tamper-evident logs</th>
+        <td>Date to <strong>Haber &amp; Stornetta (1991)</strong>, and are routine today in
+        Certificate Transparency and in git. We did not invent the chain.</td>
+      </tr>
+      <tr>
+        <th>Recording an expected output and byte-comparing on replay</th>
+        <td>That is <strong>snapshot testing</strong>. It is decades old and in every major test
+        framework.</td>
+      </tr>
+      <tr>
+        <th><code>temperature: 0</code> plus a fixed seed</th>
+        <td>Universal practice &mdash; and its <em>insufficiency</em> is documented in llama.cpp's
+        own server README, not discovered here. What we add is making prompt-cache state part of
+        the contract rather than an ambient property of server history.</td>
+      </tr>
+      <tr>
+        <th>The combination, commercially</th>
+        <td><strong>Occupied.</strong> At least one funded company ships hash-chained AI decision
+        records with bit-for-bit replay, aimed at the same regulated buyers. We are not first to
+        the idea and do not claim to be.</td>
+      </tr>
+    </table>
+
+    <div class="callout warn rv" style="margin-top:2.4rem">
+      <span class="lbl">So what is actually different</span>
+      <p>
+        <strong>A constraint, not a mechanism.</strong> This runs with zero runtime dependencies,
+        zero network calls and no external timestamp authority &mdash; so it works inside an
+        air-gapped facility, which is precisely where the buyer with the regulatory duty already
+        keeps their models. That is a narrower claim than novelty and it is the one we can defend.
+      </p>
+      <p class="mb0">
+        The question we would most like a reviewer's answer to, and we ask it in the review
+        package too: <em>is the cross-time guard doing something a competent team could not get
+        from disciplined snapshot testing plus an append-only log &mdash; and if not, does that
+        matter for the buyer?</em> A negative answer is a useful answer.
       </p>
     </div>
   </div>
@@ -455,7 +512,7 @@
         <ul>
           <li><a href="orbitgen.html">Key System</a></li>
           <li><a href="cubex.html">Cubex³</a></li>
-          <li><a href="secured.html">SeCUReD</a></li>
+          <li><a href="secured.html">SeCURED</a></li>
         </ul>
       </div>
       <div>
