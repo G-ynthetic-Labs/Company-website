@@ -35,13 +35,13 @@
     <p class="crumb"><a href="index.html">Products</a> / 05 — Testbed</p>
     <h1>Cubex³</h1>
     <p class="lead max">
-      The falsification surface. A three-axis orthogonal evaluation framework — risk, reward,
-      relation — resolved over a volumetric adversarial space, across factions whose command
-      hierarchy is itself a term in the score. Built so the decomposition theory has somewhere
-      it can lose.
+      The falsification surface. A three-axis evaluation framework — risk, reward, relation —
+      resolved to a coordinate over a volumetric adversarial space, across factions whose
+      command hierarchy is itself a term in the score. Built so the decomposition theory has
+      somewhere it can lose.
     </p>
     <ul class="tags">
-      <li>Orthogonal RRR basis</li>
+      <li>RRR coordinate space</li>
       <li>3D adversarial space</li>
       <li>Factional hierarchy</li>
       <li>Morale cascade</li>
@@ -136,37 +136,42 @@
     </div>
 
     <div class="callout warn rv" style="margin-top:1.6rem">
-      <span class="lbl">Measured — two axes hold, one collapses</span>
+      <span class="lbl">Audit of the implementation — the third axis is inert</span>
       <p>
-        Each candidate move quantizes to a cell in a 3&nbsp;×&nbsp;3&nbsp;×&nbsp;3 coordinate
-        space: each axis is bucketed to −1, 0 or +1 against a threshold. We measured what the
-        evaluator actually resolves to across 25 self-play games, every candidate move at every
-        ply. Correlations are taken <em>within</em> a decision — across the moves genuinely
-        competing at one ply — because correlating across plies measures how a game depletes
-        over time, not whether the axes carry separate signal.
+        Each candidate move is bucketed to −1, 0 or +1 per axis, so it resolves to a cell in a
+        3&nbsp;×&nbsp;3&nbsp;×&nbsp;3 space. We instrumented the kernel and measured what it
+        actually resolves to across self-play. The finding is structural, and it is a fault in
+        our implementation rather than in the triad.
+      </p>
+      <p>
+        <strong>Two of the three axis functions never read a coordinate.</strong> Material and
+        morale are computed by summing over the pieces that still exist, so moving a piece
+        anywhere returns an identical value; only a capture changes them. Mobility is the sole
+        axis that responds to <em>where</em> a piece went. The consequence is measurable:
       </p>
       <table class="spec">
-        <tr><th>risk ↔ reward</th><td>r = 0.175 &mdash; <strong>independent</strong></td></tr>
-        <tr><th>reward ↔ relation</th><td>r = 0.173 &mdash; <strong>independent</strong></td></tr>
-        <tr><th>risk ↔ relation</th><td>r = 0.999 &mdash; <strong>redundant</strong></td></tr>
-        <tr><th>Axes disagree on the best move</th><td><strong>89%</strong> of decisions</td></tr>
+        <tr><th>Axis</th><td><strong>Threshold vs. its spread across the moves competing at one decision</strong></td></tr>
+        <tr><th>risk</th><td>threshold 4 · spread 8.80 — <strong>well matched</strong></td></tr>
+        <tr><th>reward</th><td>threshold 5 · spread 6.98 — <strong>well matched</strong></td></tr>
+        <tr><th>relation</th><td>threshold 8 · spread <strong>0.04</strong> — <strong>cannot discriminate</strong></td></tr>
       </table>
       <p>
-        <strong>Two of the three pairs are independent, and the axes disagree about which move
-        is best in 89% of positions.</strong> The decomposition carries real signal. But risk and
-        relation are all but the same measurement: material sums the surviving pieces and morale
-        sums their command value, so within a single decision — where candidates differ only by
-        what gets captured — they move together.
+        A threshold separates two candidates only if they fall on opposite sides of it. Risk and
+        reward are calibrated correctly. Relation varies by four hundredths across an entire
+        candidate set, so it returns zero for <strong>97.7% of moves</strong> and contributes
+        nothing to the decision. <strong>No threshold fixes this</strong> — the quantity is flat,
+        not mis-scaled. Only <strong>13 of the 27 cells</strong> are ever occupied; the cube is
+        operating as a plane.
       </p>
       <p class="mb0">
-        The coordinate space shows the same thing geometrically. <strong>12 of the 27 cells are
-        ever occupied</strong>, and <strong>97.7% of moves score zero on the relation axis</strong>,
-        because its threshold is set at 8 while the relation differential has a standard deviation
-        near 3.4 — more than double the spread it is meant to discriminate. The cube is
-        operating as a plane. That is a calibration fault with a known fix, not a refutation of
-        the triad, and we would rather publish the fault than the intention. Relation needs to
-        measure the <em>shape</em> of a command hierarchy — orphan ratio, chains still intact —
-        rather than the <em>size</em> of the force, which material already counts.
+        Two further findings from the same audit. The continuous fallback term beneath the
+        buckets covers material and mobility but <em>not</em> morale, so relation was
+        disadvantaged twice over. And the morale engine described above — hierarchy refresh,
+        mercenary masking, support-size counting — is <strong>not the code that scores
+        moves</strong>; the evaluator carries its own simplified reimplementation. Relation has
+        to become positional, keyed to the geometry of a command chain rather than the size of a
+        force that material already counts. That work is not done, and until it is, this page
+        should not be read as evidence that the decomposition is irreducible.
       </p>
     </div>
   </div>
