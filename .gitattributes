@@ -1,0 +1,3 @@
+# Evidence bundles are published artefacts. Store and serve them byte-identical
+# to what the harness wrote — no line-ending normalisation.
+assets/evidence/** -text

@@ -142,6 +142,9 @@
       float front = fract(t * 0.16) * 9.0;
       float dd = abs(aSeed.z - front);
       glow = 0.22 + 0.95 * exp(-dd * dd * 1.4);
+      // aSeed.w marks a STATE rather than a position — a verdict the sweep does
+      // not create and cannot take away. It stays lit between passes.
+      if (aSeed.w > 0.5) glow = max(glow, 1.0);
       p.y += sin(t * 0.9 + aSeed.y) * 0.012;
     }
     else {
@@ -524,58 +527,83 @@
       return { pts, lines, mode: 1, dist: 17.5, scale: 1.0 };
     },
 
-    /* A hash-chained ledger running forward through time, with one record
-       drifting to a different-but-stable value. The pulse is verification
-       sweeping the chain; the red branch is what it catches. */
+    /* The validation ledger, drawn as the file it actually is.
+       Traced from ledger.ts rather than invented:
+
+       - Records run LEFT TO RIGHT in append order. A JSONL file grows one line
+         at a time in one direction; it does not meander.
+       - Each record is a block of hash rows and nothing else — a record holds
+         key / outputSha256 / prev / entryHash and no prompt or answer text.
+       - The bright dot BETWEEN two records is `prev`: every record carries the
+         previous record's entryHash. That link is the whole tamper-evidence
+         mechanism, so it is drawn as an object, not as a gap.
+       - The travelling glow is parseAndVerifyChain() re-walking every line.
+       - AMBER is the first witnessed run of one request — the bytes that become
+         the reference for it. (ledger.ts is explicit that ground truth starts at
+         first witnessed sighting, NOT at an expert sign-off; there is no sign-off
+         workflow in the code. The human sign-off is anchored externally, by
+         archiving the head hash.)
+       - The bright dot at the far RIGHT is the chain head — the value an operator
+         publishes off-box so the file cannot be silently rewritten wholesale.
+       - RED is that same request re-run later and resolving to different bytes.
+         It hangs BELOW the file, connects to nothing downstream, and terminates
+         in a cross: ledgerCheckAndRecord throws LedgerDriftError, so the drifted
+         bytes are never returned and never recorded. Drift is one failed
+         comparison — not a second timeline that keeps running. */
     chain() {
       const r = rng(426426);
       const pts = [], lines = [];
-      const N = 34, SPAN = 11.5;
-      const nodes = [];
+      const N = 9, SPAN = 7.6;
+      const REF = 2;                      // the record today's run is checked against
+      const ROW = 1.85;                   // the file sits high — the legend owns the bottom
+      const step = SPAN / (N - 1);
+      const at = i => (i / (N - 1) - 0.5) * SPAN;
+      // param feeds the mode-5 sweep (0..9), so the check walks the file in order
+      const sweep = i => (i / (N - 1)) * 9;
+
+      /* one record: four rows of hash characters. No core dot — the block IS
+         the record, and a bright centre would read as a node in a network. */
+      function record(x, y, c, param, size, flag) {
+        for (let row = 0; row < 4; row++) {
+          for (let col = 0; col < 5; col++) {
+            pts.push({
+              p: [x + (col - 2) * 0.105, y + (row - 1.5) * 0.17, (r() - 0.5) * 0.05],
+              c, size, phase: r() * 6.28, param, flag: flag || 0
+            });
+          }
+        }
+      }
 
       for (let i = 0; i < N; i++) {
-        const t = i / (N - 1);
-        const x = (t - 0.5) * SPAN;
-        const y = Math.sin(t * 5.2) * 0.55;
-        const z = Math.cos(t * 3.1) * 0.7;
-        const c = mix(PALETTE.cyan, PALETTE.violet, t);
-        nodes.push([x, y, z]);
+        const x = at(i);
+        const ref = i === REF;
+        record(x, ROW, ref ? PALETTE.amber : PALETTE.cyan, sweep(i), ref ? 2.9 : 2.2, ref ? 1 : 0);
+        if (ref) pts.push({ p: [x, ROW, -0.3], c: PALETTE.amber, size: 6, phase: 0, param: sweep(i), flag: 1 });
 
-        // each record is a small cluster — a block of bytes, not a dot
-        const bits = 7;
-        for (let b = 0; b < bits; b++) {
-          const a = (b / bits) * 6.2832;
-          pts.push({
-            p: [x + Math.cos(a) * 0.19, y + Math.sin(a) * 0.19, z + (r() - 0.5) * 0.16],
-            c, size: 2.1, phase: r() * 6.28, param: i * 0.26, flag: 0
-          });
+        if (i > 0) {
+          const xp = at(i - 1);
+          // `prev` — this record's link back to the previous entryHash
+          lines.push({ a: [xp + 0.32, ROW, 0], b: [x - 0.32, ROW, 0], c: PALETTE.cyan, alpha: 0.5, seed: i * 0.35 });
+          pts.push({ p: [xp + step / 2, ROW, 0], c: PALETTE.cyan, size: 3.4, phase: 0, param: sweep(i - 0.5), flag: 0 });
         }
-        pts.push({ p: [x, y, z], c, size: 4.6, phase: r() * 6.28, param: i * 0.26, flag: 0 });
-        if (i > 0) lines.push({ a: nodes[i - 1], b: nodes[i], c, alpha: 0.4, seed: i * 0.3 });
       }
 
-      // the divergence: a second, perfectly stable branch at the drift point
-      const D = 23;
-      let prev = nodes[D];
-      for (let k = 1; k <= 8; k++) {
-        const base = nodes[Math.min(N - 1, D + k)];
-        const p = [base[0], base[1] - 1.15 - k * 0.075, base[2] + 0.55];
-        pts.push({ p, c: PALETTE.red, size: 4.2, phase: r() * 6.28, param: (D + k) * 0.26, flag: 0 });
-        for (let b = 0; b < 5; b++) {
-          const a = (b / 5) * 6.2832;
-          pts.push({
-            p: [p[0] + Math.cos(a) * 0.16, p[1] + Math.sin(a) * 0.16, p[2] + (r() - 0.5) * 0.14],
-            c: PALETTE.red, size: 1.7, phase: r() * 6.28, param: (D + k) * 0.26, flag: 0
-          });
-        }
-        lines.push({ a: prev, b: p, c: PALETTE.red, alpha: 0.42, seed: k * 0.4 });
-        prev = p;
-      }
-      // the sign-off anchor
-      pts.push({ p: nodes[4], c: PALETTE.amber, size: 11, phase: 0, param: 4 * 0.26, flag: 0 });
-      pts.push({ p: nodes[D], c: PALETTE.amber, size: 8, phase: 0, param: D * 0.26, flag: 0 });
+      // chain head — the hash the operator publishes off-box
+      pts.push({ p: [at(N - 1), ROW, -0.3], c: PALETTE.cyan, size: 4, phase: 0, param: 9, flag: 0 });
 
-      return { pts, lines, mode: 5, dist: 15.5, scale: 1.0 };
+      // today's re-run of the SAME request: different bytes, so it never lands
+      const xd = at(REF), yd = ROW - 2.0;
+      record(xd, yd, PALETTE.red, sweep(REF), 2.2, 1);
+      lines.push({ a: [xd, ROW - 0.4, 0], b: [xd, yd + 0.4, 0], c: PALETTE.red, alpha: 0.45, seed: 1.2 });
+
+      // refusal — the call throws, returns nothing, and writes nothing
+      for (let k = -3; k <= 3; k++) {
+        const d = k * 0.11;
+        pts.push({ p: [xd + d, yd - 0.85 + d, 0], c: PALETTE.red, size: 2.6, phase: 0, param: sweep(REF), flag: 1 });
+        pts.push({ p: [xd + d, yd - 0.85 - d, 0], c: PALETTE.red, size: 2.6, phase: 0, param: sweep(REF), flag: 1 });
+      }
+
+      return { pts, lines, mode: 5, dist: 13.6, scale: 1.0 };
     },
 
     /* Ambient substrate for page headers. */
@@ -698,16 +726,21 @@
     const pointer = { x: 0, y: 0, tx: 0, ty: 0 };
     const spin = opts.spin != null ? opts.spin : 0.055;
 
-    host.style.cursor = 'grab';
-    host.addEventListener('pointerdown', e => {
-      cam.drag = true; cam.lx = e.clientX; cam.ly = e.clientY;
-      host.style.cursor = 'grabbing';
-      host.setPointerCapture(e.pointerId);
-    });
-    host.addEventListener('pointerup', e => {
-      cam.drag = false; host.style.cursor = 'grab';
-      try { host.releasePointerCapture(e.pointerId); } catch (_) {}
-    });
+    // A stage that DEPICTS a mechanism is a diagram, not a toy: one stray drag
+    // rotates it to an unreadable angle and it never comes back. Those stages
+    // set data-fixed and keep only the parallax lean.
+    if (!opts.fixed) {
+      host.style.cursor = 'grab';
+      host.addEventListener('pointerdown', e => {
+        cam.drag = true; cam.lx = e.clientX; cam.ly = e.clientY;
+        host.style.cursor = 'grabbing';
+        host.setPointerCapture(e.pointerId);
+      });
+      host.addEventListener('pointerup', e => {
+        cam.drag = false; host.style.cursor = 'grab';
+        try { host.releasePointerCapture(e.pointerId); } catch (_) {}
+      });
+    }
     host.addEventListener('pointermove', e => {
       const b = host.getBoundingClientRect();
       pointer.tx = ((e.clientX - b.left) / b.width - 0.5) * 2;
@@ -886,6 +919,7 @@
         ['dist', 'spin', 'yaw', 'pitch'].forEach(k => {
           if (host.dataset[k] != null) opts[k] = parseFloat(host.dataset[k]);
         });
+        if (host.dataset.fixed != null) opts.fixed = true;   // diagram, not a toy
         try { Instance(host, host.dataset.gl, opts); }
         catch (err) { console.warn('[GL] scene failed:', host.dataset.gl, err); }
       });

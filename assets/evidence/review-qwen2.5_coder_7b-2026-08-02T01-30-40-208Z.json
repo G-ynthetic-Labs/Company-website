@@ -1,0 +1,252 @@
+{
+  "title": "byte-for-byte reproducibility — peer-review evidence bundle",
+  "claims": {
+    "C1": "REPRODUCIBLE=1 ⇒ byte-identical generation across processes, model reloads, and interleaved prompts (fixed local hardware)",
+    "C2": "local embedding model is byte-deterministic, including across batch compositions",
+    "C3": "control: unfrozen sampling diverges (harness validity)",
+    "notClaimed": "correctness/domain accuracy — reproducibility only"
+  },
+  "howToFalsify": "Recompute sha256(utf8(fullText)) for any generation and compare against the recorded hash; diff any two fullText fields that a check asserts equal. Re-run: npx tsx verify/review-cli.ts --model <model> --prompt \"<your prompt>\". Any single-byte difference in an asserted-equal pair falsifies C1/C2 on that machine.",
+  "environment": {
+    "timestampUtc": "2026-08-02T01:29:17.837Z",
+    "os": "win32 10.0.26200 (x64)",
+    "cpu": "AMD Ryzen 7 4800H with Radeon Graphics         ",
+    "totalMemGb": 15.4,
+    "node": "v24.18.0",
+    "ollamaVersion": "0.32.5",
+    "ollamaServer": "http://localhost:11434",
+    "modelDigests": {
+      "qwen2.5-coder:7b": "dae161e27b0e90dd1856c8bb3209201fd6736d8eb66298e75ed87571486f4364",
+      "mxbai-embed-large:latest": "468836162de7f81e041c43663fedbbba921dcea9b9fefea135685a39b2d83dd8"
+    },
+    "gitCommit": "(unavailable)",
+    "gitBranch": "(unavailable)",
+    "seed": 42,
+    "replayRuns": 3,
+    "note": "GPU/VRAM not introspectable from Node — reviewers should record GPU model and driver separately."
+  },
+  "parameters": {
+    "model": "qwen2.5-coder:7b",
+    "embedder": "mxbai-embed-large:latest",
+    "prompt": "Decompose \"why does my team keep missing deadlines even though everyone works hard\" into its seven rhetorical arcs. Answer with one short phrase per arc.",
+    "interleavePrompt": "Decompose \"a suspension bridge\" into its seven rhetorical arcs. Answer with one short phrase per arc.",
+    "maxTokens": 400,
+    "replayRuns": 3,
+    "numGpu": "backend default"
+  },
+  "checks": [
+    {
+      "id": "C2a",
+      "name": "embedder-repeat",
+      "claim": "same embed batch twice → identical vectors",
+      "falsifiedBy": "any component differing between the two embeddings of the same batch",
+      "procedure": "embed [\"a wooden chair\",\"drives nails and breaks objects\",\"bridge\"] twice via mxbai-embed-large:latest; compare full JSON serialisations",
+      "pass": true,
+      "observed": "batch sha256 d8c44bb136975f12 vs d8c44bb136975f12",
+      "generations": [],
+      "vectorsSha256": {
+        "batchRun1": "d8c44bb136975f12e6d750e95fc6e79fb44c49213f044854a2601efc4af190aa",
+        "batchRun2": "d8c44bb136975f12e6d750e95fc6e79fb44c49213f044854a2601efc4af190aa"
+      }
+    },
+    {
+      "id": "C2b",
+      "name": "embedder-batch-mix",
+      "claim": "same text among different batch-mates → identical vector",
+      "falsifiedBy": "any component of the 'bridge' vector differing between the two batch compositions",
+      "procedure": "compare the 'bridge' vector from the 3-text batch against the 'bridge' vector from a 2-text batch with a different companion",
+      "pass": true,
+      "observed": "'bridge' vector sha256 422b2e350af70d98 vs 422b2e350af70d98",
+      "generations": [],
+      "vectorsSha256": {
+        "bridgeInBatchA": "422b2e350af70d98ec7c85fa203a9b8524a9f70859e33fcbd1dd761e89f33d68",
+        "bridgeInBatchB": "422b2e350af70d98ec7c85fa203a9b8524a9f70859e33fcbd1dd761e89f33d68"
+      }
+    },
+    {
+      "id": "C1a",
+      "name": "replay-across-processes",
+      "claim": "3 independent OS processes, same frozen request → byte-identical output",
+      "falsifiedBy": "any two worker outputs differing by one byte (compare fullText fields directly)",
+      "procedure": "spawn 3 fresh processes; each runs the full frozen sequence (warm-up + kept + witness) and returns its output",
+      "pass": true,
+      "observed": "hashes [cd3e99af6f55814b, cd3e99af6f55814b, cd3e99af6f55814b]",
+      "generations": [
+        {
+          "label": "process 1 of 3",
+          "request": {
+            "model": "qwen2.5-coder:7b",
+            "prompt": "Decompose \"why does my team keep missing deadlines even though everyone works hard\" into its seven rhetorical arcs. Answer with one short phrase per arc.",
+            "maxTokens": 400,
+            "frozen": true,
+            "temperature": 0,
+            "seed": 42
+          },
+          "sha256": "cd3e99af6f55814bdd6ed40cfba33db36977345c496debf187bfd2608c4dcfd6",
+          "fullText": "1. Acknowledgment of effort\n2. Questioning productivity\n3. Exploring priorities\n4. Considering communication\n5. Analyzing resources\n6. Evaluating timelines\n7. Seeking solutions together"
+        },
+        {
+          "label": "process 2 of 3",
+          "request": {
+            "model": "qwen2.5-coder:7b",
+            "prompt": "Decompose \"why does my team keep missing deadlines even though everyone works hard\" into its seven rhetorical arcs. Answer with one short phrase per arc.",
+            "maxTokens": 400,
+            "frozen": true,
+            "temperature": 0,
+            "seed": 42
+          },
+          "sha256": "cd3e99af6f55814bdd6ed40cfba33db36977345c496debf187bfd2608c4dcfd6",
+          "fullText": "1. Acknowledgment of effort\n2. Questioning productivity\n3. Exploring priorities\n4. Considering communication\n5. Analyzing resources\n6. Evaluating timelines\n7. Seeking solutions together"
+        },
+        {
+          "label": "process 3 of 3",
+          "request": {
+            "model": "qwen2.5-coder:7b",
+            "prompt": "Decompose \"why does my team keep missing deadlines even though everyone works hard\" into its seven rhetorical arcs. Answer with one short phrase per arc.",
+            "maxTokens": 400,
+            "frozen": true,
+            "temperature": 0,
+            "seed": 42
+          },
+          "sha256": "cd3e99af6f55814bdd6ed40cfba33db36977345c496debf187bfd2608c4dcfd6",
+          "fullText": "1. Acknowledgment of effort\n2. Questioning productivity\n3. Exploring priorities\n4. Considering communication\n5. Analyzing resources\n6. Evaluating timelines\n7. Seeking solutions together"
+        }
+      ]
+    },
+    {
+      "id": "C1b",
+      "name": "cache-eviction-attack",
+      "claim": "full model unload/reload between calls → byte-identical output",
+      "falsifiedBy": "before/after fullText differing by one byte",
+      "procedure": "frozen generate; unload the model entirely (keep_alive 0 — destroys all server-side cache and VRAM state); frozen generate again",
+      "pass": true,
+      "observed": "cd3e99af6f55814b vs cd3e99af6f55814b",
+      "generations": [
+        {
+          "label": "before unload",
+          "request": {
+            "model": "qwen2.5-coder:7b",
+            "prompt": "Decompose \"why does my team keep missing deadlines even though everyone works hard\" into its seven rhetorical arcs. Answer with one short phrase per arc.",
+            "maxTokens": 400,
+            "frozen": true,
+            "temperature": 0,
+            "seed": 42
+          },
+          "sha256": "cd3e99af6f55814bdd6ed40cfba33db36977345c496debf187bfd2608c4dcfd6",
+          "fullText": "1. Acknowledgment of effort\n2. Questioning productivity\n3. Exploring priorities\n4. Considering communication\n5. Analyzing resources\n6. Evaluating timelines\n7. Seeking solutions together"
+        },
+        {
+          "label": "after reload",
+          "request": {
+            "model": "qwen2.5-coder:7b",
+            "prompt": "Decompose \"why does my team keep missing deadlines even though everyone works hard\" into its seven rhetorical arcs. Answer with one short phrase per arc.",
+            "maxTokens": 400,
+            "frozen": true,
+            "temperature": 0,
+            "seed": 42
+          },
+          "sha256": "cd3e99af6f55814bdd6ed40cfba33db36977345c496debf187bfd2608c4dcfd6",
+          "fullText": "1. Acknowledgment of effort\n2. Questioning productivity\n3. Exploring priorities\n4. Considering communication\n5. Analyzing resources\n6. Evaluating timelines\n7. Seeking solutions together"
+        }
+      ]
+    },
+    {
+      "id": "C1c",
+      "name": "interleave-attack",
+      "claim": "a foreign prompt between two identical frozen requests → byte-identical output",
+      "falsifiedBy": "the two A fullTexts differing by one byte",
+      "procedure": "frozen generate A; frozen generate B (different prompt — evicts A from the prompt cache); frozen generate A again",
+      "pass": true,
+      "observed": "cd3e99af6f55814b vs cd3e99af6f55814b",
+      "generations": [
+        {
+          "label": "A first",
+          "request": {
+            "model": "qwen2.5-coder:7b",
+            "prompt": "Decompose \"why does my team keep missing deadlines even though everyone works hard\" into its seven rhetorical arcs. Answer with one short phrase per arc.",
+            "maxTokens": 400,
+            "frozen": true,
+            "temperature": 0,
+            "seed": 42
+          },
+          "sha256": "cd3e99af6f55814bdd6ed40cfba33db36977345c496debf187bfd2608c4dcfd6",
+          "fullText": "1. Acknowledgment of effort\n2. Questioning productivity\n3. Exploring priorities\n4. Considering communication\n5. Analyzing resources\n6. Evaluating timelines\n7. Seeking solutions together"
+        },
+        {
+          "label": "B interleaved",
+          "request": {
+            "model": "qwen2.5-coder:7b",
+            "prompt": "Decompose \"a suspension bridge\" into its seven rhetorical arcs. Answer with one short phrase per arc.",
+            "maxTokens": 400,
+            "frozen": true,
+            "temperature": 0,
+            "seed": 42
+          },
+          "sha256": "babade63cd366e0fc17b256787c070654ab1be6537c6039c32069c0aae74c9d8",
+          "fullText": "1. Suspense builds as the structure looms.\n2. The tension in materials is palpable.\n3. Engineers' ingenuity is on full display.\n4. Nature's forces are harnessed for human use.\n5. The bridge spans a vast distance, connecting two points.\n6. Safety and stability become paramount concerns.\n7. The completion symbolizes achievement and progress."
+        },
+        {
+          "label": "A second",
+          "request": {
+            "model": "qwen2.5-coder:7b",
+            "prompt": "Decompose \"why does my team keep missing deadlines even though everyone works hard\" into its seven rhetorical arcs. Answer with one short phrase per arc.",
+            "maxTokens": 400,
+            "frozen": true,
+            "temperature": 0,
+            "seed": 42
+          },
+          "sha256": "cd3e99af6f55814bdd6ed40cfba33db36977345c496debf187bfd2608c4dcfd6",
+          "fullText": "1. Acknowledgment of effort\n2. Questioning productivity\n3. Exploring priorities\n4. Considering communication\n5. Analyzing resources\n6. Evaluating timelines\n7. Seeking solutions together"
+        }
+      ]
+    },
+    {
+      "id": "C3",
+      "name": "control-divergence",
+      "claim": "flag OFF at temp 0.8 → outputs diverge (harness can detect nondeterminism)",
+      "falsifiedBy": "all three outputs identical (would mean the harness cannot distinguish frozen from unfrozen — invalidates the harness, not claim C1)",
+      "procedure": "three unfrozen generations at temperature 0.8; count distinct outputs",
+      "pass": true,
+      "observed": "3 distinct in 3 runs",
+      "generations": [
+        {
+          "label": "control run 1",
+          "request": {
+            "model": "qwen2.5-coder:7b",
+            "prompt": "Decompose \"why does my team keep missing deadlines even though everyone works hard\" into its seven rhetorical arcs. Answer with one short phrase per arc.",
+            "maxTokens": 400,
+            "frozen": false,
+            "temperature": 0.8
+          },
+          "sha256": "7202a643676a6fef761e142fe43a3857d15f77aee9c97962839314e2767af7b9",
+          "fullText": "1. What is the problem?\n2. Why do you think it happens?\n3. Have we tried all possible solutions?\n4. Is there something outside our control influencing this?\n5. Could team communication be improved?\n6. Might the workload be too heavy?\n7. How can we implement a better system to avoid future issues?"
+        },
+        {
+          "label": "control run 2",
+          "request": {
+            "model": "qwen2.5-coder:7b",
+            "prompt": "Decompose \"why does my team keep missing deadlines even though everyone works hard\" into its seven rhetorical arcs. Answer with one short phrase per arc.",
+            "maxTokens": 400,
+            "frozen": false,
+            "temperature": 0.8
+          },
+          "sha256": "a1564e5236eb023f20636f4740b92941ffc8478b778d2e07c52f597c88b79e9f",
+          "fullText": "1. Why do we persistently fall short of our goals?\n2. Are the expectations set too high for us to meet them?\n3. Is there a lack of clear direction and communication within our team?\n4. Do external factors or dependencies hinder our progress significantly?\n5. Could it be that our work processes are inefficient, leading to delays?\n6. Might we need more time or resources to complete tasks properly?\n7. Have we considered the impact of individual performance on collective outcomes?"
+        },
+        {
+          "label": "control run 3",
+          "request": {
+            "model": "qwen2.5-coder:7b",
+            "prompt": "Decompose \"why does my team keep missing deadlines even though everyone works hard\" into its seven rhetorical arcs. Answer with one short phrase per arc.",
+            "maxTokens": 400,
+            "frozen": false,
+            "temperature": 0.8
+          },
+          "sha256": "22622403b3648f53787bbc8f674c11d52f7811bd1e07a3258c67290388570bdb",
+          "fullText": "1. Acknowledgment of the problem\n2. Exploration of possible causes\n3. Questioning individual efforts\n4. Considering systemic issues\n5. Invoking collective responsibility\n6. Seeking solutions together\n7. Reflecting on future outcomes"
+        }
+      ]
+    }
+  ],
+  "verdict": "PASS"
+}

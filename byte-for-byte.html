@@ -23,6 +23,7 @@
       <a href="orbitgen.html">Key System</a>
       <a href="cubex.html">Cubex³</a>
       <a href="secured.html">SeCUReD</a>
+      <a href="evidence.html">Evidence</a>
       <a href="investors.html" class="nav-cta">Investors</a>
     </div>
   </div>
@@ -82,9 +83,23 @@
         </div>
       </div>
       <div class="rv" data-delay="120">
-        <div class="stage framed tall" data-gl="chain" data-spin="0.03">
-          <div class="stage-cap">Ledger chain · <b>amber</b> = sign-off · <b>red</b> = stable-but-different</div>
-          <div class="stage-hud">RECORD <span>HASHES</span><br>TEXT <span>NEVER</span></div>
+        <div class="stage framed tall" data-gl="chain" data-spin="0" data-yaw="0" data-pitch="0" data-fixed>
+          <div class="stage-hud">
+            ONE FILE · ONE LINE PER RUN<br>
+            STORED <span>HASHES ONLY</span><br>
+            NEVER STORED <span>PROMPTS · ANSWERS</span>
+          </div>
+          <div class="stage-legend">
+            <p><i class="k-chain"></i>Each block is one run that was checked and kept. The dot
+              between two blocks is <b>the previous block's hash, written into the next one</b> —
+              change any line and the rest stop matching. The right-hand end is the number you
+              keep somewhere else, so the whole file can't be quietly rewritten.</p>
+            <p><i class="k-ref"></i>The first run of a given question that passed its checks. Its
+              answer is now <b>the answer that question is supposed to give</b>.</p>
+            <p><i class="k-fail"></i>The same question asked again today, on the same machine,
+              coming back different. The chain notices, and <b>the system refuses to answer
+              rather than hand you the new one</b>.</p>
+          </div>
         </div>
       </div>
     </div>
@@ -219,7 +234,8 @@
           <tr><th>Guard off</th><td>Zero overhead — one ordinary call, nothing added, sampling untouched</td></tr>
           <tr><th>Guard on</th><td>Three calls instead of one, on protected calls only</td></tr>
           <tr><th>Storage</th><td>One short record per unique request — <strong>hashes only</strong>. No prompt text and no answer text is stored</td></tr>
-          <tr><th>CPU beyond generation</th><td>Two SHA-256 hashes; unmeasurable against token generation</td></tr>
+          <tr><th>CPU beyond generation</th><td>Three SHA-256 hashes per protected call — request key, output, and
+            the record's own chain hash when a new record is written; unmeasurable against token generation</td></tr>
           <tr><th>Dependencies</th><td>None</td></tr>
           <tr><th>Source size</th><td>About 1,200 lines across seven TypeScript files — meant to be read in an afternoon by the person who has to defend it</td></tr>
         </table>

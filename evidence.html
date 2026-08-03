@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Evidence — Test Results and Coverage Gaps — G-ynthetic Labs</title>
+<meta name="description" content="Every test result behind the claims on this site, measured 2 August 2026 — including the run that crashed, the two repositories with no tests, and the falsification run that reported our own claim as broken.">
+<link rel="icon" href="favicon.ico">
+<link rel="stylesheet" href="assets/css/base.css">
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-in">
+    <a class="brand" href="index.html"><span class="brand-mark"></span> G-YNTHETIC&nbsp;LABS</a>
+    <button class="nav-toggle" aria-expanded="false">Menu</button>
+    <div class="nav-links">
+      <a href="byte-for-byte.html">Byte for Byte</a>
+      <a href="architecture.html">Architecture</a>
+      <a href="platform.html">Lattice</a>
+      <a href="fracc.html">F.R.A.C.C.</a>
+      <a href="arc-lab.html">Arc Lab</a>
+      <a href="orbitgen.html">Key System</a>
+      <a href="cubex.html">Cubex³</a>
+      <a href="secured.html">SeCUReD</a>
+      <a href="evidence.html">Evidence</a>
+      <a href="investors.html" class="nav-cta">Investors</a>
+    </div>
+  </div>
+</nav>
+
+<header class="phead">
+  <div class="stage hero" data-gl="field" data-spin="0.02"></div>
+  <div class="hero-scrim"></div>
+  <div class="wrap">
+    <p class="crumb">Company / Evidence</p>
+    <h1>Evidence</h1>
+    <p class="lead max">
+      Every test result behind the claims on this site, with the gaps left in.
+    </p>
+    <p class="max">
+      All suites were executed on 2 August 2026 and the numbers tallied from actual output,
+      not from documentation. Where a suite crashed, where a repository has no tests at all,
+      and where our own falsification harness reported a false negative, it is on this page —
+      in the same type size as the passes.
+    </p>
+    <ul class="tags">
+      <li>Measured 2 Aug 2026</li>
+      <li>1,686 passing · 0 failing</li>
+      <li>1 suite crashed</li>
+      <li>2 of 4 repos untested</li>
+      <li>Raw bundles downloadable</li>
+    </ul>
+  </div>
+</header>
+
+<!-- ============================================================ HEADLINE -->
+<section>
+  <div class="wrap">
+    <div class="max rv" style="margin-bottom:2.6rem">
+      <p class="eyebrow">The tally</p>
+      <h2>What actually ran.</h2>
+      <p class="mb0">
+        Twenty-six suites were discoverable across four repositories. Twenty-five completed.
+        The counts below are assertions from completed suites only — the 263 assertions that
+        passed inside the run that later crashed are deliberately excluded, because a partial
+        run is not a result.
+      </p>
+    </div>
+
+    <div class="grid g4" style="margin-bottom:2.6rem">
+      <div class="stat rv"><span class="n"><i data-count="1686">1686</i></span><span class="k">Passing assertions · completed suites</span></div>
+      <div class="stat rv" data-delay="80"><span class="n"><i data-count="0">0</i></span><span class="k">Failing assertions</span></div>
+      <div class="stat rv" data-delay="160"><span class="n"><i data-count="141">141</i></span><span class="k">Capability checks · 141 of 141</span></div>
+      <div class="stat rv" data-delay="240"><span class="n"><i data-count="6">6</i></span><span class="k">Falsification probes held · of 6</span></div>
+    </div>
+
+    <table class="spec rv">
+      <tr><th>Suites that ran to completion</th><td>25 of 26</td></tr>
+      <tr><th>Suites that crashed</th><td>1 — harness fixture defect, detailed below</td></tr>
+      <tr><th>Skipped</th><td>8 — require live external services</td></tr>
+      <tr><th>Repositories with no test suite</th><td><strong>2 of 4</strong> — Cubex³ and OrbitGen-AI</td></tr>
+      <tr><th>Method</th><td>Suites executed directly; results tallied from output. Nothing on this page is quoted from documentation</td></tr>
+    </table>
+  </div>
+</section>
+
+<hr class="rule">
+
+<!-- ============================================================ NOT COVERED -->
+<section>
+  <div class="wrap">
+    <div class="max rv" style="margin-bottom:2.6rem">
+      <p class="eyebrow v2">Read this first</p>
+      <h2>What is not covered.</h2>
+      <p class="mb0">
+        Placed before the results rather than after them. A reader who only takes one section
+        from this page should take this one.
+      </p>
+    </div>
+
+    <div class="grid g3" style="margin-bottom:2.6rem">
+      <div class="card rv">
+        <div class="idx"><span>GAP 01</span></div>
+        <h3>The integration run never finished</h3>
+        <p>
+          <code>run_all_tests</code> reached section O and aborted with a
+          <code>SqliteError: FOREIGN KEY constraint failed</code> at
+          <code>services/domainLibrary.ts:46</code>. The test inserts a domain template without
+          first creating the parent row the foreign key requires. That reads as a fixture defect
+          rather than a product defect — but it is <em>unproven either way</em> until fixed, and
+          every section after O never ran.
+        </p>
+      </div>
+      <div class="card rv" data-delay="70">
+        <div class="idx"><span>GAP 02</span></div>
+        <h3>Cubex³ has zero tests</h3>
+        <p>
+          No test suites, no test script in the manifest. It compiles clean and produces a
+          working production build — 2,781 modules in 10.6s — and that is a statement about
+          the <em>build</em>, not about coverage. A green typecheck proves internal consistency
+          and nothing else. Seven typecheck errors were repaired on 2 Aug 2026; that changed
+          nothing about coverage.
+        </p>
+      </div>
+      <div class="card rv" data-delay="140">
+        <div class="idx"><span>GAP 03</span></div>
+        <h3>OrbitGen-AI has zero tests</h3>
+        <p>
+          The key system — identifier normalisation, reference rewriting, parent-link repair,
+          format validation — is <strong>entirely untested</strong>. Its whole purpose is
+          enforcing invariants a language model will otherwise violate, which makes this the
+          highest-value gap in the portfolio and also the cheapest to close: the functions are
+          pure and take plain objects.
+        </p>
+      </div>
+    </div>
+
+    <div class="callout warn rv">
+      <span class="lbl">Said plainly</span>
+      <p class="mb0">
+        Two of four repositories have no automated tests. The 1,686 figure describes the two
+        that do. Any reading of this site that treats that number as portfolio-wide coverage
+        is a misreading, and we would rather say so here than be corrected later.
+      </p>
+    </div>
+  </div>
+</section>
+
+<hr class="rule">
+
+<!-- ============================================================ BATTERY -->
+<section id="battery">
+  <div class="wrap">
+    <div class="max rv" style="margin-bottom:3rem">
+      <p class="eyebrow">Byte for Byte · falsification battery</p>
+      <h2>Six attempted falsifications, and the raw bundles.</h2>
+      <p class="mb0">
+        Each probe is an attack on our own claim, run against a live local model. One of the six
+        is <strong>required to diverge</strong>: if the harness cannot detect nondeterminism when
+        nondeterminism is present, no other row in the table means anything. The full evidence
+        bundle for every run below is downloadable — including the run that failed.
+      </p>
+    </div>
+
+    <div class="split">
+      <div class="rv">
+        <div class="term">
+          <div class="term-bar"><span class="dot"></span> run 2 Aug 2026 · 20:26 UTC · VERDICT PASS</div>
+          <div class="term-body"><span class="d">model qwen2.5-coder:7b · embedder mxbai-embed-large</span>
+<span class="d">ollama 0.32.5 · seed 42 · replay runs=3</span>
+<span class="d">server settled: models unloaded (declared start)</span>
+
+<span class="ok">PASS</span>  embedder-repeat         <span class="d">d8c44bb136975f12</span>
+<span class="ok">PASS</span>  embedder-batch-mix      <span class="d">422b2e350af70d98</span>
+<span class="ok">PASS</span>  replay-across-processes <span class="d">cd3e99af6f55814b ×3</span>
+<span class="ok">PASS</span>  cache-eviction-attack   <span class="d">cd3e99af6f55814b</span>
+<span class="ok">PASS</span>  interleave-attack       <span class="d">cd3e99af6f55814b</span>
+<span class="ok">PASS</span>  control-divergence      <span class="d">3 distinct in 3 runs</span>
+
+<span class="v">VERDICT: PASS</span>
+<span class="d">Scope: local fixed hardware; reproducibility,</span>
+<span class="d">not correctness.</span></div>
+        </div>
+      </div>
+      <div class="rv" data-delay="100">
+        <h3>What each probe attacks</h3>
+        <p>
+          <strong>Cache eviction</strong> unloads the model between calls and demands the same
+          bytes back. <strong>Interleave</strong> runs a competing generation in between to
+          disturb server state. <strong>Replay across processes</strong> requires a fresh OS
+          process to reproduce a previous one's output exactly.
+          <strong>Control divergence</strong> switches the guard off and requires the output to
+          differ — it exists to catch us, not to reassure anyone.
+        </p>
+        <p class="mb0">
+          Every generation's full raw text and sha256 is in the bundle, along with OS, CPU,
+          Ollama version and model digests. Recompute <code>sha256(utf8(fullText))</code> for any
+          generation and compare it against the recorded hash; diff any two <code>fullText</code>
+          fields a check asserts are equal. A single-byte difference in an asserted-equal pair
+          falsifies the claim on that machine.
+        </p>
+      </div>
+    </div>
+
+    <table class="spec rv" style="margin-top:2.4rem">
+      <tr>
+        <th>2 Aug 2026 · 20:26 UTC</th>
+        <td>
+          <strong>PASS</strong> — 6 of 6 held ·
+          <a href="assets/evidence/review-qwen2.5_coder_7b-2026-08-02T20-28-14-734Z.json" download>bundle (JSON, 14 KB)</a> ·
+          <a href="assets/evidence/review-qwen2.5_coder_7b-2026-08-02T20-28-14-734Z.log" download>transcript</a>
+        </td>
+      </tr>
+      <tr>
+        <th>2 Aug 2026 · 01:29 UTC</th>
+        <td>
+          <strong>PASS</strong> — 6 of 6 held ·
+          <a href="assets/evidence/review-qwen2.5_coder_7b-2026-08-02T01-30-40-208Z.json" download>bundle (JSON, 14 KB)</a> ·
+          <a href="assets/evidence/review-qwen2.5_coder_7b-2026-08-02T01-30-40-208Z.log" download>transcript</a>
+        </td>
+      </tr>
+      <tr>
+        <th>1 Aug 2026 · 00:19 UTC</th>
+        <td>
+          <strong style="color:var(--c4)">FALSIFIED</strong> — reported our own claim broken ·
+          <a href="assets/evidence/review-qwen2.5_coder_7b-2026-08-01T00-21-20-378Z.json" download>bundle (JSON, 14 KB)</a> ·
+          <a href="assets/evidence/review-qwen2.5_coder_7b-2026-08-01T00-21-20-378Z.log" download>transcript</a>
+        </td>
+      </tr>
+    </table>
+  </div>
+</section>
+
+<hr class="rule">
+
+<!-- ============================================================ THE BAD RUN -->
+<section>
+  <div class="wrap">
+    <div class="split wide-left">
+      <div class="rv">
+        <p class="eyebrow v2">The run we kept</p>
+        <h2>The night the harness was wrong.</h2>
+        <p>
+          On 1 August the battery reported <strong>FALSIFIED</strong>. Two of the three replay
+          workers had died — memory pressure on a 15.4 GB laptop — and the harness scored a
+          worker that <em>crashed</em> identically to a worker that produced <em>different
+          bytes</em>. An environment failure was reported as a falsified claim.
+        </p>
+        <p>
+          The surviving worker's hash was <code>cd3e99af6f55814b</code> — the same hash the
+          passing runs produce. The claim held. The instrument did not.
+        </p>
+        <p>
+          The harness now separates the two: a falsified check exits 1, and an environment that
+          could not run a check exits 2 and reports <strong>INCONCLUSIVE</strong>. That
+          separation is load-bearing — a harness that reports a result it did not measure is
+          worth nothing.
+        </p>
+        <p class="mb0">
+          The bad bundle is kept in the package and published here rather than deleted. It is
+          the only artefact on this site that demonstrates the battery is capable of returning
+          a negative.
+        </p>
+      </div>
+      <div class="rv" data-delay="120">
+        <div class="term">
+          <div class="term-bar"><span class="dot"></span> run 1 Aug 2026 · VERDICT FALSIFIED</div>
+          <div class="term-body"><span class="ok">PASS</span>  embedder-repeat
+<span class="ok">PASS</span>  embedder-batch-mix
+<span class="w">FAIL</span>  replay-across-processes
+      <span class="d">[cd3e99af6f55814b,</span>
+       <span class="w">WORKER_ERROR()</span><span class="d">,</span>
+       <span class="w">WORKER_ERROR()</span><span class="d">]</span>
+<span class="ok">PASS</span>  cache-eviction-attack
+<span class="ok">PASS</span>  interleave-attack
+<span class="ok">PASS</span>  control-divergence
+
+<span class="w">VERDICT: FALSIFIED</span>
+<span class="d">— replay-across-processes</span>
+
+<span class="d">────────────────────────────────────</span>
+<span class="d">post-mortem: 2 of 3 workers died.</span>
+<span class="d">the survivor's bytes were correct.</span>
+<span class="v">exit code 2 / INCONCLUSIVE now</span>
+<span class="d">distinguishes this from exit 1.</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="rule">
+
+<!-- ============================================================ SUITES -->
+<section>
+  <div class="wrap">
+    <div class="max rv" style="margin-bottom:2.6rem">
+      <p class="eyebrow">The suites</p>
+      <h2>Eighteen backend suites, plus four standalone.</h2>
+      <p class="mb0">
+        Two suites are worth naming individually, because the rest of this table is unremarkable
+        and those two are not.
+      </p>
+    </div>
+
+    <div class="split" style="margin-bottom:2.6rem">
+      <div class="rv">
+        <table class="spec">
+          <tr><th>01 Pipeline profile invariants</th><td>15 / 15</td></tr>
+          <tr><th>02 Watchdog coherence circuit breaker</th><td>20 / 20</td></tr>
+          <tr><th>03 Arc-role prompt construction</th><td>19 / 19</td></tr>
+          <tr><th>04 JSON repair — boundary cases</th><td>19 / 19</td></tr>
+          <tr><th>05 Arc scoring mathematics</th><td>27 / 27</td></tr>
+          <tr><th>06 Voxel lattice addressing (exhaustive)</th><td><strong>741 / 741</strong></td></tr>
+          <tr><th>07 Tensor field mathematics</th><td>24 / 24</td></tr>
+          <tr><th>08 Database schema integrity</th><td>11 / 11</td></tr>
+          <tr><th>09 Seven-arc system invariants</th><td>22 / 22</td></tr>
+          <tr><th>10 Tensor field integration (SQLite)</th><td>13 / 13</td></tr>
+        </table>
+      </div>
+      <div class="rv" data-delay="100">
+        <table class="spec">
+          <tr><th>11 Transmutation chain mathematics</th><td>32 / 32</td></tr>
+          <tr><th>12 Alignment rescaling (parametric)</th><td>52 / 52</td></tr>
+          <tr><th>13 Stopwords exhaustive</th><td>96 / 96</td></tr>
+          <tr><th>14 Goal decomposer mechanics</th><td>134 / 134</td></tr>
+          <tr><th>15 Capability detector</th><td>78 / 78</td></tr>
+          <tr><th>16 Goal tracker · 1×3×7 tool execution</th><td>53 / 53</td></tr>
+          <tr><th>17 Capability sandbox</th><td>57 / 57 · 8 skipped</td></tr>
+          <tr><th>18 Metabolism reinforcement</th><td>25 / 25</td></tr>
+          <tr><th>Engine suite · node/parent integrity</th><td>174 / 174</td></tr>
+          <tr><th>Reproducibility &amp; validation ledger</th><td>24 / 24</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="grid g2">
+      <div class="card rv">
+        <div class="idx"><span>SUITE 06</span></div>
+        <h3>741 assertions, exhaustive rather than sampled</h3>
+        <p>
+          Every one of the 342 data positions is tested individually in both directions —
+          position to coordinate, and coordinate back to position — plus portal guards,
+          out-of-range refusal, depth boundaries and all seven layer boundaries. An off-by-one
+          in an odometer is silent, so the suite is written to make silence impossible.
+        </p>
+      </div>
+      <div class="card rv" data-delay="70">
+        <div class="idx"><span>LEDGER · 24 / 24</span></div>
+        <h3>The tamper-evidence claim, tested as an attack</h3>
+        <p>
+          Editing a recorded hash in place breaks the chain loudly. Deleting a line breaks it
+          loudly. Re-asserting an existing key with different bytes is an integrity error rather
+          than a silent replacement. A torn trailing line from a crash mid-append is tolerated
+          while earlier records still enforce. Unwitnessed bytes are checked but never become
+          ground truth.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="rule">
+
+<!-- ============================================================ MACHINE -->
+<section>
+  <div class="wrap">
+    <div class="split">
+      <div class="rv">
+        <p class="eyebrow v2">Provenance</p>
+        <h2>The exact machine.</h2>
+        <p>
+          The byte-for-byte claim is scoped to local inference on fixed hardware, so the hardware
+          is part of the result. Every bundle carries this block, and a different machine is
+          expected to produce different hashes — what it must not produce is different hashes on
+          the <em>same</em> machine.
+        </p>
+        <p class="mb0">
+          Contract tests need none of this: 50 of 50 pass against fake adapters in about a third
+          of a second, with no model, no GPU and no network.
+        </p>
+      </div>
+      <div class="rv" data-delay="120">
+        <table class="spec">
+          <tr><th>OS</th><td>win32 10.0.26200 (x64)</td></tr>
+          <tr><th>CPU</th><td>AMD Ryzen 7 4800H with Radeon Graphics</td></tr>
+          <tr><th>Memory</th><td>15.4 GB</td></tr>
+          <tr><th>Node</th><td>v24.18.0</td></tr>
+          <tr><th>Serving</th><td>Ollama 0.32.5 · localhost:11434</td></tr>
+          <tr><th>Model</th><td>qwen2.5-coder:7b · digest <code>dae161e27b0e</code></td></tr>
+          <tr><th>Embedder</th><td>mxbai-embed-large · digest <code>468836162de7</code></td></tr>
+          <tr><th>Seed</th><td>42 · replay runs 3</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="rule">
+
+<!-- ============================================================ CLOSING -->
+<section class="tight">
+  <div class="wrap">
+    <div class="max rv">
+      <div class="callout">
+        <span class="lbl">What this page is and is not</span>
+        <p>
+          It is a record of what was measured, on a stated date, on a stated machine. It is not
+          a certification, not an independent audit, and not a claim that any output is correct —
+          reproducibility and correctness are different properties, and only the first is tested
+          here.
+        </p>
+        <p class="mb0">
+          The next things to fix, in order of leverage: the <code>run_all_tests</code> fixture so
+          the integration run completes; tests for the OrbitGen key system, which are pure
+          functions and cheap; and a first suite for Cubex³, now that a green build makes the
+          absence of tests the only remaining gap on that repository.
+        </p>
+      </div>
+      <div class="btns">
+        <a class="btn primary" href="byte-for-byte.html">The module under review <span class="arw">→</span></a>
+        <a class="btn" href="mailto:G-ynthetic-Labs@proton.me">Request the review package</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="pager">
+  <a href="byte-for-byte.html"><span class="lb">← Back</span><span class="tt">Byte for Byte</span></a>
+  <a class="next" href="investors.html"><span class="lb">Next</span><span class="tt">Investor brief →</span></a>
+</div>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <a class="brand" href="index.html"><span class="brand-mark"></span> G-YNTHETIC&nbsp;LABS</a>
+        <p style="margin-top:16px;max-width:34ch;font-size:.9rem">
+          Infrastructure for AI memory and reasoning. Built for domains where a hallucination
+          is a liability.
+        </p>
+      </div>
+      <div>
+        <h5>Core</h5>
+        <ul>
+          <li><a href="byte-for-byte.html">Byte for Byte</a></li>
+          <li><a href="architecture.html">The Address Space</a></li>
+          <li><a href="platform.html">Memory Cognitive Lattice</a></li>
+          <li><a href="fracc.html">F.R.A.C.C.</a></li>
+          <li><a href="arc-lab.html">Arc Lab</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Applied</h5>
+        <ul>
+          <li><a href="orbitgen.html">Key System</a></li>
+          <li><a href="cubex.html">Cubex³</a></li>
+          <li><a href="secured.html">SeCUReD</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Company</h5>
+        <ul>
+          <li><a href="evidence.html">Evidence</a></li>
+          <li><a href="investors.html">Investors</a></li>
+          <li><a href="investors.html#research">Research</a></li>
+          <li><a href="mailto:G-ynthetic-Labs@proton.me">G-ynthetic-Labs@proton.me</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bot">
+      <span>© <span data-year>2026</span> G-YNTHETIC LABS · PORTLAND, OREGON</span>
+      <span>WE AREN'T TEACHING AI TO THINK — WE'RE GIVING IT A PLACE TO STAND</span>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/js/gl.js"></script>
+<script src="assets/js/site.js"></script>
+</body>
+</html>

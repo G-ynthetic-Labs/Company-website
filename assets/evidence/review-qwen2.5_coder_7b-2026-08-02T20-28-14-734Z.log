@@ -1,0 +1,16 @@
+byte-for-byte reproducibility — peer-review verification
+model=qwen2.5-coder:7b  embedder=mxbai-embed-large:latest  server=http://localhost:11434 (ollama 0.32.5)  replay runs=3
+commit=(unavailable  seed=42  win32 10.0.26200 (x64)
+prompt="Decompose "why does my team keep missing deadlines even though everyon…"
+
+server settled: completion models unloaded (declared starting state)
+
+  PASS  embedder-repeat: batch sha256 d8c44bb136975f12 vs d8c44bb136975f12
+  PASS  embedder-batch-mix: 'bridge' vector sha256 422b2e350af70d98 vs 422b2e350af70d98
+  PASS  replay-across-processes: hashes [cd3e99af6f55814b, cd3e99af6f55814b, cd3e99af6f55814b]
+  PASS  cache-eviction-attack: cd3e99af6f55814b vs cd3e99af6f55814b
+  PASS  interleave-attack: cd3e99af6f55814b vs cd3e99af6f55814b
+  PASS  control-divergence: 3 distinct in 3 runs
+
+VERDICT: PASS — byte-for-byte claim held under all falsification attempts on this machine
+Scope: local fixed hardware; reproducibility, not correctness.
