@@ -50,56 +50,21 @@
 <section>
   <div class="wrap">
     <div class="legal rv">
-<p><strong>Last updated:</strong> 21 August 2026 <strong>Applies to:</strong> the CUBEX³ mobile app and the CUBEX³ website.</p>
+<p><strong>Last updated:</strong> 29 August 2026 <strong>Applies to:</strong> the CUBEX³ mobile app and the CUBEX³ website.</p>
 <p>CUBEX³ is published by G-ynthetic Labs ("we"). This policy describes what the app does with information about you. It is written to match what the software actually does; where it says we do not collect something, there is no code in the app that collects it.</p>
 <hr>
 <h2>The short version</h2>
-<p>If you never sign in, we receive nothing. No account, no analytics, no identifiers, no gameplay data. The game runs entirely on your device and your campaign is stored only there.</p>
-<p>If you do sign in, we hold your account identity and your saved campaign so it can follow you between devices. You can delete all of it from inside the app at any time.</p>
+<p><strong>We have no servers, and we receive nothing about you.</strong></p>
+<p>CUBEX³ runs entirely on your device. There is no account to create, no sign-in, nothing to sync, and no way for us to see how you play. Your profiles and your campaign are stored on your phone and never leave it.</p>
+<p>One thing in the app does transmit: the advertisement. It is served by Google AdMob, and section 1 describes exactly what that involves. That is the whole of it.</p>
 <hr>
-<h2>1. What we collect, and only when</h2>
-<h3>If you play without an account — nothing</h3>
-<p>The complete game, including the full idle campaign, works with no account. In that state the app makes no request to us, stores nothing on our servers, and generates no identifier for you. Your campaign is saved in local storage on your device and stays there.</p>
-<h3>If you sign in</h3>
-<p>Signing in is optional and exists to support cross-device sync and the unlock. We then hold:</p>
-<div class="scroller"><table><thead><tr>
-<th>What</th>
-<th>Why</th>
-<th>Source</th>
-</tr></thead><tbody>
-<tr>
-<td>Firebase user ID</td>
-<td>Identifies your account</td>
-<td>Created at sign-in</td>
-</tr>
-<tr>
-<td>Email address and display name</td>
-<td>Identifies the account so you can sign back in and recover it</td>
-<td>Your Google account, if you use Google Sign-In</td>
-</tr>
-<tr>
-<td>Profile image URL</td>
-<td>Shown in the app</td>
-<td>Your Google account, if provided</td>
-</tr>
-<tr>
-<td>Your saved campaign</td>
-<td>Kept in sync across your devices</td>
-<td>Your gameplay</td>
-</tr>
-<tr>
-<td>A general device description</td>
-<td>Shows which device last synced, e.g. "Android device"</td>
-<td>Derived from your browser's user agent</td>
-</tr>
-</tbody></table></div>
-<p>If you sign in as a guest, no email or name exists to collect — only the generated account ID and your saved campaign.</p>
-<p>The device description is deliberately coarse. It records a device category, not a device identifier, and cannot be used to distinguish one Android phone from another.</p>
-<h3>If you buy the unlock</h3>
-<p>CUBEX³ Pro is a one-time purchase, made on our website and handled by Stripe. <strong>We never see or store your card details.</strong> We store the Stripe customer and payment identifiers and whether the unlock is active, so the app knows whether to switch the ads off.</p>
-<p>It is not sold through Google Play, so no purchase data reaches Google.</p>
-<h3>Advertising</h3>
-<p>The free tier shows <strong>one banner advertisement</strong>, served by <strong>Google AdMob</strong>. This is the only third-party component in the app that transmits anything, and it is the reason the section below is worded carefully rather than absolutely.</p>
+<h2>1. What the app collects</h2>
+<h3>What we collect: nothing</h3>
+<p>We operate no server for CUBEX³, hold no database, and have no account system. There is no request the app can make to us, because there is nothing for it to make a request to. We cannot identify you, cannot see your games, and could not produce a record about you if you asked for one, because none exists.</p>
+<h3>What stays on your device</h3>
+<p>Your commander profiles, their experience, your campaign progress, your chosen army and your settings are written to your device's local storage by the app. That data never leaves the phone. We cannot read it, and deleting it is entirely under your control — see section 4.</p>
+<h3>Advertising — the only thing that transmits</h3>
+<p>The app shows <strong>one banner advertisement</strong>, served by <strong>Google AdMob</strong>. This is the only component in the app that sends anything anywhere, and it is the reason this section is worded carefully rather than absolutely.</p>
 <p>To serve that banner, the Google Mobile Ads SDK collects and shares with Google:</p>
 <div class="scroller"><table><thead><tr>
 <th>What</th>
@@ -118,13 +83,17 @@
 <td>Counts what was shown, and detects fraudulent traffic</td>
 </tr>
 </tbody></table></div>
-<p><strong>Buying the unlock stops this completely.</strong> The ad SDK is not initialised for a player who owns the unlock — it is not merely hidden. There is no ad request, so nothing is transmitted.</p>
-<p><strong>If you are in the EEA or the UK</strong>, a consent form appears before any ad loads, presented through Google's User Messaging Platform. You choose there whether your data may be used for personalised ads. Declining is a real choice: you keep the free tier in full and see non-personalised ads instead. You can reopen that choice at any time from the account panel.</p>
+<p><strong>We never receive any of it.</strong> It goes from your device to Google. We see an aggregate earnings figure and nothing that identifies a person.</p>
+<p><strong>If you are in the EEA or the UK</strong>, a consent form appears before any ad loads, presented through Google's User Messaging Platform. You choose there whether your data may be used for personalised ads. Declining is a real choice: you keep the complete game and see non-personalised ads instead. You can reopen that choice at any time from the app's account panel.</p>
 <p>You can also limit ad tracking device-wide in <strong>Android Settings — Privacy — Ads</strong>, which lets you reset or delete your advertising ID independently of us.</p>
 <p>Google's own handling of this data is described at &lt;https://policies.google.com/technologies/partner-sites&gt;.</p>
 <hr>
 <h2>2. What we do not collect</h2>
 <p>We want to be specific rather than reassuring:</p>
+<ul>
+<li><strong>No account, no sign-in, no cloud.</strong> The app has no login and no server to log</li>
+</ul>
+<p>in to. Nothing you do is associated with an identity.</p>
 <ul>
 <li><strong>No analytics or telemetry.</strong> There is no analytics SDK in the app. Nothing</li>
 </ul>
@@ -132,7 +101,7 @@
 <ul>
 <li><strong>No advertising profile built by us.</strong> The advertising ID is used by Google's</li>
 </ul>
-<p>ad SDK on the free tier, as described above. We never receive it, never store it, and never join it to your account, your saves, or your purchase.</p>
+<p>ad SDK, as described above. We never receive it and never store it.</p>
 <ul>
 <li><strong>No location, contacts, photos, files, microphone, or camera.</strong> The app holds</li>
 </ul>
@@ -142,92 +111,59 @@
 </ul>
 <p>automated decisions with legal or similarly significant effects.</p>
 <ul>
-<li><strong>No data sold.</strong> We do not sell personal information for money, ever. On the</li>
+<li><strong>No data sold.</strong> We do not sell personal information for money, ever. Serving</li>
 </ul>
-<p>free tier, serving personalised ads can amount to <em>sharing</em> for cross-context behavioural advertising as US state privacy law uses that term — see section 7 for how to opt out. Buying the unlock ends it outright.</p>
+<p>personalised ads can amount to <em>sharing</em> for cross-context behavioural advertising as US state privacy law uses that term — see section 5 for how to opt out.</p>
 <ul>
 <li><strong>No use of your games for research.</strong> Any AI training data we use comes from a</li>
 </ul>
 <p>separate self-play pipeline that never touches players' games.</p>
-<h2>3. Why we are allowed to hold it</h2>
-<p>Under the GDPR and equivalent laws, our legal basis is:</p>
-<ul>
-<li><strong>Performance of a contract</strong> — account identity, saved campaign, and unlock</li>
-</ul>
-<p>status. You asked for sync and a purchase; these are what make them work.</p>
-<ul>
-<li><strong>Consent</strong> — advertising on the free tier, where consent is required. It is</li>
-</ul>
-<p>asked for before any ad loads, and it is withdrawable at any time.</p>
-<ul>
-<li><strong>Legal obligation</strong> — retention of transaction records where tax law requires</li>
-</ul>
-<p>it.</p>
-<p>We do not rely on legitimate interests for advertising, and we do not process special categories of personal data at all.</p>
 <hr>
-<h2>4. Who else is involved</h2>
-<ul>
-<li><strong>Google (Firebase)</strong> — authentication, database, and hosting for accounts and</li>
-</ul>
-<p>saves. A processor, acting on our instructions, covered by Google's data processing terms.</p>
-<ul>
-<li><strong>Stripe</strong> — payment for the unlock, on the web. Stripe is an independent</li>
-</ul>
-<p>controller for payment data and applies its own policy to it.</p>
-<ul>
-<li><strong>Google (AdMob)</strong> — the banner on the free tier. For advertising data Google</li>
-</ul>
-<p>acts as an <strong>independent controller</strong>, not as our processor: we do not instruct it, do not receive the data, and cannot delete it on your behalf. Use the device-level and consent controls described in section 1, or buy the unlock, which stops the SDK loading at all.</p>
-<p>Nothing is sold through Google Play, so no purchase data reaches Google.</p>
-<p>International transfers rely on the standard contractual clauses and equivalent mechanisms in those providers' terms.</p>
+<h2>3. Why we are allowed to do this</h2>
+<p>Under the GDPR and equivalent laws, the only processing that involves us at all is advertising, and our legal basis for it is <strong>consent</strong>, asked for before any ad loads and withdrawable at any time.</p>
+<p>We hold no personal data of our own, so there is nothing else to have a basis for. We do not rely on legitimate interests for advertising, and we do not process special categories of personal data at all.</p>
 <hr>
-<h2>5. How long we keep it</h2>
+<h2>4. Deleting your data</h2>
+<p>Because everything lives on your device, deletion is immediate and entirely in your hands. There is no request to send us and no waiting period.</p>
 <ul>
-<li><strong>Saved campaign and account record</strong> — until you delete your account, or</li>
+<li><strong>Android Settings — Apps — CUBEX³ — Storage — Clear data</strong> removes every</li>
 </ul>
-<p>after 24 months of no sign-in, whichever comes first.</p>
+<p>profile, campaign and setting the app has stored.</p>
 <ul>
-<li><strong>Purchase records</strong> — for as long as tax and accounting law requires,</li>
+<li><strong>Uninstalling the app</strong> does the same.</li>
 </ul>
-<p>after which they are removed.</p>
-<ul>
-<li><strong>Local data on your device</strong> — until you delete it or uninstall the app. We</li>
-</ul>
-<p>cannot reach it.</p>
+<p>We hold nothing to delete on our side. Full instructions are at <strong>https://g-ynthetic-labs.com/cubex3/privacy/delete</strong>.</p>
+<p>To reset the advertising identifier Google holds, use <strong>Android Settings — Privacy — Ads</strong>. That identifier is Google's, not ours, and this is the control that governs it.</p>
 <hr>
-<h2>6. Deleting your account</h2>
-<p>You can delete your account from inside the app: open the account panel and choose <strong>Delete account</strong>. This permanently removes your account record, your cloud saves, and closes your billing record. It cannot be undone, and it does not refund the unlock.</p>
-<p>You can also request deletion without opening the app, at <strong>https://g-ynthetic-labs.com/cubex3/privacy/delete</strong>, or by emailing <strong>G-ynthetic-Labs@proton.me</strong> from the address on your account.</p>
-<p>Deleting your cloud account does not erase the campaign stored on your own device — that stays yours. Uninstalling the app removes it.</p>
-<hr>
-<h2>7. Your rights</h2>
-<p>Wherever you live, you can ask us to give you a copy of your data, correct it, delete it, restrict or object to how we use it, or provide it in a portable form. We do not charge for this and we do not treat you differently for asking.</p>
-<p>To exercise any of these, email <strong>G-ynthetic-Labs@proton.me</strong>. We respond within 30 days.</p>
+<h2>5. Your rights</h2>
+<p>Wherever you live, you have the right to ask us for a copy of your data, to correct it, to delete it, to restrict or object to how we use it, and to receive it in a portable form.</p>
+<p>In our case the honest answer to all of them is the same: <strong>we hold no data about you</strong>, so there is nothing to produce, correct, or erase. We will say so in writing if you ask. Email <strong>G-ynthetic-Labs@proton.me</strong> and we respond within 30 days.</p>
 <p>Depending on where you live, you may also have the right to:</p>
 <ul>
 <li><strong>EEA / UK:</strong> complain to your national data protection authority.</li>
 <li><strong>California and other US states:</strong> know, delete, correct, and opt out of sale</li>
 </ul>
-<p>or sharing. We never sell. To opt out of <em>sharing</em> for behavioural advertising, use any one of: the in-app privacy choices, <strong>Android Settings — Privacy — Ads</strong> to limit or reset your advertising ID, or buying the unlock, which removes the ad SDK entirely. Emailing us works too and we will confirm.</p>
+<p>or sharing. We never sell. To opt out of <em>sharing</em> for behavioural advertising, use either the in-app privacy choices or <strong>Android Settings — Privacy — Ads</strong> to limit or reset your advertising ID. Emailing us works too and we will confirm.</p>
 <ul>
 <li>**Brazil, Canada, Japan, South Korea, India, Australia, South Africa,</li>
 </ul>
-<p>Switzerland, and elsewhere:** the equivalent local rights, which we handle through the same route.</p>
-<p>Our representative for the EU and the UK is listed at <strong>https://g-ynthetic-labs.com/cubex3/privacy</strong> and can be reached at the address above.</p>
+<p>Switzerland, and elsewhere:** the equivalent local rights, handled through the same route.</p>
 <hr>
-<h2>8. Children</h2>
-<p>CUBEX³ is not directed to children and we do not knowingly collect personal information from anyone under 13, or under the higher age set by local law where that applies. If you believe a child has created an account, email <strong>G-ynthetic-Labs@proton.me</strong> and we will delete it.</p>
+<h2>6. Children</h2>
+<p>CUBEX³ is not directed to children and we do not knowingly collect personal information from anyone under 13, or under the higher age set by local law where that applies. Since we collect nothing from anyone, this is a statement about the ad SDK: the app is rated for a general audience aged 13 and over, and is not served through Google Play's Families programme.</p>
 <hr>
-<h2>9. Security</h2>
-<p>Data in transit is encrypted with TLS. Access to saved campaigns is restricted by server-side rules so an account can only read and write its own data. Unlock status can only be written by our payment server, never by an app on a device.</p>
+<h2>7. Security</h2>
+<p>We hold no data about you, which removes the largest category of risk outright: there is no database of ours to breach.</p>
+<p>The data on your device is protected by Android's own application sandbox, which prevents other apps from reading it. Anything the app fetches over the network is encrypted with TLS.</p>
 <p>No system is perfectly secure, and we will not claim otherwise. If a breach affects you, we will notify you and the relevant regulator as the law requires.</p>
 <hr>
-<h2>10. Changes</h2>
-<p>If we change this policy in a way that affects what we collect or why, we will update the date above and notify you in the app before the change takes effect.</p>
+<h2>8. Changes</h2>
+<p>If we change this policy in a way that affects what is collected or why, we will update the date above and notify you in the app before the change takes effect.</p>
+<p>In particular, if a future version adds optional accounts or cloud sync, that is exactly such a change: it will be announced, it will be optional, and this policy will be rewritten before it ships.</p>
 <hr>
-<h2>11. Contact</h2>
+<h2>9. Contact</h2>
 <p>G-ynthetic Labs <strong>G-ynthetic-Labs@proton.me</strong></p>
-<p>Postal address and company registration details are published at <strong>https://g-ynthetic-labs.com/cubex3/privacy</strong>.</p>
+<p>Postal address and company registration details are published at <strong>https://g-ynthetic-labs.com</strong>.</p>
     </div>
   </div>
 </section>
