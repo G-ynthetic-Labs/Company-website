@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Privacy Policy — Cubex³ — G-ynthetic Labs</title>
+<meta name="description" content="Privacy Policy for CUBEX³, published by G-ynthetic Labs.">
+<meta name="robots" content="index, follow">
+<link rel="stylesheet" href="../../assets/css/base.css">
+<style>
+  .legal { max-width: var(--w-text); }
+  .legal h2 { margin: 2.5rem 0 .75rem; }
+  .legal h3 { margin: 1.75rem 0 .5rem; color: var(--text-dim); }
+  .legal li { margin-bottom: .4rem; }
+  .legal hr { border: 0; border-top: 1px solid var(--line); margin: 2.5rem 0; }
+  .legal code {
+    font-family: var(--mono); font-size: .875em; color: var(--c1);
+    background: var(--c1-soft); border: 1px solid var(--line);
+    padding: .08em .35em; border-radius: var(--r);
+  }
+  .legal .scroller { overflow-x: auto; margin: 0 0 1.25rem; border: 1px solid var(--line); }
+  .legal table { border-collapse: collapse; width: 100%; min-width: 30rem; font-size: .92rem; }
+  .legal th, .legal td { text-align: left; padding: .6rem .8rem; border-bottom: 1px solid var(--line); vertical-align: top; }
+  .legal th { background: var(--panel); color: var(--text); font-weight: 600; }
+  .legal tbody tr:last-child td { border-bottom: 0; }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-in">
+    <a class="brand" href="../../index.html"><span class="brand-mark"></span> G-YNTHETIC&nbsp;LABS</a>
+    <button class="nav-toggle" aria-expanded="false">Menu</button>
+    <div class="nav-links">
+      <a href="../../cubex.html">Cubex³</a>
+      <a href="../../platform.html">Lattice</a>
+      <a href="../../evidence.html">Evidence</a>
+      <a href="../../investors.html" class="nav-cta">Investors</a>
+    </div>
+  </div>
+</nav>
+
+<header class="phead">
+  <div class="wrap">
+    <p class="crumb"><a href="../../cubex.html">Cubex³</a> / Legal</p>
+    <h1>Privacy Policy</h1>
+  </div>
+</header>
+
+<section>
+  <div class="wrap">
+    <div class="legal rv">
+<p><strong>Last updated:</strong> 21 August 2026 <strong>Applies to:</strong> the CUBEX³ mobile app and the CUBEX³ website.</p>
+<p>CUBEX³ is published by G-ynthetic Labs ("we"). This policy describes what the app does with information about you. It is written to match what the software actually does; where it says we do not collect something, there is no code in the app that collects it.</p>
+<hr>
+<h2>The short version</h2>
+<p>If you never sign in, we receive nothing. No account, no analytics, no identifiers, no gameplay data. The game runs entirely on your device and your campaign is stored only there.</p>
+<p>If you do sign in, we hold your account identity and your saved campaign so it can follow you between devices. You can delete all of it from inside the app at any time.</p>
+<hr>
+<h2>1. What we collect, and only when</h2>
+<h3>If you play without an account — nothing</h3>
+<p>The complete game, including the full idle campaign, works with no account. In that state the app makes no request to us, stores nothing on our servers, and generates no identifier for you. Your campaign is saved in local storage on your device and stays there.</p>
+<h3>If you sign in</h3>
+<p>Signing in is optional and exists to support cross-device sync and the unlock. We then hold:</p>
+<div class="scroller"><table><thead><tr>
+<th>What</th>
+<th>Why</th>
+<th>Source</th>
+</tr></thead><tbody>
+<tr>
+<td>Firebase user ID</td>
+<td>Identifies your account</td>
+<td>Created at sign-in</td>
+</tr>
+<tr>
+<td>Email address and display name</td>
+<td>Identifies the account so you can sign back in and recover it</td>
+<td>Your Google account, if you use Google Sign-In</td>
+</tr>
+<tr>
+<td>Profile image URL</td>
+<td>Shown in the app</td>
+<td>Your Google account, if provided</td>
+</tr>
+<tr>
+<td>Your saved campaign</td>
+<td>Kept in sync across your devices</td>
+<td>Your gameplay</td>
+</tr>
+<tr>
+<td>A general device description</td>
+<td>Shows which device last synced, e.g. "Android device"</td>
+<td>Derived from your browser's user agent</td>
+</tr>
+</tbody></table></div>
+<p>If you sign in as a guest, no email or name exists to collect — only the generated account ID and your saved campaign.</p>
+<p>The device description is deliberately coarse. It records a device category, not a device identifier, and cannot be used to distinguish one Android phone from another.</p>
+<h3>If you buy the unlock</h3>
+<p>CUBEX³ Pro is a one-time purchase, made on our website and handled by Stripe. <strong>We never see or store your card details.</strong> We store the Stripe customer and payment identifiers and whether the unlock is active, so the app knows whether to switch the ads off.</p>
+<p>It is not sold through Google Play, so no purchase data reaches Google.</p>
+<h3>Advertising</h3>
+<p>The free tier shows <strong>one banner advertisement</strong>, served by <strong>Google AdMob</strong>. This is the only third-party component in the app that transmits anything, and it is the reason the section below is worded carefully rather than absolutely.</p>
+<p>To serve that banner, the Google Mobile Ads SDK collects and shares with Google:</p>
+<div class="scroller"><table><thead><tr>
+<th>What</th>
+<th>Why</th>
+</tr></thead><tbody>
+<tr>
+<td>Advertising ID (AAID)</td>
+<td>Identifies the device to the ad network, and lets you reset or limit it</td>
+</tr>
+<tr>
+<td>Coarse IP-derived location, device and OS type</td>
+<td>Selects an ad that can be shown in your country and renders correctly</td>
+</tr>
+<tr>
+<td>Ad interaction events (impression, click)</td>
+<td>Counts what was shown, and detects fraudulent traffic</td>
+</tr>
+</tbody></table></div>
+<p><strong>Buying the unlock stops this completely.</strong> The ad SDK is not initialised for a player who owns the unlock — it is not merely hidden. There is no ad request, so nothing is transmitted.</p>
+<p><strong>If you are in the EEA or the UK</strong>, a consent form appears before any ad loads, presented through Google's User Messaging Platform. You choose there whether your data may be used for personalised ads. Declining is a real choice: you keep the free tier in full and see non-personalised ads instead. You can reopen that choice at any time from the account panel.</p>
+<p>You can also limit ad tracking device-wide in <strong>Android Settings — Privacy — Ads</strong>, which lets you reset or delete your advertising ID independently of us.</p>
+<p>Google's own handling of this data is described at &lt;https://policies.google.com/technologies/partner-sites&gt;.</p>
+<hr>
+<h2>2. What we do not collect</h2>
+<p>We want to be specific rather than reassuring:</p>
+<ul>
+<li><strong>No analytics or telemetry.</strong> There is no analytics SDK in the app. Nothing</li>
+</ul>
+<p>reports how you play, what you tap, how long you play, or when. The ad SDK described above sees that an ad was shown; it does not see your game.</p>
+<ul>
+<li><strong>No advertising profile built by us.</strong> The advertising ID is used by Google's</li>
+</ul>
+<p>ad SDK on the free tier, as described above. We never receive it, never store it, and never join it to your account, your saves, or your purchase.</p>
+<ul>
+<li><strong>No location, contacts, photos, files, microphone, or camera.</strong> The app holds</li>
+</ul>
+<p>two Android permissions: <code>INTERNET</code>, and the advertising-ID permission required by the ad SDK (<code>com.google.android.gms.permission.AD_ID</code>). No others.</p>
+<ul>
+<li><strong>No behavioural profiling.</strong> We do not build a profile of you and do not make</li>
+</ul>
+<p>automated decisions with legal or similarly significant effects.</p>
+<ul>
+<li><strong>No data sold.</strong> We do not sell personal information for money, ever. On the</li>
+</ul>
+<p>free tier, serving personalised ads can amount to <em>sharing</em> for cross-context behavioural advertising as US state privacy law uses that term — see section 7 for how to opt out. Buying the unlock ends it outright.</p>
+<ul>
+<li><strong>No use of your games for research.</strong> Any AI training data we use comes from a</li>
+</ul>
+<p>separate self-play pipeline that never touches players' games.</p>
+<h2>3. Why we are allowed to hold it</h2>
+<p>Under the GDPR and equivalent laws, our legal basis is:</p>
+<ul>
+<li><strong>Performance of a contract</strong> — account identity, saved campaign, and unlock</li>
+</ul>
+<p>status. You asked for sync and a purchase; these are what make them work.</p>
+<ul>
+<li><strong>Consent</strong> — advertising on the free tier, where consent is required. It is</li>
+</ul>
+<p>asked for before any ad loads, and it is withdrawable at any time.</p>
+<ul>
+<li><strong>Legal obligation</strong> — retention of transaction records where tax law requires</li>
+</ul>
+<p>it.</p>
+<p>We do not rely on legitimate interests for advertising, and we do not process special categories of personal data at all.</p>
+<hr>
+<h2>4. Who else is involved</h2>
+<ul>
+<li><strong>Google (Firebase)</strong> — authentication, database, and hosting for accounts and</li>
+</ul>
+<p>saves. A processor, acting on our instructions, covered by Google's data processing terms.</p>
+<ul>
+<li><strong>Stripe</strong> — payment for the unlock, on the web. Stripe is an independent</li>
+</ul>
+<p>controller for payment data and applies its own policy to it.</p>
+<ul>
+<li><strong>Google (AdMob)</strong> — the banner on the free tier. For advertising data Google</li>
+</ul>
+<p>acts as an <strong>independent controller</strong>, not as our processor: we do not instruct it, do not receive the data, and cannot delete it on your behalf. Use the device-level and consent controls described in section 1, or buy the unlock, which stops the SDK loading at all.</p>
+<p>Nothing is sold through Google Play, so no purchase data reaches Google.</p>
+<p>International transfers rely on the standard contractual clauses and equivalent mechanisms in those providers' terms.</p>
+<hr>
+<h2>5. How long we keep it</h2>
+<ul>
+<li><strong>Saved campaign and account record</strong> — until you delete your account, or</li>
+</ul>
+<p>after 24 months of no sign-in, whichever comes first.</p>
+<ul>
+<li><strong>Purchase records</strong> — for as long as tax and accounting law requires,</li>
+</ul>
+<p>after which they are removed.</p>
+<ul>
+<li><strong>Local data on your device</strong> — until you delete it or uninstall the app. We</li>
+</ul>
+<p>cannot reach it.</p>
+<hr>
+<h2>6. Deleting your account</h2>
+<p>You can delete your account from inside the app: open the account panel and choose <strong>Delete account</strong>. This permanently removes your account record, your cloud saves, and closes your billing record. It cannot be undone, and it does not refund the unlock.</p>
+<p>You can also request deletion without opening the app, at <strong>https://g-ynthetic-labs.com/cubex3/privacy/delete</strong>, or by emailing <strong>G-ynthetic-Labs@proton.me</strong> from the address on your account.</p>
+<p>Deleting your cloud account does not erase the campaign stored on your own device — that stays yours. Uninstalling the app removes it.</p>
+<hr>
+<h2>7. Your rights</h2>
+<p>Wherever you live, you can ask us to give you a copy of your data, correct it, delete it, restrict or object to how we use it, or provide it in a portable form. We do not charge for this and we do not treat you differently for asking.</p>
+<p>To exercise any of these, email <strong>G-ynthetic-Labs@proton.me</strong>. We respond within 30 days.</p>
+<p>Depending on where you live, you may also have the right to:</p>
+<ul>
+<li><strong>EEA / UK:</strong> complain to your national data protection authority.</li>
+<li><strong>California and other US states:</strong> know, delete, correct, and opt out of sale</li>
+</ul>
+<p>or sharing. We never sell. To opt out of <em>sharing</em> for behavioural advertising, use any one of: the in-app privacy choices, <strong>Android Settings — Privacy — Ads</strong> to limit or reset your advertising ID, or buying the unlock, which removes the ad SDK entirely. Emailing us works too and we will confirm.</p>
+<ul>
+<li>**Brazil, Canada, Japan, South Korea, India, Australia, South Africa,</li>
+</ul>
+<p>Switzerland, and elsewhere:** the equivalent local rights, which we handle through the same route.</p>
+<p>Our representative for the EU and the UK is listed at <strong>https://g-ynthetic-labs.com/cubex3/privacy</strong> and can be reached at the address above.</p>
+<hr>
+<h2>8. Children</h2>
+<p>CUBEX³ is not directed to children and we do not knowingly collect personal information from anyone under 13, or under the higher age set by local law where that applies. If you believe a child has created an account, email <strong>G-ynthetic-Labs@proton.me</strong> and we will delete it.</p>
+<hr>
+<h2>9. Security</h2>
+<p>Data in transit is encrypted with TLS. Access to saved campaigns is restricted by server-side rules so an account can only read and write its own data. Unlock status can only be written by our payment server, never by an app on a device.</p>
+<p>No system is perfectly secure, and we will not claim otherwise. If a breach affects you, we will notify you and the relevant regulator as the law requires.</p>
+<hr>
+<h2>10. Changes</h2>
+<p>If we change this policy in a way that affects what we collect or why, we will update the date above and notify you in the app before the change takes effect.</p>
+<hr>
+<h2>11. Contact</h2>
+<p>G-ynthetic Labs <strong>G-ynthetic-Labs@proton.me</strong></p>
+<p>Postal address and company registration details are published at <strong>https://g-ynthetic-labs.com/cubex3/privacy</strong>.</p>
+    </div>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot-bot">
+      <span>
+        <a href="/cubex3/privacy">Privacy</a> ·
+        <a href="/cubex3/terms">Terms</a> ·
+        <a href="/cubex3/privacy/delete">Delete your account</a> ·
+        <a href="mailto:G-ynthetic-Labs@proton.me">G-ynthetic-Labs@proton.me</a>
+      </span>
+      <span>© <span data-year>2026</span> G-YNTHETIC LABS · PORTLAND, OREGON</span>
+    </div>
+  </div>
+</footer>
+
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>
