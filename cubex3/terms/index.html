@@ -3,53 +3,123 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Terms of Service — Cubex — G-ynthetic Labs</title>
+<title>Terms of Service — Cubex</title>
 <meta name="description" content="Terms of Service for Cubex, published by G-ynthetic Labs.">
 <meta name="robots" content="index, follow">
-<link rel="stylesheet" href="../../assets/css/base.css">
+<meta name="theme-color" content="#020617">
 <style>
-  .legal { max-width: var(--w-text); }
-  .legal h2 { margin: 2.5rem 0 .75rem; }
-  .legal h3 { margin: 1.75rem 0 .5rem; color: var(--text-dim); }
-  .legal li { margin-bottom: .4rem; }
-  .legal hr { border: 0; border-top: 1px solid var(--line); margin: 2.5rem 0; }
-  .legal code {
-    font-family: var(--mono); font-size: .875em; color: var(--c1);
-    background: var(--c1-soft); border: 1px solid var(--line);
-    padding: .08em .35em; border-radius: var(--r);
+  :root {
+    --void: #020617; --panel: #0b1222; --panel-2: #0f172a;
+    --line: rgba(148,163,184,.14); --line-2: rgba(148,163,184,.28);
+    --text: #e2e8f0; --dim: #94a3b8; --mute: #64748b;
+    --cyan: #22d3ee; --emerald: #34d399;
+    --mono: ui-monospace, "SF Mono", "JetBrains Mono", "Cascadia Code", Menlo, Consolas, monospace;
+    --sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   }
-  .legal .scroller { overflow-x: auto; margin: 0 0 1.25rem; border: 1px solid var(--line); }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; color-scheme: dark; }
+  body {
+    margin: 0; min-height: 100vh; display: flex; flex-direction: column;
+    background:
+      radial-gradient(90rem 40rem at 50% -10rem, rgba(34,211,238,.09), transparent 60%),
+      linear-gradient(var(--line) 1px, transparent 1px) 0 0 / 100% 56px,
+      linear-gradient(90deg, var(--line) 1px, transparent 1px) 0 0 / 56px 100%,
+      var(--void);
+    background-attachment: fixed;
+    color: var(--text); font: 16px/1.7 var(--sans); letter-spacing: -.005em;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--cyan); text-decoration: none; }
+  a:hover { text-decoration: underline; text-underline-offset: 3px; }
+  a:focus-visible, .card:focus-visible { outline: 2px solid var(--cyan); outline-offset: 3px; border-radius: 4px; }
+  .wrap { width: 100%; max-width: 60rem; margin: 0 auto; padding: 0 1.25rem; }
+  .bar { border-bottom: 1px solid var(--line); background: rgba(2,6,23,.82); backdrop-filter: blur(10px); position: sticky; top: 0; z-index: 5; }
+  .bar .wrap { display: flex; align-items: center; justify-content: space-between; gap: 1rem; min-height: 3.5rem; }
+  .mark { display: inline-flex; align-items: center; gap: .6rem; font: 800 .95rem/1 var(--sans); letter-spacing: .14em; color: var(--text); }
+  .mark:hover { text-decoration: none; }
+  .mark svg { width: 22px; height: 22px; }
+  .bar nav { display: flex; gap: 1.1rem; font: 500 .72rem/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; }
+  .bar nav a { color: var(--dim); padding: .5rem 0; }
+  .bar nav a:hover, .bar nav a[aria-current] { color: var(--text); text-decoration: none; }
+  main { flex: 1; }
+  .hero { padding: 5.5rem 0 3.5rem; text-align: center; }
+  .hero svg { width: 132px; height: 132px; margin-bottom: 1.75rem; filter: drop-shadow(0 0 34px rgba(34,211,238,.28)); }
+  .word {
+    margin: 0; font: 900 clamp(3.2rem, 11vw, 6rem)/.95 var(--sans); letter-spacing: -.045em;
+    background: linear-gradient(135deg, #fff 0%, #94a3b8 55%, #1e293b 100%);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .rule { width: 6rem; height: 4px; border-radius: 99px; margin: 1.4rem auto 1.6rem; background: linear-gradient(90deg, var(--cyan), var(--emerald)); }
+  .lede { max-width: 38rem; margin: 0 auto; color: var(--dim); font-size: 1.08rem; }
+  .pill { display: inline-block; margin-top: 1.9rem; padding: .5rem .95rem; border: 1px solid var(--line-2); border-radius: 99px; font: 500 .7rem/1 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--dim); }
+  .facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; margin: 0 0 4rem; }
+  .fact { background: var(--panel); padding: 1.4rem 1.4rem 1.5rem; }
+  .fact b { display: block; font: 600 .7rem/1 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--cyan); margin-bottom: .6rem; }
+  .fact span { color: var(--dim); font-size: .94rem; line-height: 1.55; display: block; }
+  h2.sec { font: 600 .72rem/1 var(--mono); letter-spacing: .16em; text-transform: uppercase; color: var(--mute); margin: 0 0 1rem; }
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); gap: 1rem; margin-bottom: 4rem; }
+  .card { display: block; padding: 1.35rem 1.4rem 1.45rem; border: 1px solid var(--line); border-radius: 14px; background: var(--panel); color: var(--text); transition: border-color .2s, transform .2s, background .2s; }
+  .card:hover { text-decoration: none; border-color: rgba(34,211,238,.5); background: var(--panel-2); transform: translateY(-2px); }
+  .card h3 { margin: 0 0 .35rem; font-size: 1.02rem; display: flex; justify-content: space-between; align-items: center; }
+  .card h3 i { font-style: normal; color: var(--cyan); transition: transform .2s; }
+  .card:hover h3 i { transform: translateX(3px); }
+  .card p { margin: 0; color: var(--dim); font-size: .9rem; line-height: 1.55; }
+  .contact { text-align: center; color: var(--dim); font-size: .94rem; margin-bottom: 4.5rem; }
+  .phead { padding: 3.5rem 0 1.5rem; border-bottom: 1px solid var(--line); margin-bottom: 2.5rem; }
+  .crumb { margin: 0 0 .8rem; font: 500 .7rem/1 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--mute); }
+  .crumb a { color: var(--dim); }
+  .phead h1 { margin: 0; font: 800 clamp(2rem, 6vw, 2.9rem)/1.1 var(--sans); letter-spacing: -.03em; }
+  .legal { max-width: 46rem; padding-bottom: 4rem; }
+  .legal h2 { margin: 2.75rem 0 .75rem; font-size: 1.3rem; letter-spacing: -.015em; }
+  .legal h3 { margin: 1.9rem 0 .5rem; font-size: 1.02rem; color: var(--dim); }
+  .legal p, .legal li { color: #cbd5e1; }
+  .legal li { margin-bottom: .45rem; }
+  .legal strong { color: var(--text); }
+  .legal hr { border: 0; border-top: 1px solid var(--line); margin: 2.75rem 0; }
+  .legal code { font: .875em var(--mono); color: var(--cyan); background: rgba(34,211,238,.08); border: 1px solid var(--line); padding: .08em .38em; border-radius: 5px; word-break: break-word; }
+  .legal .scroller { overflow-x: auto; margin: 0 0 1.25rem; border: 1px solid var(--line); border-radius: 10px; }
   .legal table { border-collapse: collapse; width: 100%; min-width: 30rem; font-size: .92rem; }
-  .legal th, .legal td { text-align: left; padding: .6rem .8rem; border-bottom: 1px solid var(--line); vertical-align: top; }
-  .legal th { background: var(--panel); color: var(--text); font-weight: 600; }
+  .legal th, .legal td { text-align: left; padding: .65rem .85rem; border-bottom: 1px solid var(--line); vertical-align: top; }
+  .legal th { background: var(--panel); font-weight: 600; }
   .legal tbody tr:last-child td { border-bottom: 0; }
+  footer { border-top: 1px solid var(--line); padding: 1.6rem 0 2rem; font: 500 .7rem/1.9 var(--mono); letter-spacing: .08em; color: var(--mute); }
+  footer .wrap { display: flex; flex-wrap: wrap; gap: .5rem 1.5rem; justify-content: space-between; }
+  footer a { color: var(--dim); }
+  @media (max-width: 34rem) { .bar nav { gap: .8rem; letter-spacing: .08em; } .hero { padding-top: 3.5rem; } }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
 </style>
 </head>
 <body>
 
-<nav class="nav">
-  <div class="nav-in">
-    <a class="brand" href="../../index.html"><span class="brand-mark"></span> G-YNTHETIC&nbsp;LABS</a>
-    <button class="nav-toggle" aria-expanded="false">Menu</button>
-    <div class="nav-links">
-      <a href="../../cubex.html">Cubex</a>
-      <a href="../../platform.html">Lattice</a>
-      <a href="../../evidence.html">Evidence</a>
-      <a href="../../investors.html" class="nav-cta">Investors</a>
-    </div>
-  </div>
-</nav>
-
-<header class="phead">
+<header class="bar">
   <div class="wrap">
-    <p class="crumb"><a href="../../cubex.html">Cubex</a> / Legal</p>
-    <h1>Terms of Service</h1>
+    <a class="mark" href="/cubex3/"><svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <defs><linearGradient id="cx" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#22d3ee"/><stop offset="1" stop-color="#34d399"/></linearGradient></defs>
+  <g stroke="url(#cx)" stroke-linejoin="round" stroke-linecap="round">
+    <path stroke-width="3" d="M60 8 108 34v52L60 112 12 86V34Z"/>
+    <path stroke-width="3" d="M12 34 60 60l48-26M60 60v52"/>
+    <g stroke-width="1.4" opacity=".55">
+      <path d="M36 21 84 47v52M84 21 36 47v52M12 60l48 26 48-26"/>
+    </g>
+  </g>
+  <circle cx="60" cy="60" r="4.5" fill="#fff"/>
+</svg> CUBEX</a>
+    <nav aria-label="Cubex">
+      <a href="/cubex3/privacy">Privacy</a>
+      <a href="/cubex3/terms" aria-current="page">Terms</a>
+      <a href="/cubex3/privacy/delete">Your data</a>
+    </nav>
   </div>
 </header>
 
-<section>
-  <div class="wrap">
-    <div class="legal rv">
+<main>
+
+<div class="wrap">
+  <div class="phead">
+    <p class="crumb"><a href="/cubex3/">Cubex</a> / Legal</p>
+    <h1>Terms of Service</h1>
+  </div>
+  <div class="legal">
 <p><strong>Last updated:</strong> 20 September 2026 <strong>Applies to:</strong> the Cubex mobile app and the Cubex website.</p>
 <p>Cubex is published by G-ynthetic Labs ("we", "us"). By installing or playing Cubex you agree to these terms. If you do not agree, do not install it.</p>
 <p>These terms are short because the app is simple: it is a complete game that runs on your device, it is free, and it shows advertising. There is no account and no subscription. There is one optional purchase, which removes the ads.</p>
@@ -99,7 +169,7 @@
 <p>immediately on purchase, and acknowledge that the statutory right to withdraw from a digital-content contract ends once it has been supplied. Google Play's own refund policy still applies.</p>
 <p>It is funded by <strong>one banner advertisement</strong>, served by Google AdMob. In exchange for the game being free and whole, the banner is present while you play. It never covers the board, and the app contains no interstitials — the only full-screen ad is the optional one you choose to watch in exchange for something specific, and you are never shown it unless you ask for it.</p>
 <p>If you are in the EEA or the UK you will be asked to consent before any ad loads, and you may decline. Declining does not reduce the game.</p>
-<p>How advertising data is handled is described in the <a href="/privacy">Privacy Policy</a>.</p>
+<p>How advertising data is handled is described in the <a href="/cubex3/privacy">Privacy Policy</a>.</p>
 <hr>
 <h2>5. In-game progress and virtual items</h2>
 <p>Doctrine points, commander experience, unlocked armies and every other in-game item exist only inside the game and only on your device. They have <strong>no monetary value</strong>, cannot be exchanged for money, and cannot be transferred.</p>
@@ -131,24 +201,16 @@
 <hr>
 <h2>12. Contact</h2>
 <p>G-ynthetic Labs <strong>G-ynthetic-Labs@proton.me</strong></p>
-    </div>
   </div>
-</section>
+</div>
+</main>
 
-<footer class="foot">
+<footer>
   <div class="wrap">
-    <div class="foot-bot">
-      <span>
-        <a href="/cubex3/privacy">Privacy</a> ·
-        <a href="/cubex3/terms">Terms</a> ·
-        <a href="/cubex3/privacy/delete">Delete your account</a> ·
-        <a href="mailto:G-ynthetic-Labs@proton.me">G-ynthetic-Labs@proton.me</a>
-      </span>
-      <span>© <span data-year>2026</span> G-YNTHETIC LABS · PORTLAND, OREGON</span>
-    </div>
+    <span>© 2026 G-ynthetic Labs LLC · Oregon, USA</span>
+    <span><a href="mailto:G-ynthetic-Labs@proton.me">G-ynthetic-Labs@proton.me</a></span>
   </div>
 </footer>
 
-<script src="../../assets/js/site.js"></script>
 </body>
 </html>
