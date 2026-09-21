@@ -50,7 +50,7 @@
 <section>
   <div class="wrap">
     <div class="legal rv">
-<p><strong>Last updated:</strong> 29 August 2026 <strong>Applies to:</strong> the Cubex mobile app and the Cubex website.</p>
+<p><strong>Last updated:</strong> 20 September 2026 <strong>Applies to:</strong> the Cubex mobile app and the Cubex website.</p>
 <p>Cubex is published by G-ynthetic Labs ("we"). This policy describes what the app does with information about you. It is written to match what the software actually does; where it says we do not collect something, there is no code in the app that collects it.</p>
 <hr>
 <h2>The short version</h2>
@@ -103,9 +103,13 @@
 </ul>
 <p>ad SDK, as described above. We never receive it and never store it.</p>
 <ul>
-<li><strong>No location, contacts, photos, files, microphone, or camera.</strong> The app holds</li>
+<li><strong>No payment information.</strong> The optional <em>Cubex Pro</em> purchase is made through</li>
 </ul>
-<p>two Android permissions: <code>INTERNET</code>, and the advertising-ID permission required by the ad SDK (<code>com.google.android.gms.permission.AD_ID</code>). No others.</p>
+<p>Google Play's own purchase screen. Your card, your billing address and your receipt go to Google, under Google's privacy policy; none of it reaches us or the app. The app only asks Google Play, on your device, whether your Google account owns the purchase, and remembers the yes-or-no answer locally.</p>
+<ul>
+<li><strong>No location, contacts, photos, files, microphone, or camera.</strong> The app asks</li>
+</ul>
+<p>for no permission that Android would prompt you about. What it declares is <code>INTERNET</code>; <code>com.android.vending.BILLING</code>, which lets it talk to Google Play's purchase service; and the permissions Google's ad SDK brings with it — the advertising ID (<code>AD_ID</code>), Android's Privacy Sandbox ad services (<code>ACCESS_ADSERVICES_AD_ID</code>, <code>_ATTRIBUTION</code>, <code>_TOPICS</code>), and the housekeeping ones it needs to load an ad (<code>ACCESS_NETWORK_STATE</code>, <code>WAKE_LOCK</code>, <code>FOREGROUND_SERVICE</code>). None of them reaches your personal files or sensors.</p>
 <ul>
 <li><strong>No behavioural profiling.</strong> We do not build a profile of you and do not make</li>
 </ul>
