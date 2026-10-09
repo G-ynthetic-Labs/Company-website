@@ -1,0 +1,27 @@
+{
+  "file": "legal/index.html",
+  "kind": "static HTML page",
+  "feature": "legal-pages",
+  "what": "Legal hub: status of the company-wide privacy notice, terms of use and licensing, and a card for each public app",
+  "sections": [
+    "nav (site navigation, copied from index.html)",
+    "header.phead (crumb, title, one-line description)",
+    "section.tight (status callout and/or status table, links)",
+    "footer.foot (site footer, copied from index.html)"
+  ],
+  "classes": [],
+  "functions": [],
+  "dependencies": [
+    "assets/css/base.css",
+    "assets/css/legal.css",
+    "assets/js/site.js",
+    "favicon.ico"
+  ],
+  "links_to": [
+    "legal/custom-agent/",
+    "legal/city-secured/",
+    "legal/business-intelligence/",
+    "legal/cubex/"
+  ],
+  "source_of_text": "Legal-attribution legal/apps/README.md (status of each document)"
+}

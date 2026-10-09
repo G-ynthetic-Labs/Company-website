@@ -1,0 +1,29 @@
+{
+  "about": "Where each feature lives in this website. Started 9 Oct 2026 with the legal pages; other features to be added as they are touched.",
+  "features": {
+    "legal-pages": {
+      "what": "The Legal hub and one privacy-and-terms page per public app; the footer's Legal link; the website licence",
+      "files": [
+        "legal/index.html",
+        "legal/custom-agent/index.html",
+        "legal/city-secured/index.html",
+        "legal/business-intelligence/index.html",
+        "legal/cubex/index.html",
+        "assets/css/legal.css",
+        "sitemap.xml",
+        "LICENSE",
+        "every top-level page's footer (Company column, Legal link)"
+      ],
+      "texts": "G-ynthetic-Labs/Legal-attribution legal/company/ and legal/apps/"
+    },
+    "cubex-legal": {
+      "what": "Cubex's published privacy policy, terms and data-deletion page",
+      "files": [
+        "cubex3/privacy/index.html",
+        "cubex3/terms/index.html",
+        "cubex3/privacy/delete/index.html"
+      ],
+      "texts": "G-ynthetic-Labs/Legal-attribution legal/apps/cubex/"
+    }
+  }
+}

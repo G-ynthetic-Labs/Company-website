@@ -1,57 +1,41 @@
-EIDEUS COMMUNITY & COMMERCIAL LICENSE (v1.0)
+G-YNTHETIC LABS PUBLIC WEBSITE LICENSE
 
-Copyright (c) 2026 [Author/The Scrubber]
+DRAFT, TO BE REVIEWED BY QUALIFIED COUNSEL BEFORE IT IS RELIED ON.
 
-This License governs the use of the "Final Dawn of Eideus" software and its constituent 
-parts, including the "Fractal Template System" (the "Software").
+Copyright (c) 2026 G-ynthetic Labs LLC. All rights reserved.
 
-By using, modifying, or distributing this Software, you agree to be bound by the terms 
-of this agreement.
+This repository holds the G-ynthetic Labs public website, published at
+https://g-ynthetic-labs.com. Its text, images, graphics, logos, page designs,
+code, data files and evidence files (the "Website Materials") are owned by
+G-ynthetic Labs LLC ("G-ynthetic Labs") or its licensors.
 
-1. THE COMMUNITY LICENSE (NON-COMMERCIAL & COPYLEFT)
-Permission is hereby granted to use, modify, and distribute the Software for 
-NON-COMMERCIAL purposes ONLY, subject to the following condition:
+1. What you may do. You may view the Website Materials, link to any page, and
+   quote brief passages with a clear credit to G-ynthetic Labs and a link to
+   the page quoted. You may download and verify the evidence files under
+   assets/evidence for the purpose of checking the claims they support.
 
-   A. THE COPYLEFT REQUIREMENT: If you create a modification, derivative work, 
-      or a software product that incorporates any part of the Software, you MUST 
-      make the complete source code of your work publicly available and 
-      accessible to all users, free of charge, under these same license terms.
+2. What you may not do without written permission. Copy, republish, mirror,
+   modify, translate, sell or distribute the Website Materials or any
+   substantial part of them; use them to build, train or improve any product,
+   service or model; or use the G-ynthetic Labs names, logos or product names
+   in a way that suggests endorsement or affiliation.
 
-   B. ATTRIBUTION: You must maintain all copyright notices and credit the 
-      original author in all distributions and user interfaces.
+3. Our software is not licensed by this website. The website describes
+   products and research. Seeing a description, a screenshot or a code excerpt
+   here grants no right to any G-ynthetic Labs software; those rights exist
+   only under a separate written agreement signed by G-ynthetic Labs.
 
-2. COMMERCIAL RESTRICTIONS
-Commercial use of the Software is strictly prohibited under the Community License. 
-"Commercial Use" includes, but is not limited to:
-   - Selling or renting the Software or any part of it.
-   - Using the Software to generate revenue, including through ads or subscriptions.
-   - Using the Software as part of a paid service or product.
-   - Using the Software for internal business operations.
+4. Trademarks. G-ynthetic Labs, Cubex, City SeCUReD and the other product names
+   and logos on the website are trademarks of G-ynthetic Labs. This license
+   grants no right to use them.
 
-3. THE COMMERCIAL LICENSE (EXEMPTION)
-If you wish to use the Software for commercial purposes, OR if you wish to 
-distribute a modified version of the Software WITHOUT making your source code 
-publicly available, you must obtain a separate COMMERCIAL LICENSE from the 
-Copyright Holder.
+5. Third-party material. Material owned by others keeps its own terms.
 
-   - A Commercial License grants specific rights to monetize the Software.
-   - A Commercial License waives the "Copyleft Requirement" in Section 1.A.
-   - Terms and fees for Commercial Licenses are negotiated on a case-by-case basis.
+6. No warranty. THE WEBSITE MATERIALS ARE PROVIDED "AS IS", WITHOUT WARRANTY
+   OF ANY KIND, EXPRESS OR IMPLIED. TO THE MAXIMUM EXTENT PERMITTED BY LAW,
+   G-YNTHETIC LABS IS NOT LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY
+   ARISING FROM THE WEBSITE MATERIALS OR THEIR USE.
 
-4. THE FRACTAL TEMPLATE SYSTEM (PROPRIETARY)
-The "Fractal Template System" (3x3x7 Recursive Architecture and associated logic) 
-remains the proprietary intellectual property of the Author. Use of this 
-architecture outside of the "Eideus" ecosystem is strictly prohibited without 
-express written consent, regardless of your license status.
+The website's terms of use and privacy notice are linked from its Legal page.
 
-5. NO WARRANTY
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR 
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, 
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE 
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER 
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN 
-THE SOFTWARE.
-
----
-For licensing inquiries, contact: [Contact Information/Link]
+Notices and permission requests: G-ynthetic-Labs@proton.me
