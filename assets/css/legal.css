@@ -1,0 +1,55 @@
+/* G-ynthetic Labs — legal pages (/legal/). Builds on base.css tokens; no new colours. */
+
+.lg-note { margin-bottom: 2.4rem; }
+
+.lg-table { margin-bottom: 2rem; }
+.lg-table th { width: 38%; }
+.lg-cap {
+  caption-side: top;
+  text-align: left;
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-mute);
+  padding-bottom: 0.9rem;
+  border-bottom: 1px solid var(--line-2);
+}
+
+.lg-state {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-family: var(--mono);
+  font-size: 0.76rem;
+  letter-spacing: 0.06em;
+}
+.lg-state::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  flex: none;
+}
+.lg-state.is-prep { color: var(--c3); }
+.lg-state.is-prep::before { background: var(--c3); }
+.lg-state.is-live { color: var(--c1); }
+.lg-state.is-live::before { background: var(--c1); }
+.lg-state a { color: inherit; }
+
+.lg-h { font-size: 1.3rem; margin: 0 0 1rem; }
+.lg-h + .lg-table { margin-top: 0; }
+.lg-text { color: var(--text-dim); margin-bottom: 3rem; }
+.lg-cards { margin-top: 0.5rem; }
+.lg-cards .card { display: flex; flex-direction: column; }
+.lg-back {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+
+/* The base card hides its "go" label until hover; on the legal hub it stays visible (touch screens never hover). */
+.lg-cards .card .go { opacity: 1; transform: none; }

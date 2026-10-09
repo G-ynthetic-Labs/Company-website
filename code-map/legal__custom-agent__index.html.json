@@ -1,0 +1,23 @@
+{
+  "file": "legal/custom-agent/index.html",
+  "kind": "static HTML page",
+  "feature": "legal-pages",
+  "what": "Placeholder: privacy policy and terms of service for the custom agents, in preparation",
+  "sections": [
+    "nav (site navigation, copied from index.html)",
+    "header.phead (crumb, title, one-line description)",
+    "section.tight (status callout and/or status table, links)",
+    "footer.foot (site footer, copied from index.html)"
+  ],
+  "classes": [],
+  "functions": [],
+  "dependencies": [
+    "assets/css/base.css",
+    "assets/css/legal.css",
+    "assets/js/site.js"
+  ],
+  "links_to": [
+    "legal/"
+  ],
+  "source_of_text": "Legal-attribution legal/apps/README.md (status of each document)"
+}

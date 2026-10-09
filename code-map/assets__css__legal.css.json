@@ -1,0 +1,21 @@
+{
+  "file": "assets/css/legal.css",
+  "kind": "stylesheet",
+  "feature": "legal-pages",
+  "what": "Styles for the /legal/ pages, built on base.css tokens; no new colours",
+  "selectors": [
+    ".lg-note",
+    ".lg-table",
+    ".lg-cap",
+    ".lg-state (.is-prep amber, .is-live cyan)",
+    ".lg-h",
+    ".lg-text",
+    ".lg-cards",
+    ".lg-back"
+  ],
+  "classes": [],
+  "functions": [],
+  "dependencies": [
+    "assets/css/base.css (custom properties --c1, --c3, --line-2, --mono, --text-mute, --text-dim)"
+  ]
+}
