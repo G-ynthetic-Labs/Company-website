@@ -48,10 +48,10 @@
     <div class="head">
       <div class="label">The difference · Fork to exercise</div>
       <h2>Not a canned script. Your city as it is right now, and any scenario you can think of.</h2>
-      <p>Other exercises run a scenario written months ahead. City SeCUReD starts from live conditions: today's roads, today's units at their real facilities, today's weather and traffic. At the moment you fork, the world is copied, the live feeds are cut so nothing flows back, and the disaster begins.</p>
+      <p>Other exercises run a scenario written months ahead. City SeCUReD starts from live public data: today's roads and facilities, today's weather, and public feeds of what is moving around the city. At the moment you fork, the world is copied, the live feeds are cut so nothing flows back, and the disaster begins.</p>
     </div>
     <div class="steps">
-      <div><h3>The live city</h3><p>Roads, facilities and units, plus live public feeds such as weather, flights, rail, shipping, ports and infrastructure.</p></div>
+      <div><h3>The live city</h3><p>Roads and facilities from open map data, plus live public feeds such as weather, flights, rail, shipping, ports and infrastructure. Response units are simulated and placed at the city's real facilities.</p></div>
       <div><h3>A person forks it</h3><p>The world is copied at that instant. Fork is the one lever an AI can propose but never pull: a person authorizes it.</p></div>
       <div><h3>Feeds cut, scenario seeded</h3><p>Nothing flows back to live systems. You pick the scenario: an earthquake at six sites, a river flood, a wildfire under east wind, a highway hazmat release, or one of your own.</p></div>
       <div><h3>Response begins</h3><p>Thirteen positions respond against the city as it stands today. Every record from the fork on is flagged as an exercise.</p></div>
@@ -106,7 +106,7 @@
       <p>Hash chains, fixed seeds, paired experiments and simulation for emergency training are all established. What is new is an instrument that exercises a city live, as it stands today, while staying neutral by construction and re-derivable by anyone.</p>
     </div>
     <div class="grid g2">
-      <div class="card"><div class="tag">Live, not canned</div><h3>The disaster happens here, now</h3><p>Each exercise forks the city's current state from live public data, so responders face today's roads, units and weather instead of a stale script.</p></div>
+      <div class="card"><div class="tag">Live, not canned</div><h3>The disaster happens here, now</h3><p>Each exercise forks the city's current state from live public data, so responders face today's roads, facilities and weather instead of a stale script.</p></div>
       <div class="card"><div class="tag">Grounded in history</div><h3>Realism from what really happened</h3><p>For the hazard you choose, it searches public archives (federal disaster declarations, NOAA storm events, USGS earthquakes) for what has actually happened in and around your city, and builds that history into the exercise.</p></div>
       <div class="card"><div class="tag">Neutral by construction</div><h3>No private data needed</h3><p>Live conditions come only from open public data, and hazards from published models with fixed random seeds. No jurisdiction hands over its inventory, staffing or vulnerabilities, so one instrument works across every jurisdiction.</p></div>
       <div class="card"><div class="tag">Re-derivable by anyone</div><h3>A disputed score is settled by re-running it</h3><p>The forked snapshot and its seed go into a hash-chained, append-only record, so a run replays exactly long after live conditions have changed.</p></div>
@@ -145,7 +145,7 @@
       <h2>Five steps, every one recorded.</h2>
     </div>
     <div class="steps">
-      <div><h3>Today's city, forked live</h3><p>Its real road network, its units at their real facilities and its live conditions, from open data.</p></div>
+      <div><h3>Today's city, forked live</h3><p>Its real road network and facilities and its live public conditions, from open data, with simulated units at those facilities.</p></div>
       <div><h3>A seeded disaster</h3><p>Drawn from 19 hazard types, from routine incidents to a major earthquake, flood, wildfire, hazardous-materials release or cyber event.</p></div>
       <div><h3>13 positions respond</h3><p>NIMS and ICS positions, each filled by a person, an AI model or a fixed doctrine policy.</p></div>
       <div><h3>Every decision recorded</h3><p>In an append-only, hash-chained record, flagged as an exercise.</p></div>
@@ -162,7 +162,7 @@
       <p>A 2D map, a 3D terrain view and a modelled operations room, all kept in step. A scenario author, a doctrine panel, a scoring pass and a generated after-action report. It runs on one laptop with no network connection.</p>
     </div>
     <div class="grid g3">
-      <figure><div class="shot"><img src="img/eoc-map.png" alt="The live 2D city map with units, incidents and city data layers" loading="lazy"></div><figcaption><b>Fig. 2</b> · The live 2D map, with units, incidents and data layers.</figcaption></figure>
+      <figure><div class="shot"><img src="img/eoc-map.png" alt="The live 2D city map with simulated units, incidents and city data layers" loading="lazy"></div><figcaption><b>Fig. 2</b> · The live 2D map, with simulated units, incidents and data layers.</figcaption></figure>
       <figure><div class="shot"><img src="img/eoc-doctrine.png" alt="The Doctrine and Documents panel listing which NIMS and ICS operations each position may use, with sources" loading="lazy"></div><figcaption><b>Fig. 3</b> · Which NIMS and ICS operations each position may use, with sources.</figcaption></figure>
       <figure><div class="shot"><img src="img/eoc-report.png" alt="A generated After-Action Report and Improvement Plan for a functional exercise, marked as an exercise" loading="lazy"></div><figcaption><b>Fig. 4</b> · A generated After-Action Report and Improvement Plan.</figcaption></figure>
     </div>
