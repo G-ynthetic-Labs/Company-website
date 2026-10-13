@@ -1,0 +1,105 @@
+<!doctype html>
+<!-- Copyright (c) 2026 G-ynthetic Labs LLC. All rights reserved. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Verifiable Inference · G-ynthetic Labs</title>
+<meta name="description" content="Replay any past AI answer and get identical bytes, so an expert&#x27;s sign-off on one version stays provable. Reproducibility, not correctness.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap">
+<link rel="stylesheet" href="css/site.css">
+</head>
+<body>
+<header class="site-head" id="top"><div class="wrap">
+<a class="brand" href="index.html"><svg width="26" height="26" viewBox="0 0 26 26" aria-hidden="true"><g fill="none" stroke="#8AF3FF" stroke-width="1.2"><path d="M13 2 23 7.5v11L13 24 3 18.5v-11z" stroke-opacity=".9"/><path d="M13 13 23 7.5M13 13v11M13 13 3 7.5" stroke-opacity=".45"/></g><circle cx="13" cy="13" r="2.2" fill="#8AF3FF"/></svg><span class="name">G<i>-</i>ynthetic Labs</span></a>
+<button class="burger" type="button" aria-controls="menu" aria-expanded="false">Menu</button>
+<ul class="menu" id="menu"><li class="has-drop"><a href="products.html" aria-current="page">Products ▾</a><div class="drop"><div><h4>Build</h4><a href="build-a-bot.html"><b>Build-A-Bot</b><small>Build your own governed agent</small></a><a href="n-hr.html"><b>n-HR™</b><small>HR for your AI agents</small></a></div><div><h4>Public safety</h4><a href="city-secured.html"><b>City SeCUReD</b><small>Fork your live city into a disaster</small></a><a href="position-agents.html"><b>Position Agents</b><small>An assistant for each EOC position</small></a></div><div><h4>Business</h4><a href="desk-agents.html"><b>Desk Agents</b><small>Email and paperwork for small business</small></a></div><div><h4>Platform</h4><a href="engine.html"><b>The Engine</b><small>The governed runtime under every agent</small></a><a href="verifiable-inference.html"><b>Verifiable Inference</b><small>Replay any AI answer, byte for byte</small></a></div><div><h4>Apps</h4><a href="mind.html"><b>G-ynthetic Mind</b><small>A companion that remembers</small></a><a href="cubex.html"><b>CubeX</b><small>Chess, rebuilt for a cube</small></a></div></div></li><li><a href="how-it-works.html">How it works</a></li><li><a href="pricing.html">Pricing</a></li><li><a href="about.html">About</a></li><li><a href="contact.html">Contact</a></li><li><a class="cta" href="build-a-bot.html">Build-A-Bot</a></li></ul>
+</div></header>
+<main>
+<section class="page-hero">
+  <div class="wrap">
+    <div class="label">Platform · Verifiable Inference</div>
+    <h1>Replay any AI answer. <span class="grad">Get the same bytes.</span></h1>
+    <p class="lede">When an expert signs off on what a local model produced, that sign-off should stay true. Verifiable Inference replays a past answer and returns identical bytes, or returns nothing, and its ledger catches an environment that drifts over time.</p>
+    <div class="btns"><a class="btn primary" href="contact.html#partner">Talk to us</a><a class="btn" href="engine.html">Part of the engine</a></div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="wrap">
+    <div class="head">
+      <div class="label">How it works</div>
+      <h2>Witness, ledger, verify.</h2>
+    </div>
+    <div class="steps">
+      <div><h3>Frozen settings</h3><p>Sampling is fixed, and a warm-up call is made and discarded.</p></div>
+      <div><h3>A witness call</h3><p>A second call must match the first byte for byte, or nothing is returned.</p></div>
+      <div><h3>Into the ledger</h3><p>A hash-chained ledger holds the fingerprints, never the text.</p></div>
+      <div><h3>Verify any time</h3><p>Replay later; a drifting environment shows up as a mismatch.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec tint">
+  <div class="wrap">
+    <div class="grid g2" style="gap:56px">
+      <div>
+        <div class="label">What you get</div>
+        <ul class="ticks" style="margin-top:22px">
+          <li><span><b>Attest anything,</b> not just model output: documents, build outputs, datasets and model files.</span></li>
+          <li><span><b>A code-free command line</b> for shells and build pipelines: attest, verify, check the ledger.</span></li>
+          <li><span><b>Accountability hooks</b> to veto before generation, add witnesses or publish the ledger head, none of which can alter the bytes.</span></li>
+          <li><span><b>A peer-review command</b> with six falsification checks and evidence a reviewer can recompute.</span></li>
+          <li><span><b>Zero runtime dependencies</b> and 54 tests.</span></li>
+        </ul>
+      </div>
+      <div class="callout">
+        <div class="label" style="color:var(--amber)">Reproducibility, not correctness</div>
+        <h3 style="margin-top:14px">What it proves, and what it doesn't.</h3>
+        <ul class="ticks warn" style="margin-top:18px">
+          <li><span>It proves an answer is the same answer. It does not prove the answer is right; that is the expert's job.</span></li>
+          <li><span>It works with a local model on fixed hardware. A hosted model service voids the guarantee.</span></li>
+          <li><span>Witnessing costs about three times the latency while it is on.</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="wrap">
+    <div class="head">
+      <div class="label">Who it's for</div>
+      <h2>Teams whose AI output has to hold up later.</h2>
+    </div>
+    <div class="grid g3">
+      <div class="card"><h3>Expert sign-off</h3><p>Work where a qualified person validates output, and that validation has to stay provable.</p></div>
+      <div class="card"><h3>Audit-heavy work</h3><p>Anywhere you may need to show months later exactly what a system produced.</p></div>
+      <div class="card"><h3>Unchanged artifacts</h3><p>Show that a document, build, dataset or model file has not changed since it was approved.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec tint"><div class="wrap"><div class="head"><div class="label">Same engine</div><h2>Other products</h2></div><div class="grid g4"><a class="card" href="build-a-bot.html"><div class="tag">Build</div><h3>Build-A-Bot</h3><p>Build your own governed agent</p></a><a class="card" href="n-hr.html"><div class="tag">Build</div><h3>n-HR™</h3><p>HR for your AI agents</p></a><a class="card" href="city-secured.html"><div class="tag">Public safety</div><h3>City SeCUReD</h3><p>Fork your live city into a disaster</p></a><a class="card" href="position-agents.html"><div class="tag">Public safety</div><h3>Position Agents</h3><p>An assistant for each EOC position</p></a><a class="card" href="desk-agents.html"><div class="tag">Business</div><h3>Desk Agents</h3><p>Email and paperwork for small business</p></a><a class="card" href="engine.html"><div class="tag">Platform</div><h3>The Engine</h3><p>The governed runtime under every agent</p></a><a class="card" href="mind.html"><div class="tag">Apps</div><h3>G-ynthetic Mind</h3><p>A companion that remembers</p></a><a class="card" href="cubex.html"><div class="tag">Apps</div><h3>CubeX</h3><p>Chess, rebuilt for a cube</p></a></div></div></section>
+
+</main>
+<footer class="site-foot"><div class="wrap">
+<div class="foot-grid">
+  <div><a class="brand" href="index.html"><svg width="26" height="26" viewBox="0 0 26 26" aria-hidden="true"><g fill="none" stroke="#8AF3FF" stroke-width="1.2"><path d="M13 2 23 7.5v11L13 24 3 18.5v-11z" stroke-opacity=".9"/><path d="M13 13 23 7.5M13 13v11M13 13 3 7.5" stroke-opacity=".45"/></g><circle cx="13" cy="13" r="2.2" fill="#8AF3FF"/></svg><span class="name">G<i>-</i>ynthetic Labs</span></a>
+    <p style="margin-top:16px;max-width:300px">AI agents that answer to people. Agents draft; named people decide; every step is on the record.</p></div>
+  <div><h4>Products</h4><ul><li><a href="build-a-bot.html">Build-A-Bot</a></li><li><a href="n-hr.html">n-HR™</a></li><li><a href="city-secured.html">City SeCUReD</a></li><li><a href="position-agents.html">Position Agents</a></li><li><a href="desk-agents.html">Desk Agents</a></li><li><a href="engine.html">The Engine</a></li><li><a href="verifiable-inference.html">Verifiable Inference</a></li><li><a href="mind.html">G-ynthetic Mind</a></li><li><a href="cubex.html">CubeX</a></li></ul></div>
+  <div><h4>Company</h4><ul><li><a href="about.html">About</a></li><li><a href="how-it-works.html">How it works</a></li>
+    <li><a href="pricing.html">Pricing</a></li><li><a href="contact.html">Contact</a></li></ul>
+    <h4 style="margin-top:22px">CubeX legal</h4><ul><li><a href="cubex3/privacy/index.html">Privacy Policy</a></li><li><a href="cubex3/terms/index.html">Terms of Service</a></li><li><a href="cubex3/privacy/delete/index.html">Your data</a></li></ul></div>
+  <div><h4>Status</h4><ul><li>Pre-revenue, self-funded</li><li>Every product runs on simulated data today</li></ul></div>
+</div>
+<div class="foot-base"><span>© 2026 G-ynthetic Labs LLC · Salem, Oregon</span><span>Agents draft. People decide.</span></div>
+</div></footer>
+<script>
+  const head = document.querySelector('.site-head'), burger = head.querySelector('.burger');
+  burger.addEventListener('click', () => burger.setAttribute('aria-expanded', head.classList.toggle('open')));
+</script>
+
+</body>
+</html>
