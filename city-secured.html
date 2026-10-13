@@ -51,7 +51,7 @@
       <p>Other exercises run a scenario written months ahead. City SeCUReD starts from live public data: today's roads and facilities, today's weather, and public feeds of what is moving around the city. At the moment you fork, the world is copied, the live feeds are cut so nothing flows back, and the disaster begins.</p>
     </div>
     <div class="steps">
-      <div><h3>The live city</h3><p>Roads and facilities from open map data, plus live public feeds such as weather, flights, rail, shipping, ports and infrastructure. Response units are simulated and placed at the city's real facilities.</p></div>
+      <div><h3>The live city</h3><p>Roads and facilities from open map data, plus live public feeds such as weather, flights, rail, shipping, ports and infrastructure. Response units are simulated: how many a city would field is worked out from its population with published per-capita ratios, then placed at its real facilities.</p></div>
       <div><h3>A person forks it</h3><p>The world is copied at that instant. Fork is the one lever an AI can propose but never pull: a person authorizes it.</p></div>
       <div><h3>Feeds cut, scenario seeded</h3><p>Nothing flows back to live systems. You pick the scenario: an earthquake at six sites, a river flood, a wildfire under east wind, a highway hazmat release, or one of your own.</p></div>
       <div><h3>Response begins</h3><p>Thirteen positions respond against the city as it stands today. Every record from the fork on is flagged as an exercise.</p></div>
@@ -105,16 +105,13 @@
       <h2>A measurement anyone can trust, and anyone can check.</h2>
       <p>Hash chains, fixed seeds, paired experiments and simulation for emergency training are all established. What is new is an instrument that exercises a city live, as it stands today, while staying neutral by construction and re-derivable by anyone.</p>
     </div>
-    <div class="grid g2">
+    <div class="grid g3">
       <div class="card"><div class="tag">Live, not canned</div><h3>The disaster happens here, now</h3><p>Each exercise forks the city's current state from live public data, so responders face today's roads, facilities and weather instead of a stale script.</p></div>
       <div class="card"><div class="tag">Grounded in history</div><h3>Realism from what really happened</h3><p>For the hazard you choose, it searches public archives (federal disaster declarations, NOAA storm events, USGS earthquakes) for what has actually happened in and around your city, and builds that history into the exercise.</p></div>
       <div class="card"><div class="tag">Neutral by construction</div><h3>No private data needed</h3><p>Live conditions come only from open public data, and hazards from published models with fixed random seeds. No jurisdiction hands over its inventory, staffing or vulnerabilities, so one instrument works across every jurisdiction.</p></div>
+      <div class="card"><div class="tag">Sized by population</div><h3>A roster from published ratios, not a guess</h3><p>Responder capacity comes from the city's population and facilities using cited per-capita ratios, such as NFPA staffing standards and the rates US departments actually report. Where no published figure exists, nothing is estimated: the gap is reported as a finding.</p></div>
+      <div class="card"><div class="tag">Its own weather engine</div><h3>Build the storm, then escalate it</h3><p>The exercise director builds a severe-weather system and steps it up stage by stage, seeing each stage's effect before committing it. It shows on the shared map with the Weather Service product it plays under. Nothing issues a real warning. Storms from live forecasts and past events are next.</p></div>
       <div class="card"><div class="tag">Re-derivable by anyone</div><h3>A disputed score is settled by re-running it</h3><p>The forked snapshot and its seed go into a hash-chained, append-only record, so a run replays exactly long after live conditions have changed.</p></div>
-    </div>
-    <div class="callout" style="margin-top:28px">
-      <div class="label">Its own weather engine</div>
-      <h3 style="margin-top:12px">Build the storm, then watch it escalate.</h3>
-      <p style="margin-top:10px">The exercise director builds a severe-weather system and steps it up one stage at a time, seeing what each stage will do before committing it. The storm shows on the shared map, the exercise names the National Weather Service product it plays under, and positions get a weather situation report. Every number shows where it came from, and nothing issues a real warning. Today the storms are authored; storms from live forecasts and from past events are next.</p>
     </div>
     <p class="source">It extends doctrine that already has authority: NIMS, ICS, NFPA response-time standards and FEMA exercise doctrine.</p>
   </div>
@@ -145,7 +142,7 @@
       <h2>Five steps, every one recorded.</h2>
     </div>
     <div class="steps">
-      <div><h3>Today's city, forked live</h3><p>Its real road network and facilities and its live public conditions, from open data, with simulated units at those facilities.</p></div>
+      <div><h3>Today's city, forked live</h3><p>Its real road network and facilities and its live public conditions, from open data, with simulated units sized from its population by published per-capita ratios.</p></div>
       <div><h3>A seeded disaster</h3><p>Drawn from 19 hazard types, from routine incidents to a major earthquake, flood, wildfire, hazardous-materials release or cyber event.</p></div>
       <div><h3>13 positions respond</h3><p>NIMS and ICS positions, each filled by a person, an AI model or a fixed doctrine policy.</p></div>
       <div><h3>Every decision recorded</h3><p>In an append-only, hash-chained record, flagged as an exercise.</p></div>
