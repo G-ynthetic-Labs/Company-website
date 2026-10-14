@@ -249,3 +249,31 @@ figcaption b { color: var(--muted); font-weight: 500; }
 .mail-line { margin-top: 14px; font-size: 14px; }
 .mail-line b { user-select: all; color: var(--text); font-weight: 500; }
 .btn.copy { margin-top: 14px; }
+
+/* ---- Restrained look (William, 14 Oct 2026: "too cartoonish") ----
+   Plex type, no gradient or glowing text, quiet labels, square corners, no glow on hover. */
+:root {
+  --display: 'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif;
+  --body: 'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif;
+  --mono: 'IBM Plex Mono', ui-monospace, monospace;
+  --serif: 'IBM Plex Serif', Georgia, serif;
+  --steel: #A7B4CC;
+}
+body { font-size: 16px; line-height: 1.65; }
+h1, h2, h3, h4 { font-weight: 500; letter-spacing: -0.02em; }
+.page-hero h1, .anim-hero h1 { font-weight: 500; }
+.grad, .anim-hero .grad { background: none; -webkit-background-clip: initial; background-clip: initial; color: var(--steel); text-shadow: none; filter: none; }
+.label { font: 500 11.5px/1.2 var(--mono); letter-spacing: .14em; color: var(--muted); }
+.label.gold { color: var(--muted); }
+.page-hero { background: none; }
+.card, .drop, .callout, .shot, .plan, .stat, .org-box, .org-top, .btn, .menu a, .menu button, .burger, .pill { border-radius: 2px !important; }
+.btn:hover, .btn.primary:hover, .menu .cta:hover, .card:hover { box-shadow: none; }
+.btn:hover { border-color: var(--muted); }
+.org-box.on { box-shadow: none; border-color: var(--muted); }
+.org-box.on b { color: var(--text); }
+.brand .name i { color: inherit; }
+.more { color: var(--text); text-decoration: underline; text-underline-offset: 3px; text-decoration-color: var(--dim); }
+.more:hover { text-decoration-color: var(--text); }
+.head h2 { font-size: clamp(26px, 3.2vw, 38px); }
+.page-hero h1 { font-size: clamp(34px, 4.8vw, 58px); }
+.page-hero .lede, .head p { font-family: var(--serif); }
