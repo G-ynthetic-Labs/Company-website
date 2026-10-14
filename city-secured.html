@@ -23,7 +23,7 @@
     <div>
       <div class="label">Public safety · City SeCUReD</div>
       <h1>Your city, live. <span class="grad">The disaster, now.</span></h1>
-      <p class="lede">City SeCUReD forks your own city's live data into an exercise and runs any scenario you can think of, as if it struck now, right where you are. It draws on what has really happened in places like yours to make the exercise realistic. Every decision is recorded and every run is scored the same way, so disaster readiness becomes measurable.</p>
+      <p class="lede">Fork your own city's live data into an exercise. Run any scenario, as if it struck now, right where you are. Every decision recorded, every run scored the same way.</p>
       <div class="btns"><a class="btn primary" href="contact.html#pilot">Discuss a pilot exercise</a><a class="btn" href="#fork">How the fork works</a></div>
     </div>
     <figure>
@@ -38,8 +38,8 @@
     <div class="head" style="text-align:center;margin:0 auto">
       <div class="label">The mission</div>
       <h2>The right resources, to the right places, <span class="grad">in the fastest time possible,</span> with everyone kept safe.</h2>
-      <p>That is the whole point of a disaster response. City SeCUReD lets a city practise it against its own live conditions, measure it, and get faster at it, drill after drill.</p>
-    </div>
+      </div>
+    <div style="margin-top:40px"><div class="igrid"><div class="itile"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.5 6.5a4 4 0 00-5 5L4 17l3 3 5.5-5.5a4 4 0 005-5l-2.5 2.5-2.5-.5-.5-2.5z"/></svg><b>Right resources</b></div><div class="itile"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-6-6-6-11a6 6 0 0112 0c0 5-6 11-6 11z"/><circle cx="12" cy="10" r="2"/></svg><b>Right places</b></div><div class="itile"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 7v5l3.5 2"/></svg><b>Fastest time</b></div><div class="itile"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 3v6c0 4.5-3.4 8-8 9-4.6-1-8-4.5-8-9V6z"/></svg><b>Everyone safe</b></div></div></div>
   </div>
 </section>
 
@@ -48,17 +48,37 @@
     <div class="head">
       <div class="label">The difference · Fork to exercise</div>
       <h2>Not a canned script. Your city as it is right now, and any scenario you can think of.</h2>
-      <p>Other exercises run a scenario written months ahead. City SeCUReD starts from live public data: today's roads and facilities, today's weather, and public feeds of what is moving around the city. At the moment you fork, the world is copied, the live feeds are cut so nothing flows back, and the disaster begins.</p>
-    </div>
-    <div class="steps">
-      <div><h3>The live city</h3><p>Roads and facilities from open map data, plus live public feeds such as weather, flights, rail, shipping, ports and infrastructure. Response units are simulated: how many a city would field is worked out from its population with published per-capita ratios, then placed at its real facilities.</p></div>
-      <div><h3>A person forks it</h3><p>The world is copied at that instant. Fork is the one lever an AI can propose but never pull: a person authorizes it.</p></div>
-      <div><h3>Feeds cut, scenario seeded</h3><p>Nothing flows back to live systems. You pick the scenario: an earthquake at six sites, a river flood, a wildfire under east wind, a highway hazmat release, or one of your own.</p></div>
-      <div><h3>Response begins</h3><p>Thirteen positions respond against the city as it stands today. Every record from the fork on is flagged as an exercise.</p></div>
-    </div>
-    <div class="callout" style="margin-top:48px;border-color:rgba(138,243,255,.35);background:linear-gradient(180deg,rgba(138,243,255,.07),rgba(138,243,255,.02))">
-      <div class="label">A real fork, from the record</div>
-      <p style="margin-top:12px">Salem, Oregon, forked on 17 Aug 2026 at 18:27:56 UTC. The first exercise record came 138 ms later. The run produced 110 responses, 11 ICS filings and 5 refusals, and both record chains verified intact when the report was produced.</p>
+      </div>
+    <figure class="fig"><svg class="dgm" viewBox="0 0 1000 340" role="img" aria-label="Live public feeds flow into the city. A person forks it. The live world carries on; the copy has its feeds cut, a scenario, history and weather added, and 13 positions respond.">
+  <defs><marker id="fa" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#6A7390"/></marker></defs>
+  <g fill="none" stroke-width="1.2">
+    <path d="M20 60C120 60 120 150 260 150M20 110C120 110 120 150 260 150M20 190C120 190 120 150 260 150M20 240C120 240 120 150 260 150" stroke="#7AA2FF" stroke-opacity=".45"/>
+    <path d="M260 150H420" stroke="#8AF3FF" stroke-width="2"/>
+    <path d="M420 150C500 150 500 70 580 70H980" stroke="#6A7390" stroke-dasharray="5 5"/>
+    <path d="M420 150C500 150 500 230 580 230H970" stroke="#8AF3FF" stroke-width="2" marker-end="url(#fa)"/>
+    <path d="M540 205l14 14M554 205l-14 14" stroke="#FF6B8A" stroke-width="1.6"/>
+    <path d="M650 300V240" stroke="#E2C27A" stroke-opacity=".7" marker-end="url(#fa)"/><path d="M760 300V240" stroke="#E2C27A" stroke-opacity=".7" marker-end="url(#fa)"/><path d="M870 300V240" stroke="#E2C27A" stroke-opacity=".7" marker-end="url(#fa)"/>
+  </g>
+  <circle cx="420" cy="150" r="9" fill="#05070D" stroke="#E2C27A" stroke-width="1.6"/>
+  <text class="mono" x="20" y="48" font-size="11">WEATHER</text><text class="mono" x="20" y="98" font-size="11">ROADS · FACILITIES</text>
+  <text class="mono" x="20" y="178" font-size="11">FLIGHTS · RAIL · PORTS</text><text class="mono" x="20" y="228" font-size="11">INFRASTRUCTURE</text>
+  <text x="300" y="138" font-size="15">Your city, now</text>
+  <text x="420" y="186" text-anchor="middle" font-size="14" fill="#E2C27A">A person forks it</text>
+  <text x="600" y="58" font-size="14" fill="#9AA3BE">The real city carries on, untouched</text>
+  <text x="600" y="218" font-size="15">The exercise copy</text>
+  <text x="520" y="250" font-size="12" fill="#FF6B8A">feeds cut</text>
+  <text x="650" y="322" text-anchor="middle" font-size="13">Any scenario</text>
+  <text x="760" y="322" text-anchor="middle" font-size="13">Real history</text>
+  <text x="870" y="322" text-anchor="middle" font-size="13">Weather engine</text>
+  <text class="mono" x="970" y="258" text-anchor="end" font-size="11">13 POSITIONS RESPOND</text>
+</svg>
+<figcaption><b>Fig. 2</b> · Live public data in, a person forks it, nothing flows back. Response units are simulated and sized from population by published per-capita ratios.</figcaption></figure>
+    <div class="head" style="margin:56px 0 20px"><div class="label">A real fork, from the record · Salem, Oregon · 17 Aug 2026</div></div>
+    <div class="stats">
+      <div class="stat"><b>138 ms</b><span>Fork to first exercise record</span></div>
+      <div class="stat"><b>110</b><span>Responses</span></div>
+      <div class="stat"><b>11</b><span>ICS filings</span></div>
+      <div class="stat"><b>5</b><span>Refusals, both record chains intact</span></div>
     </div>
   </div>
 </section>
@@ -68,14 +88,9 @@
     <div class="head">
       <div class="label">The problem</div>
       <h2>Cities must exercise for disasters. Nobody can measure whether it works.</h2>
-      <p>The after-action report is a narrative, and two evaluators watching the same drill write different reports. The same gap now covers software: vendors sell AI decision support to emergency managers, and there is no accepted way to test whether it helps.</p>
+      <p>Two evaluators, one drill, two different reports. And no way to test the AI being sold to emergency managers.</p>
     </div>
-    <div class="cells g4" style="display:grid">
-      <div><div class="label gold">01</div><h3>Not measured</h3><p>The report is written from notes and memory.</p></div>
-      <div><div class="label gold">02</div><h3>Not comparable</h3><p>No two jurisdictions score the same way, so progress can't be tracked year to year.</p></div>
-      <div><div class="label gold">03</div><h3>Too costly to run often</h3><p>Consultants and staff time mean most jurisdictions drill as seldom as the rules allow.</p></div>
-      <div><div class="label gold">04</div><h3>Can't be re-checked</h3><p>Once the drill ends, the report is the only evidence.</p></div>
-    </div>
+    <div class="igrid"><div class="itile"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg><b>Not measured</b><span>Written from notes</span></div><div class="itile"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 9h14M5 15h14"/></svg><b>Not comparable</b><span>No shared scoring</span></div><div class="itile"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 7v5l3.5 2"/></svg><b>Too costly to run often</b><span>Staff pulled off duty</span></div><div class="itile"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12a8 8 0 1014.5-4.6M19 3v5h-5"/><path d="M10 9l5 3-5 3z"/></svg><b>Can't be re-checked</b><span>The report is all that's left</span></div></div>
   </div>
 </section>
 
@@ -85,16 +100,7 @@
       <div class="label">The same drill, on a computer</div>
       <h2>Fewer people pulled off duty. A record instead of notes.</h2>
     </div>
-    <table class="compare">
-      <thead><tr><th></th><th>Today</th><th class="us">With City SeCUReD</th></tr></thead>
-      <tbody>
-        <tr><td>The scenario</td><td class="them">A script written months ahead</td><td>Your city as it stands right now, forked live</td></tr>
-        <tr><td>Absent agencies</td><td class="them">Staff pulled off duty to play them</td><td>The simulator plays them</td></tr>
-        <tr><td>The record</td><td class="them">Notes, taken by hand</td><td>Every decision, who made it, and when</td></tr>
-        <tr><td>The report</td><td class="them">Written from memory</td><td>Generated from the record, in the federal exercise format</td></tr>
-        <tr><td>Comparison</td><td class="them">Not possible across years or cities</td><td>Same scenario, same seed, same scoring</td></tr>
-      </tbody>
-    </table>
+    <div class="vs"><div class="vs-side off"><h4>Today</h4><ul><li><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>A script written months ahead</li><li><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>Staff pulled off duty to play absent agencies</li><li><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>Notes taken by hand</li><li><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>Report written from memory</li><li><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>No comparison across years or cities</li></ul></div><div class="vs-mid"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></div><div class="vs-side on"><h4>With City SeCUReD</h4><ul><li><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Your city as it stands now, forked live</li><li><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>The simulator plays absent agencies</li><li><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Every decision, who and when</li><li><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Report generated from the record</li><li><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Same scenario, seed and scoring</li></ul></div></div>
   </div>
 </section>
 
@@ -103,16 +109,9 @@
     <div class="head">
       <div class="label">Technology innovation</div>
       <h2>A measurement anyone can trust, and anyone can check.</h2>
-      <p>Hash chains, fixed seeds, paired experiments and simulation for emergency training are all established. What is new is an instrument that exercises a city live, as it stands today, while staying neutral by construction and re-derivable by anyone.</p>
+      <p>Live, neutral by construction, and re-derivable by anyone.</p>
     </div>
-    <div class="grid g3">
-      <div class="card"><div class="tag">Live, not canned</div><h3>The disaster happens here, now</h3><p>Each exercise forks the city's current state from live public data, so responders face today's roads, facilities and weather instead of a stale script.</p></div>
-      <div class="card"><div class="tag">Grounded in history</div><h3>Realism from what really happened</h3><p>For the hazard you choose, it searches public archives (federal disaster declarations, NOAA storm events, USGS earthquakes) for what has actually happened in and around your city, and builds that history into the exercise.</p></div>
-      <div class="card"><div class="tag">Neutral by construction</div><h3>No private data needed</h3><p>Live conditions come only from open public data, and hazards from published models with fixed random seeds. No jurisdiction hands over its inventory, staffing or vulnerabilities, so one instrument works across every jurisdiction.</p></div>
-      <div class="card"><div class="tag">Sized by population</div><h3>A roster from published ratios, not a guess</h3><p>Responder capacity comes from the city's population and facilities using cited per-capita ratios, such as NFPA staffing standards and the rates US departments actually report. Where no published figure exists, nothing is estimated: the gap is reported as a finding.</p></div>
-      <div class="card"><div class="tag">Its own weather engine</div><h3>Build the storm, then escalate it</h3><p>The exercise director builds a severe-weather system and steps it up stage by stage, seeing each stage's effect before committing it. It shows on the shared map with the Weather Service product it plays under. Nothing issues a real warning. Storms from live forecasts and past events are next.</p></div>
-      <div class="card"><div class="tag">Re-derivable by anyone</div><h3>A disputed score is settled by re-running it</h3><p>The forked snapshot and its seed go into a hash-chained, append-only record, so a run replays exactly long after live conditions have changed.</p></div>
-    </div>
+    <div class="igrid"><div class="itile"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21h18M5 21V10h5v11M10 21V4h6v17M16 21v-8h3v8M7 13h1M7 16h1M12.5 8h1M12.5 11h1M12.5 14h1"/></svg><b>Live, not canned</b><span>Today's roads, facilities, weather</span></div><div class="itile"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12a8 8 0 102.3-5.6L4 8.7"/><path d="M4 4v4.7h4.7M12 8v4l3 2"/></svg><b>Grounded in history</b><span>FEMA, NOAA and USGS archives</span></div><div class="itile"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 3v6c0 4.5-3.4 8-8 9-4.6-1-8-4.5-8-9V6z"/></svg><b>Neutral</b><span>Open public data only</span></div><div class="itile"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="9" r="3"/><circle cx="17" cy="10" r="2.5"/><path d="M3 20c.8-3.4 3.2-5 6-5s5.2 1.6 6 5M15 15.5c2.6-.2 4.8 1.2 5.5 4.5"/></svg><b>Sized by population</b><span>Published per-capita ratios, gaps reported</span></div><div class="itile"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 15a4 4 0 01-.5-8A5.5 5.5 0 0117 7.5 3.8 3.8 0 0117 15z"/><path d="M12 15l-2 4h3l-2 3"/></svg><b>Weather engine</b><span>Build a storm, escalate it in stages</span></div><div class="itile"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12a8 8 0 1014.5-4.6M19 3v5h-5"/><path d="M10 9l5 3-5 3z"/></svg><b>Re-derivable</b><span>Same seed, same result</span></div></div>
     <p class="source">It extends doctrine that already has authority: NIMS, ICS, NFPA response-time standards and FEMA exercise doctrine.</p>
   </div>
 </section>
@@ -122,13 +121,27 @@
     <div class="head">
       <div class="label">Where it leads · Faster mobilization</div>
       <h2>Learn from how cities drill. Cut the time it takes to get people moving.</h2>
-      <p>Every exercise is recorded the same way, so over time the record shows how a city's own people really respond. Position agents learn from that record, drill after drill. In a real crisis they are used for one thing only: shortening the delay before the right people are moving, so the right resources reach the right places sooner and everyone stays safe.</p>
+      <p>Agents learn each city's first moves from its own drills. In a crisis they do one thing: shorten the delay before people are moving.</p>
     </div>
-    <div class="grid g3">
-      <div class="card"><div class="num">01</div><h3>Watch the drills</h3><p>Each run adds to a record of who was called, what was asked for and how long each step took to start.</p></div>
-      <div class="card"><div class="num">02</div><h3>Learn the city's own patterns</h3><p>Position agents learn each position's first moves from how that city's staff actually drill, not from a generic script.</p></div>
-      <div class="card"><div class="num">03</div><h3>Close the gap, not the decision</h3><p>In a crisis the agent has the notifications, requests and forms drafted the moment they're needed. A named person still approves every order.</p></div>
-    </div>
+    <figure class="fig"><svg class="dgm" viewBox="0 0 1000 230" role="img" aria-label="Today, the delay between the first report and people moving is long. With agents that learned from drills, the drafting is done in advance, so that delay shrinks. The response itself is unchanged.">
+  <text class="mono" x="150" y="18" font-size="11">FIRST REPORT</text>
+  <text class="mono" x="1000" y="18" text-anchor="end" font-size="11">RESOURCES IN PLACE</text>
+  <text x="0" y="62" font-size="14" fill="#9AA3BE">Today</text>
+  <rect x="150" y="44" width="420" height="28" fill="#FF6B8A" fill-opacity=".18" stroke="#FF6B8A" stroke-opacity=".5"/>
+  <rect x="570" y="44" width="430" height="28" fill="#7AA2FF" fill-opacity=".14" stroke="#7AA2FF" stroke-opacity=".45"/>
+  <text x="360" y="63" text-anchor="middle" font-size="13">Getting people moving: calls, requests, forms</text>
+  <text x="785" y="63" text-anchor="middle" font-size="13">The response</text>
+  <text x="0" y="142" font-size="14" fill="#E6EAF4">With agents</text>
+  <rect x="150" y="124" width="120" height="28" fill="#6EE7B7" fill-opacity=".18" stroke="#6EE7B7" stroke-opacity=".6"/>
+  <rect x="270" y="124" width="430" height="28" fill="#7AA2FF" fill-opacity=".14" stroke="#7AA2FF" stroke-opacity=".45"/>
+  <text x="210" y="143" text-anchor="middle" font-size="13">Drafted</text>
+  <text x="485" y="143" text-anchor="middle" font-size="13">The same response, by people</text>
+  <path d="M700 168V188H1000V168" fill="none" stroke="#6EE7B7" stroke-opacity=".7"/>
+  <text x="850" y="212" text-anchor="middle" font-size="13" fill="#6EE7B7">Time saved</text>
+  <text class="mono" x="150" y="212" font-size="11">ILLUSTRATION · NOT A MEASUREMENT</text>
+</svg>
+</figure>
+    <div style="margin-top:32px"><ol class="flow"><li><span class="fl-n">01</span><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.6-6 10-6 10 6 10 6-3.6 6-10 6S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg><b>Watch the drills</b><small>Who was called, how long it took</small></li><li><span class="fl-n">02</span><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 4a3 3 0 00-3 3 3 3 0 00-2 5 3 3 0 002 5 3 3 0 006 1V5a3 3 0 00-3-1zM15 4a3 3 0 013 3 3 3 0 012 5 3 3 0 01-2 5 3 3 0 01-6 1"/></svg><b>Learn the city's patterns</b><small>Each position's first moves</small></li><li><span class="fl-n">03</span><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c1-4 4-6 7-6s6 2 7 6"/></svg><b>Close the gap, not the decision</b><small>Drafted ahead, a person approves</small></li></ol></div>
     <ul class="ticks warn" style="margin-top:28px">
       <li><span><b>The aim:</b> less time between the first report and people moving. The agent never commands, never routes and never decides.</span></li>
     </ul>
@@ -141,13 +154,7 @@
       <div class="label">How a run works</div>
       <h2>Five steps, every one recorded.</h2>
     </div>
-    <div class="steps">
-      <div><h3>Today's city, forked live</h3><p>Its real road network and facilities and its live public conditions, from open data, with simulated units sized from its population by published per-capita ratios.</p></div>
-      <div><h3>A seeded disaster</h3><p>Drawn from 19 hazard types, from routine incidents to a major earthquake, flood, wildfire, hazardous-materials release or cyber event.</p></div>
-      <div><h3>13 positions respond</h3><p>NIMS and ICS positions, each filled by a person, an AI model or a fixed doctrine policy.</p></div>
-      <div><h3>Every decision recorded</h3><p>In an append-only, hash-chained record, flagged as an exercise.</p></div>
-      <div><h3>Scored, report written</h3><p>The after-action report is generated from the record, not from memory.</p></div>
-    </div>
+    <ol class="flow"><li><span class="fl-n">01</span><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21h18M5 21V10h5v11M10 21V4h6v17M16 21v-8h3v8M7 13h1M7 16h1M12.5 8h1M12.5 11h1M12.5 14h1"/></svg><b>Today's city</b><small>Forked live</small></li><li><span class="fl-n">02</span><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 15a4 4 0 01-.5-8A5.5 5.5 0 0117 7.5 3.8 3.8 0 0117 15z"/><path d="M12 15l-2 4h3l-2 3"/></svg><b>Seeded disaster</b><small>19 hazard types</small></li><li><span class="fl-n">03</span><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="9" r="3"/><circle cx="17" cy="10" r="2.5"/><path d="M3 20c.8-3.4 3.2-5 6-5s5.2 1.6 6 5M15 15.5c2.6-.2 4.8 1.2 5.5 4.5"/></svg><b>13 positions</b><small>Person, AI or doctrine</small></li><li><span class="fl-n">04</span><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h14v16H5z"/><path d="M8 8h8M8 12h8M8 16h5"/></svg><b>Every decision</b><small>Recorded, flagged exercise</small></li><li><span class="fl-n">05</span><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg><b>Scored</b><small>Report from the record</small></li></ol>
   </div>
 </section>
 
@@ -156,7 +163,7 @@
     <div class="head">
       <div class="label">It already runs</div>
       <h2>Working software, not a concept.</h2>
-      <p>A 2D map, a 3D terrain view and a modelled operations room, all kept in step. A scenario author, a doctrine panel, a scoring pass and a generated after-action report. It runs on one laptop with no network connection.</p>
+      <p>2D map, 3D terrain, operations room, scoring and a generated report. One laptop, no network.</p>
     </div>
     <div class="grid g3">
       <figure><div class="shot"><img src="img/eoc-map.png" alt="The live 2D city map with simulated units, incidents and city data layers" loading="lazy"></div><figcaption><b>Fig. 2</b> · The live 2D map, with simulated units, incidents and data layers.</figcaption></figure>
@@ -178,7 +185,7 @@
     <div class="head">
       <div class="label">Research objectives</div>
       <h2>Three exams, each able to fail.</h2>
-      <p>The work ahead is stated so it can fail. The harness for paired runs already exists: it runs comparison arms (no responder, a doctrine policy, a fixed reflex and an AI model) on identical seeds and reports effect sizes.</p>
+      <p>Stated so it can fail. The paired-run harness already exists.</p>
     </div>
     <div class="grid g3">
       <div class="card"><div class="num">EXAM 01</div><h3>Discrimination</h3><p>A doctrine-correct response must score measurably higher than a deliberately degraded one on identical scenarios.</p><p style="margin-top:12px;color:var(--amber)">Fails if the gap is inside the error band.</p></div>
@@ -186,16 +193,18 @@
       <div class="card"><div class="num">EXAM 03</div><h3>Reproduction</h3><p>An independent party re-runs a completed result from its seed and record alone.</p><p style="margin-top:12px;color:var(--amber)">Fails if they get a different score.</p></div>
     </div>
     <div class="head" style="margin:72px 0 28px"><h2 style="font-size:28px">The plan, in months</h2></div>
-    <table class="compare">
-      <thead><tr><th>Work</th><th>When</th><th>Phase</th></tr></thead>
-      <tbody>
-        <tr><td>Discrimination exam</td><td class="them">Months 0 to 6</td><td>Phase I</td></tr>
-        <tr><td>Practitioner review of scenarios</td><td class="them">Months 0 to 6, alongside</td><td>Phase I</td></tr>
-        <tr><td>Independent reproduction</td><td class="them">Months 3 to 9</td><td>Phase I</td></tr>
-        <tr><td>Prediction exam against historical incidents</td><td class="them">Months 12 to 24</td><td>Phase II</td></tr>
-        <tr><td>Published, reproducible methodology</td><td class="them">About month 24</td><td>Phase II</td></tr>
-      </tbody>
-    </table>
+    <figure class="fig"><svg class="dgm" viewBox="0 0 1000 250" role="img" aria-label="Research plan by month: discrimination exam and practitioner review months 0 to 6, independent reproduction months 3 to 9, prediction exam months 12 to 24, published methodology around month 24.">
+  <g stroke="#1E2540"><path d="M300 20V215M450 20V215M600 20V215M750 20V215M900 20V215"/></g>
+  <g class="mono" font-size="11"><text class="mono" x="300" y="236" text-anchor="middle">0</text><text class="mono" x="450" y="236" text-anchor="middle">6</text><text class="mono" x="600" y="236" text-anchor="middle">12</text><text class="mono" x="750" y="236" text-anchor="middle">18</text><text class="mono" x="900" y="236" text-anchor="middle">24 MONTHS</text></g>
+  <rect x="300" y="12" width="300" height="16" fill="#8AF3FF" fill-opacity=".06"/><text class="mono" x="310" y="24" font-size="10">PHASE I</text>
+  <rect x="600" y="12" width="330" height="16" fill="#E2C27A" fill-opacity=".06"/><text class="mono" x="610" y="24" font-size="10">PHASE II</text>
+  <text x="0" y="58" font-size="14">Discrimination exam</text><rect x="300" y="44" width="150" height="20" fill="#8AF3FF" fill-opacity=".35"/>
+  <text x="0" y="96" font-size="14">Practitioner review</text><rect x="300" y="82" width="150" height="20" fill="#8AF3FF" fill-opacity=".22"/>
+  <text x="0" y="134" font-size="14">Independent reproduction</text><rect x="375" y="120" width="150" height="20" fill="#8AF3FF" fill-opacity=".35"/>
+  <text x="0" y="172" font-size="14">Prediction vs. history</text><rect x="600" y="158" width="300" height="20" fill="#E2C27A" fill-opacity=".35"/>
+  <text x="0" y="206" font-size="14">Published methodology</text><path d="M900 186l10 10-10 10-10-10z" fill="#E2C27A"/>
+</svg>
+</figure>
   </div>
 </section>
 
@@ -238,7 +247,7 @@
   </div>
 </section>
 
-<section class="sec tint"><div class="wrap"><div class="head"><div class="label">Same engine</div><h2>Other products</h2></div><div class="grid g4"><a class="card" href="build-a-bot.html"><div class="tag">Build</div><h3>Build-A-Bot</h3><p>Build your own governed agent</p></a><a class="card" href="n-hr.html"><div class="tag">Build</div><h3>n-HR™</h3><p>HR for your AI agents</p></a><a class="card" href="position-agents.html"><div class="tag">Public safety</div><h3>Position Agents</h3><p>An assistant for each EOC position</p></a><a class="card" href="desk-agents.html"><div class="tag">Business</div><h3>Desk Agents</h3><p>Email and paperwork for small business</p></a><a class="card" href="engine.html"><div class="tag">Platform</div><h3>The Engine</h3><p>The governed runtime under every agent</p></a><a class="card" href="verifiable-inference.html"><div class="tag">Platform</div><h3>Verifiable Inference</h3><p>Replay any AI answer, byte for byte</p></a><a class="card" href="mind.html"><div class="tag">Apps</div><h3>G-ynthetic Mind</h3><p>A companion that remembers</p></a><a class="card" href="cubex.html"><div class="tag">Apps</div><h3>CubeX</h3><p>Chess, rebuilt for a cube</p></a></div></div></section>
+<section class="sec tint"><div class="wrap"><div class="head"><div class="label">Same engine</div><h2>Other products</h2></div><div class="grid g4"><a class="card pcard" href="build-a-bot.html"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="7" width="14" height="11" rx="1"/><path d="M12 3v4M9 12h.01M15 12h.01M9 15h6"/></svg><div class="tag">Build</div><h3>Build-A-Bot</h3><p>Build your own governed agent</p></a><a class="card pcard" href="n-hr.html"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="3" width="6" height="4"/><rect x="3" y="17" width="6" height="4"/><rect x="15" y="17" width="6" height="4"/><path d="M12 7v5M6 17v-5h12v5"/></svg><div class="tag">Build</div><h3>n-HR™</h3><p>HR for your AI agents</p></a><a class="card pcard" href="position-agents.html"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="9" r="3"/><circle cx="17" cy="10" r="2.5"/><path d="M3 20c.8-3.4 3.2-5 6-5s5.2 1.6 6 5M15 15.5c2.6-.2 4.8 1.2 5.5 4.5"/></svg><div class="tag">Public safety</div><h3>Position Agents</h3><p>An assistant for each EOC position</p></a><a class="card pcard" href="desk-agents.html"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="1"/><path d="M3 7l9 6 9-6"/></svg><div class="tag">Business</div><h3>Desk Agents</h3><p>Email and paperwork for small business</p></a><a class="card pcard" href="engine.html"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 3v6c0 4.5-3.4 8-8 9-4.6-1-8-4.5-8-9V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg><div class="tag">Platform</div><h3>The Engine</h3><p>The governed runtime under every agent</p></a><a class="card pcard" href="verifiable-inference.html"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12a8 8 0 1014.5-4.6M19 3v5h-5"/><path d="M10 9l5 3-5 3z"/></svg><div class="tag">Platform</div><h3>Verifiable Inference</h3><p>Replay any AI answer, byte for byte</p></a><a class="card pcard" href="mind.html"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 4a3 3 0 00-3 3 3 3 0 00-2 5 3 3 0 002 5 3 3 0 006 1V5a3 3 0 00-3-1zM15 4a3 3 0 013 3 3 3 0 012 5 3 3 0 01-2 5 3 3 0 01-6 1"/></svg><div class="tag">Apps</div><h3>G-ynthetic Mind</h3><p>A companion that remembers</p></a><a class="card pcard" href="cubex.html"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 4.5v9L12 21l-8-4.5v-9z"/><path d="M4 7.5l8 4.5 8-4.5M12 12v9"/></svg><div class="tag">Apps</div><h3>CubeX</h3><p>Chess, rebuilt for a cube</p></a></div></div></section>
 
 </main>
 <footer class="site-foot"><div class="wrap">

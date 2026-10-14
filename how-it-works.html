@@ -22,7 +22,7 @@
   <div class="wrap">
     <div class="label">How it works</div>
     <h1>Agents draft. <span class="grad">People decide.</span></h1>
-    <p class="lede">Most agent systems let the model choose what happens next. Ours take that choice away from the model and give it back to the people accountable for the outcome.</p>
+    <p class="lede">The model never chooses what happens next. People do.</p>
   </div>
 </section>
 
@@ -32,12 +32,35 @@
       <div class="label">Four rules, every agent</div>
       <h2>Every agent we make, and every bot you build, follows the same four rules.</h2>
     </div>
-    <div class="cells g4" style="display:grid">
-      <div><div class="label gold">01</div><h3>Permission first</h3><p>An agent acts only when your rules allow it or a named person approves it.</p></div>
-      <div><div class="label gold">02</div><h3>Approved sources only</h3><p>It reads only the sources you approved, nothing else it happens to reach.</p></div>
-      <div><div class="label gold">03</div><h3>Asks a person</h3><p>When no rule covers a situation, it asks. Silence is never a yes.</p></div>
-      <div><div class="label gold">04</div><h3>Records everything</h3><p>Every attempt, approval and refusal goes into a tamper-evident record you can export.</p></div>
-    </div>
+    <div class="igrid"><div class="itile"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="1"/><path d="M8 11V8a4 4 0 018 0v3"/></svg><b>Permission first</b><span>Acts only when allowed</span></div><div class="itile"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="6" rx="7" ry="2.5"/><path d="M5 6v12c0 1.4 3.1 2.5 7 2.5s7-1.1 7-2.5V6M5 12c0 1.4 3.1 2.5 7 2.5s7-1.1 7-2.5"/></svg><b>Approved sources only</b><span>Reads nothing else</span></div><div class="itile"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v11H9l-5 4z"/><path d="M10 9a2 2 0 113 1.7c-.6.4-1 .8-1 1.5M12 14h.01"/></svg><b>Asks a person</b><span>Silence is never a yes</span></div><div class="itile"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h14v16H5z"/><path d="M8 8h8M8 12h8M8 16h5"/></svg><b>Records everything</b><span>Every attempt, approval, refusal</span></div></div>
+    <figure class="fig" style="margin-top:40px"><svg class="dgm" viewBox="0 0 1000 310" role="img" aria-label="An agent proposes. If a rule allows it, it acts. If not, a named person approves or refuses. Every outcome is recorded.">
+  <defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#6A7390"/></marker></defs>
+  <g fill="none" stroke="#2A3358" stroke-width="1.2">
+    <rect x="10" y="100" width="180" height="64" fill="#0F1424"/>
+    <path d="M330 72 L410 132 L330 192 L250 132 Z" fill="#141A2E" stroke="#8AF3FF" stroke-opacity=".5"/>
+    <rect x="490" y="100" width="160" height="64" fill="#0F1424"/>
+    <rect x="790" y="100" width="200" height="64" fill="#141A2E" stroke="#6EE7B7" stroke-opacity=".55"/>
+    <rect x="240" y="236" width="180" height="58" fill="#0F1424" stroke="#E2C27A" stroke-opacity=".6"/>
+  </g>
+  <g fill="none" stroke="#6A7390" stroke-width="1.2" marker-end="url(#ah)">
+    <path d="M190 132H248"/><path d="M410 132H488"/><path d="M650 132H788"/><path d="M330 192V234"/>
+    <path d="M420 254H570V166"/><path d="M420 280H890V166" stroke-dasharray="4 4"/>
+  </g>
+  <text x="100" y="138" text-anchor="middle" font-size="16">Agent proposes</text>
+  <text x="330" y="137" text-anchor="middle" font-size="15">Rule allows?</text>
+  <text x="570" y="138" text-anchor="middle" font-size="16">Act</text>
+  <text x="890" y="138" text-anchor="middle" font-size="16">Record everything</text>
+  <text x="330" y="270" text-anchor="middle" font-size="15">Ask a named person</text>
+  <text class="mono" x="448" y="122" font-size="11">YES</text>
+  <text class="mono" x="340" y="220" font-size="11">NO</text>
+  <text class="mono" x="460" y="246" font-size="11">APPROVES</text>
+  <text class="mono" x="720" y="272" font-size="11">REFUSES</text>
+  <text class="mono" x="100" y="86" text-anchor="middle" font-size="11">01</text>
+  <text class="mono" x="330" y="60" text-anchor="middle" font-size="11">02</text>
+  <text class="mono" x="570" y="86" text-anchor="middle" font-size="11">03</text>
+  <text class="mono" x="890" y="86" text-anchor="middle" font-size="11">04</text>
+</svg>
+<figcaption><b>Fig. 1</b> · Every action passes the same gate.</figcaption></figure>
   </div>
 </section>
 
@@ -47,12 +70,7 @@
       <div class="label">The loop</div>
       <h2>Propose, approve, record, replay.</h2>
     </div>
-    <div class="steps">
-      <div><h3>Propose</h3><p>The agent drafts the reply, the form or the order, and says what it wants to do.</p></div>
-      <div><h3>Approve</h3><p>Your rules allow it, or a named person approves the exact content. The assistant can type; it can't press a button.</p></div>
-      <div><h3>Record</h3><p>What happened, who decided and when go into a hash-chained, append-only record.</p></div>
-      <div><h3>Replay</h3><p>Runs can be reproduced and checked later, by you or by someone who doesn't trust you.</p></div>
-    </div>
+    <ol class="flow"><li><span class="fl-n">01</span><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="7" width="14" height="11" rx="1"/><path d="M12 3v4M9 12h.01M15 12h.01M9 15h6"/></svg><b>Propose</b><small>Agent drafts the work</small></li><li><span class="fl-n">02</span><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c1-4 4-6 7-6s6 2 7 6"/></svg><b>Approve</b><small>Rule or named person</small></li><li><span class="fl-n">03</span><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h14v16H5z"/><path d="M8 8h8M8 12h8M8 16h5"/></svg><b>Record</b><small>Append-only, hash-chained</small></li><li><span class="fl-n">04</span><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12a8 8 0 1014.5-4.6M19 3v5h-5"/><path d="M10 9l5 3-5 3z"/></svg><b>Replay</b><small>Anyone can re-check it</small></li></ol>
   </div>
 </section>
 
@@ -62,16 +80,7 @@
       <div class="label">Compared with the usual way</div>
       <h2>Where the decision sits.</h2>
     </div>
-    <table class="compare">
-      <thead><tr><th></th><th>Typical AI agent</th><th class="us">G-ynthetic Labs</th></tr></thead>
-      <tbody>
-        <tr><td>Who decides</td><td class="them">The model</td><td>A named person, or a rule a person wrote</td></tr>
-        <tr><td>Default</td><td class="them">Allowed unless blocked</td><td>Denied unless allowed</td></tr>
-        <tr><td>Record</td><td class="them">Logs, if configured</td><td>Hash-chained, append-only, exportable</td></tr>
-        <tr><td>Reproducible</td><td class="them">Rarely</td><td>Replayable, byte for byte where it matters</td></tr>
-        <tr><td>Where it runs</td><td class="them">The vendor's cloud</td><td>Your computer, your models; nothing sent home</td></tr>
-      </tbody>
-    </table>
+    <div class="vs"><div class="vs-side off"><h4>Typical AI agent</h4><ul><li><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>The model decides</li><li><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>Allowed unless blocked</li><li><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>Logs, if configured</li><li><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>Rarely reproducible</li><li><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>Runs in the vendor's cloud</li></ul></div><div class="vs-mid"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></div><div class="vs-side on"><h4>G-ynthetic Labs</h4><ul><li><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>A named person decides</li><li><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Denied unless allowed</li><li><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Hash-chained record</li><li><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Replayable, byte for byte</li><li><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Your computer, your models</li></ul></div></div>
   </div>
 </section>
 
@@ -81,18 +90,7 @@
       <div class="label">What it never does</div>
       <h2>Lines our agents don't cross.</h2>
     </div>
-    <div class="grid g2" style="gap:20px">
-      <ul class="ticks">
-        <li><span><b>Never sends, signs or approves on its own.</b> In any mode.</span></li>
-        <li><span><b>Never routes work by the model's judgement.</b> Routing is fixed rules with stated reasons.</span></li>
-        <li><span><b>Never stores credentials.</b> Keys are referenced, never written, logged or echoed.</span></li>
-      </ul>
-      <ul class="ticks">
-        <li><span><b>Never commands a device</b> in our public-safety products. They are read-only.</span></li>
-        <li><span><b>Never sends your data home.</b> There is no network code in the engine's core.</span></li>
-        <li><span><b>Never claims more than it proves.</b> The record is tamper-evident, and we make no compliance claims.</span></li>
-      </ul>
-    </div>
+    <div class="igrid"><div class="itile"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg><b>Never signs or sends alone</b></div><div class="itile"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg><b>Never routes by the model</b></div><div class="itile"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="15" r="4"/><path d="M11 12l9-9M17 6l3 3M15 8l2 2"/></svg><b>Never stores credentials</b></div><div class="itile"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg><b>Never commands a device</b></div><div class="itile"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 3v6c0 4.5-3.4 8-8 9-4.6-1-8-4.5-8-9V6z"/></svg><b>Never sends data home</b></div><div class="itile"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h14v16H5z"/><path d="M8 8h8M8 12h8M8 16h5"/></svg><b>Never claims more than it proves</b></div></div>
   </div>
 </section>
 
