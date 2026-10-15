@@ -348,3 +348,5 @@ h1, h2, h3, h4 { font-weight: 500; letter-spacing: -0.02em; }
 .igrid { gap: 0; background: none; border: none; padding: 1px 0 0 1px; }
 .itile { border: 1px solid var(--edge); margin: -1px 0 0 -1px; }
 .eoc .sec-col .bx { width: 100%; }
+/* Wordmark per the Logo-Mockup lockup: cyan hyphen in G-ynthetic. */
+.brand .name i { color: var(--cyan); }
