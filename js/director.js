@@ -7,6 +7,7 @@
  * (js/hypercube/hypercube.js), holds, fades back to the copy, and the copy breaks apart into a stirred-up swarm again.
  * Both drawings share one time step, so the copy and the mesh turn, breathe and sway together. Nothing reacts to
  * the pointer. With reduced motion it shows the mesh still; without WebGL2 the formed copy stands in for it.
+ * On a phone-width screen the loop starts on the mesh rather than the swarm.
  * @feature swarm-to-mesh
  */
 import { CAMERA } from '../design/hypercube-look.js';
@@ -44,7 +45,7 @@ export function heroShare(phase, seconds) {
 }
 
 /** Starts the loop with the swarm on swarmCanvas (2D) and the hero mesh on heroCanvas (WebGL2). */
-export function createDirector(swarmCanvas, heroCanvas, { reduced = false } = {}) {
+export function createDirector(swarmCanvas, heroCanvas, { reduced = false, meshFirst = false } = {}) {
   const placement = {
     now: () => ({ x: 0, y: 0, scale: matchScale(heroCanvas.clientWidth || 1, heroCanvas.clientHeight || 1), dim: 1 }),
     advance() {},
@@ -63,6 +64,8 @@ export function createDirector(swarmCanvas, heroCanvas, { reduced = false } = {}
   const stage = createStage(swarmCanvas);
   if (!stage) return null;
   let phase = 'swarm', at = 0, formed = 0, last = 0;
+  // On phones the loop opens on the mesh itself (owner, 15 Oct 2026), then carries on as usual.
+  if (meshFirst && cube) { stage.harnessed(); cube.seek(0); phase = 'reveal'; }
 
   /** Moves the loop on to the next part, doing what that change asks of the swarm and the mesh. */
   function advance() {
@@ -101,5 +104,6 @@ if (typeof document !== 'undefined') {
   const swarm = document.querySelector('[data-swarm-canvas]');
   const hero = document.querySelector('[data-hero-canvas]');
   const reduced = globalThis.matchMedia?.('(prefers-reduced-motion: reduce)').matches ?? false;
-  if (swarm && hero) globalThis.__director = createDirector(swarm, hero, { reduced });
+  const meshFirst = globalThis.matchMedia?.('(max-width: 600px)').matches ?? false;
+  if (swarm && hero) globalThis.__director = createDirector(swarm, hero, { reduced, meshFirst });
 }

@@ -354,3 +354,16 @@ h1, h2, h3, h4 { font-weight: 500; letter-spacing: -0.02em; }
 .brand .logo { height: 50px; width: auto; display: block; }
 footer .brand .logo { height: 52px; }
 @media (max-width: 600px) { .brand .logo { height: 38px; } }
+
+/* ---- Phone home hero: logo over the animation, then the mission (William, 15 Oct 2026) ---- */
+.hero-logo { display: none; }
+@media (max-width: 600px) {
+  .anim-hero { min-height: calc(100svh - 64px); }
+  .anim-hero .copy { padding-top: 32px; }
+  .anim-hero canvas { top: 18%; height: 52%; }
+  .anim-hero .hero-logo { display: block; width: min(82vw, 340px); height: auto; margin: 0 auto calc(36svh); filter: drop-shadow(0 0 18px rgba(5,7,13,.9)); }
+  .anim-hero .copy .label { display: none; }
+  .anim-hero h1 { font-size: 30px; margin-top: 0 !important; }
+  .anim-hero .foot .state { display: none; }
+  .anim-hero .foot { padding-top: 28px; }
+}
