@@ -350,3 +350,7 @@ h1, h2, h3, h4 { font-weight: 500; letter-spacing: -0.02em; }
 .eoc .sec-col .bx { width: 100%; }
 /* Wordmark per the Logo-Mockup lockup: cyan hyphen in G-ynthetic. */
 .brand .name i { color: var(--cyan); }
+/* The company wordmark image (William, 15 Oct 2026). */
+.brand .logo { height: 50px; width: auto; display: block; }
+footer .brand .logo { height: 52px; }
+@media (max-width: 600px) { .brand .logo { height: 38px; } }
