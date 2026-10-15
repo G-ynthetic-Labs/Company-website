@@ -1,5 +1,5 @@
 {
-  "about": "Where each feature lives in this website. Started 9 Oct 2026 with the legal pages; other features to be added as they are touched.",
+  "about": "Where each feature lives in this website.",
   "features": {
     "legal-pages": {
       "what": "The Legal hub and one privacy-and-terms page per public app; the footer's Legal link; the website licence",
@@ -7,7 +7,6 @@
         "legal/index.html",
         "legal/custom-agent/index.html",
         "legal/city-secured/index.html",
-        "legal/business-intelligence/index.html",
         "legal/cubex/index.html",
         "assets/css/legal.css",
         "sitemap.xml",
@@ -24,6 +23,41 @@
         "cubex3/privacy/delete/index.html"
       ],
       "texts": "G-ynthetic-Labs/Legal-attribution legal/apps/cubex/"
+    },
+    "company-site": {
+      "what": "The product site: home, products, one page per product, pricing, about and contact, plus redirect pages from old addresses",
+      "files": [
+        "about.html",
+        "arc-lab.html",
+        "architecture.html",
+        "build-a-bot.html",
+        "byte-for-byte.html",
+        "city-secured.html",
+        "contact.html",
+        "cubex.html",
+        "desk-agents.html",
+        "engine.html",
+        "evidence.html",
+        "how-it-works.html",
+        "index.html",
+        "investors.html",
+        "mind.html",
+        "n-hr.html",
+        "orbitgen.html",
+        "platform.html",
+        "position-agents.html",
+        "pricing.html",
+        "products.html",
+        "research.html",
+        "secured.html",
+        "verifiable-inference.html",
+        "work.html",
+        "css/",
+        "js/",
+        "design/",
+        "img/"
+      ],
+      "texts": "Built from the site source in the project's shared folder (website/site)"
     }
   }
 }
