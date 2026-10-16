@@ -1,543 +1,168 @@
-<!DOCTYPE html>
+<!doctype html>
+<!-- Copyright (c) 2026 G-ynthetic Labs LLC. All rights reserved. -->
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>G-ynthetic Labs — Four Buckets for Holding Complexity</title>
-<meta name="description" content="Four buckets for holding complexity: seven parts at most, an address not a name, grow inward, same shape at every depth. Chosen rather than derived — and held across a thesis, a memory system, a world generator and a city simulator.">
-<link rel="icon" href="favicon.ico">
-<link rel="stylesheet" href="assets/css/base.css">
+<link rel="icon" type="image/svg+xml" href="img/favicon.svg">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>G-ynthetic Labs</title>
+<meta name="description" content="G-ynthetic Labs makes AI agents, software that does real work on its own, built to check with a person before anything important and to keep a record of everything it does.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Hanken+Grotesk:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="css/site.css">
+<script>try { history.scrollRestoration = 'manual'; } catch (e) {}</script>
 </head>
 <body>
-
-<nav class="nav">
-  <div class="nav-in">
-    <a class="brand" href="index.html"><span class="brand-mark"></span> G-YNTHETIC&nbsp;LABS</a>
-    <button class="nav-toggle" aria-expanded="false">Menu</button>
-    <div class="nav-links">
-      <a href="work.html">The Work</a>
-      <a href="research.html">Research</a>
-      <a href="architecture.html">Architecture</a>
-      <a href="platform.html">Lattice</a>
-      <a href="byte-for-byte.html">Byte for Byte</a>
-      <a href="cubex.html">Cubex³</a>
-      <a href="evidence.html">Evidence</a>
-      <a href="investors.html" class="nav-cta">Investors</a>
-    </div>
+<header class="site-head" id="top"><div class="wrap">
+<a class="brand" href="index.html"><img class="logo" src="img/logo.png" srcset="img/logo.png 1x, img/logo@2x.png 2x" alt="G-ynthetic Labs"></a>
+<button class="burger" type="button" aria-controls="menu" aria-expanded="false">Menu</button>
+<ul class="menu" id="menu"><li class="has-drop"><a href="products.html">Products ▾</a><div class="drop"><div><h4>Build</h4><a href="build-a-bot.html"><b>Build-A-Bot</b><small>Make your own AI agent, no coding</small></a><a href="n-hr.html"><b>n-HR™</b><small>Manage AI agents the way HR manages staff</small></a></div><div><h4>Public safety</h4><a href="city-secured.html"><b>City SeCUReD</b><small>Disaster drills on a copy of your city</small></a><a href="position-agents.html"><b>Position Agents</b><small>AI helpers for a city's emergency center</small></a></div><div><h4>Business</h4><a href="desk-agents.html"><b>Desk Agents</b><small>Email and paperwork help for small business</small></a></div><div><h4>Platform</h4><a href="engine.html"><b>The Engine</b><small>The safety system under every product</small></a><a href="verifiable-inference.html"><b>Verifiable Inference</b><small>Prove an AI answer hasn't changed</small></a></div><div><h4>Apps</h4><a href="mind.html"><b>G-ynthetic Mind</b><small>A personal AI that remembers you</small></a><a href="cubex.html"><b>CubeX</b><small>Chess played inside a cube</small></a></div></div></li><li><a href="how-it-works.html">How it works</a></li><li><a href="pricing.html">Pricing</a></li><li><a href="about.html">About</a></li><li><a href="contact.html">Contact</a></li><li><a class="cta" href="build-a-bot.html">Build-A-Bot</a></li></ul>
+</div></header>
+<main>
+<section class="anim-hero">
+  <canvas class="gl" data-hero-canvas aria-hidden="true"></canvas>
+  <canvas data-swarm-canvas aria-hidden="true"></canvas>
+  <div class="veil"></div>
+  <div class="copy wrap">
+    <img class="hero-logo" src="img/logo@2x.png" alt="G-ynthetic Labs">
+    <div class="label">G-ynthetic Labs · Independent research initiative</div>
+    <h1 style="margin-top:18px">Tradesman-level structure<br><span class="grad">for AI.</span></h1>
+    <p class="lede">G-ynthetic Labs is an independent research initiative bringing tradesman-level structural support to the field of AI, shipping with the tools to help maintain it.</p>
   </div>
-</nav>
-
-<!-- ============================================================ HERO -->
-<header class="hero">
-  <div class="stage hero" data-gl="lattice" data-spin="0.05"></div>
-  <div class="hero-scrim"></div>
-  <div class="wrap">
-    <div class="hero-in">
-      <p class="eyebrow">Research company · Portland, Oregon</p>
-      <h1>Complexity has to<br>go <em>somewhere.</em></h1>
-      <p class="lead hero-sub">
-        Anything genuinely complicated is too big to hold in your head at once. So you need
-        buckets to pour it into — few enough to keep track of, in a place you can find again.
-        There are four of them here. They are simple enough to explain to a ten-year-old, and
-        the same four have held a chess game, a global crisis thesis, a memory system, a world
-        generator and a city.
-      </p>
-      <div class="btns">
-        <a class="btn primary" href="#rules">The four buckets <span class="arw">→</span></a>
-        <a class="btn" href="work.html">Research &amp; software</a>
-      </div>
-      <div class="stage-hud" style="position:static;text-align:left;margin-top:2.6rem;">
-        SUBSTRATE 7³ · <span>342</span> PLACES PER LEVEL · DEPTH OPEN<br>
-        RUNTIME LOCAL · NO DATA EGRESS REQUIRED<br>
-        MANUAL_CODE_CONTRIBUTION: <span>0.00%</span>
-      </div>
-    </div>
-  </div>
-</header>
-
-<!-- ============================================================ THE RULES -->
-<section id="rules">
-  <div class="wrap">
-    <div class="max rv" style="margin-bottom:3.2rem">
-      <p class="eyebrow">The buckets</p>
-      <h2>Say it plainly or it isn't true.</h2>
-      <p class="mb0">
-        Everything on this site is these four buckets pointed at something. If the buckets are
-        the wrong shape, all of it is wrong together — which is exactly why they are worth
-        writing down this plainly.
-      </p>
-    </div>
-
-    <div class="split" style="margin-bottom:2.2rem">
-      <div class="card rv" style="padding:34px">
-        <div class="idx"><span>BUCKET ONE</span><span class="tag">7</span></div>
-        <h3>Seven at a time. No more.</h3>
-        <p style="margin-bottom:1rem">
-          Ask anyone to hold nine different things in mind at once and two of them quietly
-          become the same thing. Seven is roughly where a list stops being a list and starts
-          being a blur.
-        </p>
-        <p class="mb0">
-          So nothing here is ever divided into more than seven pieces at one level. If you need
-          more, you have not found the right seven yet — or you need another level.
-        </p>
-      </div>
-
-      <div class="card rv" data-delay="80" style="padding:34px">
-        <div class="idx"><span>BUCKET TWO</span><span class="tag">ADDRESS</span></div>
-        <h3>A place to put it, not a name to call it.</h3>
-        <p style="margin-bottom:1rem">
-          Every piece gets a fixed address — a location you go to, not a label you search for.
-          Two things sitting next to each other are genuinely next to each other.
-        </p>
-        <p class="mb0">
-          An address written down two years ago still points at the same spot today. That is
-          what makes it possible to check an old decision instead of taking someone's word
-          about it.
-        </p>
-      </div>
-
-      <div class="card rv" style="padding:34px">
-        <div class="idx"><span>BUCKET THREE</span><span class="tag">INWARD</span></div>
-        <h3>When a bucket fills, go inward.</h3>
-        <p style="margin-bottom:1rem">
-          Almost every system grows by adding room on the outside — and everything already
-          inside shifts to make space. Addresses stop meaning what they meant.
-        </p>
-        <p class="mb0">
-          This one opens a room <em>inside</em> a room. The outside never changes shape, and
-          nothing that already had a place loses it. You can keep going down forever.
-        </p>
-      </div>
-
-      <div class="card rv" data-delay="80" style="padding:34px">
-        <div class="idx"><span>BUCKET FOUR</span><span class="tag">SELF-SAME</span></div>
-        <h3>Same bucket, every size.</h3>
-        <p style="margin-bottom:1rem">
-          Every level looks exactly like every other level. Not similar — identical in
-          structure, with its own seven parts and its own addresses.
-        </p>
-        <p class="mb0">
-          Write the rules for reading, scoring and checking once, and they work at any depth,
-          forever. There is only ever one kind of thing to handle.
-        </p>
-      </div>
-    </div>
-
-    <!-- interactive: rules two, three and four at once -->
-    <div class="split rv" style="margin:2.6rem 0 2.2rem">
-      <div>
-        <div class="descend" id="descend">
-          <div class="descend-bar">
-            <span>YOU ARE AT</span>
-            <span class="descend-crumb" id="dCrumb">the surface</span>
-            <button class="descend-up" id="dUp" disabled>↑ back up</button>
-          </div>
-          <div class="descend-grid" id="dGrid"></div>
-          <div class="descend-read" id="dRead">
-            Click any square to see its address. Click the <span class="am">amber</span> one to
-            fall into it.
-          </div>
-        </div>
-      </div>
-      <div>
-        <h3 style="margin-top:0">Try it — this is the whole idea.</h3>
-        <p>
-          Forty-nine squares. Forty-eight of them hold something. The <span style="color:var(--c3)">amber</span>
-          one in the corner is a door.
-        </p>
-        <p>
-          Click the door and you fall <em>inside</em> that square — and find another forty-nine
-          waiting, exactly the same. You can keep going as long as you like. The grid you left
-          did not move, did not resize, and did not renumber. Everything you already put
-          somewhere is still exactly where you put it.
-        </p>
-        <p>
-          Watch the address at the top get longer as you descend. That string is the whole
-          location, forever — and you could write it on a napkin today and still find the same
-          square in ten years.
-        </p>
-        <p class="mb0 dim" style="font-size:.86rem">
-          Shown flat so you can click it. The real one is a cube — seven by seven by seven, so
-          <strong>342</strong> places per level instead of forty-eight, with the door at (6,6,6).
-          The addresses work exactly the same way, just with a third number.
-        </p>
-      </div>
-    </div>
-
-    <div class="callout rv">
-      <span class="lbl">And how you pick the bucket size</span>
-      <p class="mb0">
-        <strong>1 × 3 × 7 when the thing is simple. 3 × 3 × 7 for most things. Let it recurse
-        when the thing is genuinely complex.</strong> That is the whole sizing decision. A goal
-        breaks into three, each into three, each into seven — sixty-three places to put work. A
-        crisis breaks into three lenses over seven domains across three scales. Same rule, three
-        settings.
-      </p>
+  <div class="foot wrap">
+    <div class="state" data-state aria-live="polite"><i></i><span>AI agents, unchecked</span></div>
+    <div class="btns">
+      <a class="btn primary" href="build-a-bot.html">Explore Build-A-Bot</a>
+      <a class="btn" href="products.html">See all products</a>
     </div>
   </div>
 </section>
 
-<hr class="rule">
-
-<!-- ============================================================ CHOSEN -->
-<section>
+<section class="sec">
   <div class="wrap">
-    <div class="split wide-left">
-      <div class="rv">
-        <p class="eyebrow v2">The honest part</p>
-        <h2>These were chosen. They were not derived.</h2>
-        <p>
-          There is no proof that seven is the right number of buckets. There is no theorem that
-          says a cube must be seven wide. Seven came from a chess variant that needed a true centre — an eight-wide
-          board has no middle square, and a seven-wide one does. It stayed because every time it
-          was tested against a new problem it kept being enough and not too much.
-        </p>
-        <p>
-          We could dress that up as derivation. It would be more impressive and it would be
-          false. <strong>These are engineering choices that survived contact with real
-          problems</strong>, which is a weaker claim than proof and a much more honest one.
-        </p>
-        <p class="mb0">
-          It is also a falsifiable one. If a domain genuinely needs nine irreducible parts, the
-          first bucket is the wrong shape and we would rather know. The <a href="arc-lab.html">Arc Lab</a> exists
-          for exactly that — it measures whether a chosen set of parts is actually independent,
-          and it will report your basis as bad if it is.
-        </p>
-      </div>
-      <div class="rv" data-delay="120">
-        <div class="callout warn">
-          <span class="lbl">Why this matters more than being right</span>
-          <p>
-            A number you chose can be checked. A number you claim to have derived invites
-            everyone to audit the derivation instead of the results — and if the derivation is
-            thin, the results go down with it.
-          </p>
-          <p class="mb0">
-            Stating the choice openly puts the weight where it belongs: not on whether seven is
-            metaphysically correct, but on whether a system built this way <em>works</em>.
-          </p>
-        </div>
-      </div>
+    <div class="head">
+      <div class="label">In plain terms</div>
+      <h2>AI can now do real work on its own. We build the structure that keeps it safe.</h2>
     </div>
+    <div class="igrid"><div class="itile"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="7" width="14" height="11" rx="1"/><path d="M12 3v4M9 12h.01M15 12h.01M9 15h6"/></svg><b>What an AI agent is</b><span>Software that does a job for you: answers email, fills in forms, drafts reports</span></div><div class="itile"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg><b>The risk</b><span>Most agents act without asking and leave no clear record of what they did</span></div><div class="itile"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18M3 18h18M8 6v12M16 6v12M8 6l8 12M16 6l-8 12"/></svg><b>What we build</b><span>Agents that ask a person first and record every step, like inspected work on a job site</span></div></div>
+    <div class="head" style="margin-top:72px">
+      <div class="label">The difference</div>
+      <h2>Usually nobody can see what an AI agent did, or why.</h2>
+    </div>
+    <div class="vs"><div class="vs-side off"><h4>Typical AI agents</h4><ul><li><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>Act without asking</li><li><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>Forget earlier work</li><li><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>Leave no clear record</li></ul></div><div class="vs-mid"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></div><div class="vs-side on"><h4>Our agents</h4><ul><li><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Ask a person before anything important</li><li><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Remember what they did</li><li><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Record every step they try</li></ul></div></div>
   </div>
 </section>
 
-<hr class="rule">
-
-<!-- ============================================================ THEY WORK -->
-<section>
+<section class="sec tint">
   <div class="wrap">
-    <div class="max rv" style="margin-bottom:2.8rem">
-      <p class="eyebrow">The part that counts</p>
-      <h2>They work.</h2>
-      <p class="mb0">
-        Not "they are elegant." Not "they feel right." The same four buckets were used by the
-        same person on five unrelated problems over two years, and in each case the structure
-        held and can be checked by someone else. Here is what that looks like when you count it.
-      </p>
+    <div class="head">
+      <div class="label">One engine</div>
+      <h2>Every product runs on the same safety system.</h2>
+      <p>We call it the engine. A city practising for a flood and a two-person repair shop answering email get the same checks.</p>
     </div>
-
-    <div class="grid g4" style="margin-bottom:3rem">
-      <div class="stat rv"><span class="n"><i data-count="63">63</i></span><span class="k">of 63 world addresses generated · complete, on disk</span></div>
-      <div class="stat rv" data-delay="80"><span class="n"><i data-count="741">741</i></span><span class="k">Addressing assertions · exhaustive, both directions</span></div>
-      <div class="stat rv" data-delay="160"><span class="n"><i data-count="342">342</i></span><span class="k">Places per level, plus one door downward</span></div>
-      <div class="stat rv" data-delay="240"><span class="n"><i data-count="5145">5145</i></span><span class="k">Passing assertions · 0 failing · re-run 18 Sep 2026</span></div>
+    <div class="stack" aria-label="Products sitting on one shared engine">
+      <div class="tops"><a href="build-a-bot.html">Build-A-Bot<small>Make your own AI agent, no coding</small></a><a href="n-hr.html">n-HR™<small>Manage AI agents the way HR manages staff</small></a><a href="city-secured.html">City SeCUReD<small>Disaster drills on a copy of your city</small></a><a href="position-agents.html">Position Agents<small>AI helpers for a city's emergency center</small></a><a href="desk-agents.html">Desk Agents<small>Email and paperwork help for small business</small></a><a href="verifiable-inference.html">Verifiable Inference<small>Prove an AI answer hasn't changed</small></a><a href="mind.html">G-ynthetic Mind<small>A personal AI that remembers you</small></a><a href="cubex.html">CubeX<small>Chess played inside a cube</small></a></div>
+      <div class="base"><b>The engine</b><span>Checks permission first · uses only approved information · asks a person · records everything</span></div>
     </div>
-
-    <table class="spec rv">
-      <tr>
-        <th>A chess variant</th>
-        <td>Needed a centre square, so the board went from eight wide to <strong>seven</strong>.
-        The centre is still in the code as <code>ORIGIN_COORD = [3,3,3]</code>. This is where the
-        rules came from, not where they were applied.</td>
-      </tr>
-      <tr>
-        <th>A crisis thesis</th>
-        <td>Three lenses — what is true, what people feel, what we owe each other — over seven
-        crisis domains, across three scales. <strong>Sixty-three</strong> places to put an
-        analysis. Written September 2024.</td>
-      </tr>
-      <tr>
-        <th>A memory system</th>
-        <td><strong>342</strong> places per level and one reserved door that opens a whole new
-        level beneath. Every address tested individually in both directions — 741 assertions,
-        exhaustive rather than sampled, because an off-by-one in an odometer is silent.</td>
-      </tr>
-      <tr>
-        <th>A world generator</th>
-        <td>Three galaxies, three systems each, seven worlds each. <strong>63 of 63</strong>
-        addresses generated and sitting in a directory tree anyone can count.</td>
-      </tr>
-      <tr>
-        <th>A city simulator</th>
-        <td>The same decomposition pointed at terrain, roads, emergency services and utilities.
-        <strong>90 suites, 5,145 assertions</strong>, 0 failing — re-run 18 September 2026. One suite is carried red on purpose: it documents an open defect rather than hiding it to keep the board green.</td>
-      </tr>
-    </table>
-
-    <div class="callout rv" style="margin-top:2.6rem">
-      <span class="lbl">What that is and is not</span>
-      <p class="mb0">
-        One person applying one rule five times is <strong>consistency, not independent
-        replication</strong>, and we are not going to inflate it. What makes it worth your
-        attention is that every row above is checkable without asking us: the constants are
-        literals in source, asserted by tests, or countable as files on a disk. The
-        <a href="evidence.html">evidence page</a> publishes the failures alongside the passes,
-        including the run where our own harness wrongly reported us broken.
-      </p>
-    </div>
+    <p style="margin-top:24px"><a class="more" href="how-it-works.html">The four rules every agent follows →</a></p>
   </div>
 </section>
 
-<hr class="rule">
-
-<!-- ============================================================ TWO HALVES -->
-<section>
+<section class="sec">
   <div class="wrap">
-    <div class="max rv" style="margin-bottom:2.8rem">
-      <p class="eyebrow v2">Two halves of the same coin</p>
-      <h2>Argued on one side. Built on the other.</h2>
-      <p class="mb0">
-        The rules were written down before they were code — which means the code can be checked
-        against them instead of rationalised backwards into them. Read either side first.
-      </p>
-    </div>
-
-    <div class="fork rv" style="margin-bottom:2.4rem">
-      <a class="fork-half" href="research.html">
-        <div class="stage fork-bg" data-gl="fracc" data-spin="0.03" data-fixed></div>
-        <div class="fork-scrim"></div>
-        <div class="fork-in">
-          <span class="fork-idx">SIDE A · ARGUED</span>
-          <h2>Research</h2>
-          <p class="fork-lead">Where the rules were worked out.</p>
-          <p>
-            A crisis-scoring thesis begun September 2024, a 228-page manual on urban resilience,
-            a fractal template and a weighting formula that scales by an order of magnitude per
-            tier. None of it peer reviewed, none of it offered as a credential.
-          </p>
-          <span class="fork-go">Read the research <span class="arw">→</span></span>
-        </div>
-      </a>
-      <a class="fork-half" href="architecture.html">
-        <div class="stage fork-bg" data-gl="lattice" data-spin="0.03" data-fixed></div>
-        <div class="fork-scrim"></div>
-        <div class="fork-in">
-          <span class="fork-idx">SIDE B · BUILT</span>
-          <h2>Software</h2>
-          <p class="fork-lead">Where they had to survive.</p>
-          <p>
-            A running cognition engine, an addressable memory lattice, a laboratory that tests
-            whether a chosen basis is any good, a certified-inference module, and a testbed built
-            to falsify the whole thesis.
-          </p>
-          <span class="fork-go">Read the architecture <span class="arw">→</span></span>
-        </div>
-      </a>
-    </div>
-  </div>
-</section>
-
-<hr class="rule">
-
-<!-- ============================================================ WHERE NEXT -->
-<section>
-  <div class="wrap">
-    <div class="max rv" style="margin-bottom:2.6rem">
-      <p class="eyebrow">Go deeper</p>
-      <h2>Each bucket, and each place it lives.</h2>
-    </div>
-    <div class="grid g3">
-      <div class="card rv">
-        <div class="idx"><span>THE STRUCTURE</span></div>
-        <h3><a href="architecture.html">The Address Space</a></h3>
-        <p>The four rules stated as engineering: what recursive, holographic and superimposed
-        actually mean for a running system, and the honest trade that growing inward makes.</p>
-      </div>
-      <div class="card rv" data-delay="70">
-        <div class="idx"><span>AS MEMORY</span></div>
-        <h3><a href="platform.html">Memory Cognitive Lattice</a></h3>
-        <p>342 places per level, six faces to a cell, decay and consolidation over time, and a
-        door at (6,6,6) that opens a whole new level underneath.</p>
-      </div>
-      <div class="card rv" data-delay="140">
-        <div class="idx"><span>AS DECOMPOSITION</span></div>
-        <h3><a href="fracc.html">F.R.A.C.C.</a></h3>
-        <p>Three by three by seven. How a goal too large to act on becomes sixty-three pieces
-        small enough to hand to a tool.</p>
-      </div>
-      <div class="card rv" data-delay="210">
-        <div class="idx"><span>AS EXPLANATION</span></div>
-        <h3><a href="arc-lab.html">Arc Lab</a></h3>
-        <p>The instrument that tests the first bucket. Bring your own seven — it measures whether
-        they are actually independent, and tells you when they are not.</p>
-      </div>
-      <div class="card rv" data-delay="280">
-        <div class="idx"><span>AS IDENTITY</span></div>
-        <h3><a href="orbitgen.html">Key System</a></h3>
-        <p>Addresses for generated content, with the ranges enforced at the boundary. 63 of 63
-        generated and countable.</p>
-      </div>
-      <div class="card rv" data-delay="350">
-        <div class="idx"><span>THE ORIGIN</span></div>
-        <h3><a href="cubex.html">Cubex³</a></h3>
-        <p>The chess variant that needed a true centre. First project, and the reason everything
-        else is seven wide.</p>
-      </div>
-    </div>
-
-    <div class="split" style="margin-top:3.2rem">
-      <div class="rv">
-        <p class="eyebrow v2">Standing apart</p>
-        <h2>Byte for Byte.</h2>
-        <p>
-          The one thing here that shares none of the above. It makes an expert's sign-off on an
-          AI system stop expiring silently: a model tag is re-pulled, a driver updates, and the
-          system answers differently while every health check stays green.
-        </p>
-        <p class="mb0">
-          It wraps a model you already run, has no dependencies, and requires you to adopt none
-          of the other ideas on this site. That independence is deliberate.
-        </p>
-        <div class="btns">
-          <a class="btn primary" href="byte-for-byte.html">Byte for Byte <span class="arw">→</span></a>
-          <a class="btn" href="evidence.html">See the evidence</a>
-        </div>
-      </div>
-      <div class="rv" data-delay="120">
-        <div class="stage framed" data-gl="chain" data-spin="0" data-yaw="0" data-pitch="0" data-fixed>
-          <div class="stage-hud">PROBES <span>6/6</span><br>TESTS <span>50/50</span></div>
-          <div class="stage-cap">A record that notices when today stops matching sign-off</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<hr class="rule">
-
-<section class="tight">
-  <div class="wrap">
-    <div class="max rv">
-      <blockquote class="pull">
-        “We aren't teaching AI to think. We're giving it a place to stand.”
-        <cite>G-ynthetic Labs · Portland, Oregon</cite>
-      </blockquote>
-    </div>
-  </div>
-</section>
-
-<footer class="foot">
-  <div class="wrap">
-    <div class="foot-grid">
+    <div class="row">
       <div>
-        <a class="brand" href="index.html"><span class="brand-mark"></span> G-YNTHETIC&nbsp;LABS</a>
-        <p style="margin-top:16px;max-width:34ch;font-size:.9rem">
-          Infrastructure for AI memory and reasoning. Built for domains where a hallucination
-          is a liability.
-        </p>
+        <div class="label">Flagship · Build-A-Bot</div>
+        <h3>Make your own AI agent, without writing code.</h3>
+        <p>Pick the job, add ready-made skills and set what it may do alone. Then manage it through <a href="n-hr.html">n-HR™</a>, our way of running AI agents the way HR runs staff.</p>
+        <div class="btns" style="margin-top:28px"><a class="btn primary" href="build-a-bot.html">See how it works</a><a class="btn" href="pricing.html">Plans from $20 a month</a></div>
       </div>
-      <div>
-        <h5>Core</h5>
-        <ul>
-          <li><a href="byte-for-byte.html">Byte for Byte</a></li>
-          <li><a href="architecture.html">The Address Space</a></li>
-          <li><a href="platform.html">Memory Cognitive Lattice</a></li>
-          <li><a href="fracc.html">F.R.A.C.C.</a></li>
-          <li><a href="arc-lab.html">Arc Lab</a></li>
-        </ul>
-      </div>
-      <div>
-        <h5>Applied</h5>
-        <ul>
-          <li><a href="orbitgen.html">Key System</a></li>
-          <li><a href="cubex.html">Cubex³</a></li>
-          <li><a href="secured.html">SeCURED</a></li>
-        </ul>
-      </div>
-      <div>
-        <h5>Company</h5>
-        <ul>
-          <li><a href="work.html">The Work</a></li>
-          <li><a href="research.html">Research</a></li>
-          <li><a href="evidence.html">Evidence</a></li>
-          <li><a href="investors.html">Investors</a></li>
-          <li><a href="legal/">Legal</a></li>
-          <li><a href="mailto:G-ynthetic-Labs@proton.me">G-ynthetic-Labs@proton.me</a></li>
-        </ul>
-      </div>
+      <figure>
+        <div class="shot"><img src="img/flow-bench.png" alt="Flow Bench: a repair-order close-out flow with steps assigned to agents and a governance check showing no problems found" loading="lazy"></div>
+        <figcaption><b>Fig. 1</b> · Flow Bench, one of the builder's tools: a repair-order job split into steps and checked before it runs.</figcaption>
+      </figure>
     </div>
-    <div class="foot-bot">
-      <span>© <span data-year>2026</span> G-YNTHETIC LABS · PORTLAND, OREGON</span>
-      <span>WE AREN'T TEACHING AI TO THINK — WE'RE GIVING IT A PLACE TO STAND</span>
+    <div style="margin:-24px 0 72px"><ol class="flow"><li><span class="fl-n">01</span><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="6" width="16" height="13" rx="1"/><path d="M9 6V4h6v2M4 12h16"/></svg><b>Pick a job</b></li><li><span class="fl-n">02</span><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h7a2 2 0 012 2v12a2 2 0 00-2-2H4zM20 6h-7a2 2 0 00-2 2v12a2 2 0 012-2h7z"/></svg><b>Add skills</b></li><li><span class="fl-n">03</span><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.5 6.5a4 4 0 00-5 5L4 17l3 3 5.5-5.5a4 4 0 005-5l-2.5 2.5-2.5-.5-.5-2.5z"/></svg><b>Add tools</b></li><li><span class="fl-n">04</span><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4M9 12h6M9 16h6"/></svg><b>Add your forms</b></li><li><span class="fl-n">05</span><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 3v6c0 4.5-3.4 8-8 9-4.6-1-8-4.5-8-9V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg><b>Set its limits</b></li><li><span class="fl-n">06</span><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><b>Put it to work</b></li></ol></div>
+    <div class="row flip">
+      <div>
+        <div class="label">Public safety · City SeCUReD</div>
+        <h3>Disaster drills on a copy of your own city.</h3>
+        <p>Cities must practise for disasters, but drills are costly and hard to judge. City SeCUReD copies a city's public data as it is today, runs the disaster on a computer and records every decision.</p>
+        <div class="btns" style="margin-top:28px"><a class="btn" href="city-secured.html">Explore City SeCUReD</a></div>
+      </div>
+      <figure>
+        <div class="shot"><img src="img/eoc-room.png" alt="City SeCUReD's 3D emergency operations room with a map table, staffed positions and a video wall" loading="lazy"></div>
+        <figcaption><b>Fig. 2</b> · A simulated Emergency Operations Center, the room where city officials coordinate a disaster response. Labelled as an exercise throughout.</figcaption>
+      </figure>
     </div>
   </div>
-</footer>
+</section>
 
-<script src="assets/js/gl.js"></script>
-<script src="assets/js/site.js"></script>
+<section class="sec tint">
+  <div class="wrap">
+    <div class="head">
+      <div class="label">Products</div>
+      <h2>Different jobs, one safety system.</h2>
+    </div>
+    <div class="grid g3"><a class="card pcard" href="build-a-bot.html"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="7" width="14" height="11" rx="1"/><path d="M12 3v4M9 12h.01M15 12h.01M9 15h6"/></svg><div class="tag">Build</div><h3>Build-A-Bot</h3><p>Make your own AI agent, no coding</p><span class="more">Learn more →</span></a><a class="card pcard" href="n-hr.html"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="3" width="6" height="4"/><rect x="3" y="17" width="6" height="4"/><rect x="15" y="17" width="6" height="4"/><path d="M12 7v5M6 17v-5h12v5"/></svg><div class="tag">Build</div><h3>n-HR™</h3><p>Manage AI agents the way HR manages staff</p><span class="more">Learn more →</span></a><a class="card pcard" href="city-secured.html"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21h18M5 21V10h5v11M10 21V4h6v17M16 21v-8h3v8M7 13h1M7 16h1M12.5 8h1M12.5 11h1M12.5 14h1"/></svg><div class="tag">Public safety</div><h3>City SeCUReD</h3><p>Disaster drills on a copy of your city</p><span class="more">Learn more →</span></a><a class="card pcard" href="position-agents.html"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="9" r="3"/><circle cx="17" cy="10" r="2.5"/><path d="M3 20c.8-3.4 3.2-5 6-5s5.2 1.6 6 5M15 15.5c2.6-.2 4.8 1.2 5.5 4.5"/></svg><div class="tag">Public safety</div><h3>Position Agents</h3><p>AI helpers for a city's emergency center</p><span class="more">Learn more →</span></a><a class="card pcard" href="desk-agents.html"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="1"/><path d="M3 7l9 6 9-6"/></svg><div class="tag">Business</div><h3>Desk Agents</h3><p>Email and paperwork help for small business</p><span class="more">Learn more →</span></a><a class="card pcard" href="engine.html"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 3v6c0 4.5-3.4 8-8 9-4.6-1-8-4.5-8-9V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg><div class="tag">Platform</div><h3>The Engine</h3><p>The safety system under every product</p><span class="more">Learn more →</span></a><a class="card pcard" href="verifiable-inference.html"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12a8 8 0 1014.5-4.6M19 3v5h-5"/><path d="M10 9l5 3-5 3z"/></svg><div class="tag">Platform</div><h3>Verifiable Inference</h3><p>Prove an AI answer hasn't changed</p><span class="more">Learn more →</span></a><a class="card pcard" href="mind.html"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 4a3 3 0 00-3 3 3 3 0 00-2 5 3 3 0 002 5 3 3 0 006 1V5a3 3 0 00-3-1zM15 4a3 3 0 013 3 3 3 0 012 5 3 3 0 01-2 5 3 3 0 01-6 1"/></svg><div class="tag">Apps</div><h3>G-ynthetic Mind</h3><p>A personal AI that remembers you</p><span class="more">Learn more →</span></a><a class="card pcard" href="cubex.html"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 4.5v9L12 21l-8-4.5v-9z"/><path d="M4 7.5l8 4.5 8-4.5M12 12v9"/></svg><div class="tag">Apps</div><h3>CubeX</h3><p>Chess played inside a cube</p><span class="more">Learn more →</span></a></div>
+  </div>
+</section>
 
+<section class="sec">
+  <div class="wrap">
+    <div class="head">
+      <div class="label">Where we are</div>
+      <h2>Early, working, and honest about it.</h2>
+      <p>We're a young company, funded by our founder and not yet earning revenue. Everything here runs today on test data.</p>
+    </div>
+    <div class="stats">
+      <div class="stat"><b>8</b><span>Products built on one engine</span></div>
+      <div class="stat"><b>13</b><span>Emergency positions modelled in City SeCUReD</span></div>
+      <div class="stat"><b>3,374</b><span>Automated checks on City SeCUReD</span></div>
+      <div class="stat"><b>1</b><span>Laptop needed to run a disaster drill</span></div>
+    </div>
+    <p class="source">City SeCUReD figures as of 18 Aug 2026: about 74,000 lines of code.</p>
+  </div>
+</section>
+
+<section class="closing">
+  <div class="wrap">
+    <h2>Build an AI agent you can check up on.</h2>
+    <p>We're looking for early users, pilot partners and investors who want AI that answers to people.</p>
+    <div class="btns"><a class="btn primary" href="build-a-bot.html">Explore Build-A-Bot</a><a class="btn" href="contact.html">Talk to us</a></div>
+  </div>
+</section>
+</main>
+<footer class="site-foot"><div class="wrap">
+<div class="foot-grid">
+  <div><a class="brand" href="index.html"><img class="logo" src="img/logo.png" srcset="img/logo.png 1x, img/logo@2x.png 2x" alt="G-ynthetic Labs"></a>
+    <p style="margin-top:16px;max-width:300px">An independent research initiative bringing tradesman-level structural support to the field of AI, shipping with the tools to help maintain it.</p></div>
+  <div><h4>Products</h4><ul><li><a href="build-a-bot.html">Build-A-Bot</a></li><li><a href="n-hr.html">n-HR™</a></li><li><a href="city-secured.html">City SeCUReD</a></li><li><a href="position-agents.html">Position Agents</a></li><li><a href="desk-agents.html">Desk Agents</a></li><li><a href="engine.html">The Engine</a></li><li><a href="verifiable-inference.html">Verifiable Inference</a></li><li><a href="mind.html">G-ynthetic Mind</a></li><li><a href="cubex.html">CubeX</a></li></ul></div>
+  <div><h4>Company</h4><ul><li><a href="about.html">About</a></li><li><a href="how-it-works.html">How it works</a></li>
+    <li><a href="pricing.html">Pricing</a></li><li><a href="contact.html">Contact</a></li></ul>
+    <h4 style="margin-top:22px">CubeX legal</h4><ul><li><a href="cubex3/privacy/index.html">Privacy Policy</a></li><li><a href="cubex3/terms/index.html">Terms of Service</a></li><li><a href="cubex3/privacy/delete/index.html">Your data</a></li></ul></div>
+  <div><h4>Status</h4><ul><li>Pre-revenue, self-funded</li><li>Every product runs on simulated data today</li></ul></div>
+</div>
+<div class="foot-base"><span>© 2026 G-ynthetic Labs LLC · Salem, Oregon</span><span>Agents draft. People decide.</span></div>
+</div></footer>
 <script>
-/* The descend widget — one 7x7 you can fall into. Nothing about it is a
-   simulation: the portal is the same reserved corner cell the real lattice
-   uses, and the address string is built the same way the real one is. */
-(function () {
-  var N = 7, PORTAL = [6, 6];
-  var grid = document.getElementById('dGrid');
-  if (!grid) return;
-  var crumbEl = document.getElementById('dCrumb'),
-      readEl  = document.getElementById('dRead'),
-      upBtn   = document.getElementById('dUp');
-  var path = [];            // the descent so far, e.g. ["6,6","6,6"]
-
-  function addr(x, y) { return path.concat([x + ',' + y]).join('/'); }
-
-  function say(html) { readEl.innerHTML = html; }
-
-  function paint() {
-    crumbEl.textContent = path.length ? path.join('/') + '/' : 'the surface';
-    upBtn.disabled = !path.length;
-    grid.innerHTML = '';
-    for (var y = 0; y < N; y++) {
-      for (var x = 0; x < N; x++) {
-        var isPortal = (x === PORTAL[0] && y === PORTAL[1]);
-        var c = document.createElement('button');
-        c.className = 'descend-cell' + (isPortal ? ' portal' : '');
-        c.type = 'button';
-        c.setAttribute('aria-label', isPortal ? 'door down' : 'cell ' + x + ',' + y);
-        (function (x, y, isPortal) {
-          c.addEventListener('click', function () {
-            if (isPortal) {
-              path.push(x + ',' + y);
-              paint();
-              say('You fell into <b>' + path.join('/') + '/</b> &mdash; a whole new forty-nine, ' +
-                  'identical to the one you left. Depth <b>' + path.length + '</b>. ' +
-                  '<span class="ok">Addresses invalidated up above: 0.</span>');
-              return;
-            }
-            [].forEach.call(grid.children, function (n) { n.classList.remove('sel'); });
-            this.classList.add('sel');
-            say('That square is <b>' + addr(x, y) + '</b>. Write it down. It will mean this exact ' +
-                'square forever &mdash; no matter how much gets stored anywhere else.');
-          });
-        })(x, y, isPortal);
-        grid.appendChild(c);
-      }
-    }
-  }
-
-  upBtn.addEventListener('click', function () {
-    if (!path.length) return;
-    var left = path.pop();
-    paint();
-    say('Back up one level. The square you came through is still ' +
-        '<b>' + (path.length ? path.join('/') + '/' : '') + left + '</b>, ' +
-        'and everything inside it is still there. <span class="ok">Nothing moved.</span>');
-  });
-
-  paint();
-})();
+  const head = document.querySelector('.site-head'), burger = head.querySelector('.burger');
+  burger.addEventListener('click', () => burger.setAttribute('aria-expanded', head.classList.toggle('open')));
+  // Every page opens at its top unless the link names a section on it.
+  const toTop = () => { if (!location.hash) window.scrollTo(0, 0); };
+  toTop(); addEventListener('load', () => { toTop(); setTimeout(toTop, 150); }); addEventListener('pageshow', toTop);
 </script>
+<script type="module" src="js/director.js"></script>
+<script type="module">
+  // Names what the hero shows: the loose swarm, or the swarm once it takes its governed shape.
+  const state = document.querySelector('[data-state]'), label = state.querySelector('span');
+  let shown = null;
+  (function watch() {
+    const on = (globalThis.__director?.phase ?? 'still') !== 'swarm';
+    if (on !== shown) { shown = on; state.toggleAttribute('data-on', on); label.textContent = on ? 'AI agents, with structure' : 'AI agents, unchecked'; }
+    setTimeout(watch, 250);
+  })();
+</script>
+
 </body>
 </html>

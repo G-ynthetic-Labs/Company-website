@@ -1,24 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://g-ynthetic-labs.com/</loc><lastmod>2026-08-02</lastmod><priority>1.0</priority></url>
-  <url><loc>https://g-ynthetic-labs.com/byte-for-byte.html</loc><lastmod>2026-08-02</lastmod><priority>0.8</priority></url>
-  <url><loc>https://g-ynthetic-labs.com/architecture.html</loc><lastmod>2026-08-02</lastmod><priority>0.8</priority></url>
-  <url><loc>https://g-ynthetic-labs.com/platform.html</loc><lastmod>2026-08-02</lastmod><priority>0.8</priority></url>
-  <url><loc>https://g-ynthetic-labs.com/fracc.html</loc><lastmod>2026-08-02</lastmod><priority>0.8</priority></url>
-  <url><loc>https://g-ynthetic-labs.com/arc-lab.html</loc><lastmod>2026-08-02</lastmod><priority>0.8</priority></url>
-  <url><loc>https://g-ynthetic-labs.com/orbitgen.html</loc><lastmod>2026-08-02</lastmod><priority>0.8</priority></url>
-  <url><loc>https://g-ynthetic-labs.com/cubex.html</loc><lastmod>2026-08-02</lastmod><priority>0.8</priority></url>
-  <url><loc>https://g-ynthetic-labs.com/secured.html</loc><lastmod>2026-08-02</lastmod><priority>0.8</priority></url>
-  <url><loc>https://g-ynthetic-labs.com/investors.html</loc><lastmod>2026-08-02</lastmod><priority>0.8</priority></url>
-  <url><loc>https://g-ynthetic-labs.com/evidence.html</loc><lastmod>2026-08-02</lastmod><priority>0.8</priority></url>
-  <url><loc>https://g-ynthetic-labs.com/work.html</loc><lastmod>2026-08-02</lastmod><priority>0.8</priority></url>
-  <url><loc>https://g-ynthetic-labs.com/research.html</loc><lastmod>2026-08-02</lastmod><priority>0.8</priority></url>
+  <url><loc>https://g-ynthetic-labs.com/about.html</loc><lastmod>2026-10-13</lastmod><priority>0.8</priority></url>
+  <url><loc>https://g-ynthetic-labs.com/build-a-bot.html</loc><lastmod>2026-10-13</lastmod><priority>0.8</priority></url>
+  <url><loc>https://g-ynthetic-labs.com/city-secured.html</loc><lastmod>2026-10-13</lastmod><priority>0.8</priority></url>
+  <url><loc>https://g-ynthetic-labs.com/contact.html</loc><lastmod>2026-10-13</lastmod><priority>0.8</priority></url>
+  <url><loc>https://g-ynthetic-labs.com/cubex.html</loc><lastmod>2026-10-13</lastmod><priority>0.8</priority></url>
+  <url><loc>https://g-ynthetic-labs.com/desk-agents.html</loc><lastmod>2026-10-13</lastmod><priority>0.8</priority></url>
+  <url><loc>https://g-ynthetic-labs.com/engine.html</loc><lastmod>2026-10-13</lastmod><priority>0.8</priority></url>
+  <url><loc>https://g-ynthetic-labs.com/how-it-works.html</loc><lastmod>2026-10-13</lastmod><priority>0.8</priority></url>
+  <url><loc>https://g-ynthetic-labs.com/</loc><lastmod>2026-10-13</lastmod><priority>1.0</priority></url>
+  <url><loc>https://g-ynthetic-labs.com/mind.html</loc><lastmod>2026-10-13</lastmod><priority>0.8</priority></url>
+  <url><loc>https://g-ynthetic-labs.com/n-hr.html</loc><lastmod>2026-10-13</lastmod><priority>0.8</priority></url>
+  <url><loc>https://g-ynthetic-labs.com/position-agents.html</loc><lastmod>2026-10-13</lastmod><priority>0.8</priority></url>
+  <url><loc>https://g-ynthetic-labs.com/pricing.html</loc><lastmod>2026-10-13</lastmod><priority>0.8</priority></url>
+  <url><loc>https://g-ynthetic-labs.com/products.html</loc><lastmod>2026-10-13</lastmod><priority>0.8</priority></url>
+  <url><loc>https://g-ynthetic-labs.com/verifiable-inference.html</loc><lastmod>2026-10-13</lastmod><priority>0.8</priority></url>
   <url><loc>https://g-ynthetic-labs.com/cubex3/privacy/</loc><lastmod>2026-08-29</lastmod><priority>0.3</priority></url>
   <url><loc>https://g-ynthetic-labs.com/cubex3/terms/</loc><lastmod>2026-08-29</lastmod><priority>0.3</priority></url>
   <url><loc>https://g-ynthetic-labs.com/cubex3/privacy/delete/</loc><lastmod>2026-08-29</lastmod><priority>0.5</priority></url>
   <url><loc>https://g-ynthetic-labs.com/legal/</loc><lastmod>2026-10-09</lastmod><priority>0.5</priority></url>
   <url><loc>https://g-ynthetic-labs.com/legal/custom-agent/</loc><lastmod>2026-10-09</lastmod><priority>0.3</priority></url>
   <url><loc>https://g-ynthetic-labs.com/legal/city-secured/</loc><lastmod>2026-10-09</lastmod><priority>0.3</priority></url>
-  <url><loc>https://g-ynthetic-labs.com/legal/business-intelligence/</loc><lastmod>2026-10-09</lastmod><priority>0.3</priority></url>
   <url><loc>https://g-ynthetic-labs.com/legal/cubex/</loc><lastmod>2026-10-09</lastmod><priority>0.3</priority></url>
 </urlset>
