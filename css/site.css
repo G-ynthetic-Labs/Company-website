@@ -367,3 +367,124 @@ footer .brand .logo { height: 52px; }
   .anim-hero .foot .state { display: none; }
   .anim-hero .foot { padding-top: 28px; }
 }
+
+/* ---- Gunmetal and gold (William, 16 Oct 2026: "change the vibe, more professional").
+   Tokens from the G-ynthetic Labs design system: gunmetal steel, champagne gold, one arc-orange hot point.
+   Serif speaks (Cormorant Garamond), grotesk explains (Hanken Grotesk), mono labels (IBM Plex Mono). ---- */
+:root {
+  --void: #1f2124; --deep: #222427; --pane: #27292d; --raised: #2c2f33;
+  --glass: rgba(20, 21, 24, .55);
+  --hair: rgba(164, 167, 174, .14); --edge: rgba(164, 167, 174, .18); --edge-2: rgba(164, 167, 174, .32);
+  --indigo: #dcc59b; --cyan: #c9a063; --amber: #d9774a; --rose: #d65f7f; --emerald: #8cc27a; --gold: #c9a063;
+  --text: #e6e9ee; --soft: #d3d6db; --muted: #aeb2b9; --dim: #8f969f; --steel: #dcc59b;
+  --display: 'Cormorant Garamond', Georgia, serif;
+  --body: 'Hanken Grotesk', Arial, sans-serif;
+  --mono: 'IBM Plex Mono', ui-monospace, Menlo, monospace;
+  --serif: var(--body);
+  --wrap: 1240px;
+  --room: radial-gradient(ellipse at 50% 0%, #3a3d42 0%, #2c2f33 38%, #222427 78%);
+  --plate: linear-gradient(180deg, #2e3135 0%, #25272a 100%);
+  --bevel: inset 0 1px 0 rgba(255,255,255,.06), inset 0 -1px 0 rgba(0,0,0,.4);
+  --gold-rule: linear-gradient(90deg, rgba(201,160,99,0) 0%, rgba(201,160,99,.9) 50%, rgba(201,160,99,0) 100%);
+  --clip-s: polygon(0 0, calc(100% - 6px) 0, 100% 6px, 100% 100%, 6px 100%, 0 calc(100% - 6px));
+  --clip-m: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+}
+body { background: #222427; color: var(--text); font-family: var(--body); }
+::selection { background: rgba(201,160,99,.32); color: #fff; }
+h1, h2, h3, h4 { font-family: var(--display); font-weight: 500; letter-spacing: -0.005em; color: #eef0f3; }
+.page-hero h1 { font-size: clamp(40px, 5.6vw, 72px); line-height: 1.04; }
+.head h2 { font-size: clamp(32px, 3.8vw, 48px); line-height: 1.08; }
+h3 { font-size: 30px; line-height: 1.12; }
+.card h3, .plan h3 { font-size: 26px; }
+.label, .label.gold { font: 500 11.5px/1.2 var(--mono); letter-spacing: .2em; color: var(--gold); }
+.head p, .page-hero .lede { color: var(--muted); }
+.grad, .anim-hero .grad { color: #dcc59b; }
+
+/* Header: glass over the room, gold hairline */
+.site-head { background: rgba(20,21,24,.72); backdrop-filter: blur(14px); border-bottom: 1px solid rgba(201,160,99,.28); }
+.menu a, .menu button { color: var(--muted); }
+.menu a:hover, .menu button:hover, .menu a[aria-current="page"] { color: #f4f6f9; }
+.menu .cta { background: #c9a063; color: #141518; border-radius: 2px; font-weight: 600; }
+.menu .cta:hover { background: #dcc59b; color: #141518; }
+.drop { background: #27292d; border-color: rgba(164,167,174,.32); box-shadow: 0 16px 40px rgba(0,0,0,.55); }
+.drop a:hover { background: #2c2f33; }
+.drop a b { color: #eef0f3; }
+
+/* Buttons: gold plate primary with a flame-cut corner, steel outline secondary */
+.btn { border-radius: 2px !important; background: transparent; border-color: rgba(164,167,174,.32); color: var(--text);
+  font: 500 15px/1 var(--body); letter-spacing: .01em; transition: border-color .22s cubic-bezier(.22,1,.36,1), color .22s, transform .16s; }
+.btn:hover { border-color: rgba(201,160,99,.55); color: #f3ece0; transform: translateY(-1px); }
+.btn.primary { background: linear-gradient(180deg, #d2ae68 0%, #c9a063 55%, #a8843f 100%); color: #141518; border-color: #c9a063;
+  clip-path: var(--clip-s); font-weight: 600; }
+.btn.primary:hover { color: #141518; background: linear-gradient(180deg, #e8d6b2 0%, #d2ae68 60%, #a8843f 100%); }
+.more { color: #dcc59b; text-decoration-color: rgba(201,160,99,.45); }
+.more:hover { color: #f4f6f9; text-decoration-color: #c9a063; }
+
+/* Room light instead of flat black; gold seams on section edges */
+.page-hero { background: var(--room); border-bottom: 1px solid rgba(201,160,99,.28); }
+.sec { border-top: 1px solid var(--hair); }
+.sec.tint { background: #1f2124; }
+.closing { background: var(--room); border-top: 1px solid rgba(201,160,99,.28); }
+.closing h2 { font-size: clamp(34px, 4.2vw, 54px); }
+.site-foot, footer { background: #141518; border-top: 1px solid rgba(201,160,99,.28); }
+
+/* Plates: steel gradient, bevel, flame-cut corners */
+.card, .plan, .flow li, .itile, .vs-side, .fig, .eoc .sec-col, .eoc .bx, .org-box, .org-top, .stack .tops a, .drop, .callout {
+  border-radius: 0 !important; }
+.card, .plan { background: var(--plate); border: 1px solid var(--edge); box-shadow: var(--bevel); }
+a.card:hover { border-color: rgba(201,160,99,.55); box-shadow: var(--bevel); transform: translateY(-2px); }
+.plan.featured { border-color: rgba(201,160,99,.55); box-shadow: var(--bevel); }
+.plan .price { font-family: var(--display); font-weight: 500; }
+.pcard .ico, .flow .ico, .itile .ico, .eoc .bx .ico { color: #c9a063; }
+.ico { color: #dcc59b; }
+.flow li { background: var(--plate); border-color: var(--edge); }
+.flow li + li::before { background: #2a2c30; border-color: rgba(201,160,99,.45); }
+.flow li.hl, .flow li:last-child { background: linear-gradient(180deg, #34373c 0%, #2a2c30 100%); }
+.flow b, .itile b { font: 600 20px/1.2 var(--display); color: #eef0f3; }
+.flow .fl-n { color: #c9a063; }
+.itile { background: var(--plate); }
+.vs-side { background: #25272a; }
+.vs-side.on { background: var(--plate); border-color: rgba(201,160,99,.45); }
+.vs-side.on h4 { color: #c9a063; }
+.fig { background: #1f2124; border-color: var(--edge); }
+.shot { border-radius: 2px !important; border-color: rgba(164,167,174,.32); box-shadow: 0 16px 40px rgba(0,0,0,.55); }
+
+/* Stats: gold column rules, serif figures */
+.stat { border: 0 !important; border-top: 1.5px solid rgba(201,160,99,.45) !important; background: none !important; padding: 20px 0 0 !important; box-shadow: none !important; }
+.stat b { font-family: var(--display); font-weight: 500; color: #eef0f3; }
+.stat span { color: var(--muted); }
+.source { color: var(--dim); }
+
+/* Callouts and ticks */
+.callout { background: var(--plate); border: 1px solid rgba(217,119,74,.35); box-shadow: var(--bevel); }
+.ticks li::before { background: #c9a063; box-shadow: none; }
+.ticks.warn li::before { background: #d9774a; box-shadow: 0 0 10px rgba(217,119,74,.6); }
+.pill { border-color: rgba(201,160,99,.45); color: #dcc59b; }
+
+/* Engine stack, org chart, EOC chart, timeline */
+.stack .tops a { background: var(--plate); border-color: var(--edge); }
+.stack .tops a:hover { border-color: rgba(201,160,99,.55); }
+.stack .base { border-radius: 0; border: 1px solid rgba(201,160,99,.55); background: linear-gradient(180deg, #34373c 0%, #2a2c30 100%); box-shadow: var(--bevel); }
+.stack .base b { font-family: var(--display); font-size: 26px; font-weight: 500; color: #dcc59b; }
+.org-box, .org-top { background: var(--plate); }
+.org-box.on { border-color: rgba(201,160,99,.55); }
+.eoc .bx { background: var(--plate); border-color: var(--edge); }
+.eoc .top .bx:first-child { background: linear-gradient(180deg, #34373c 0%, #2a2c30 100%); border-color: rgba(201,160,99,.55); }
+.eoc .secs, .eoc .vl { border-color: rgba(201,160,99,.45); }
+.eoc .vl { background: rgba(201,160,99,.45); }
+.timeline > div::before { background: #c9a063; box-shadow: none; }
+.timeline > div:last-child::before { background: #d9774a; box-shadow: 0 0 14px rgba(217,119,74,.6); }
+.compare th { font: 500 11.5px/1.2 var(--mono); letter-spacing: .18em; text-transform: uppercase; color: #c9a063; }
+.compare td:first-child { font-family: var(--display); font-size: 19px; }
+.compare .us, .compare td.us { color: #dcc59b; }
+
+/* Home hero: room light under the animation */
+.anim-hero { background: radial-gradient(ellipse at 50% 55%, #3a3d42 0%, #2c2f33 36%, #1f2124 72%, #141518 100%); }
+.anim-hero .veil { background: linear-gradient(180deg, rgba(20,21,24,.55) 0%, rgba(20,21,24,0) 32%, rgba(20,21,24,0) 60%, rgba(20,21,24,.7) 100%); }
+.anim-hero h1 { font-size: clamp(48px, 6.4vw, 88px); line-height: 1.02; }
+.state i { background: #8f969f; }
+.state[data-on] i { background: #d9774a; box-shadow: 0 0 12px rgba(217,119,74,.7); }
+@media (max-width: 600px) {
+  .anim-hero h1 { font-size: 38px; }
+  h3 { font-size: 26px; }
+}

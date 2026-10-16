@@ -39,7 +39,7 @@ export const LOCK = {
  */
 export const SWARM = {
   loose: [150, 156, 168],
-  rogue: [248, 92, 92],
+  rogue: [217, 119, 74],
   stalled: [146, 112, 196],
 };
 
